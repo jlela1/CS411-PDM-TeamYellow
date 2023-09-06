@@ -1,3 +1,5 @@
+package backend;
+
 public class HelloWorldBackend {
     public static String getHelloMessage() {
         return "Hello World!";
