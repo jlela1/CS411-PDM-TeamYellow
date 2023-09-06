@@ -1,11 +1,10 @@
 package frontend;
 
-public class HelloWorldFrontend {
-    public static String getHelloMessage() {
-         return "Hello from Frontend!";
-    }
-    
+import backend.HelloWorldBackend;
+ 
+public class HelloWorldFrontend {   
 public static void main (String[] args) {
-    System.out.println(getHelloMessage());
+    String helloMessage = HelloWorldBackend.getHelloMessage();
+    System.out.println(helloMessage);
     }
 }
