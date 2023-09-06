@@ -1,6 +1,11 @@
+
+import frontend.HelloWorldFrontend;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello world!");
+        //Execute backend to frontend data transfer/output
+        HelloWorldFrontend helloOutput = new HelloWorldFrontend();
+        helloOutput.outputHelloWorld();
+
     }
 }

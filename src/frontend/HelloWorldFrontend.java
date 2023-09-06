@@ -2,9 +2,12 @@ package frontend;
 
 import backend.HelloWorldBackend;
  
-public class HelloWorldFrontend {   
-public static void main (String[] args) {
-    String helloMessage = HelloWorldBackend.getHelloMessage();
-    System.out.println(helloMessage);
+public class HelloWorldFrontend {
+
+    public void outputHelloWorld() { //Recieve message from backend, print out to display
+        String outputMsg = HelloWorldBackend.getHelloMessage();
+
+        System.out.println(outputMsg);
     }
+
 }
