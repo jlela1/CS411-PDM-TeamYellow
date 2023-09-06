@@ -1,5 +1,5 @@
 package frontend;
-
+ 
 public class HelloWorldFrontend {
     public static String getHelloMessage() {
          return "Hello from Frontend!";
