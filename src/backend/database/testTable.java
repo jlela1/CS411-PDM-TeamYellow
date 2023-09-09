@@ -32,14 +32,14 @@ public class testTable {
      * Create new testTable with specified inputs
      */
     public testTable(int v, String f, String L, String p, int c, String r, Boolean h){
-        vehicle_id = 0;
-        user_firstname = "";
-        user_lastname = null;
-        permit_type = "";
-        parking_cost = 0;
+        vehicle_id = v;
+        user_firstname = f;
+        user_lastname = L;
+        permit_type = p;
+        parking_cost = c;
         //        user_schedule = null;
-        user_role = null;
-        has_permit = false;
+        user_role = r;
+        has_permit = h;
 
     }
 

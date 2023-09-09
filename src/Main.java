@@ -10,7 +10,7 @@ public class Main {
 
         //Create test instance of database:
         testTable table = new testTable(123, "John", "Doe", "test", 1, "test", true);
-        System.out.println("Table Test: " + table.user_firstname + " " + table.user_lastname + " " + table.vehicle_id); // needs work
+        System.out.println("Table Test: \n" + table.user_firstname + " " + table.user_lastname + " " + table.vehicle_id); // needs work
 
 
     }
