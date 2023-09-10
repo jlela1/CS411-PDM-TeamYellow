@@ -23,33 +23,45 @@ public class vehicle {
 		
 	}
 	
-	// return vehicle_id
+	// return vehicle ID
 	public String getVehicle_id() {
 		return vehicle_id;
 	}
 	
-	// return parking_in
+	// return parking in time
 		public int getParking_in() {
 			return parking_in;
 		}
 		
-	// return vehicle_id
+	// return parking out time
 		public int getparking_out() {
 			return parking_out;
 		}
-	//set vehicle_id
+	//set vehicle ID
 	public void setVehicle_id(String theVehicle_id) {
 		vehicle_id = theVehicle_id;
 	}
-	
+
+	//set parking in time
 	public void setParking_in(int theParking_in) {
 		parking_in = theParking_in;
 	}
-	
+
+	//set parking out time
 	public void setparking_out(int theParking_out) {
 		parking_out = theParking_out;;
 	}
+
+	/** @return total parking time of the vehicle in the garage
+	 * 
+	 */
 	
+	public Double parkingDuration() {
+		double totalParkingTime = 0.0;
+		totalParkingTime = parking_out - parking_in;
+		return totalParkingTime;
+		
+	}
 	@Override
 	public String toString() {
 		return "The Vehicle with ID number" + vehicle_id + 
