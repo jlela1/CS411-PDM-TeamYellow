@@ -46,7 +46,7 @@ public class garageAvailabilityAlgorithm {
     }
 
     private static void outputLikelihoodOfParking(int predictedOccupancy) {
-        if (predictedOccupancy < 70) {
+        if (predictedOccupancy < 90) {
             outputToUI("Likelihood of parking: High");
         } else {
             outputToUI("Likelihood of parking: Low");
@@ -56,4 +56,15 @@ public class garageAvailabilityAlgorithm {
     private static void outputToUI(String message) {
         System.out.println(message);
     }
+
+    //is garage over 90% full?
+    public static boolean garageFull(double capacity, double occupancy) {
+        if ((occupancy / capacity) >= 0.9) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 }
