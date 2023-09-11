@@ -5,9 +5,10 @@ import backend.algorithms.garageAvailabilityAlgorithm;
 import java.util.LinkedList;
 import test.dataGen;
 import backend.database.vehicle;
+import frontend.simulationGUI;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         //Execute sim SIM WILL LAST 6 HOURS
 
@@ -41,13 +42,20 @@ public class Main {
         String notification = "";
         int time = 1200;
 
+        //create sim gui
+        new simulationGUI(time, "", "");
+
+
         while (time <= 1800) { //iterate every minute until 1800
+
+            simulationGUI.updateTimeGUI(time); //update GUI
 
             //remove vehicles from garage 1
             if (!(struct1out.isEmpty())) {
                 while (struct1out.contains(time)) { //see if a car is leaving during current minute
                     struct1out.removeFirstOccurrence(time); //remove car from out list
                     structArray[prioGarage].setCurrent_capacity(structArray[prioGarage].getCurrent_capacity() - 1); //remove vehicle from structure1
+                    simulationGUI.updateStruct1GUI(struct1.getTotal_capacity(), struct1.getCurrent_capacity()); //update GUI
                 }
             }
 
@@ -56,6 +64,7 @@ public class Main {
                 while (struct2out.contains(time)) { //see if a car is leaving during current minute
                     struct2out.removeFirstOccurrence(time); //remove car from out list
                     structArray[secondaryGarage].setCurrent_capacity(structArray[secondaryGarage].getCurrent_capacity() - 1); //remove vehicle from structure1
+                    simulationGUI.updateStruct2GUI(struct2.getTotal_capacity(), struct2.getCurrent_capacity()); //update GUI
                 }
             }
 
@@ -71,10 +80,12 @@ public class Main {
                     vehicle newVeh = dataGen.genVehicle("vehicle id", time, randParkDur); //create new vehicle object
                     struct1out.add(newVeh.getparking_out());
 
-                    notification = "Sending to Garage 1";
+                    //UPDATE GUI
+                    simulationGUI.updateNotificationGUI("Sending to Garage 1");
+                    simulationGUI.updateStruct1GUI(struct1.getTotal_capacity(), struct1.getCurrent_capacity());
 
                     //TEST
-                    System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
+                    //System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
 
                 } else if (!(garageAvailabilityAlgorithm.garageFull(structArray[secondaryGarage].getTotal_capacity(), structArray[secondaryGarage].getCurrent_capacity()))) { //secondary garage not full
 
@@ -85,16 +96,18 @@ public class Main {
                     vehicle newVeh = dataGen.genVehicle("vehicle id", time, randParkDur); //create new vehicle object
                     struct2out.add(newVeh.getparking_out());
 
-                    notification = "Sending to Garage 2";
+                    //UPDATE GUI
+                    simulationGUI.updateStruct2GUI(struct2.getTotal_capacity(), struct2.getCurrent_capacity());
+                    simulationGUI.updateNotificationGUI("Sending to Garage 2");
 
                     //TEST
-                    System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
+                    //System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
 
                 } else {
-                    notification = "Both garages full!";
+                    simulationGUI.updateNotificationGUI("Both garages full!");
 
                     //TEST
-                    System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
+                    //System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
                 }
 
             }
@@ -106,10 +119,12 @@ public class Main {
                 time++;
             }
 
+
+            Thread.sleep(300);
         }
 
         //end simulation
-        System.out.println("END SIM");
+        //System.out.println("END SIM");
 
 
 
