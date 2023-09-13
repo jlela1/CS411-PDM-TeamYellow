@@ -3,8 +3,8 @@ package backend.database;
 public class parkingStructure {
     private String garage_id;
     private int total_capacity;
-    private int current_capacity;
-    private int parking_availability;
+    private int current_capacity; //cars in lot
+    private int parking_availability; //spots available
     private int proximity;
 
       /**
@@ -13,7 +13,7 @@ public class parkingStructure {
     public parkingStructure() {
         this.garage_id = "";
         this.total_capacity = 0;
-        this.current_capacity = 0;
+        this.current_capacity = 0; 
         this.parking_availability = 0;
         this.proximity = 0;
     } /**
@@ -26,6 +26,7 @@ public class parkingStructure {
         this.parking_availability = parking_availability;
         this.proximity = proximity;
     }
+
 
     // Getter methods
     public String getGarage_id() {
@@ -72,11 +73,11 @@ public class parkingStructure {
     @Override
     public String toString() {
         return "ParkingStructure [" +
-                "garage_id='" + garage_id + '\'' +
-                ", total_capacity=" + total_capacity +
-                ", current_capacity=" + current_capacity +
-                ", parking_availability=" + parking_availability +
-                ", proximity=" + proximity +
+                "garage_id:'" + garage_id + '\'' +
+                ", total_capacity:" + total_capacity +
+                ", current_capacity:" + current_capacity +
+                ", parking_availability:" + parking_availability +
+                ", proximity:" + proximity +
                 ']';
     }
 }
