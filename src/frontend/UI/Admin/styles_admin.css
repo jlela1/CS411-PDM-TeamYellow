@@ -6,6 +6,8 @@ body {
     box_sizing: border_box;
     background-size: cover;
     color: white;
+    height: 100vh;
+    position: relative;
 }
 
 .container{
@@ -56,4 +58,8 @@ footer {
     padding; 10px;
     background-color: #333;
     color: #fff;
+    bottom: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
