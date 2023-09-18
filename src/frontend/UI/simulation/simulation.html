@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content = " width = device-width, initial-scale = 1.0">
+    <title>Display Simulation</title>
+    <link rel="stylesheet" type="text/css" href="simulation.css">
+</head>
+<body>
+    <header>
+        <h1>PDM Simulation Page</h1>
+    </header>
+
+    <section id="time-section">
+        <p id="current-time">Current Time: 4:00 PM</p>
+    </section>
+    <section id="notifications">
+        <button id="notifications-button">Notifications</button>
+    </section>
+
+    <header>
+        <h3>Campus Garage Capacities</h3>
+    </header>
+
+
+    <section class = "garage-section">
+        <div class="garage">
+        <h2 class = "garage-name"> Garage 1 : 43rd & Elkhorn</h2>
+        <div class="garage-capacity">
+            <div class ="occupancy"></div>
+        </div>
+            <p class="capacity-text">Capacity: <span class="capacity-value">0</span></p>
+            <p class="occupancy-text">Occupancy: <span class="occupancy-value">0</span></p>
+
+        </div>
+
+        <div class = "garage">
+            <h2 class="garage-name"> Garage 2: Football Stadium</h2>
+        <div class= "garage-capacity">
+            <div class="occupancy"></div>
+        </div>
+            <p class="capacity-text">Capacity: <span class="capacity-value">0</span></p>
+            <p class="occupancy-text">Occupancy: <span class="occupancy-value">0</span></p>
+
+        </div>
+
+
+    <div class = "garage">
+        <h2 class= "garage-name"> Garage 3: 43rd & Bluestone</h2>
+        <div class="garage-capacity">
+            <div class="occupancy"></div>
+        </div>
+        <p class="capacity-text">Capacity: <span class="capacity-value">0</span></p>
+        <p class="occupancy-text">Occupancy: <span class="occupancy-value">0</span></p>
+
+    </div>
+
+</section>
+
+
+<section class = "controls">
+    <button id="trends-button">See Trends</button>
+</section>
+
+
+<footer>
+    <p>Parking Demand Management (PDM) </p>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

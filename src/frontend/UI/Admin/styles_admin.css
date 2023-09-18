@@ -4,8 +4,7 @@ body {
     margin: 0;
     padding: 0;
     box_sizing: border_box;
-
-    background-size; cover;
+    background-size: cover;
     color: white;
 }
 
