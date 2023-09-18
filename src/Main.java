@@ -1,5 +1,6 @@
 
 import backend.database.parkingStructure;
+import backend.database.Trend;
 import backend.algorithms.garageAvailabilityAlgorithm;
 
 import java.util.LinkedList;
@@ -41,6 +42,11 @@ public class Main {
 
         String notification = "";
         int time = 1200;
+
+        // initialize trending object to output stats from garages
+        Trend stats;
+        stats = new Trend();
+        
 
         //create sim gui
         new simulationGUI(time, "", "");
@@ -103,6 +109,10 @@ public class Main {
                     //TEST
                     //System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
 
+                    String full =("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
+                    stats.setString(full);
+                    //System.out.println(full);
+ 
                 } else {
                     simulationGUI.updateNotificationGUI("Both garages full!");
 
