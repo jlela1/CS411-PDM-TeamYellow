@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name = "viewport" content = " width = device-width, initial-scale = 1.0">
+    <title>Trending Garages</title>
+    <link rel="stylesheet" type="text/css" href="trends.css">
+
+</head>
+<body>
+    <header>
+    <h1>PDM Trends Page</h1>
+    </header>
+
+    <section id="time-section">
+        <p id="current-time">Time Period: 3:00 PM on Tuesdays</p>
+    </section>
+    <section id="notifications">
+        <button id="notifications-button">Notifications</button>
+    </section>
+
+    <header>
+        <h3>Campus Garage Trends</h3>
+    </header>
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+    <canvas id="tChart" style="width:100%;max-width:600px"></canvas>
+
+    <script>
+        var xValues = ["43rd & Elkhorn", "43rd & Bluestone", "Football Stadium"];
+        var yValues = [55, 49, 44, 24, 15];
+        var barColors = ["teal","teal","teal"];
+
+        new Chart("tChart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: {display: false},
+            title: {
+              display: true,
+              text: "Garage Capacity"
+            }
+          }
+        });
+    </script>
+
+    <section class = "tcontrols">
+        <button id="return-button">Home</button>
+    </section>
+
+
+    <footer>
+        <p>Parking Demand Management (PDM) </p>
+    </footer>
+
+</body>
+</html>
