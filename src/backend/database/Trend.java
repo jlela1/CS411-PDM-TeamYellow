@@ -1,30 +1,31 @@
 package backend.database;
 
-import java.io.FileOutputStream;
+/*import java.io.FileOutputStream;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Sheet;*/
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import backend.database.parkingStructure;
 
 public class Trend {
 
     public int counter = 0;
-    public String[] notifications;
+    public String[] notifications = new String[1000];
+
+
     //public parkingStructure struc[];
     /**
      * set notification message to a string
      * @param s
      */
     public void setString(String s){
-        notifications[counter] = s;
+        notifications[counter] = new String(s);
         counter++;
 
     }
-    public static    void main(String[] args) {
+    public void Write() {
         // Specify the file path where you want to write the text
         String filePath = "trend.txt";
         
@@ -34,21 +35,24 @@ public class Trend {
             
             // Create a PrintWriter to write text to the file
             PrintWriter printWriter = new PrintWriter(fileWriter);
+            for(int i = 0; i< notifications.length; i++){
+                // Write to the file
+            printWriter.println(notifications[i]);
+
+            }
             
-            // Write "Hello, World!" to the file
-            printWriter.println("Hello, World!");
             
             // Close the PrintWriter and FileWriter
             printWriter.close();
             fileWriter.close();
             
-            System.out.println("Hello, World! has been written to " + filePath);
+            System.out.println("Trends have been written to " + filePath);
         } catch (IOException e) {
             // Handle any potential IO exceptions
             e.printStackTrace();
         }
     }
-    public void WriteToExcel()// throws Exception
+   /*  public void WriteToExcel()// throws Exception
     {
         System.out.println("Starting detailed summary report...");
         HSSFWorkbook workbook = new HSSFWorkbook();
@@ -68,11 +72,11 @@ public class Trend {
         }
 
         System.out.println("writeExcelinJava.xlsx written successfully on disk.");
-    }
+    }*/
 
-    public void writeToTxt(){
+    public void readFromTxt(String s){
 
-
+        
         
     }
 
