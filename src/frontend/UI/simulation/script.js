@@ -141,7 +141,6 @@ function updateGarageInfo() {
             if (vehicleQueue[i].parkingOut <= 0) {
 
                 //Decrement the occupancy of the garage containing the vehicle
-                console.log(garageData[1].occupancy);
                 garageData[vehicleQueue[i].garageIndex].occupancy -= 1;
                 vehicleQueue.splice(i, 1);
 
