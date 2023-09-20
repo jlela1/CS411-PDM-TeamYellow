@@ -186,7 +186,7 @@ function updateGarageInfo() {
 
         const occupancyPercentage = (garage.occupancy / garage.capacity) * 100;
         const roundedPercentage = Math.min(100, Math.round(occupancyPercentage));
-        occupancyValue.textContent = roundedPercentage + "%";
+        occupancyValue.textContent = garage.occupancy + "/" + garage.capacity + " - " + roundedPercentage + "%";
 
         // Update occupancy fill bar (as a percentage)
         occupancyFillElement.style.width = occupancyPercentage + "%";
@@ -208,7 +208,7 @@ function runSimulation() {
     currentTime++;
 
     // Call the runSimulation function recursively after a delay (e.g., 1000ms for 1 minute)
-    setTimeout(runSimulation, 100); // Use setTimeout instead of setInterval
+    setTimeout(runSimulation, 400); // Use setTimeout instead of setInterval
 
   }
 
