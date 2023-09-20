@@ -1,3 +1,4 @@
+
 // Define vehicle object
 // parkingIn: Time in minutes before the vehicle locates an available parking location
 // parkingOut: Time in minutes before the vehicle exits the parking location
@@ -214,5 +215,4 @@ function runSimulation() {
 
 }
 
-// Start the simulation
 runSimulation();

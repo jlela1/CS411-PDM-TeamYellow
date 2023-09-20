@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<script type="module" src="input_script.js"></script>
     <div class="container">
         <h1 class="title">Testing Page</h1>
 
@@ -48,8 +49,12 @@
 
         
         <button id="start-simulation">Start Simulation</button>
-    </div>
+        <script>
+            function myFunction() {
 
-    <script src="script.js"></script>
+              window.location.href = "../simulation/simulation.html";
+            }
+        </script>
+    </div>
 </body>
 </html>

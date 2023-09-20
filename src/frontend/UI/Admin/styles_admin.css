@@ -28,6 +28,22 @@ body {
 .header h1 {
     font-size: 2.5em;
 }
+
+#create-simulation-button {
+   background-color: #000080;
+   color: #ddd;
+   padding: 0.5rem 1rem;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 1rem;
+   transition: background-color 0.3s ease;
+}
+
+#create-simulation-button:hover {
+    background-color: #40e0d0;
+}
+
 main{
     max-width: 800px;
     margin: 20px auto;
