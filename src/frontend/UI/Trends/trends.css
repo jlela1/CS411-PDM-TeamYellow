@@ -11,6 +11,7 @@ body {
     color: white;
 
     }
+
 #time-section{
     background-color: #333;
     color: #fff;
@@ -19,28 +20,41 @@ body {
 
 }
 
-#current-time {
+label[for="time-dropdown"] {
     font-family: Chalk-duster;
     font-size: 18px;
-    margin: 0;
+    margin-right: 10px;
 }
 
-#notifications-button {
+#time-dropdown {
     font-family: Chalk-duster;
-    text-align: left;
-    background-color: #000080;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
     font-size: 16px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-
+    transition: border-color 0.3s ease;
 }
-#notifications-button:hover {
-    background-color: #40e0d0;
-    text-align: left;
-    }
+
+#time-dropdown option {
+    font-family: Chalk-duster;
+    font-size: 16px;
+}
+
+#time-dropdown:hover {
+    border-color: #40e0d0;
+}
+/*
+#time-dropdown::after {
+    content: "▼";
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+*/
 
 header {
     text-align:center;
