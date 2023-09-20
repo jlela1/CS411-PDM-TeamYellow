@@ -55,7 +55,7 @@ public class Main {
         while (time <= 1800) { //iterate every minute until 1800
             full =("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity());
             stats.setString(full);
-            System.out.println(full);
+            //System.out.println(full);
 
             simulationGUI.updateTimeGUI(time); //update GUI
 
@@ -111,10 +111,6 @@ public class Main {
 
                     //TEST
                     //System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
-
-                    full =("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity());
-                    stats.setString(full);
-                    //System.out.println(full);
  
                 } else {
                     simulationGUI.updateNotificationGUI("Both garages full!");
@@ -135,9 +131,10 @@ public class Main {
 
             Thread.sleep(300);
             stats.Write();
+            
 
         }
-
+        stats.readFromTxt("trend.txt");
         //end simulation
         //System.out.println("END SIM");
 
