@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage Simulation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Testing Page</h1>
+
+        <div class="slider-container">
+            <label for="capacity-slider">Football Stadium</label>
+            <input type="range" id="capacity-slider" min="1" max="100" value="1">
+            <span id="capacity-value">1</span>
+        </div>
+
+<div class="slider-container">
+            <label for="garage1-capacity-slider">Garage 1 Capacity</label>
+            <input type="range" id="garage1-capacity-slider" min="1" max="100" value="1">
+            <span id="garage1-capacity-value">1</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="garage2-capacity-slider">Garage 2 Capacity</label>
+            <input type="range" id="garage2-capacity-slider" min="1" max="100" value="1">
+            <span id="garage2-capacity-value">1</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="vehicles-slider">Vehicles Entering per Minute</label>
+            <input type="range" id="vehicles-slider" min="1" max="60" value="1">
+            <span id="vehicles-value">1</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="park-time-slider">Average Park Time (minutes)</label>
+            <input type="range" id="park-time-slider" min="1" max="60" value="1">
+            <span id="park-time-value">1</span>
+        </div>
+
+        <div class="slider-container">
+            <label for="duration-slider">Simulation Duration (minutes)</label>
+            <input type="range" id="duration-slider" min="1" max="120" value="1">
+            <span id="duration-value">1</span>
+        </div>
+
+        
+        <button id="start-simulation">Start Simulation</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
