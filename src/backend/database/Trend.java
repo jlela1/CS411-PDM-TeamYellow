@@ -49,7 +49,7 @@ public class Trend {
             sql.append(" current_)) ");
             sql.append("VALUES("+ time +",");
             sql.append(pStructure[pCounter].getGarage_id()+ ",");
-            sql.append(pStructure[pCounter].getCurrent_capacity()+ ",");
+            sql.append(pStructure[pCounter].getCurrent_capacity()+ ")");
             //sql.append(" PRIMARY KEY ( id )))");
 
             String connectioString =
