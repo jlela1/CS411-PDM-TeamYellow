@@ -53,8 +53,12 @@ public class Main {
 
 
         while (time <= 1800) { //iterate every minute until 1800
-            full =("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity());
+            //set variables to pass into trend.txt and SQL DB
+            full =("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + notification);
             stats.setString(full);
+            stats.setParkingSturcture("G1", struct1.getTotal_capacity(), struct1.getCurrent_capacity(), time, 0);
+            stats.setParkingSturcture("G2", struct2.getTotal_capacity(), struct2.getCurrent_capacity(), time, 0);
+
             //System.out.println(full);
 
             simulationGUI.updateTimeGUI(time); //update GUI
