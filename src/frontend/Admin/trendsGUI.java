@@ -20,7 +20,7 @@ public class trendsGUI extends JFrame {
          */
     public trendsGUI() {
         setTitle("PDM Trends Dashboard");
-        setSize(800, 600);
+        setSize(600, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -29,19 +29,19 @@ public class trendsGUI extends JFrame {
         headerPanel.setLayout(new BorderLayout());
 
         JLabel headerLabel = new JLabel("PDM Trends Dashboard:");
-        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Trends Dashboard");
+
         headerLabel.setFont(new Font("Verdana", Font.BOLD, 32));
         headerLabel.setForeground(Color.WHITE);
         headerLabel.setHorizontalAlignment(JLabel.CENTER);
-        headerPanel.add(headerLabel, BorderLayout.NORTH);
-        headerPanel.add(welcomeLabel, BorderLayout.SOUTH);
 
 
 
-        JLabel promptText = new JLabel("Please select which garage(s) you wish to view");
+
+        JLabel promptText = new JLabel("<html>Welcome to the Parking Demand Management Trends Dashboard<br/>Please select which garage you wish to view</html>");
         promptText.setHorizontalAlignment(JLabel.CENTER);
-        promptText.add(welcomeLabel, BorderLayout.CENTER);
-        add(headerPanel, BorderLayout.NORTH);
+
+        add(headerPanel, BorderLayout.CENTER);
+        add(promptText,BorderLayout.NORTH);
 
         JButton garage1 = new JButton("Garage1");
         garage1.addActionListener(new ActionListener() {
@@ -53,7 +53,7 @@ public class trendsGUI extends JFrame {
         });
         headerPanel.add(garage1, BorderLayout.WEST);
         JButton garage2 = new JButton("Garage2");
-        garage1.addActionListener(new ActionListener() {
+        garage2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,"G2 Place Holder");
@@ -70,6 +70,11 @@ public class trendsGUI extends JFrame {
             }
         });
         headerPanel.add(garage3, BorderLayout.EAST);
+
+        JLabel footerPanel = new JLabel("PDM");
+        footerPanel.setHorizontalAlignment(JLabel.CENTER);
+        add(footerPanel, BorderLayout.SOUTH);
+
 
 
 
