@@ -7,20 +7,25 @@ public class vehicle {
 	private String vehicle_id;
 	private int parking_in;
 	private int parking_out;
+	private int garageIndex;
+	private boolean parked;
 	
 	// default constructor
 	public vehicle() {
 		vehicle_id = "";
 		parking_in = 0;
 		parking_out = 0;
+		garageIndex = -1;
+		parked = false;
 	}
 	
 	//constructor
-	public vehicle(String theVehicle_id, int theParking_in,int theParking_out) {
+	public vehicle(String theVehicle_id, int theParking_in, int theParking_out, int theGarageIndex, boolean theParked) {
 		vehicle_id = theVehicle_id;
 		parking_in = theParking_in;
 		parking_out = theParking_out;
-		
+		garageIndex = theGarageIndex;
+		parked = theParked;
 	}
 	
 	// return vehicle ID
@@ -29,14 +34,18 @@ public class vehicle {
 	}
 	
 	// return parking in time
-		public int getParking_in() {
-			return parking_in;
-		}
+	public int getParking_in() {
+		return parking_in;
+	}
 		
 	// return parking out time
-		public int getparking_out() {
-			return parking_out;
-		}
+	public int getparking_out() { return parking_out; }
+
+	public int getGarageIndex() { return garageIndex; }
+
+	// return parked bool
+	public boolean getParked() { return parked; }
+
 	//set vehicle ID
 	public void setVehicle_id(String theVehicle_id) {
 		vehicle_id = theVehicle_id;
@@ -50,6 +59,14 @@ public class vehicle {
 	//set parking out time
 	public void setparking_out(int theParking_out) {
 		parking_out = theParking_out;;
+	}
+
+	public void setGarageIndex(int theGarageIndex) {
+		garageIndex = theGarageIndex;
+	}
+
+	public void setParked(boolean theParked) {
+		parked = theParked;
 	}
 
 	/** @return total parking time of the vehicle in the garage
