@@ -7,65 +7,69 @@ import java.awt.event.ActionListener;
 
 public class AdminHomePage extends JFrame{
     public AdminHomePage() {
+
         setTitle("PDM Business Dashboard");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-
+        // Header Panel
         JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(new Color(0, 0, 0, 128));
-        headerPanel.setLayout(new BorderLayout());
+        headerPanel.setBackground(new Color(122, 114, 114, 173));
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
         JLabel headingLabel = new JLabel("PDM Business Dashboard");
-        headingLabel.setFont(new Font("Verdana", Font.BOLD, 32));
+        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
         headingLabel.setForeground(Color.WHITE);
-        headingLabel.setHorizontalAlignment(JLabel.CENTER);
-        headerPanel.add(headingLabel, BorderLayout.NORTH);
+        headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headerPanel.add(headingLabel);
 
-        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Dashboard");
+        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Dashboard!");
         welcomeLabel.setForeground(Color.WHITE);
-        welcomeLabel.setHorizontalAlignment(JLabel.CENTER);
-        headerPanel.add(welcomeLabel, BorderLayout.CENTER);
+        welcomeLabel.setFont(new Font("Roboto", Font.PLAIN, 18));
+        welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headerPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
+        headerPanel.add(welcomeLabel);
 
         add(headerPanel, BorderLayout.NORTH);
 
-        // Create a panel for the main content
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        mainPanel.setBackground(Color.WHITE);
+        // Content Panel
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 230));
+        //contentPanel.setBackground(Color.WHITE);
 
-        JButton createSimulationButton = new JButton("Go to Simulation Options");
-        createSimulationButton.setFont(new Font("Verdana", Font.BOLD, 16));
-        createSimulationButton.setForeground(Color.WHITE);
-        createSimulationButton.setBackground(new Color(0, 0, 100));
-        createSimulationButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-        createSimulationButton.setPreferredSize(new Dimension(300, 50));
-
+        JButton createSimulationButton = new JButton("Create Simulation");
+        createSimulationButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        createSimulationButton.setForeground(Color.BLACK);
+        createSimulationButton.setBackground(new Color(231, 103, 103));
+        createSimulationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        createSimulationButton.setFocusPainted(false);
+        createSimulationButton.setPreferredSize(new Dimension(250, 50));
+        createSimulationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         createSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle button click action here, e.g., navigate to the testing page
-                // You can use a new JFrame for the testing page
+                // Handle button click action here
             }
         });
 
-        mainPanel.add(createSimulationButton);
-        add(mainPanel, BorderLayout.CENTER);
+        contentPanel.add(createSimulationButton);
+        add(contentPanel, BorderLayout.CENTER);
+
 
         //Create a PDM footer
         JLabel footerLabel = new JLabel("Parking Demand Management (PDM)");
-        footerLabel.setFont(new Font("Verdana", Font.PLAIN, 14));
+        footerLabel.setFont(new Font("Roboto", Font.ITALIC, 15));
         footerLabel.setForeground(Color.WHITE);
         footerLabel.setHorizontalAlignment(JLabel.CENTER);
 
         JPanel footerPanel = new JPanel();
-        footerPanel.setBackground(new Color(0, 0, 0, 128));
+        footerPanel.setBackground(new Color(122, 114, 114, 173));
         footerPanel.add(footerLabel);
         add(footerPanel, BorderLayout.SOUTH);
-
     }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -75,6 +79,4 @@ public class AdminHomePage extends JFrame{
             }
         });
     }
-
 }
-
