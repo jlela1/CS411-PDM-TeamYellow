@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import test.dataGen;
 import backend.database.vehicle;
 import frontend.simulationGUI;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -41,12 +42,17 @@ public class Main {
         LinkedList<Integer> struct2out = new LinkedList<Integer>();
 
         String notification = "";
+        String notification2 = "";
         int time = 1200;
 
         // initialize trending object to output stats from garages
         Trend stats;
         stats = new Trend();
-        String full = "";
+        String line = "";
+        String line2 = "";
+        Random rand = new Random(); // random number to distinguish between runs in SQL
+        int upperbound = 5208;
+        int random_num = rand.nextInt(upperbound);
 
         //create sim gui
         new simulationGUI(time, "", "");
@@ -54,12 +60,32 @@ public class Main {
 
         while (time <= 1800) { //iterate every minute until 1800
             //set variables to pass into trend.txt and SQL DB
-            full =("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + notification);
-            stats.setString(full);
-            stats.setParkingSturcture("G1", struct1.getTotal_capacity(), struct1.getCurrent_capacity(), time, 0);
-            stats.setParkingSturcture("G2", struct2.getTotal_capacity(), struct2.getCurrent_capacity(), time, 0);
+            if (struct1.getCurrent_capacity()==90) { //if G1 is full
+                if(struct2.getCurrent_capacity()==90){
+                    line =(random_num +"," + time + ",'G1'," + struct1.getCurrent_capacity() + "," + struct1.getTotal_capacity() + "," + "'Both garages full!'"); // if both are full
+                } 
+                else if(struct2.getCurrent_capacity() !=90){
+                    line =(random_num +"," + time + ",'G1'," + struct1.getCurrent_capacity() + "," + struct1.getTotal_capacity() + "," + "'Sending to Garage 2'"); // G1 Full, G2 Not Full
+                }
+                            }
+            else{
+                line =(random_num +"," + time + ",'G1'," + struct1.getCurrent_capacity() + "," + struct1.getTotal_capacity() + "," + "''"); // Neither are full
+            }
+            if (struct2.getCurrent_capacity()==90) { //if G2 is full
+                if(struct1.getCurrent_capacity()==90){//and G1 is full
+                    line2 =(random_num +"," + time + ",'G2'," + struct2.getCurrent_capacity() + "," + struct2.getTotal_capacity() + "," + "'Both garages full!'");} // if both are full
+                else{
+                     line2 =(random_num +"," + time + ",'G2'," + struct2.getCurrent_capacity() + "," + struct2.getTotal_capacity() + "," + "'Sending to Garage 1'"); //G2 Full, G1 Not full
+                }    }
+                else{
+                     line2 =(random_num +"," + time + ",'G2'," + struct2.getCurrent_capacity() + "," + struct2.getTotal_capacity() + "," + "''"); //Neither are full
+                }
+           
 
-            //System.out.println(full);
+            stats.setString(line);
+            stats.setString(line2);
+            notification = "";
+            notification2 = "";
 
             simulationGUI.updateTimeGUI(time); //update GUI
 
@@ -112,13 +138,12 @@ public class Main {
                     //UPDATE GUI
                     simulationGUI.updateStruct2GUI(struct2.getTotal_capacity(), struct2.getCurrent_capacity());
                     simulationGUI.updateNotificationGUI("Sending to Garage 2");
-
+                    notification = "Sending to Garage 2";
                     //TEST
                     //System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
  
                 } else {
                     simulationGUI.updateNotificationGUI("Both garages full!");
-
                     //TEST
                     //System.out.println("Time: " + time + "  G1 occ: " + struct1.getCurrent_capacity() + "/" + struct1.getTotal_capacity() + "  G2 occ: " + struct2.getCurrent_capacity() + "/" + struct2.getTotal_capacity() + "  Notification: " + notification);
                 }
