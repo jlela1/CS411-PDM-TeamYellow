@@ -7,7 +7,7 @@ import java.sql.*;
 
 class Sql {
     public static void main(String args[]) {
-        String connectioString = "jdbc:sqlserver://10.0.200.9;encrypt=true; trustServerCertificate=true; database=Trends;";
+        String connectioString = "jdbc:sqlserver://10.0.200.21;encrypt=true; trustServerCertificate=true; database=Trends;";
         //"jdbc:sqlserver://10.0.200.45; instanceName=MSSQL; Database=Trends; encrypt=true; trustServerCertificate=true";
         String user = "sa";
         String password = "admin";
