@@ -36,7 +36,7 @@ public class dataGen {
             }
         }
 
-        vehicle newVehicle = new vehicle(id, time, outTime);
+        vehicle newVehicle = new vehicle(id, time, outTime, -1, false);
         return newVehicle;
     }
 
