@@ -81,8 +81,8 @@ public class GarageSimulationApp extends JFrame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     SwingUtilities.invokeLater(() -> {
-                        // trendsGUI trendsPage = new trendsGUI(); //Commented these out because trendsGUI is not on the master branch
-                        // trendsPage.setVisible(true);
+                         trendsGUI trendsPage = new trendsGUI();
+                         trendsPage.setVisible(true);
                     });
                 }
             });
