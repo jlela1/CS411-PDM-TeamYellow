@@ -9,7 +9,8 @@ import java.lang.Exception;
     JButton b1, b2;
     JPanel newPanel;
     JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, pagelabel;
-    final JTextField textField1, textField2;
+    final JTextField textField1;
+    final JPasswordField textField2;
 
     Login() {
 
@@ -50,10 +51,10 @@ import java.lang.Exception;
 
         /* /*Submit Button* /// */
         b1 = new JButton("Submit");
-        b1.setFont(new Font("Roboto", Font.PLAIN, 16));
+        b1.setFont(new Font("Roboto", Font.BOLD, 16));
 
         b2 = new JButton("Register");
-        b2.setFont(new Font("Roboto", Font.PLAIN, 16));
+        b2.setFont(new Font("Roboto", Font.BOLD, 16));
 
         /* New Panel */
         newPanel = new JPanel(new BorderLayout());
@@ -63,7 +64,7 @@ import java.lang.Exception;
         headingPanel.setBackground(Color.LIGHT_GRAY);
 
         JPanel pdmPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pdmLabel = new JLabel("PDM");
+        pdmLabel = new JLabel("PDM Login");
         pdmLabel.setFont(new Font("Roboto", Font.BOLD, 48));
         pdmPanel.setBackground(Color.LIGHT_GRAY);
         pdmLabel.setForeground(Color.DARK_GRAY);
@@ -72,7 +73,7 @@ import java.lang.Exception;
         JPanel madeEasyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         madeEasyLabel = new JLabel("Parking Made Easy");
         madeEasyLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
-        madeEasyLabel.setForeground(Color.GRAY);
+        madeEasyLabel.setForeground(Color.DARK_GRAY);
         madeEasyPanel.setBackground(Color.lightGray);
         madeEasyPanel.add(madeEasyLabel);
 
@@ -127,28 +128,27 @@ import java.lang.Exception;
 
     }
 
-    public void actionPerformed(ActionEvent ae) {
-         String userValue = textField1.getText();
-         String passValue = textField2.getText();
+     public void actionPerformed(ActionEvent ae) {
+         if (ae.getSource() == b1) { // Submit button clicked
+             // Check the login logic here
+             String userValue = textField1.getText();
+             char[] passValue = textField2.getPassword();
 
-         if (userValue.equals("test@gmail.com") && passValue.equals("test")) {
-             NewPage page = new NewPage();
-             page.setVisible(true);
-             JLabel wel_label = new JLabel("Welcome: "+userValue);
-             wel_label.setFont(new Font("Roboto", Font.PLAIN, 16));
-             page.getContentPane().add(wel_label, BorderLayout.CENTER);
-
+             // Replace this logic with your actual login logic
+             if (userValue.equals("test@gmail.com") && new String(passValue).equals("test")) {
+                 // Successful login, perform action here (e.g., open a new page)
+                 JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+             } else {
+                 JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+             }
+         } else if (ae.getSource() == b2) { // Register button clicked
+             // Open the registration page
+             this.dispose(); // Close the login window
+             Reg registration = new Reg(); // Open the registration window
+             registration.setVisible(true);
          }
-
-         else {
-
-             JOptionPane.showMessageDialog(this,"Please enter valid username and password");
-         }
-    }
-
-
+     }
  }
-
 
 class LoginDemo {
     public static void main (String arg[]){
