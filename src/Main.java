@@ -1,11 +1,14 @@
 
 import backend.database.parkingStructure;
+import backend.database.Trend;
 import backend.algorithms.garageAvailabilityAlgorithm;
 
 import java.util.LinkedList;
 import test.dataGen;
 import backend.database.vehicle;
 import frontend.simulationGUI;
+import java.util.Random;
+
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -39,14 +42,49 @@ public class Main {
         LinkedList<Integer> struct1out = new LinkedList<Integer>();
         LinkedList<Integer> struct2out = new LinkedList<Integer>();
 
-        String notification = "";
         int time = 1200;
+
+         // initialize trending object to output stats from garages
+         Trend stats;
+         stats = new Trend();
+         String line = "";
+         String line2 = "";
+         Random rand = new Random(); // random number to distinguish between runs in SQL
+         int upperbound = 5208;
+         int random_num = rand.nextInt(upperbound);
 
         //create sim gui
         new simulationGUI(time, "", "");
 
 
         while (time <= 1800) { //iterate every minute until 1800
+
+             //set variables to pass into trend.txt and SQL DB
+             if (struct1.getCurrent_capacity()==90) { //if G1 is full
+                if(struct2.getCurrent_capacity()==90){
+                    line =(random_num +"," + time + ",'G1'," + struct1.getCurrent_capacity() + "," + struct1.getTotal_capacity() + "," + "'Both garages full!'"); // if both are full
+                } 
+                else if(struct2.getCurrent_capacity() !=90){
+                    line =(random_num +"," + time + ",'G1'," + struct1.getCurrent_capacity() + "," + struct1.getTotal_capacity() + "," + "'Sending to Garage 2'"); // G1 Full, G2 Not Full
+                }
+                            }
+            else{
+                line =(random_num +"," + time + ",'G1'," + struct1.getCurrent_capacity() + "," + struct1.getTotal_capacity() + "," + "''"); // Neither are full
+            }
+            if (struct2.getCurrent_capacity()==90) { //if G2 is full
+                if(struct1.getCurrent_capacity()==90){//and G1 is full
+                    line2 =(random_num +"," + time + ",'G2'," + struct2.getCurrent_capacity() + "," + struct2.getTotal_capacity() + "," + "'Both garages full!'");} // if both are full
+                else{
+                     line2 =(random_num +"," + time + ",'G2'," + struct2.getCurrent_capacity() + "," + struct2.getTotal_capacity() + "," + "'Sending to Garage 1'"); //G2 Full, G1 Not full
+                }    }
+                else{
+                     line2 =(random_num +"," + time + ",'G2'," + struct2.getCurrent_capacity() + "," + struct2.getTotal_capacity() + "," + "''"); //Neither are full
+                }
+           
+
+            stats.setString(line);
+            stats.setString(line2);
+            // end of SQL stuff
 
             simulationGUI.updateTimeGUI(time); //update GUI
 
@@ -121,8 +159,10 @@ public class Main {
 
 
             Thread.sleep(300);
+            stats.Write(); //execute SQL statements
         }
 
+        //stats.readFromTxt("trend.txt"); // if needed this will read from the .txt file generated
         //end simulation
         //System.out.println("END SIM");
 
