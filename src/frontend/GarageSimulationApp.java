@@ -38,20 +38,20 @@ import java.util.concurrent.ThreadLocalRandom;
             //gbc.insets = new Insets(5, 5, 5, 5);
             //gbc.fill = GridBagConstraints.HORIZONTAL;
 
-            // Create header panel
+            // Create header panel TEMPORARILY COMMENTED OUT FOR DEMO
 
-            JPanel headerPanel = new JPanel();
-            headerPanel.setBackground(new Color(122, 114, 114, 173));
-            headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-
-            JLabel headingLabel = new JLabel("PDM Garage Simulation"); // Updated header label
-            headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
-            headingLabel.setForeground(Color.DARK_GRAY);
-            headingLabel.setBackground(Color.lightGray);
-            headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            headerPanel.add(headingLabel);
-
-            add(headerPanel, BorderLayout.PAGE_START);
+//            JPanel headerPanel = new JPanel();
+//            headerPanel.setBackground(new Color(122, 114, 114, 173));
+//            headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
+//
+//            JLabel headingLabel = new JLabel("PDM Garage Simulation"); // Updated header label
+//            headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+//            headingLabel.setForeground(Color.DARK_GRAY);
+//            headingLabel.setBackground(Color.lightGray);
+//            headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+//            headerPanel.add(headingLabel);
+//
+//            add(headerPanel, BorderLayout.PAGE_START);
 
             setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
@@ -93,8 +93,8 @@ import java.util.concurrent.ThreadLocalRandom;
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     SwingUtilities.invokeLater(() -> {
-                        // trendsGUI trendsPage = new trendsGUI(); //Commented these out because trendsGUI is not on the master branch
-                        // trendsPage.setVisible(true);
+                        trendsGUI trends = new trendsGUI();
+                        trends.setVisible(true);
                     });
                 }
             });
