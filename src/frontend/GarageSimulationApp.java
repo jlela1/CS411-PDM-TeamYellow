@@ -1,16 +1,14 @@
-    import javax.swing.*;
-    import java.awt.*;
-    import java.awt.event.ActionEvent;
-    import java.awt.event.ActionListener;
-    import java.util.Iterator;
-    import java.util.Random;
-    import java.util.List;
-    import java.util.ArrayList;
-    import java.util.concurrent.CopyOnWriteArrayList;
-    import java.util.concurrent.ThreadLocalRandom;
+package frontend;
+import backend.database.vehicle;
 
-    import backend.database.vehicle;
-
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ThreadLocalRandom;
     public class GarageSimulationApp extends JFrame {
         private JSlider capacitySlider;
         private JLabel capacityValue;
@@ -438,10 +436,4 @@
             timer.start();
         }
 
-        public static void main(String[] args) {
-            SwingUtilities.invokeLater(() -> {
-                GarageSimulationApp app = new GarageSimulationApp();
-                app.setVisible(true);
-            });
-        }
     }

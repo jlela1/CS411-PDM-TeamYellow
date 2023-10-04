@@ -2,9 +2,9 @@ package frontend;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.lang.Exception;
- class Login extends JFrame implements ActionListener {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+ public class Login extends JFrame implements ActionListener {
 
     JButton b1, b2;
     JPanel newPanel;
@@ -12,7 +12,7 @@ import java.lang.Exception;
     final JTextField textField1;
     final JPasswordField textField2;
 
-    Login() {
+    public Login() {
 
        // Page Title Label
         pagelabel = new JLabel("PDM Login");
@@ -137,7 +137,9 @@ import java.lang.Exception;
              // Replace this logic with your actual login logic
              if (userValue.equals("test@gmail.com") && new String(passValue).equals("test")) {
                  // Successful login, perform action here (e.g., open a new page)
-                 JOptionPane.showMessageDialog(this, "Login Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                 this.dispose();
+                 AdminHomePage adminHomePage = new AdminHomePage();
+                 adminHomePage.setVisible(true);
              } else {
                  JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
              }
@@ -149,21 +151,3 @@ import java.lang.Exception;
          }
      }
  }
-
-class LoginDemo {
-    public static void main (String arg[]){
-        try {
-            Login form = new Login();
-            //form.setSize(400,400);
-            form.setVisible(true);
-            //form.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Close the application when the window is closed
-            //form.setLocationRelativeTo(null); // Center the window on the screen
-        }
-
-        catch(Exception e) {
-            //handle exception
-            JOptionPane.showMessageDialog(null, e.getMessage());
-        }
-
-    }
-}

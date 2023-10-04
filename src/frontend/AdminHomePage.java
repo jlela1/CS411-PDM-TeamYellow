@@ -1,9 +1,10 @@
-package frontend.Admin;
+package frontend;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import frontend.GarageSimulationApp;
 
 public class AdminHomePage extends JFrame{
     public AdminHomePage() {
@@ -50,7 +51,8 @@ public class AdminHomePage extends JFrame{
         createSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle button click action here
+                GarageSimulationApp app = new GarageSimulationApp();
+                app.setVisible(true);
             }
         });
 
