@@ -1,6 +1,6 @@
 package frontend;
 import backend.database.vehicle;
-
+import backend.database.Trend;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -353,6 +353,12 @@ public class GarageSimulationApp extends JFrame {
 
                     time += 1;
 
+                    // SQL function call
+                    Trend stats;
+                    stats = new Trend();
+                    stats.setGarage(garage1Occupancy, garage1Capacity, garage2Occupancy, garage2Capacity, footballStadiumOccupancy, footballStadiumCapacity);
+                    // end of SQL stuff
+
                     timeLabel.setText("Time: " + convertMinutesToAMPM(time));
 
                     // Generate a random non-negative number with avgVehiclesParking as the median
@@ -452,7 +458,6 @@ public class GarageSimulationApp extends JFrame {
                         newVehicle.setparking_out(timeParked);
 
                         parkingVehicleList.add(newVehicle);
-
                     }
 
                     try {
@@ -460,7 +465,7 @@ public class GarageSimulationApp extends JFrame {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
+                        stats.Write(); // write to file and SQL DB
                 }
 
             });
