@@ -10,8 +10,10 @@ public class AdminHomePage extends JFrame{
     public AdminHomePage() {
 
         setTitle("PDM Business Dashboard");
-        setSize(800, 600);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Set JFrame to full-screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
         setLayout(new BorderLayout());
 
         // Header Panel
@@ -21,12 +23,14 @@ public class AdminHomePage extends JFrame{
 
         JLabel headingLabel = new JLabel("PDM Business Dashboard");
         headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
-        headingLabel.setForeground(Color.WHITE);
+        headingLabel.setForeground(Color.DARK_GRAY);
+        headingLabel.setBackground(Color.lightGray);
         headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headerPanel.add(headingLabel);
 
         JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Dashboard!");
-        welcomeLabel.setForeground(Color.WHITE);
+        welcomeLabel.setForeground(Color.DARK_GRAY);
+        welcomeLabel.setBackground(Color.lightGray);
         welcomeLabel.setFont(new Font("Roboto", Font.PLAIN, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headerPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
