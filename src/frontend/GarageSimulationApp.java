@@ -29,17 +29,17 @@ import java.util.concurrent.ThreadLocalRandom;
 
         public GarageSimulationApp() {
             setTitle("PDM Garage Simulation"); // Updated the title
-            setExtendedState(JFrame.MAXIMIZED_BOTH);
+            setExtendedState(JFrame.MAXIMIZED_BOTH); //Maximize the screen
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLocationRelativeTo(null);
 
-            setLayout(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(5, 5, 5, 5);
-            gbc.fill = GridBagConstraints.HORIZONTAL;
+            //setLayout(new GridBagLayout()); //I move this down to initialize header first
+            //GridBagConstraints gbc = new GridBagConstraints();
+            //gbc.insets = new Insets(5, 5, 5, 5);
+            //gbc.fill = GridBagConstraints.HORIZONTAL;
 
             // Create header panel
-/*
+
             JPanel headerPanel = new JPanel();
             headerPanel.setBackground(new Color(122, 114, 114, 173));
             headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
@@ -51,9 +51,12 @@ import java.util.concurrent.ThreadLocalRandom;
             headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             headerPanel.add(headingLabel);
 
-            add(headerPanel, BorderLayout.NORTH);
+            add(headerPanel, BorderLayout.PAGE_START);
 
-*/
+            setLayout(new GridBagLayout());
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(10, 10, 10, 10);
+            //gbc.fill = GridBagConstraints.HORIZONTAL;
 
             // Create and initialize components
             capacitySlider = createSlider(1, 500, 1, gbc);
@@ -72,6 +75,7 @@ import java.util.concurrent.ThreadLocalRandom;
             durationValue = createLabel("1", gbc);
             startSimulationButton = createButton("Start Simulation", gbc);
             seeTrendsButton = createButton("See Trends", gbc);
+            seeTrendsButton.setVisible(false);
 
 
             // Add event listeners
@@ -89,11 +93,12 @@ import java.util.concurrent.ThreadLocalRandom;
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     SwingUtilities.invokeLater(() -> {
-                       // trendsGUI trendsPage = new trendsGUI(); //Commented these out because trendsGUI is not on the master branch
-                       // trendsPage.setVisible(true);
+                        // trendsGUI trendsPage = new trendsGUI(); //Commented these out because trendsGUI is not on the master branch
+                        // trendsPage.setVisible(true);
                     });
                 }
             });
+
 /*
             gbc.gridx = 0;
             gbc.gridy = 0;
@@ -163,8 +168,10 @@ import java.util.concurrent.ThreadLocalRandom;
             gbc.gridy = 7;
             add(startSimulationButton, gbc);
 
-            gbc.gridy = 10;
+
+            gbc.gridy = 12;
             add(seeTrendsButton, gbc);
+
 
         }
 
@@ -315,6 +322,8 @@ import java.util.concurrent.ThreadLocalRandom;
                 getContentPane().remove(parkTimeSlider);
                 getContentPane().remove(durationSlider);
                 getContentPane().remove(startSimulationButton);
+
+                seeTrendsButton.setVisible(true);
 
                 JLabel timeLabel = createLabel("Time: " + time, gbc);
                 JLabel capacityLabel = createLabel("Football Stadium Capacity: " + "0/" + capacitySlider.getValue(), gbc);
