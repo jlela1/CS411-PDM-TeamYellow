@@ -9,85 +9,73 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
-    public class GarageSimulationApp extends JFrame {
-        private JSlider capacitySlider;
-        private JLabel capacityValue;
-        private JSlider garage1CapacitySlider;
-        private JLabel garage1CapacityValue;
-        private JSlider garage2CapacitySlider;
-        private JLabel garage2CapacityValue;
-        private JSlider vehiclesSlider;
-        private JLabel vehiclesValue;
-        private JSlider parkTimeSlider;
-        private JSlider timeToParkSlider;
-        private JLabel timeToParkValue;
-        private JLabel parkTimeValue;
-        private JSlider durationSlider;
-        private JLabel durationValue;
-        private JButton startSimulationButton;
-        private JButton seeTrendsButton;
+public class GarageSimulationApp extends JFrame {
+    private JSlider capacitySlider;
+    private JLabel capacityValue;
+    private JSlider garage1CapacitySlider;
+    private JLabel garage1CapacityValue;
+    private JSlider garage2CapacitySlider;
+    private JLabel garage2CapacityValue;
+    private JSlider vehiclesSlider;
+    private JLabel vehiclesValue;
+    private JSlider parkTimeSlider;
+    private JSlider timeToParkSlider;
+    private JLabel timeToParkValue;
+    private JLabel parkTimeValue;
+    private JSlider durationSlider;
+    private JLabel durationValue;
+    private JButton startSimulationButton;
+    private JButton seeTrendsButton;
 
-        public GarageSimulationApp() {
-            setTitle("PDM Garage Simulation"); // Updated the title
-            setExtendedState(JFrame.MAXIMIZED_BOTH); //Maximize the screen
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setLocationRelativeTo(null);
+    public GarageSimulationApp() {
+        setTitle("PDM Garage Simulation"); // Updated the title
+        setExtendedState(JFrame.MAXIMIZED_BOTH); //Maximize the screen
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
-            //setLayout(new GridBagLayout()); //I move this down to initialize header first
-            //GridBagConstraints gbc = new GridBagConstraints();
-            //gbc.insets = new Insets(5, 5, 5, 5);
-            //gbc.fill = GridBagConstraints.HORIZONTAL;
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        //gbc.fill = GridBagConstraints.HORIZONTAL;
 
-            // Create header panel
+        // Create and initialize components
+        capacitySlider = createSlider(1, 500, 1, gbc);
+        capacityValue = createLabel("1", gbc);
+        garage1CapacitySlider = createSlider(1, 500, 1, gbc);
+        garage1CapacityValue = createLabel("1", gbc);
+        garage2CapacitySlider = createSlider(1, 500, 1, gbc);
+        garage2CapacityValue = createLabel("1", gbc);
+        vehiclesSlider = createSlider(1, 60, 1, gbc);
+        vehiclesValue = createLabel("1", gbc);
+        timeToParkSlider = createSlider(1, 60, 1, gbc);
+        timeToParkValue = createLabel("1", gbc);
+        parkTimeSlider = createSlider(1, 180, 1, gbc);
+        parkTimeValue = createLabel("1", gbc);
+        durationSlider = createSlider(1, 720, 1, gbc);
+        durationValue = createLabel("1", gbc);
+        startSimulationButton = createButton("Start Simulation", gbc);
+        seeTrendsButton = createButton("See Trends", gbc);
+        seeTrendsButton.setVisible(false);
 
-            JPanel headerPanel = new JPanel();
-            headerPanel.setBackground(new Color(122, 114, 114, 173));
-            headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
+        JLabel footballStadiumCapacityLabel = new JLabel("Football Stadium Capacity:");
+        JLabel garage1CapacityLabel = new JLabel("43rd & Elkhorn Capacity:");
+        JLabel garage2CapacityLabel = new JLabel("43rd & Bluestone Capacity:");
+        JLabel vehiclesEnteringPerMinuteLabel = new JLabel("Vehicles Entering per Minute:");
+        JLabel averageTimeToParkLabel = new JLabel("Average Time to Park (minutes):");
+        JLabel averageTimeParkedLabel = new JLabel("Average Time Parked (minutes):");
+        JLabel simulationDurationLabel = new JLabel("Simulation Duration (minutes):");
 
-            JLabel headingLabel = new JLabel("PDM Garage Simulation"); // Updated header label
-            headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
-            headingLabel.setForeground(Color.DARK_GRAY);
-            headingLabel.setBackground(Color.lightGray);
-            headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            headerPanel.add(headingLabel);
+        // Add event listeners
+        addSliderChangeListener(capacitySlider, capacityValue);
+        addSliderChangeListener(garage1CapacitySlider, garage1CapacityValue);
+        addSliderChangeListener(garage2CapacitySlider, garage2CapacityValue);
+        addSliderChangeListener(vehiclesSlider, vehiclesValue);
+        addSliderChangeListener(timeToParkSlider, timeToParkValue);
+        addSliderChangeListener(parkTimeSlider, parkTimeValue);
+        addSliderChangeListener(durationSlider, durationValue);
 
-            add(headerPanel, BorderLayout.PAGE_START);
-
-            setLayout(new GridBagLayout());
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(10, 10, 10, 10);
-            //gbc.fill = GridBagConstraints.HORIZONTAL;
-
-            // Create and initialize components
-            capacitySlider = createSlider(1, 500, 1, gbc);
-            capacityValue = createLabel("1", gbc);
-            garage1CapacitySlider = createSlider(1, 500, 1, gbc);
-            garage1CapacityValue = createLabel("1", gbc);
-            garage2CapacitySlider = createSlider(1, 500, 1, gbc);
-            garage2CapacityValue = createLabel("1", gbc);
-            vehiclesSlider = createSlider(1, 60, 1, gbc);
-            vehiclesValue = createLabel("1", gbc);
-            timeToParkSlider = createSlider(1, 60, 1, gbc);
-            timeToParkValue = createLabel("1", gbc);
-            parkTimeSlider = createSlider(1, 180, 1, gbc);
-            parkTimeValue = createLabel("1", gbc);
-            durationSlider = createSlider(1, 720, 1, gbc);
-            durationValue = createLabel("1", gbc);
-            startSimulationButton = createButton("Start Simulation", gbc);
-            seeTrendsButton = createButton("See Trends", gbc);
-            seeTrendsButton.setVisible(false);
-
-
-            // Add event listeners
-            addSliderChangeListener(capacitySlider, capacityValue);
-            addSliderChangeListener(garage1CapacitySlider, garage1CapacityValue);
-            addSliderChangeListener(garage2CapacitySlider, garage2CapacityValue);
-            addSliderChangeListener(vehiclesSlider, vehiclesValue);
-            addSliderChangeListener(timeToParkSlider, timeToParkValue);
-            addSliderChangeListener(parkTimeSlider, parkTimeValue);
-            addSliderChangeListener(durationSlider, durationValue);
-
-            startSimulationButton.addActionListener(e -> startSimulation(gbc));
+        startSimulationButton.addActionListener(e -> startSimulation(gbc, footballStadiumCapacityLabel, garage1CapacityLabel, garage2CapacityLabel,
+                                                vehiclesEnteringPerMinuteLabel, averageTimeToParkLabel, averageTimeParkedLabel, simulationDurationLabel));
 
             seeTrendsButton.addActionListener(new ActionListener() {
                 @Override
@@ -109,7 +97,7 @@ import java.util.concurrent.ThreadLocalRandom;
             gbc.gridwidth = 1;
             gbc.gridx = 0;
             gbc.gridy = 0;
-            add(new JLabel("Football Stadium Capacity:"), gbc);
+            add(footballStadiumCapacityLabel, gbc);
             gbc.gridx = 1;
             add(capacitySlider, gbc);
             gbc.gridx = 2;
@@ -117,7 +105,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
             gbc.gridx = 0;
             gbc.gridy = 1;
-            add(new JLabel("43rd & Elkhorn Capacity:"), gbc);
+            add(garage1CapacityLabel, gbc);
             gbc.gridx = 1;
             add(garage1CapacitySlider, gbc);
             gbc.gridx = 2;
@@ -125,7 +113,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
             gbc.gridx = 0;
             gbc.gridy = 2;
-            add(new JLabel("43rd & Bluestone Capacity:"), gbc);
+            add(garage2CapacityLabel, gbc);
             gbc.gridx = 1;
             add(garage2CapacitySlider, gbc);
             gbc.gridx = 2;
@@ -133,7 +121,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
             gbc.gridx = 0;
             gbc.gridy = 3;
-            add(new JLabel("Vehicles Entering per Minute:"), gbc);
+            add(vehiclesEnteringPerMinuteLabel, gbc);
             gbc.gridx = 1;
             add(vehiclesSlider, gbc);
             gbc.gridx = 2;
@@ -141,7 +129,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
             gbc.gridx = 0;
             gbc.gridy = 4;
-            add(new JLabel("Average Time to Park (minutes):"), gbc);
+            add(averageTimeToParkLabel, gbc);
             gbc.gridx = 1;
             add(timeToParkSlider, gbc);
             gbc.gridx = 2;
@@ -149,7 +137,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
             gbc.gridx = 0;
             gbc.gridy = 5;
-            add(new JLabel("Average Time Parked (minutes):"), gbc);
+            add(averageTimeParkedLabel, gbc);
             gbc.gridx = 1;
             add(parkTimeSlider, gbc);
             gbc.gridx = 2;
@@ -157,7 +145,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
             gbc.gridx = 0;
             gbc.gridy = 6;
-            add(new JLabel("Simulation Duration (minutes):"), gbc);
+            add(simulationDurationLabel, gbc);
             gbc.gridx = 1;
             add(durationSlider, gbc);
             gbc.gridx = 2;
@@ -298,7 +286,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
         }
 
-        private void startSimulation(GridBagConstraints gbc) {
+        private void startSimulation(GridBagConstraints gbc, JLabel footballStadiumCapacityLabel, JLabel garage1CapacityLabel, JLabel garage2CapacityLabel,
+                                     JLabel vehiclesEnteringPerMinuteLabel, JLabel averageTimeToParkLabel, JLabel averageTimeParkedLabel, JLabel simulationDurationLabel) {
 
             Thread simulationThread = new Thread(() -> {
 
@@ -322,13 +311,27 @@ import java.util.concurrent.ThreadLocalRandom;
                 getContentPane().remove(parkTimeSlider);
                 getContentPane().remove(durationSlider);
                 getContentPane().remove(startSimulationButton);
+                getContentPane().remove(capacityValue);
+                getContentPane().remove(garage1CapacityValue);
+                getContentPane().remove(garage2CapacityValue);
+                getContentPane().remove(vehiclesValue);
+                getContentPane().remove(durationValue);
+                getContentPane().remove(parkTimeValue);
+                getContentPane().remove(timeToParkValue);
+                getContentPane().remove(footballStadiumCapacityLabel);
+                getContentPane().remove(garage1CapacityLabel);
+                getContentPane().remove(garage2CapacityLabel);
+                getContentPane().remove(vehiclesEnteringPerMinuteLabel);
+                getContentPane().remove(averageTimeToParkLabel);
+                getContentPane().remove(averageTimeParkedLabel);
+                getContentPane().remove(simulationDurationLabel);
 
                 seeTrendsButton.setVisible(true);
 
                 JLabel timeLabel = createLabel("Time: " + time, gbc);
                 JLabel capacityLabel = createLabel("Football Stadium Capacity: " + "0/" + capacitySlider.getValue(), gbc);
-                JLabel garage1CapacityLabel = createLabel("43rd & Elkhorn Capacity:  " + "0/" + garage1CapacitySlider.getValue(), gbc);
-                JLabel garage2CapacityLabel = createLabel("43rd & Bluestone Capacity: " + "0/" + garage2CapacitySlider.getValue(), gbc);
+                JLabel garage1CapacitySimLabel = createLabel("43rd & Elkhorn Capacity:  " + "0/" + garage1CapacitySlider.getValue(), gbc);
+                JLabel garage2CapacitySimLabel = createLabel("43rd & Bluestone Capacity: " + "0/" + garage2CapacitySlider.getValue(), gbc);
 
                 gbc.gridx = 0;
                 gbc.gridy = 7;
@@ -336,9 +339,9 @@ import java.util.concurrent.ThreadLocalRandom;
                 gbc.gridy = 8;
                 add(capacityLabel, gbc);
                 gbc.gridy = 9;
-                add(garage1CapacityLabel, gbc);
+                add(garage1CapacitySimLabel, gbc);
                 gbc.gridy = 10;
-                add(garage2CapacityLabel, gbc);
+                add(garage2CapacitySimLabel, gbc);
 
                 // Repaint the frame to update the changes
                 getContentPane().validate();
@@ -381,14 +384,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
                                     if (garage1Occupancy < garage1Capacity) {
                                         garage1Occupancy += 1;
-                                        garage1CapacityLabel.setText("43rd & Elkhorn Capacity: " + garage1Occupancy + "/" + garage1Capacity);
+                                        garage1CapacitySimLabel.setText("43rd & Elkhorn Capacity: " + garage1Occupancy + "/" + garage1Capacity);
                                     }
 
                                 } else if (vehicle.getGarageIndex() == 2) {
 
                                     if (garage2Occupancy < garage2Capacity) {
                                         garage2Occupancy += 1;
-                                        garage2CapacityLabel.setText("43rd & Bluestone Capacity: " + garage2Occupancy + "/" + garage2Capacity);
+                                        garage2CapacitySimLabel.setText("43rd & Bluestone Capacity: " + garage2Occupancy + "/" + garage2Capacity);
                                     }
 
                                 }
@@ -414,14 +417,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
                                     if (garage1Occupancy > 0) {
                                         garage1Occupancy -= 1;
-                                        garage1CapacityLabel.setText("43rd & Elkhorn Capacity: " + garage1Occupancy + "/" + garage1Capacity);
+                                        garage1CapacitySimLabel.setText("43rd & Elkhorn Capacity: " + garage1Occupancy + "/" + garage1Capacity);
                                     }
 
                                 } else if (vehicle.getGarageIndex() == 2) {
 
                                     if (garage2Occupancy > 0) {
                                         garage2Occupancy -= 1;
-                                        garage2CapacityLabel.setText("43rd & Bluestone Capacity: " + garage2Occupancy + "/" + garage2Capacity);
+                                        garage2CapacitySimLabel.setText("43rd & Bluestone Capacity: " + garage2Occupancy + "/" + garage2Capacity);
                                     }
 
                                 }
