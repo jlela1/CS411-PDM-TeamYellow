@@ -25,10 +25,9 @@ public class Trend {
         counter++;
     }
 
-    public void setGarage(int garage1Occupancy, int garage1Capacity, int garage2Occupancy, int garage2Capacity, int footballStadiumOccupancy, int footballStadiumCapacity){
+    public void setGarage(Trend stats, int garage1Occupancy, int garage1Capacity, int garage2Occupancy, int garage2Capacity, int footballStadiumOccupancy, int footballStadiumCapacity){
 
         // initialize trending object to output stats from garages for SQL
-                Trend stats;
                 stats = new Trend();
                 
                 Random rand = new Random(); // random number to distinguish between runs in SQL

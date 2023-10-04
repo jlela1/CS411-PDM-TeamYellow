@@ -356,7 +356,7 @@ public class GarageSimulationApp extends JFrame {
                     // SQL function call
                     Trend stats;
                     stats = new Trend();
-                    stats.setGarage(garage1Occupancy, garage1Capacity, garage2Occupancy, garage2Capacity, footballStadiumOccupancy, footballStadiumCapacity);
+                    stats.setGarage(stats, garage1Occupancy, garage1Capacity, garage2Occupancy, garage2Capacity, footballStadiumOccupancy, footballStadiumCapacity);
                     // end of SQL stuff
 
                     timeLabel.setText("Time: " + convertMinutesToAMPM(time));
