@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import org.jfree.chart.*;
 
 public class trendsGUI extends JFrame  {
     private JComboBox<String> timeSelection;
