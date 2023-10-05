@@ -44,8 +44,8 @@ public class Trend {
                 } else {
                     line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "''"); // Neither are full
                 }
-                if (garage2Occupancy == 90) { // if G2 is full
-                    if (garage1Occupancy == 90) { // and G1 is full
+                if (garage2Occupancy == garage2Capacity * .90) { // if G2 is full
+                    if (garage1Occupancy == garage1Capacity * .90) { // and G1 is full
                         line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'Both garages full!'"); // if both are full
                     } else {
                         line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'Sending to Garage 1'"); // G2 Full, G1 Not full
@@ -53,9 +53,9 @@ public class Trend {
                 } else {
                     line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "''"); // Neither are full
                 }
-                if (footballStadiumOccupancy == 90) { // if G3 is full
-                    if (garage1Occupancy == 90) { // and G1 is full
-                        if(garage2Occupancy ==90){
+                if (footballStadiumOccupancy == footballStadiumCapacity *.90) { // if G3 is full
+                    if (garage1Occupancy == garage1Capacity *.90) { // and G1 is full
+                        if(garage2Occupancy == garage2Capacity * .90){
                         line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'All garages full!'"); // if both are full
                                                 }
                     } else {
