@@ -7,6 +7,9 @@ import java.util.Map;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.jfree.chart.*;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.ui.ApplicationFrame;
+
 
 public class trendsGUI extends JFrame  {
     private JComboBox<String> timeSelection;
@@ -23,6 +26,7 @@ public class trendsGUI extends JFrame  {
         setLayout(new BorderLayout());
 
         initializeGarageCapacities();
+
 // Header
         JPanel headerPanel = new JPanel();
         headerPanel.setBackground(Color.GRAY);
