@@ -13,7 +13,7 @@ import java.util.*;
 public class trendsTest {
 
     public static void main(String args[]) {
-        String connectioString = "jdbc:sqlserver://10.0.200.21;Database=Trends;encrypt=true;trustServerCertificate=true";
+        String connectioString = "jdbc:sqlserver://10.0.200.1;Database=Trends;encrypt=true;trustServerCertificate=true";
         //IMPORTANT: The IP Address periodically changes. If you get an "error connecting to db" error, let me know and i'll
         //give you the new one
         String user = "sa";

@@ -348,18 +348,18 @@ public class GarageSimulationApp extends JFrame {
                 getContentPane().repaint();
 
                 List<vehicle> parkingVehicleList = new CopyOnWriteArrayList<>();
-
+                //establishing SQL trend stuff
+                Trend stats;
+                stats = new Trend();
                 while (time < endTime) {
 
                     time += 1;
 
-                    // SQL function call
-                    Trend stats;
-                    stats = new Trend();
-                    stats.setGarage(stats, garage1Occupancy, garage1Capacity, garage2Occupancy, garage2Capacity, footballStadiumOccupancy, footballStadiumCapacity);
-                    // end of SQL stuff
-
                     timeLabel.setText("Time: " + convertMinutesToAMPM(time));
+
+                    // SQL function call
+                    stats.setGarage(stats, time, garage1Occupancy, garage1Capacity, garage2Occupancy, garage2Capacity, footballStadiumOccupancy, footballStadiumCapacity, convertMinutesToAMPM(time));
+                    // end of SQL stuff
 
                     // Generate a random non-negative number with avgVehiclesParking as the median
                     Random random = new Random();
@@ -465,13 +465,13 @@ public class GarageSimulationApp extends JFrame {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                        stats.Write(); // write to file and SQL DB
+                        
                 }
-
+                stats.Write(); // write to file and SQL DB
             });
 
             simulationThread.start();
-
+            
         }
 
         private void animateSlider(JSlider slider, int value) {
