@@ -150,6 +150,8 @@ public class Trend {
                     Statement stmt2 = connection.createStatement();
                     stmt2.executeUpdate(sql2.toString());
                 }
+                    System.out.println("Uploaded to DB successfully.");
+
             }
         } catch (SQLException | IOException e) {
             System.out.println("Error connecting to the db");
