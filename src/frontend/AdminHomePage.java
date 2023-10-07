@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import frontend.GarageSimulationApp;
+import frontend.SimulationUserInputGUI;
 
 public class AdminHomePage extends JFrame{
     public AdminHomePage() {
@@ -55,8 +55,8 @@ public class AdminHomePage extends JFrame{
         createSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GarageSimulationApp app = new GarageSimulationApp();
-                app.setVisible(true);
+                SimulationUserInputGUI simulation = new SimulationUserInputGUI();
+                simulation.setVisible(true);
             }
         });
 
