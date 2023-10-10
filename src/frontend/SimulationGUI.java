@@ -4,19 +4,26 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class SimulationGUI extends JFrame {
 
     private GridBagConstraints gbc;
     private JLabel timeLabel;
-    private JLabel capacityLabel;
     private JLabel garage1CapacityLabel;
     private JLabel garage2CapacityLabel;
+    private JLabel garage3CapacityLabel;
+    private JLabel garage4CapacityLabel;
+    private JLabel garage5CapacityLabel;
     private JButton seeTrendsButton;
 
+    private ArrayList<Garage> garages;
+
     // Initialize GUI for active portion of simulation
-    public SimulationGUI(int capacityValue, int garage1CapacityValue, int garage2CapacityValue, int vehiclesPerMinute,
+    public SimulationGUI(ArrayList<Garage> garagesList, int vehiclesPerMinute,
                          int avgTimeToPark, int avgParkTime, int simulationDuration, GridBagConstraints gbcReturn) {
+
+        garages = garagesList; //initialize value for private var, enable access on all functions in this class
 
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Set JFrame to full-screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,24 +36,89 @@ public class SimulationGUI extends JFrame {
         int time = 420;
 
         timeLabel = createLabel("Time: " + convertMinutesToAMPM(time), gbc);
-        capacityLabel = createLabel("Football Stadium Capacity: " + "0/" + Integer.toString(capacityValue), gbc);
-        garage1CapacityLabel = createLabel("43rd & Elkhorn Capacity:  " + "0/" + Integer.toString(garage1CapacityValue), gbc);
-        garage2CapacityLabel = createLabel("43rd & Bluestone Capacity: " + "0/" + Integer.toString(garage2CapacityValue), gbc);
-
-        seeTrendsButton = createButton("See Trends", gbc);
-        seeTrendsButton.setVisible(true);
 
         gbc.gridx = 0;
         gbc.gridy = 7;
         add(timeLabel, gbc);
-        gbc.gridy = 8;
-        add(capacityLabel, gbc);
-        gbc.gridy = 9;
-        add(garage1CapacityLabel, gbc);
-        gbc.gridy = 10;
-        add(garage2CapacityLabel, gbc);
-        gbc.gridy = 12;
+
+        switch(garages.size()) //create labels based on num of garages (up to 5)
+        {
+            case 1:
+                gbc.gridy = 8;
+                garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+                break;
+            case 2:
+                gbc.gridy = 8;
+                garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+
+                gbc.gridy = 9;
+                garage2CapacityLabel = createLabel(garages.get(1).getName() + "0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
+                add(garage2CapacityLabel, gbc);
+
+                break;
+            case 3:
+                gbc.gridy = 8;
+                garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+
+                gbc.gridy = 9;
+                garage2CapacityLabel = createLabel(garages.get(1).getName() + "0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
+                add(garage2CapacityLabel, gbc);
+
+                gbc.gridy = 10;
+                garage3CapacityLabel = createLabel(garages.get(2).getName() + "0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
+                add(garage3CapacityLabel, gbc);
+
+                break;
+            case 4:
+                gbc.gridy = 8;
+                garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+
+                gbc.gridy = 9;
+                garage2CapacityLabel = createLabel(garages.get(1).getName() + "0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
+                add(garage2CapacityLabel, gbc);
+
+                gbc.gridy = 10;
+                garage3CapacityLabel = createLabel(garages.get(2).getName() + "0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
+                add(garage3CapacityLabel, gbc);
+
+                gbc.gridy = 11;
+                garage4CapacityLabel = createLabel(garages.get(3).getName() + "0/" + Integer.toString(garages.get(3).getMaxCapacity()), gbc);
+                add(garage4CapacityLabel, gbc);
+
+                break;
+            case 5:
+                gbc.gridy = 8;
+                garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+
+                gbc.gridy = 9;
+                garage2CapacityLabel = createLabel(garages.get(1).getName() + "0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
+                add(garage2CapacityLabel, gbc);
+
+                gbc.gridy = 10;
+                garage3CapacityLabel = createLabel(garages.get(2).getName() + "0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
+                add(garage3CapacityLabel, gbc);
+
+                gbc.gridy = 11;
+                garage4CapacityLabel = createLabel(garages.get(3).getName() + "0/" + Integer.toString(garages.get(3).getMaxCapacity()), gbc);
+                add(garage4CapacityLabel, gbc);
+
+                gbc.gridy = 12;
+                garage5CapacityLabel = createLabel(garages.get(4).getName() + "0/" + Integer.toString(garages.get(4).getMaxCapacity()), gbc);
+                add(garage5CapacityLabel, gbc);
+
+                break;
+
+        }
+
+        gbc.gridy = 13;
+        seeTrendsButton = createButton("See Trends", gbc);
         add(seeTrendsButton, gbc);
+        seeTrendsButton.setVisible(true);
 
         // Repaint the frame to update the changes
         getContentPane().validate();
@@ -62,20 +134,46 @@ public class SimulationGUI extends JFrame {
             }
         });
 
-        GarageSimulation garageSimulation = new GarageSimulation(this, capacityValue, garage1CapacityValue, garage2CapacityValue, vehiclesPerMinute,
+        GarageSimulation garageSimulation = new GarageSimulation(this, garages, vehiclesPerMinute,
                 avgTimeToPark, avgParkTime, simulationDuration, time);
 
     }
 
     // Called by simulation driver code at the end of each simulation tick
-    public void updateSimLabels(int footballStadiumCapacity, int garage1Capacity, int garage2Capacity, int footballStadiumOccupancy,
-                                int garage1Occupancy, int garage2Occupancy, int time) {
+    public void updateSimLabels(ArrayList<Garage> garageList, int time) {
+
+        garages = garageList; //update local private var with new info
 
         timeLabel.setText("Time: " + convertMinutesToAMPM(time));
-        capacityLabel.setText("Football Stadium Capacity: " + footballStadiumOccupancy + "/" + footballStadiumCapacity);
-        garage1CapacityLabel.setText("43rd & Elkhorn Capacity: " + garage1Occupancy + "/" + garage1Capacity);
-        garage2CapacityLabel.setText("43rd & Bluestone Capacity: " + garage2Occupancy + "/" + garage2Capacity);
 
+        switch(garages.size()) //create labels based on num of garages (up to 5)
+        {
+            case 1:
+                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                break;
+            case 2:
+                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage2CapacityLabel.setText(garages.get(1).getName() + " " + garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                break;
+            case 3:
+                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage2CapacityLabel.setText(garages.get(1).getName() + " " + garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage3CapacityLabel.setText(garages.get(2).getName() + " " + garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                break;
+            case 4:
+                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage2CapacityLabel.setText(garages.get(1).getName() + " " + garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage3CapacityLabel.setText(garages.get(2).getName() + " " + garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage4CapacityLabel.setText(garages.get(3).getName() + " " + garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                break;
+            case 5:
+                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage2CapacityLabel.setText(garages.get(1).getName() + " " + garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage3CapacityLabel.setText(garages.get(2).getName() + " " + garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage4CapacityLabel.setText(garages.get(3).getName() + " " + garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage5CapacityLabel.setText(garages.get(4).getName() + " " + garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                break;
+        }
     }
 
     private JLabel createLabel(String text, GridBagConstraints gbc) {

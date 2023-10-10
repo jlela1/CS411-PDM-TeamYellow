@@ -3,15 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class SimulationUserInputGUI extends JFrame {
 
-    private JSlider capacitySlider;
-    private JLabel capacityValue;
-    private JSlider garage1CapacitySlider;
-    private JLabel garage1CapacityValue;
-    private JSlider garage2CapacitySlider;
-    private JLabel garage2CapacityValue;
     private JSlider vehiclesSlider;
     private JLabel vehiclesValue;
     private JSlider parkTimeSlider;
@@ -23,7 +18,7 @@ public class SimulationUserInputGUI extends JFrame {
     private JButton startSimulationButton;
     private JButton seeTrendsButton;
 
-    public SimulationUserInputGUI() {
+    public SimulationUserInputGUI(ArrayList<Garage> garages) {
 
         setTitle("PDM Garage Simulation"); // Updated the title
         setExtendedState(JFrame.MAXIMIZED_BOTH); //Maximize the screen
@@ -35,12 +30,7 @@ public class SimulationUserInputGUI extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
 
         // Create and initialize components
-        capacitySlider = createSlider(1, 500, 1, gbc);
-        capacityValue = createLabel("1", gbc);
-        garage1CapacitySlider = createSlider(1, 500, 1, gbc);
-        garage1CapacityValue = createLabel("1", gbc);
-        garage2CapacitySlider = createSlider(1, 500, 1, gbc);
-        garage2CapacityValue = createLabel("1", gbc);
+
         vehiclesSlider = createSlider(1, 60, 1, gbc);
         vehiclesValue = createLabel("1", gbc);
         timeToParkSlider = createSlider(1, 60, 1, gbc);
@@ -53,18 +43,12 @@ public class SimulationUserInputGUI extends JFrame {
         seeTrendsButton = createButton("See Trends", gbc);
         seeTrendsButton.setVisible(false);
 
-        JLabel footballStadiumCapacityLabel = new JLabel("Football Stadium Capacity:");
-        JLabel garage1CapacityLabel = new JLabel("43rd & Elkhorn Capacity:");
-        JLabel garage2CapacityLabel = new JLabel("43rd & Bluestone Capacity:");
+
         JLabel vehiclesEnteringPerMinuteLabel = new JLabel("Vehicles Entering per Minute:");
         JLabel averageTimeToParkLabel = new JLabel("Average Time to Park (minutes):");
         JLabel averageTimeParkedLabel = new JLabel("Average Time Parked (minutes):");
         JLabel simulationDurationLabel = new JLabel("Simulation Duration (minutes):");
 
-        // Add event listeners
-        addSliderChangeListener(capacitySlider, capacityValue);
-        addSliderChangeListener(garage1CapacitySlider, garage1CapacityValue);
-        addSliderChangeListener(garage2CapacitySlider, garage2CapacityValue);
         addSliderChangeListener(vehiclesSlider, vehiclesValue);
         addSliderChangeListener(timeToParkSlider, timeToParkValue);
         addSliderChangeListener(parkTimeSlider, parkTimeValue);
@@ -74,27 +58,27 @@ public class SimulationUserInputGUI extends JFrame {
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        add(footballStadiumCapacityLabel, gbc);
+//        add(footballStadiumCapacityLabel, gbc);
         gbc.gridx = 1;
-        add(capacitySlider, gbc);
+//        add(capacitySlider, gbc);
         gbc.gridx = 2;
-        add(capacityValue, gbc);
+//        add(capacityValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        add(garage1CapacityLabel, gbc);
+//        add(garage1CapacityLabel, gbc);
         gbc.gridx = 1;
-        add(garage1CapacitySlider, gbc);
+//        add(garage1CapacitySlider, gbc);
         gbc.gridx = 2;
-        add(garage1CapacityValue, gbc);
+//        add(garage1CapacityValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        add(garage2CapacityLabel, gbc);
+//        add(garage2CapacityLabel, gbc);
         gbc.gridx = 1;
-        add(garage2CapacitySlider, gbc);
+//        add(garage2CapacitySlider, gbc);
         gbc.gridx = 2;
-        add(garage2CapacityValue, gbc);
+//        add(garage2CapacityValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -141,39 +125,27 @@ public class SimulationUserInputGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 // Get the values from the sliders and other components
-                int capacity = capacitySlider.getValue();
-                int garage1Capacity = garage1CapacitySlider.getValue();
-                int garage2Capacity = garage2CapacitySlider.getValue();
                 int vehiclesPerMinute = vehiclesSlider.getValue();
                 int avgTimeToPark = timeToParkSlider.getValue();
                 int avgParkTime = parkTimeSlider.getValue();
                 int simulationDuration = durationSlider.getValue();
 
-                getContentPane().remove(capacitySlider);
-                getContentPane().remove(garage1CapacitySlider);
-                getContentPane().remove(garage2CapacitySlider);
                 getContentPane().remove(vehiclesSlider);
                 getContentPane().remove(timeToParkSlider);
                 getContentPane().remove(parkTimeSlider);
                 getContentPane().remove(durationSlider);
                 getContentPane().remove(startSimulationButton);
-                getContentPane().remove(capacityValue);
-                getContentPane().remove(garage1CapacityValue);
-                getContentPane().remove(garage2CapacityValue);
                 getContentPane().remove(vehiclesValue);
                 getContentPane().remove(durationValue);
                 getContentPane().remove(parkTimeValue);
                 getContentPane().remove(timeToParkValue);
-                getContentPane().remove(footballStadiumCapacityLabel);
-                getContentPane().remove(garage1CapacityLabel);
-                getContentPane().remove(garage2CapacityLabel);
                 getContentPane().remove(vehiclesEnteringPerMinuteLabel);
                 getContentPane().remove(averageTimeToParkLabel);
                 getContentPane().remove(averageTimeParkedLabel);
                 getContentPane().remove(simulationDurationLabel);
 
                 // Create an instance of SimulationGUI
-                SimulationGUI simulationGUI = new SimulationGUI(capacity, garage1Capacity, garage2Capacity, vehiclesPerMinute,
+                SimulationGUI simulationGUI = new SimulationGUI(garages, vehiclesPerMinute,
                         avgTimeToPark, avgParkTime, simulationDuration, gbc);
 
                 // Make the SimulationGUI visible

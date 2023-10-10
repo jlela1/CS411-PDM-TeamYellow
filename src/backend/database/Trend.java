@@ -1,6 +1,7 @@
 package backend.database;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -97,7 +98,30 @@ public class Trend {
         // function for new garage to make it scalable
 
     }
+     public static void appendFile(String sourceFileName, String destinationFileName) {
+        try {
+            // Open the source file for reading
+            BufferedReader sourceReader = new BufferedReader(new FileReader(sourceFileName));
+            
+            // Open the destination file for appending
+            BufferedWriter destinationWriter = new BufferedWriter(new FileWriter(destinationFileName, true));
 
+            String line;
+            while ((line = sourceReader.readLine()) != null) {
+                // Append the line to the destination file
+                destinationWriter.write(line);
+                destinationWriter.newLine(); // Add a newline character
+            }
+
+            // Close the readers and writers
+            sourceReader.close();
+            destinationWriter.close();
+            
+            System.out.println("File updated successfully.");
+        } catch (IOException e) {
+            System.err.println("An error occurred: " + e.getMessage());
+        }
+    }
     public void Write() {
         String filePath = "src/trend.txt"; // create .txt file
 
@@ -113,11 +137,13 @@ public class Trend {
 
             printWriter.close();
             fileWriter.close();
+            appendFile(filePath, "src/KobPushToLocal.txt");
+            sendEmail.main(new String[0]); // send email of new .txt file
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        String connectionString = "jdbc:sqlserver://10.0.200.13;encrypt=true;trustServerCertificate=true;database=Trends;";
+        String connectionString = "jdbc:sqlserver://192.168.0.170;encrypt=true;trustServerCertificate=true;database=Trends;";
         String user = "sa";
         String password = "admin";
 
@@ -135,7 +161,8 @@ public class Trend {
                     sql2.append("current_ ,");
                     sql2.append("notification,");
                     sql2.append("Clock_time,");
-                    sql2.append("month_)");
+                    sql2.append("month_,");
+                    sql2.append("day)");
                     sql2.append("VALUES(");
                     sql2.append(line);
                     int result = line.lastIndexOf(",");
