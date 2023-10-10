@@ -65,7 +65,7 @@ public class GarageSimulation {
                             } if ((vehicle.getGarageIndex() == 3) && (garages.get(3).getOccupancy() < garages.get(3).getMaxCapacity())) { //check if assigned to garage 3 and garage 3 not full
                                 garages.get(3).setOccupancy(garages.get(3).getOccupancy() + 1); //add one to occupancy
 
-                            } if ((vehicle.getGarageIndex() == 4) && (garages.get(44).getOccupancy() < garages.get(4).getMaxCapacity())) { //check if assigned to garage 4 and garage 4 not full
+                            } if ((vehicle.getGarageIndex() == 4) && (garages.get(4).getOccupancy() < garages.get(4).getMaxCapacity())) { //check if assigned to garage 4 and garage 4 not full
                                 garages.get(4).setOccupancy(garages.get(4).getOccupancy() + 1); //add one to occupancy
 
                             }
