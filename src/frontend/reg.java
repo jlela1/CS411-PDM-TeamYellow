@@ -3,7 +3,8 @@ package frontend;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.Exception;
+import java.io.FileWriter;
+import java.io.IOException;
 
 class Reg extends JFrame implements ActionListener {
 
@@ -13,24 +14,21 @@ class Reg extends JFrame implements ActionListener {
     final JTextField textField1;
     final JPasswordField textField2, textField3;
 
-
     Reg() {
-
-
-        /* Username*  */
+        /* Username */
         userLabel = new JLabel();
         userLabel.setText("Username");
         userLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
 
-        /* /*Username length* /// */
+        /* Username length */
         textField1 = new JTextField(15);
 
-        /* /*Password* /// */
+        /* Password */
         passLabel = new JLabel();
         passLabel.setText("Password");
         passLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
 
-        /* /*Password length* /// */
+        /* Password length */
         textField2 = new JPasswordField(15);
 
         confirmPassLabel = new JLabel();
@@ -39,13 +37,12 @@ class Reg extends JFrame implements ActionListener {
 
         textField3 = new JPasswordField(15);
 
-        /* Submit Button* */
+        /* Submit Button */
         b3 = new JButton("Submit");
         b3.setFont(new Font("Roboto", Font.BOLD, 16));
 
         b4 = new JButton("Back to Login Page");
         b4.setFont(new Font("Roboto", Font.BOLD, 16));
-
 
         /* New Panel */
         newPanel = new JPanel(new BorderLayout());
@@ -95,12 +92,10 @@ class Reg extends JFrame implements ActionListener {
 
         add(newPanel, BorderLayout.CENTER);
 
-
         b3.addActionListener(this);
         b4.addActionListener(this);
 
-
-        //PDM Footer
+        // PDM Footer
         JLabel footerLabel = new JLabel("Parking Demand Management (PDM)");
         footerLabel.setFont(new Font("Roboto", Font.ITALIC, 15));
         footerLabel.setForeground(Color.WHITE);
@@ -114,21 +109,27 @@ class Reg extends JFrame implements ActionListener {
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Set JFrame to full-screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
-
     }
 
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == b3) { // Submit button clicked
-            // Check the registration logic here
-            String userValue = textField1.getText();
-            char[] passValue1 = textField2.getPassword();
+        if (ae.getSource() == b3) { // Submit button clicked for registration
+            String username = textField1.getText();
+            String password = new String(textField2.getPassword());
 
-            if (userValue.equals("test@gmail.com") && new String(passValue1).equals("test")) {
-
-                JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            // Check if the username and password are not empty
+            if (!username.isEmpty() && !password.isEmpty()) {
+                // Save the registration data to a file
+                try {
+    String filePath = "src\\backend\\database\\user_data.txt";
+    FileWriter writer = new FileWriter(filePath, true);
+    writer.write(username + "," + password + "\n");
+    writer.close();
+    JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+} catch (IOException e) {
+    JOptionPane.showMessageDialog(this, "Error saving registration data.", "Error", JOptionPane.ERROR_MESSAGE);
+}
             } else {
-                JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Username and password cannot be empty. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (ae.getSource() == b4) { // Back button clicked
             // Go back to the login page
@@ -138,19 +139,3 @@ class Reg extends JFrame implements ActionListener {
         }
     }
 }
-
-    class RegDemo{
-        public static void main (String arg[]){
-
-            try {
-            Reg form = new Reg();
-            //form.setSize(400,400);
-            form.setVisible(true);
-            }
-
-            catch(Exception e) {
-            //handle exception
-            JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        }
-    }
