@@ -13,8 +13,8 @@ public class vehicle {
 	// default constructor
 	public vehicle() {
 		vehicle_id = "";
-		parking_in = 0;
-		parking_out = 0;
+		parking_in = 0; //length of time vehicle waits to park
+		parking_out = 0; //duration of park
 		garageIndex = -1;
 		parked = false;
 	}

@@ -2,6 +2,8 @@ package frontend;
 import backend.database.Trend;
 import backend.database.vehicle;
 import frontend.SimulationGUI;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -9,18 +11,17 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GarageSimulation {
 
-    public GarageSimulation(SimulationGUI simulationGUI, int footballStadiumCapacity, int garage1Capacity, int garage2Capacity, int avgVehiclesParking,
+    private ArrayList<Garage> garages;
+    public GarageSimulation(SimulationGUI simulationGUI, ArrayList<Garage> garageList, int avgVehiclesParking,
                             int avgTimeToPark, int avgTimeParked, int simulationDuration, int timeValue) {
+
+        garages = garageList;
 
         Thread simulationThread = new Thread(() -> {
 
             List<vehicle> parkingVehicleList = new CopyOnWriteArrayList<>();
             int time = timeValue;
             int endTime = time + simulationDuration;
-
-            int footballStadiumOccupancy = 0;
-            int garage1Occupancy = 0;
-            int garage2Occupancy = 0;
 
             //establishing SQL trend stuff
             Trend stats;
@@ -30,8 +31,8 @@ public class GarageSimulation {
 
                 time += 1;
 
-                // SQL function call
-                stats.setGarage(stats, time, garage1Occupancy, garage1Capacity, garage2Occupancy, garage2Capacity, footballStadiumOccupancy, footballStadiumCapacity, convertMinutesToAMPM(time));
+                // SQL function call NEEDS TO BE FIXED
+                //stats.setGarage(stats, time, garage1Occupancy, garage1Capacity, garage2Occupancy, garage2Capacity, footballStadiumOccupancy, footballStadiumCapacity, convertMinutesToAMPM(time));
                 // end of SQL stuff
 
                 // Generate a random non-negative number with avgVehiclesParking as the median
@@ -43,35 +44,31 @@ public class GarageSimulation {
 
                     if (!vehicle.getParked()) {
 
-                        int newParkingInValue = vehicle.getParking_in() - 1;
-                        vehicle.setParking_in(newParkingInValue);
+                        vehicle.setParking_in(vehicle.getParking_in() - 1);
 
                         // Time to park!
-                        if (vehicle.getParking_in() <= 0) {
+                        if (vehicle.getParking_in() <= 0) { //if wait to park equal to 0: waiting ended
 
-                            assignGarage(vehicle, footballStadiumCapacity, footballStadiumOccupancy,
-                                    garage1Capacity, garage1Occupancy, garage2Capacity, garage2Occupancy);
+                            assignGarage(vehicle, garages); //assign vehicle to a garage
 
-                            if (vehicle.getGarageIndex() == 0) {
+                            //update counters
+                            //why double check here? if it's full why not check in first statement
+                            if ((vehicle.getGarageIndex() == 0) && (garages.get(0).getOccupancy() < garages.get(0).getMaxCapacity())) { //check if assigned to garage 0 and garage 0 not full
+                                garages.get(0).setOccupancy(garages.get(0).getOccupancy() + 1); //add one to occupancy
 
-                                if (footballStadiumOccupancy < footballStadiumCapacity) {
-                                    footballStadiumOccupancy += 1;
-                                }
+                            } else if ((vehicle.getGarageIndex() == 1) && (garages.get(1).getOccupancy() < garages.get(1).getMaxCapacity())) { //check if assigned to garage 1 and garage 1 not full
+                                garages.get(1).setOccupancy(garages.get(1).getOccupancy() + 1); //add one to occupancy
 
-                            } else if (vehicle.getGarageIndex() == 1) {
+                            } else if ((vehicle.getGarageIndex() == 2) && (garages.get(2).getOccupancy() < garages.get(2).getMaxCapacity())) { //check if assigned to garage 2 and garage 2 not full
+                                garages.get(2).setOccupancy(garages.get(2).getOccupancy() + 1); //add one to occupancy
 
-                                if (garage1Occupancy < garage1Capacity) {
-                                    garage1Occupancy += 1;
-                                }
+                            } if ((vehicle.getGarageIndex() == 3) && (garages.get(3).getOccupancy() < garages.get(3).getMaxCapacity())) { //check if assigned to garage 3 and garage 3 not full
+                                garages.get(3).setOccupancy(garages.get(3).getOccupancy() + 1); //add one to occupancy
 
-                            } else if (vehicle.getGarageIndex() == 2) {
-
-                                if (garage2Occupancy < garage2Capacity) {
-                                    garage2Occupancy += 1;
-                                }
+                            } if ((vehicle.getGarageIndex() == 4) && (garages.get(44).getOccupancy() < garages.get(4).getMaxCapacity())) { //check if assigned to garage 4 and garage 4 not full
+                                garages.get(4).setOccupancy(garages.get(4).getOccupancy() + 1); //add one to occupancy
 
                             }
-
                         }
 
                     } else {
@@ -82,24 +79,20 @@ public class GarageSimulation {
                         // Vehicle exits garage
                         if (vehicle.getparking_out() <= 0) {
 
-                            if (vehicle.getGarageIndex() == 0) {
+                            if ((vehicle.getGarageIndex() == 0) && (garages.get(0)).getOccupancy() > 0) { //is vehicle in garage 0
+                                garages.get(0).setOccupancy(garages.get(0).getOccupancy() - 1); //decrement garage 0
 
-                                if (footballStadiumOccupancy > 0) {
-                                    footballStadiumOccupancy -= 1;
-                                }
+                            } else if ((vehicle.getGarageIndex() == 1) && (garages.get(1)).getOccupancy() > 0) { //is vehicle in garage 1
+                                garages.get(1).setOccupancy(garages.get(1).getOccupancy() - 1); //decrement garage 1
 
-                            } else if (vehicle.getGarageIndex() == 1) {
+                            } else if ((vehicle.getGarageIndex() == 2) && (garages.get(2)).getOccupancy() > 0) { //is vehicle in garage 2
+                                garages.get(2).setOccupancy(garages.get(2).getOccupancy() - 1); //decrement garage 2
 
-                                if (garage1Occupancy > 0) {
-                                    garage1Occupancy -= 1;
-                                }
+                            } else if ((vehicle.getGarageIndex() == 3) && (garages.get(3)).getOccupancy() > 0) { //is vehicle in garage 3
+                                garages.get(3).setOccupancy(garages.get(3).getOccupancy() - 1); //decrement garage 3
 
-                            } else if (vehicle.getGarageIndex() == 2) {
-
-                                if (garage2Occupancy > 0) {
-                                    garage2Occupancy -= 1;
-                                }
-
+                            } else if ((vehicle.getGarageIndex() == 4) && (garages.get(4)).getOccupancy() > 0) { //is vehicle in garage 4
+                                garages.get(4).setOccupancy(garages.get(4).getOccupancy() - 1); //decrement garage 4
                             }
 
                             parkingVehicleList.remove(vehicle);
@@ -115,11 +108,11 @@ public class GarageSimulation {
 
                     vehicle newVehicle = new vehicle();
 
-                    int ttpOffset = random.nextInt(11) - 5;
-                    int timeToPark = Math.max(avgTimeToPark + offset, 0);
+                    int timeToParkOffset = random.nextInt(11) - 5;
+                    int timeToPark = Math.max(avgTimeToPark + timeToParkOffset, 0);
 
-                    int tpOffset = random.nextInt(11) - 5;
-                    int timeParked = Math.max(avgTimeParked + offset, 0);
+                    int timeParkedOffset = random.nextInt(11) - 5;
+                    int timeParked = Math.max(avgTimeParked + timeParkedOffset, 0);
 
                     newVehicle.setParking_in(timeToPark);
                     newVehicle.setparking_out(timeParked);
@@ -127,7 +120,7 @@ public class GarageSimulation {
                     parkingVehicleList.add(newVehicle);
                 }
 
-                simulationGUI.updateSimLabels(footballStadiumCapacity, garage1Capacity, garage2Capacity, footballStadiumOccupancy, garage1Occupancy, garage2Occupancy, time);
+                simulationGUI.updateSimLabels(garages, time);
 
                 try {
                     Thread.sleep(100);
@@ -145,57 +138,71 @@ public class GarageSimulation {
 
     }
 
-    private void assignGarage(vehicle vehicleToAssign, int footballStadiumCapacity, int footballStadiumOccupancy,
-                              int garage1Capacity, int garage1Occupancy, int garage2Capacity, int garage2Occupancy) {
+    private void assignGarage(vehicle vehicleToAssign, ArrayList<Garage> garages) {
 
         // Check if all garages are full
-        if (footballStadiumOccupancy >= footballStadiumCapacity && garage1Occupancy >= garage1Capacity
-                && garage2Occupancy >= garage2Capacity) {
-            // All garages are full, return without doing anything
+        int fullCounter = 0; //initialize amount of garages full
+        for (int k = 0; k < garages.size(); k++) {
+
+            if (garages.get(k).getOccupancy() >= garages.get(k).getMaxCapacity()) { //check if each garage is full
+                fullCounter++; //if garage full, increment.
+            }
+        }
+        //if all garages full, return without doing anything
+        if (fullCounter >= garages.size()) {
             return;
         }
 
-        // Generate a random integer 0-2 to pick one of the 3 garages to park
-        int randomGarageInt = ThreadLocalRandom.current().nextInt(0, 3);
 
-        int chosenGarageCapacity = 0;
-        int chosenGarageOccupancy = 0;
+        // Generate a random integer 0-5 to pick one of the 3 garages to park
 
-        if (randomGarageInt == 0) {
-            chosenGarageCapacity = footballStadiumCapacity;
-            chosenGarageOccupancy = footballStadiumOccupancy;
-        } else if (randomGarageInt == 1) {
-            chosenGarageCapacity = garage1Capacity;
-            chosenGarageOccupancy = garage1Occupancy;
-        } else if (randomGarageInt == 2) {
-            chosenGarageCapacity = garage2Capacity;
-            chosenGarageOccupancy = garage2Occupancy;
+        int randomGarageInt = 0;
+        //generate random int based on how many garages (1-5)
+        switch (garages.size())
+        {
+            case 1:
+                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 1);
+                break;
+            case 2:
+                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 2);
+                break;
+            case 3:
+                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 3);
+                break;
+            case 4:
+                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 4);
+                break;
+            case 5:
+                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                break;
         }
 
         // Check if the chosen garage is 90% or greater capacity
-        if (chosenGarageOccupancy * 0.9 >= chosenGarageCapacity) {
+        if ((garages.get(randomGarageInt).getOccupancy() * 0.9) >= garages.get(randomGarageInt).getMaxCapacity()) {
 
             // Check if all garages are above 90% or greater capacity, continue chosen assignment if so.
-            // Else, call assignGarage recursively to assign the vehicle to a different garage.
-            if (footballStadiumOccupancy >= 0.9 * footballStadiumCapacity && garage1Occupancy >= 0.9 * garage1Capacity
-                    && garage2Occupancy >= 0.9 * garage2Capacity) {
 
-                if (chosenGarageCapacity > chosenGarageOccupancy) {
+            // Check if all garages are above 90% or greater capacity, continue chosen assignment if so.
+            int almostFullCounter = 0; //initialize amount of garages 90% full
+            for (int k = 0; k < garages.size(); k++) {
 
-                    vehicleToAssign.setParked(true);
-                    vehicleToAssign.setGarageIndex(randomGarageInt);
-
-                } else {
-
-                    assignGarage(vehicleToAssign, footballStadiumCapacity, footballStadiumOccupancy,
-                            garage1Capacity, garage1Occupancy, garage2Capacity, garage2Occupancy);
-
+                if (garages.get(k).getOccupancy() >= 0.9 * garages.get(k).getMaxCapacity()) { //check if each garage is 90% full
+                    almostFullCounter++; //if garage 90% full, increment.
                 }
-
-                assignGarage(vehicleToAssign, footballStadiumCapacity, footballStadiumOccupancy,
-                        garage1Capacity, garage1Occupancy, garage2Capacity, garage2Occupancy);
-
             }
+
+            if (almostFullCounter >= garages.size()) {
+
+                    if (garages.get(randomGarageInt).getMaxCapacity() > garages.get(randomGarageInt).getOccupancy()) {
+
+                        vehicleToAssign.setParked(true);
+                        vehicleToAssign.setGarageIndex(randomGarageInt);
+
+                    } else { // Else, call assignGarage recursively to assign the vehicle to a different garage.
+
+                        assignGarage(vehicleToAssign, garages);
+                    }
+                }
 
         } else {
 

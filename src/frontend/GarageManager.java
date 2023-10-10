@@ -121,9 +121,10 @@ public class GarageManager {
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle actions when the Done button is pressed (e.g., save data, close application, etc.)
-                JOptionPane.showMessageDialog(mainFrame, "You are done thank you for inputting all the garages.");
-                // You can add your logic here for what happens when the "Done" button is pressed.
+                //spawn new simUserInput with garages
+                SimulationUserInputGUI simulation = new SimulationUserInputGUI(garages);
+                simulation.setVisible(true);
+                System.out.println(garages.size());
             }
         });
 
@@ -160,13 +161,5 @@ public class GarageManager {
         garageListFrame.setVisible(true);
         garageListFrame.setLocationRelativeTo(null);
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new GarageManager();
-            }
-        });
-    }
 }
+

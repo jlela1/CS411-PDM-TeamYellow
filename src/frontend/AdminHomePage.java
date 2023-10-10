@@ -55,8 +55,7 @@ public class AdminHomePage extends JFrame{
         createSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimulationUserInputGUI simulation = new SimulationUserInputGUI();
-                simulation.setVisible(true);
+                GarageManager simulationStart = new GarageManager();
             }
         });
 
