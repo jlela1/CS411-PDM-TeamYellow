@@ -6,8 +6,8 @@ import javax.activation.*;
 
 public class sendEmail {
     public static void sendEmailWithAttachment(String to, String subject, String body, String attachmentFilePath) {
-        final String username = "Kairosclerosis77@gmail.com";
-        final String password = "twmh lqpp guzq goqk";
+        final String username = "parkingdemandmanagement@gmail.com";
+        final String password = "brsx bwub geoo gzyv";
         String host = "smtp.gmail.com";
         int port = 587;
 
