@@ -120,14 +120,13 @@ class Reg extends JFrame implements ActionListener {
             if (!username.isEmpty() && !password.isEmpty()) {
                 // Save the registration data to a file
                 try {
-    String filePath = "src\\backend\\database\\user_data.txt";
-    FileWriter writer = new FileWriter(filePath, true);
-    writer.write(username + "," + password + "\n");
-    writer.close();
-    JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-} catch (IOException e) {
-    JOptionPane.showMessageDialog(this, "Error saving registration data.", "Error", JOptionPane.ERROR_MESSAGE);
-}
+                    FileWriter writer = new FileWriter("user_data.txt", true);
+                    writer.write(username + "," + password + "\n");
+                    writer.close();
+                    JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(this, "Error saving registration data.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Username and password cannot be empty. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
