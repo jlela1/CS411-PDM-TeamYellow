@@ -36,50 +36,50 @@ public class Trend {
                 int upper = 12;
                 int rand = rand2.nextInt(upper);
                 String[] Months = new String[] {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"}; 
-                // Random rand = new Random(); // random number to distinguish between runs in SQL
-                // int upperbound = 5208;
-                // int random_num = rand.nextInt(upperbound);
+                Random dayRand = new Random();
+                int upperDay = 28;
+                int RandomDay = dayRand.nextInt(upperDay);
 
                 // Start of SQL stuff. Set variables to pass into trend.txt and SQL DB
                 if (garage1Occupancy >= 90) { // if G1 is full
                     if (garage2Occupancy >= 90) { //if G2 is full
                         if(footballStadiumOccupancy >= footballStadiumCapacity){
-                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'"  + Months[rand]+"'"); // if all are full
+                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'"  + Months[rand]+"'"+ "," + RandomDay); // if all are full
 
                         }
-                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'Sending to Garage 3!'" + "," + "'" + Clock_time + "'" + "," + "'"  + Months[rand]+"'"); // if both G1/G2 are full
+                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'Sending to Garage 3!'" + "," + "'" + Clock_time + "'" + "," + "'"  + Months[rand] +"'"+ "," + RandomDay); // if both G1/G2 are full
                     } else if (garage2Occupancy <= 90) {
-                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'Sending to Garage 2'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] +"'"); // G1 Full, G2 Not Full
+                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'Sending to Garage 2'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] +"'" + "," + RandomDay); // G1 Full, G2 Not Full
                     }
                 } else {
-                    line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "''" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'"); // Neither are full
+                    line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "''" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // Neither are full
                 }
                 if (garage2Occupancy >= garage2Capacity * .90) { // if G2 is full
                     if (garage1Occupancy >= garage1Capacity * .90) { // and G1 is full
                         if (footballStadiumOccupancy >= footballStadiumCapacity *.90) { // if G3 is full
-                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'" +  Months[rand] + "'"); // if all are full
+                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'" +  Months[rand] + "'" + "," + RandomDay); // if all are full
                         }
-                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'Sending to Garage 3!'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'"); // if both are full send to G3
+                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'Sending to Garage 3!'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // if both are full send to G3
                     } else {
-                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'Sending to Garage 1'," + "'"+ Clock_time + "'" + "," + "'" + Months[rand] + "'"); // G2 Full, G1 Not full
+                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'Sending to Garage 1'," + "'"+ Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // G2 Full, G1 Not full
                     }
                     
                 } else {
-                    line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "''" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'"); // Neither are full
+                    line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "''" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // Neither are full
                 }
                 if (footballStadiumOccupancy >= footballStadiumCapacity *.90) { // if G3 is full
                     if (garage1Occupancy >= garage1Capacity *.90) { // and G1 is full
                         if(garage2Occupancy >= garage2Capacity * .90){
-                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'" +  Months[rand] + "'"); // if both are full
+                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'" +  Months[rand] + "'" + "," + RandomDay); // if both are full
                                                 }
                       else if(garage2Occupancy <= garage2Capacity){
-                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'Sending to Garage 2'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'"); // G3 Full, G1 full, G2 open
+                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'Sending to Garage 2'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // G3 Full, G1 full, G2 open
                       }
                     } else {
-                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'Sending to Garage 1'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'"); // G2 Full, G1 Not full
+                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'Sending to Garage 1'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // G2 Full, G1 Not full
                     }
                 } else {
-                    line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "''" + "," + "'"+ Clock_time + "'" + "," + "'" + Months[rand] + "'"); // Neither are full
+                    line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "''" + "," + "'"+ Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // Neither are full
                 }
                 stats.setString(line);
                 stats.setString(line2);
