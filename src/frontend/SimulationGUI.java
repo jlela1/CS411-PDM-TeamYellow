@@ -37,50 +37,88 @@ public class SimulationGUI extends JFrame {
 
         timeLabel = createLabel("Time: " + convertMinutesToAMPM(time), gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        add(timeLabel, gbc);
+
         switch(garages.size()) //create labels based on num of garages (up to 5)
         {
             case 1:
+                gbc.gridy = 8;
                 garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
                 break;
             case 2:
+                gbc.gridy = 8;
                 garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+
+                gbc.gridy = 9;
                 garage2CapacityLabel = createLabel(garages.get(1).getName() + "0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
+                add(garage2CapacityLabel, gbc);
+
                 break;
             case 3:
+                gbc.gridy = 8;
                 garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+
+                gbc.gridy = 9;
                 garage2CapacityLabel = createLabel(garages.get(1).getName() + "0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
+                add(garage2CapacityLabel, gbc);
+
+                gbc.gridy = 10;
                 garage3CapacityLabel = createLabel(garages.get(2).getName() + "0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
+                add(garage3CapacityLabel, gbc);
+
                 break;
             case 4:
+                gbc.gridy = 8;
                 garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+
+                gbc.gridy = 9;
                 garage2CapacityLabel = createLabel(garages.get(1).getName() + "0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
+                add(garage2CapacityLabel, gbc);
+
+                gbc.gridy = 10;
                 garage3CapacityLabel = createLabel(garages.get(2).getName() + "0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
+                add(garage3CapacityLabel, gbc);
+
+                gbc.gridy = 11;
                 garage4CapacityLabel = createLabel(garages.get(3).getName() + "0/" + Integer.toString(garages.get(3).getMaxCapacity()), gbc);
+                add(garage4CapacityLabel, gbc);
+
                 break;
             case 5:
+                gbc.gridy = 8;
                 garage1CapacityLabel = createLabel(garages.get(0).getName() + "0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
+                add(garage1CapacityLabel, gbc);
+
+                gbc.gridy = 9;
                 garage2CapacityLabel = createLabel(garages.get(1).getName() + "0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
+                add(garage2CapacityLabel, gbc);
+
+                gbc.gridy = 10;
                 garage3CapacityLabel = createLabel(garages.get(2).getName() + "0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
+                add(garage3CapacityLabel, gbc);
+
+                gbc.gridy = 11;
                 garage4CapacityLabel = createLabel(garages.get(3).getName() + "0/" + Integer.toString(garages.get(3).getMaxCapacity()), gbc);
+                add(garage4CapacityLabel, gbc);
+
+                gbc.gridy = 12;
                 garage5CapacityLabel = createLabel(garages.get(4).getName() + "0/" + Integer.toString(garages.get(4).getMaxCapacity()), gbc);
+                add(garage5CapacityLabel, gbc);
+
                 break;
 
         }
 
+        gbc.gridy = 13;
         seeTrendsButton = createButton("See Trends", gbc);
-        seeTrendsButton.setVisible(true);
-
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        add(timeLabel, gbc);
-        gbc.gridy = 8;
-        add(garage1CapacityLabel, gbc);
-        gbc.gridy = 9;
-        add(garage2CapacityLabel, gbc);
-        gbc.gridy = 10;
-        add(garage3CapacityLabel, gbc);
-        gbc.gridy = 12;
         add(seeTrendsButton, gbc);
+        seeTrendsButton.setVisible(true);
 
         // Repaint the frame to update the changes
         getContentPane().validate();
