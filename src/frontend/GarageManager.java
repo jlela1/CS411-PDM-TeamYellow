@@ -13,6 +13,7 @@ public class GarageManager {
     private DefaultListModel<String> garageListModel;
     private JList<String> garageList;
     private ArrayList<Garage> garages;
+    private JButton doneButton;
 
     public GarageManager() {
         garages = new ArrayList<>();
@@ -21,7 +22,6 @@ public class GarageManager {
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setPreferredSize(new Dimension(400, 300));
-
 
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -32,7 +32,6 @@ public class GarageManager {
         titleLabel.setForeground(Color.WHITE);
 
         headerPanel.add(titleLabel);
-
 
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(2, 2, 10, 10));
@@ -52,7 +51,6 @@ public class GarageManager {
         inputPanel.add(capacityLabel);
         inputPanel.add(capacityField);
 
-
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
@@ -67,6 +65,9 @@ public class GarageManager {
         buttonPanel.add(deleteButton);
         buttonPanel.add(viewButton);
 
+        doneButton = new JButton("Done");
+        doneButton.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        buttonPanel.add(doneButton); // Add the Done button
 
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BorderLayout());
@@ -77,7 +78,6 @@ public class GarageManager {
 
         JScrollPane scrollPane = new JScrollPane(garageList);
         listPanel.add(scrollPane, BorderLayout.CENTER);
-
 
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -117,6 +117,15 @@ public class GarageManager {
             }
         });
 
+        // ActionListener for the Done button
+        doneButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Handle actions when the Done button is pressed (e.g., save data, close application, etc.)
+                JOptionPane.showMessageDialog(mainFrame, "You are done thank you for inputting all the garages.");
+                // You can add your logic here for what happens when the "Done" button is pressed.
+            }
+        });
 
         mainFrame.add(headerPanel, BorderLayout.NORTH);
         mainFrame.add(inputPanel, BorderLayout.CENTER);
@@ -161,4 +170,3 @@ public class GarageManager {
         });
     }
 }
-
