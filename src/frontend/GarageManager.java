@@ -22,30 +22,28 @@ public class GarageManager {
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setPreferredSize(new Dimension(800, 600));
+        mainFrame.setPreferredSize(new Dimension(1500, 1000));
 
-        JPanel headerPanel = new JPanel();
-        headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        headerPanel.setBackground(new Color(0, 122, 255));
 
-        JLabel titleLabel = new JLabel("Garage Manager");
-        titleLabel.setFont(new Font("Helvetica", Font.BOLD, 24));
-        titleLabel.setForeground(Color.WHITE);
+        // Create a header panel
+        JPanel headerPanel = PDMPanels.createHeader("Garage Manager");
 
-        headerPanel.add(titleLabel);
 
         JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(2, 2, 10, 10));
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        nameField = new JTextField(10);
-        JLabel nameLabel = new JLabel("Garage Name:");
-        nameField.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        inputPanel.setLayout(new GridLayout(5, 1, 10, 10));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(100, 150, 100, 150));
 
-        nameField.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        nameField = new JTextField(15);
+        nameField.setBackground(Color.LIGHT_GRAY);
+        JLabel nameLabel = new JLabel("Garage Name:");
+        nameLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+        nameField.setFont(new Font("Roboto", Font.PLAIN, 16));
+
+        capacityField = new JTextField(15);
+        capacityField.setBackground(Color.LIGHT_GRAY);
         JLabel capacityLabel = new JLabel("Max Capacity:");
-        capacityLabel.setFont(new Font("Helvetica", Font.PLAIN, 16));
-        capacityField = new JTextField();
-        capacityField.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        capacityLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+        capacityField.setFont(new Font("Roboto", Font.PLAIN, 16));
 
         inputPanel.add(nameLabel);
         inputPanel.add(nameField);
@@ -53,29 +51,39 @@ public class GarageManager {
         inputPanel.add(capacityField);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 250 ));
 
         JButton saveButton = new JButton("Save");
-        saveButton.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        saveButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+        saveButton.setBackground(Color.YELLOW);
+
         JButton deleteButton = new JButton("Delete");
-        deleteButton.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        deleteButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+        deleteButton.setBackground(Color.red);
+
         JButton viewButton = new JButton("View Garages");
-        viewButton.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        viewButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+        viewButton.setBackground(Color.PINK);
 
         buttonPanel.add(saveButton);
         buttonPanel.add(deleteButton);
         buttonPanel.add(viewButton);
 
         doneButton = new JButton("Done");
-        doneButton.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        doneButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+        doneButton.setBackground(Color.green);
         buttonPanel.add(doneButton); // Add the Done button
 
         JPanel listPanel = new JPanel();
         listPanel.setLayout(new BorderLayout());
+        listPanel.setPreferredSize(new Dimension(350, 100));
+
 
         garageListModel = new DefaultListModel<>();
         garageList = new JList<>(garageListModel);
-        garageList.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        garageList.setFont(new Font("Roboto", Font.BOLD, 16));
+        garageList.setForeground(Color.BLACK);
+        garageList.setBackground(Color.LIGHT_GRAY);
 
         JScrollPane scrollPane = new JScrollPane(garageList);
         listPanel.add(scrollPane, BorderLayout.CENTER);
@@ -129,9 +137,12 @@ public class GarageManager {
             }
         });
 
+        JPanel footerPanel = PDMPanels.createFooter();
+        mainFrame.add(footerPanel, BorderLayout.SOUTH);
+
         mainFrame.add(headerPanel, BorderLayout.NORTH);
-        mainFrame.add(inputPanel, BorderLayout.CENTER);
-        mainFrame.add(buttonPanel, BorderLayout.SOUTH);
+        mainFrame.add(inputPanel, BorderLayout.WEST);
+        mainFrame.add(buttonPanel, BorderLayout.CENTER);
         mainFrame.add(listPanel, BorderLayout.EAST);
 
         mainFrame.pack();
@@ -153,7 +164,7 @@ public class GarageManager {
         garageListFrame.setLayout(new BorderLayout());
 
         JList<String> viewGarageList = new JList<>(garageListModel);
-        viewGarageList.setFont(new Font("Helvetica", Font.PLAIN, 16));
+        viewGarageList.setFont(new Font("Roboto", Font.PLAIN, 16));
         JScrollPane scrollPane = new JScrollPane(viewGarageList);
 
         garageListFrame.add(scrollPane, BorderLayout.CENTER);
@@ -163,4 +174,3 @@ public class GarageManager {
         garageListFrame.setLocationRelativeTo(null);
     }
 }
-
