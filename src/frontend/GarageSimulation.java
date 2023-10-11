@@ -26,13 +26,18 @@ public class GarageSimulation {
             //establishing SQL trend stuff
             Trend stats;
             stats = new Trend();
+            // end of SQL initialization
 
             while (time < endTime) {
 
                 time += 1;
 
                 // SQL function call NEEDS TO BE FIXED
-                //stats.setGarage(stats, time, garage1Occupancy, garage1Capacity, garage2Occupancy, garage2Capacity, footballStadiumOccupancy, footballStadiumCapacity, convertMinutesToAMPM(time));
+                for (Garage garage : garages) {
+                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName());
+                    // ...
+                }
+
                 // end of SQL stuff
 
                 // Generate a random non-negative number with avgVehiclesParking as the median
@@ -193,16 +198,16 @@ public class GarageSimulation {
 
             if (almostFullCounter >= garages.size()) {
 
-                    if (garages.get(randomGarageInt).getMaxCapacity() > garages.get(randomGarageInt).getOccupancy()) {
+                if (garages.get(randomGarageInt).getMaxCapacity() > garages.get(randomGarageInt).getOccupancy()) {
 
-                        vehicleToAssign.setParked(true);
-                        vehicleToAssign.setGarageIndex(randomGarageInt);
+                    vehicleToAssign.setParked(true);
+                    vehicleToAssign.setGarageIndex(randomGarageInt);
 
-                    } else { // Else, call assignGarage recursively to assign the vehicle to a different garage.
+                } else { // Else, call assignGarage recursively to assign the vehicle to a different garage.
 
-                        assignGarage(vehicleToAssign, garages);
-                    }
+                    assignGarage(vehicleToAssign, garages);
                 }
+            }
 
         } else {
 

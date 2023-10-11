@@ -29,68 +29,31 @@ public class Trend {
         counter++;
     }
 
-    public void setGarage(Trend stats, int time, int garage1Occupancy, int garage1Capacity, int garage2Occupancy, int garage2Capacity, int footballStadiumOccupancy, int footballStadiumCapacity, String Clock_time){
+    public void setGarage(Trend stats, int time, int garage1Occupancy, int garage1Capacity,  String Clock_time, String name){
 
         // initialize trending object to output stats from garages for SQL
-                stats = new Trend();
-                Random rand2 = new Random();
-                int upper = 12;
-                int rand = rand2.nextInt(upper);
-                String[] Months = new String[] {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"}; 
-                Random dayRand = new Random();
-                int upperDay = 28;
-                int RandomDay = dayRand.nextInt(upperDay);
+        stats = new Trend();
+        Random rand2 = new Random();
+        int upper = 12;
+        int rand = rand2.nextInt(upper);
+        String[] Months = new String[] {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        Random dayRand = new Random();
+        int upperDay = 28;
+        int RandomDay = dayRand.nextInt(upperDay);
 
-                // Start of SQL stuff. Set variables to pass into trend.txt and SQL DB
-                if (garage1Occupancy >= 90) { // if G1 is full
-                    if (garage2Occupancy >= 90) { //if G2 is full
-                        if(footballStadiumOccupancy >= footballStadiumCapacity){
-                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'"  + Months[rand]+"'"+ "," + RandomDay); // if all are full
+        // Start of SQL stuff. Set variables to pass into trend.txt and SQL DB
+        if (garage1Occupancy >= garage1Capacity* .90) { // if G1 is full
+            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + "'Garage full, sending elsewhere'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] +"'" + "," + RandomDay); // G1 Full, G2 Not Full
 
-                        }
-                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'Sending to Garage 3!'" + "," + "'" + Clock_time + "'" + "," + "'"  + Months[rand] +"'"+ "," + RandomDay); // if both G1/G2 are full
-                    } else if (garage2Occupancy <= 90) {
-                        line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "'Sending to Garage 2'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] +"'" + "," + RandomDay); // G1 Full, G2 Not Full
-                    }
-                } else {
-                    line = (random_num + "," + time + ",'G1'," + garage1Occupancy + "," + garage1Capacity + "," + "''" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // Neither are full
-                }
-                if (garage2Occupancy >= garage2Capacity * .90) { // if G2 is full
-                    if (garage1Occupancy >= garage1Capacity * .90) { // and G1 is full
-                        if (footballStadiumOccupancy >= footballStadiumCapacity *.90) { // if G3 is full
-                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'" +  Months[rand] + "'" + "," + RandomDay); // if all are full
-                        }
-                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'Sending to Garage 3!'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // if both are full send to G3
-                    } else {
-                        line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "'Sending to Garage 1'," + "'"+ Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // G2 Full, G1 Not full
-                    }
-                    
-                } else {
-                    line2 = (random_num + "," + time + ",'G2'," + garage2Occupancy + "," + garage2Capacity + "," + "''" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // Neither are full
-                }
-                if (footballStadiumOccupancy >= footballStadiumCapacity *.90) { // if G3 is full
-                    if (garage1Occupancy >= garage1Capacity *.90) { // and G1 is full
-                        if(garage2Occupancy >= garage2Capacity * .90){
-                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'All garages full!'" + "," + "'" + Clock_time + "'" + "," + "'" +  Months[rand] + "'" + "," + RandomDay); // if both are full
-                                                }
-                      else if(garage2Occupancy <= garage2Capacity){
-                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'Sending to Garage 2'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // G3 Full, G1 full, G2 open
-                      }
-                    } else {
-                        line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "'Sending to Garage 1'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // G2 Full, G1 Not full
-                    }
-                } else {
-                    line3 = (random_num + "," + time + ",'G3'," + footballStadiumOccupancy + "," + footballStadiumCapacity + "," + "''" + "," + "'"+ Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // Neither are full
-                }
-                stats.setString(line);
-                stats.setString(line2);
-                stats.setString(line3);
+        } else {
+            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + "''" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // Neither are full
+        }
 
-                setString(line);
-                setString(line2);
-                setString(line3);
-                // end of SQL stuff
-                //System.out.println(line + line2 + line3);
+        stats.setString(line);
+
+        setString(line);
+        // end of SQL stuff
+        //System.out.println(line + line2 + line3);
     }
 
     public void newGarage(){
@@ -98,11 +61,11 @@ public class Trend {
         // function for new garage to make it scalable
 
     }
-     public static void appendFile(String sourceFileName, String destinationFileName) {
+    public static void appendFile(String sourceFileName, String destinationFileName) {
         try {
             // Open the source file for reading
             BufferedReader sourceReader = new BufferedReader(new FileReader(sourceFileName));
-            
+
             // Open the destination file for appending
             BufferedWriter destinationWriter = new BufferedWriter(new FileWriter(destinationFileName, true));
 
@@ -116,7 +79,7 @@ public class Trend {
             // Close the readers and writers
             sourceReader.close();
             destinationWriter.close();
-            
+
             System.out.println("File updated successfully.");
         } catch (IOException e) {
             System.err.println("An error occurred: " + e.getMessage());
@@ -138,12 +101,13 @@ public class Trend {
             printWriter.close();
             fileWriter.close();
             appendFile(filePath, "src/KobPushToLocal.txt");
-            sendEmail.main(new String[0]); // send email of new .txt file
+            backend.database.sendEmail.main(new String[0]); // send email of new .txt file
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        String connectionString = "jdbc:sqlserver://192.168.0.170;encrypt=true;trustServerCertificate=true;database=Trends;";
+        String connectionString = "jdbc:sqlserver://172.20.10.3;encrypt=true;trustServerCertificate=true;database=Trends;";
         String user = "sa";
         String password = "admin";
 
@@ -177,7 +141,7 @@ public class Trend {
                     Statement stmt2 = connection.createStatement();
                     stmt2.executeUpdate(sql2.toString());
                 }
-                    System.out.println("Uploaded to DB successfully.");
+                System.out.println("Uploaded to DB successfully.");
 
             }
         } catch (SQLException | IOException e) {

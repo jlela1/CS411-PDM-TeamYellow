@@ -6,16 +6,28 @@ public class parkingStructure {
     private int current_capacity; //cars in lot
     private int parking_availability; //spots available
     private int proximity;
+    private int time;
+    private int simulation_number;
+    private String notification;
+    private String month;
+    private int day;
+    private String clock_time;
 
-      /**
+    /**
      * Create new parking structure
      */
     public parkingStructure() {
         this.garage_id = "";
         this.total_capacity = 0;
-        this.current_capacity = 0; 
+        this.current_capacity = 0;
         this.parking_availability = 0;
         this.proximity = 0;
+        this.notification = "";
+        this.simulation_number = 0;
+        this.time = 0;
+        this.month = "";
+        this.day = 0;
+        this.clock_time = "";
     } /**
      * Create new parking structure with specified inputs
      */
@@ -70,6 +82,65 @@ public class parkingStructure {
         this.proximity = proximity;
     }
 
+    // Getter method for simulation_number
+    public int getSimulationNumber() {
+        return simulation_number;
+    }
+
+    // Setter method for simulation_number
+    public void setSimulationNumber(int simulation_number) {
+        this.simulation_number = simulation_number;
+    }
+
+    // Getter method for notification
+    public String getNotification() {
+        return notification;
+    }
+
+    // Setter method for notification
+    public void setNotification(String notification) {
+        this.notification = notification;
+    }
+
+    // Getter method for time
+    public int getTime() {
+        return time;
+    }
+
+    // Setter method for time
+    public void setTime(int time) {
+        this.time = time;
+    }
+
+    // Getter for month
+    public String getMonth() {
+        return month;
+    }
+
+    // Setter for month
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    // Getter for day
+    public int getDay() {
+        return day;
+    }
+
+    // Setter for day
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    // Getter for Clock_time
+    public String getClockTime() {
+        return clock_time;
+    }
+
+    // Setter for Clock_time
+    public void setClock_time(String clockTime) {
+        this.clock_time = clockTime;
+    }
     @Override
     public String toString() {
         return "ParkingStructure [" +

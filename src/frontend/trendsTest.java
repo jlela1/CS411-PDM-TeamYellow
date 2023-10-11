@@ -7,16 +7,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import backend.database.parkingStructure;
+import java.util.ArrayList;
 
 public class trendsTest {
+
     public static void main(String[] args) {
-    readAndStoreDB(); // this will read and store the test DB values into vectors you can use in java
-    Scanner myObj =  new Scanner(System.in);  // Create a Scanner object
-    System.out.println("\n Wanna query the DB? 0 if no, 1 if yes. \n");
-    int answer = myObj.nextInt();  // Read user input
-    if(answer == 1)  {SQLQuery();}  
+        readAndStoreDB(); // this will read and store the test DB values into vectors you can use in java
+        Scanner myObj =  new Scanner(System.in);  // Create a Scanner object
+        System.out.println("\n Wanna query the DB? 0 if no, 1 if yes. \n");
+        int answer = myObj.nextInt();  // Read user input
+        if(answer == 1)  {SQLQuery();}
         myObj.close();
-        }
+    }
 
     public static void readAndStoreDB() {
         String fileName = "src/testDatabaseMaster.txt";
@@ -29,7 +32,8 @@ public class trendsTest {
         Vector<String> clockTimes = new Vector<>();
         Vector<String> months = new Vector<>();
         Vector<Integer> days = new Vector<>();
-
+        parkingStructure garages;
+        garages = new parkingStructure();
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
@@ -37,7 +41,8 @@ public class trendsTest {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
                 if (data.length == 9) {
-                    simulationNumbers.add(Integer.parseInt(data[0]));
+
+                    garages.setSimulationNumber(Integer.parseInt(data[0]));
                     times.add(Integer.parseInt(data[1]));
                     garageIds.add(data[2]);
                     occupancies.add(Integer.parseInt(data[3]));
@@ -101,6 +106,8 @@ public class trendsTest {
                     Vector<String> cur_data = new Vector<>();
                     Vector<String> not_data = new Vector<>();
 
+                    parkingStructure garages;
+                    garages = new parkingStructure();
                     while (rs.next()) {
                         sim_data.add(rs.getString("simulation_number"));
                         time_data.add(rs.getString("time_"));
@@ -110,10 +117,10 @@ public class trendsTest {
                         not_data.add(rs.getString("notification"));
                     }
 
-                    for (int i = 0; i < sim_data.size(); i++) {
-                        System.out.println("Sim # " + sim_data.get(i) + ", Time: " + time_data.get(i) + ", Garage: " + gar_data.get(i) +
-                                ", Capacity: " + cap_data.get(i) + ", Current: " + cur_data.get(i) + ", Notification: " + not_data.get(i) + "\n");
-                    }
+//                    for (int i = 0; i < sim_data.size(); i++) {
+//                        System.out.println("Sim # " + sim_data.get(i) + ", Time: " + time_data.get(i) + ", Garage: " + gar_data.get(i) +
+//                                ", Capacity: " + cap_data.get(i) + ", Current: " + cur_data.get(i) + ", Notification: " + not_data.get(i) + "\n");
+//                    }
                 }
             }
         } catch (SQLException e) {
@@ -122,4 +129,63 @@ public class trendsTest {
         }
     }
 
+    public static void readAndStoreToGraph(ArrayList<parkingStructure> p) {
+        String fileName = "src/trend.txt";
+        //String fileName = "src/testDatabaseMaster.txt";
+//        Vector<Integer> simulationNumbers = new Vector<>();
+//        Vector<Integer> times = new Vector<>();
+//        Vector<String> garageIds = new Vector<>();
+//        Vector<Integer> occupancies = new Vector<>();
+//        Vector<Integer> capacities = new Vector<>();
+//        Vector<String> notifications = new Vector<>();
+//        Vector<String> clockTimes = new Vector<>();
+//        Vector<String> months = new Vector<>();
+//        Vector<Integer> days = new Vector<>();
+        try {
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+            int counter = 0;
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] data = line.split(",");
+                if (data.length == 9) {
+
+                    parkingStructure pb = new parkingStructure();
+                    pb.setSimulationNumber(Integer.parseInt(data[0]));
+                    pb.setTime(Integer.parseInt(data[1]));
+                    pb.setGarage_id(data[2]);
+                    pb.setCurrent_capacity(Integer.parseInt(data[3]));
+                    pb.setTotal_capacity(Integer.parseInt(data[4]));
+                    pb.setNotification(data[5]);
+                    pb.setClock_time(data[6]);
+                    pb.setMonth(data[7]);
+                    pb.setDay(Integer.parseInt(data[8]));
+                    p.add(counter,pb);
+                    counter++;
+                } else {
+                    System.err.println("Skipping invalid line: " + line);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + fileName);
+        }
+
+        // Now, you can use the vectors as needed.
+        // For example, you can iterate over them and perform operations.
+        for (int i = 0; i < p.size(); i++) {
+            System.out.println(p.get(i));
+//            System.out.println("Time: " + times.get(i));
+//            System.out.println("Garage ID: " + garageIds.get(i));
+//            System.out.println("Current Occupancy: " + occupancies.get(i));
+//            System.out.println("Capacity: " + capacities.get(i));
+//            System.out.println("Notification: " + notifications.get(i));
+//            System.out.println("Clock Time: " + clockTimes.get(i));
+//            System.out.println("Month: " + months.get(i));
+//            System.out.println("Day: " + days.get(i));
+//            System.out.println();
+        }
+    }
+
 }
+
