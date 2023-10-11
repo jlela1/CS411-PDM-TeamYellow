@@ -1,4 +1,4 @@
-package main.java.frontend;
+package frontend;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +9,7 @@ import frontend.SimulationUserInputGUI;
 public class AdminHomePage extends JFrame{
     public AdminHomePage() {
 
-        setTitle("PDM Business Dashboard");
+        setTitle("a Business Dashboard");
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Set JFrame to full-screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
