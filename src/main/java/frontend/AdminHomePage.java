@@ -1,4 +1,4 @@
-package frontend;
+package main.java.frontend;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +45,7 @@ public class AdminHomePage extends JFrame{
         createSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GarageManager simulationStart = new GarageManager();
+                frontend.GarageManager simulationStart = new frontend.GarageManager();
             }
         });
 
