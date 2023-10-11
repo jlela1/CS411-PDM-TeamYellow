@@ -20,19 +20,19 @@ class Reg extends JFrame implements ActionListener {
     public Reg() {
         setTitle("PDM Registration");
 
-        //Username
+        // Username
         ImageIcon userIcon = new ImageIcon("resources/user.png");
         Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
         textField1 = new JTextField(20);
 
-        //Password
+        // Password
         ImageIcon passIcon = new ImageIcon("resources/password1.png");
         Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel passImageLabel = new JLabel(new ImageIcon(passImage));
         textField2 = new JPasswordField(20);
 
-        //Confirm Password
+        // Confirm Password
         ImageIcon confirmPassIcon = new ImageIcon("resources/confirmed.png");
         Image confirmImage = confirmPassIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel confirmPassImageLabel = new JLabel(new ImageIcon(confirmImage));
@@ -157,7 +157,12 @@ class Reg extends JFrame implements ActionListener {
                     FileWriter writer = new FileWriter(filePath, true);
                     writer.write(username + "," + password + "\n");
                     writer.close();
+                    // Show registration successful message
                     JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    // Close the registration window and open the login window
+                    this.dispose(); // Close the registration window
+                    Login login = new Login(); // Open the login window
+                    login.setVisible(true);
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(this, "Error saving registration data.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
