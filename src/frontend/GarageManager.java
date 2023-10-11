@@ -20,12 +20,13 @@ public class GarageManager {
 
         mainFrame = new JFrame("Garage Manager");
         mainFrame.setLayout(new BorderLayout());
+        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainFrame.setPreferredSize(new Dimension(400, 300));
+        mainFrame.setPreferredSize(new Dimension(800, 600));
 
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        headerPanel.setBackground(new Color(0, 122, 255)); // Apple blue color
+        headerPanel.setBackground(new Color(0, 122, 255));
 
         JLabel titleLabel = new JLabel("Garage Manager");
         titleLabel.setFont(new Font("Helvetica", Font.BOLD, 24));
@@ -36,14 +37,14 @@ public class GarageManager {
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(2, 2, 10, 10));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
+        nameField = new JTextField(10);
         JLabel nameLabel = new JLabel("Garage Name:");
-        nameLabel.setFont(new Font("Helvetica", Font.PLAIN, 16));
-        nameField = new JTextField(15);
+        nameField.setFont(new Font("Helvetica", Font.PLAIN, 16));
+
         nameField.setFont(new Font("Helvetica", Font.PLAIN, 16));
         JLabel capacityLabel = new JLabel("Max Capacity:");
         capacityLabel.setFont(new Font("Helvetica", Font.PLAIN, 16));
-        capacityField = new JTextField(5);
+        capacityField = new JTextField();
         capacityField.setFont(new Font("Helvetica", Font.PLAIN, 16));
 
         inputPanel.add(nameLabel);
