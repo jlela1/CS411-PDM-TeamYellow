@@ -37,6 +37,13 @@ public class SimulationGUI extends JFrame {
 
         timeLabel = createLabel("Time: " + convertMinutesToAMPM(time), gbc);
 
+        JPanel headingPanel = PDMPanels.createHeader("Garage Simulation");
+        headingPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(headingPanel, gbc);
+
         gbc.gridx = 0;
         gbc.gridy = 7;
         add(timeLabel, gbc);
