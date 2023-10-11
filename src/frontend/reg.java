@@ -17,45 +17,35 @@ class Reg extends JFrame implements ActionListener {
     final JTextField textField1;
     final JPasswordField textField2, textField3;
 
-
     public Reg() {
-
         setTitle("PDM Registration");
 
-        //ImageIcon oduLogo = new ImageIcon("CS411-PDM-TeamYellow/resources/ODULogo.png");
-        //Image Logo = oduLogo.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
-        //JLabel logoLabel = new JLabel(new ImageIcon(Logo));
-
         //Username
-        ImageIcon userIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/user.png");
+        ImageIcon userIcon = new ImageIcon("resources/user.png");
         Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
         textField1 = new JTextField(20);
 
         //Password
-        ImageIcon passIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/password1.png");
+        ImageIcon passIcon = new ImageIcon("resources/password1.png");
         Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel passImageLabel = new JLabel(new ImageIcon(passImage));
         textField2 = new JPasswordField(20);
 
         //Confirm Password
-        ImageIcon confirmPassIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/confirmed.png");
-        Image confirmImage = confirmPassIcon.getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT);
-        JLabel confirmPassLabel = new JLabel(new ImageIcon(confirmImage));
-        //confirmPassLabel = new JLabel("Confirm Password:");
-       // confirmPassLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
+        ImageIcon confirmPassIcon = new ImageIcon("resources/confirmed.png");
+        Image confirmImage = confirmPassIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+        JLabel confirmPassImageLabel = new JLabel(new ImageIcon(confirmImage));
         textField3 = new JPasswordField(20);
 
         // Register and Back buttons
-
         registerButton = new JButton("Register");
         PDMPanels.styleButton(registerButton);
 
         backButton = new JButton("Login Page");
         PDMPanels.styleButton(backButton);
 
-
-        //New Panel
+        // New Panel
         newPanel = new JPanel(new BorderLayout());
 
         JPanel headingPanel = PDMPanels.createHeader("PDM Registration");
@@ -68,43 +58,54 @@ class Reg extends JFrame implements ActionListener {
         headingPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
         headingPanel.add(welcomeLabel);
 
-        JPanel componentsPanel = new JPanel();
-        componentsPanel.setLayout(new GridLayout(4, 1, 3,3 ));
+        JPanel componentsPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-        //Set placeholders and text color for the text fields
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        // Set placeholders and text color for the text fields
         setPlaceholder(textField1, "Username");
         setPlaceholder(textField2, "Password");
-        setPlaceholder(textField3, "Password");
+        setPlaceholder(textField3, "Confirm Password");
 
-        JPanel userPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        userPanel.add(userImageLabel);
-        userPanel.add(textField1);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        componentsPanel.add(userImageLabel, gbc);
 
-        JPanel passPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        passPanel.add(passImageLabel);
-        passPanel.add(textField2);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        componentsPanel.add(textField1, gbc);
 
-        JPanel confirmPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        confirmPanel.add(confirmPassLabel);
-        confirmPanel.add(textField3);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        componentsPanel.add(passImageLabel, gbc);
 
-        componentsPanel.add(userPanel);
-        componentsPanel.add(passPanel);
-        componentsPanel.add(confirmPanel);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        componentsPanel.add(textField2, gbc);
 
-        JPanel buttonPanel = new JPanel(); // Create a separate panel for buttons
-        buttonPanel.add(registerButton);
-        buttonPanel.add(backButton);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        componentsPanel.add(confirmPassImageLabel, gbc);
 
-        componentsPanel.add(buttonPanel);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        componentsPanel.add(textField3, gbc);
 
-        //JPanel logoPanel = new JPanel();
-        //logoPanel.setLayout(new BorderLayout ());
-        //logoPanel.add(logoLabel);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.add(registerButton);
+        buttonsPanel.add(backButton);
+        componentsPanel.add(buttonsPanel, gbc);
 
         newPanel.add(headingPanel, BorderLayout.NORTH);
-        //newPanel.add(logoPanel, BorderLayout.PAGE_END);
         newPanel.add(componentsPanel, BorderLayout.CENTER);
 
         add(newPanel, BorderLayout.CENTER);
@@ -119,7 +120,6 @@ class Reg extends JFrame implements ActionListener {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
     }
 
     private void setPlaceholder(JTextComponent component, String placeholder) {
@@ -144,7 +144,6 @@ class Reg extends JFrame implements ActionListener {
         });
     }
 
-
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == registerButton) { // Submit button clicked for registration
             String username = textField1.getText();
@@ -154,7 +153,8 @@ class Reg extends JFrame implements ActionListener {
             if (!username.isEmpty() && !password.isEmpty()) {
                 // Save the registration data to a file
                 try {
-                    FileWriter writer = new FileWriter("user_data.txt", true);
+                    String filePath = "src\\backend\\database\\user_data.txt";
+                    FileWriter writer = new FileWriter(filePath, true);
                     writer.write(username + "," + password + "\n");
                     writer.close();
                     JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -170,5 +170,12 @@ class Reg extends JFrame implements ActionListener {
             Login login = new Login(); // Open the login window
             login.setVisible(true);
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Reg registration = new Reg();
+            registration.setVisible(true);
+        });
     }
 }

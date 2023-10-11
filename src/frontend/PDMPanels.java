@@ -38,4 +38,3 @@ public class PDMPanels {
         button.setForeground(Color.BLACK);
     }
 }
-
