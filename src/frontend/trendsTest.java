@@ -130,7 +130,7 @@ public class trendsTest {
     }
 
     public static void readAndStoreToGraph(ArrayList<parkingStructure> p) {
-        String fileName = "src/trend.txt";
+        String fileName = "src/trend.txt"; //
         //String fileName = "src/testDatabaseMaster.txt";
 //        Vector<Integer> simulationNumbers = new Vector<>();
 //        Vector<Integer> times = new Vector<>();

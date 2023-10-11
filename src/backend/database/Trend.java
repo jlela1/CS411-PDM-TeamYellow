@@ -100,7 +100,7 @@ public class Trend {
 
             printWriter.close();
             fileWriter.close();
-            appendFile(filePath, "src/KobPushToLocal.txt");
+            appendFile(filePath, "src/KobPushToLocal.txt"); //
             backend.database.sendEmail.main(new String[0]); // send email of new .txt file
 
         } catch (IOException e) {
