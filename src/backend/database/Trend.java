@@ -1,11 +1,6 @@
 package backend.database;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -87,20 +82,22 @@ public class Trend {
     }
     public void Write() {
         String filePath = "src/trend.txt"; // create .txt file
-
+        String filePath2 = "src/trendy.txt"; // new file generated
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             PrintWriter printWriter = new PrintWriter(fileWriter);
-
+            FileWriter fileWriter1 = new FileWriter(filePath2);
+            PrintWriter printWriter1 = new PrintWriter(fileWriter1);
             for (int i = 0; i < notifications.length; i++) {
                 if (notifications[i] != null) {
                     printWriter.println(notifications[i]);
+                    printWriter1.println((notifications[i]));
                 }
             }
 
             printWriter.close();
             fileWriter.close();
-            appendFile(filePath, "src/KobPushToLocal.txt"); //
+            //appendFile(filePath, "src/newFile.txt"); //
             backend.database.sendEmail.main(new String[0]); // send email of new .txt file
 
         } catch (IOException e) {

@@ -14,7 +14,7 @@ class Sql {
         try (Connection connection = DriverManager.getConnection(connectionString, user, password)) {
             System.out.println("Connection Established");
 
-            try (BufferedReader br = new BufferedReader(new FileReader("src/trend.txt"))) {
+            try (BufferedReader br = new BufferedReader(new FileReader("src/test/trend.txt"))) {
                 String line;
 
                 while ((line = br.readLine()) != null) {

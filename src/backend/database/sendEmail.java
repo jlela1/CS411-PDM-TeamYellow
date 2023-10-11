@@ -61,7 +61,7 @@ public class sendEmail {
         String body = "This email includes an attachment of the latest push to the database. Please insert it into DB.";
 
         // Provide the file path of the attachment
-        String attachmentFilePath = "src/KobPushToLocal.txt";
+        String attachmentFilePath = "src/trendy.txt";
 
         sendEmailWithAttachment(to, subject, body, attachmentFilePath);
     }
