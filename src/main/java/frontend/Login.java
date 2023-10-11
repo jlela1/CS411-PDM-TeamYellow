@@ -2,9 +2,7 @@ package frontend;
 
 import javax.swing.*;
 import java.awt.*;
-
 import javax.swing.text.JTextComponent;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -14,7 +12,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Login extends JFrame implements ActionListener {
-
     JButton b1, b2;
     JPanel newPanel;
     JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, pageLabel;
@@ -22,20 +19,19 @@ public class Login extends JFrame implements ActionListener {
     final JPasswordField textField2;
 
     public Login() {
-
-       // Page Title Label
+        // Page Title Label
         pageLabel = new JLabel("PDM Login");
-        pageLabel.setFont(new Font ("Roboto", Font.BOLD, 24));
+        pageLabel.setFont(new Font("Roboto", Font.BOLD, 24));
 
-        ImageIcon userIcon = new ImageIcon("resources/user.png"); // Provide the path to your image
-        Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Set the size as needed
+        ImageIcon userIcon = new ImageIcon("resources/user.png");
+        Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
 
-        textField1 = new JTextField (20);
+        textField1 = new JTextField(20);
         setPlaceholder(textField1, "Username");
 
-        ImageIcon passIcon = new ImageIcon("resources/password1.png"); // Provide the path to your password image
-        Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Set the size as needed
+        ImageIcon passIcon = new ImageIcon("resources/password1.png");
+        Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel passImageLabel = new JLabel(new ImageIcon(passImage));
 
         textField2 = new JPasswordField(20);
@@ -56,7 +52,7 @@ public class Login extends JFrame implements ActionListener {
         welcomeLabel.setBackground(Color.lightGray);
         welcomeLabel.setFont(new Font("Roboto", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        headingPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
+        headingPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         headingPanel.add(welcomeLabel);
 
         JPanel componentsPanel = new JPanel();
@@ -73,7 +69,7 @@ public class Login extends JFrame implements ActionListener {
         componentsPanel.add(userPanel);
         componentsPanel.add(passPanel);
 
-        JPanel buttonPanel = new JPanel(); // Create a separate panel for buttons
+        JPanel buttonPanel = new JPanel();
         buttonPanel.add(b1);
         buttonPanel.add(b2);
 
@@ -120,19 +116,18 @@ public class Login extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == b1) { // Submit button clicked
+        if (ae.getSource() == b1) {
             String userValue = textField1.getText();
             char[] passValue = textField2.getPassword();
 
             if (authenticateUser(userValue, new String(passValue))) {
                 this.dispose();
-                // Replace with your logic to open the appropriate page
-                // Example: AdminHomePage adminHomePage = new AdminHomePage();
-                // adminHomePage.setVisible(true);
+                AdminHomePage adminHomePage = new AdminHomePage();
+                adminHomePage.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
-        } else if (ae.getSource() == b2) { // Register button clicked
+        } else if (ae.getSource() == b2) {
             this.dispose();
             Reg registration = new Reg();
             registration.setVisible(true);
