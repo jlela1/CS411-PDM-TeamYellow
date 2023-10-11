@@ -129,7 +129,7 @@ public class trendsTest {
         }
     }
 
-    public static void readAndStoreToGraph(ArrayList<parkingStructure> p) {
+    public static void readAndStoreToGraph(ArrayList<ArrayList<parkingStructure>> p, int numGar) {
         String fileName = "src/trend.txt"; //
         //String fileName = "src/testDatabaseMaster.txt";
 //        Vector<Integer> simulationNumbers = new Vector<>();
@@ -141,50 +141,106 @@ public class trendsTest {
 //        Vector<String> clockTimes = new Vector<>();
 //        Vector<String> months = new Vector<>();
 //        Vector<Integer> days = new Vector<>();
+
+        ArrayList<parkingStructure> garage1 = new ArrayList<>();
+        ArrayList<parkingStructure> garage2 = new ArrayList<>();
+        ArrayList<parkingStructure> garage3 = new ArrayList<>();
+        ArrayList<parkingStructure> garage4 = new ArrayList<>();
+        ArrayList<parkingStructure> garage5 = new ArrayList<>();
+
+        switch(numGar) //create arrayLists for each garage and put in master arrayList
+        {
+            case 1:
+                p.add(garage1);
+                break;
+            case 2:
+                p.add(garage1);
+                p.add(garage2);
+                break;
+            case 3:
+                p.add(garage1);
+                p.add(garage2);
+                p.add(garage3);
+                break;
+            case 4:
+                p.add(garage1);
+                p.add(garage2);
+                p.add(garage3);
+                p.add(garage4);
+                break;
+            case 5:
+                p.add(garage1);
+                p.add(garage2);
+                p.add(garage3);
+                p.add(garage4);
+                p.add(garage5);
+                break;
+        }
+
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
-            int counter = 0;
+            int counter1 = 0;
+            int counter2 = 0;
+            int counter3 = 0;
+            int counter4 = 0;
+            int counter5 = 0;
+
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
                 if (data.length == 9) {
 
-                    parkingStructure pb = new parkingStructure();
-                    pb.setSimulationNumber(Integer.parseInt(data[0]));
-                    pb.setTime(Integer.parseInt(data[1]));
-                    pb.setGarage_id(data[2]);
-                    pb.setCurrent_capacity(Integer.parseInt(data[3]));
-                    pb.setTotal_capacity(Integer.parseInt(data[4]));
-                    pb.setNotification(data[5]);
-                    pb.setClock_time(data[6]);
-                    pb.setMonth(data[7]);
-                    pb.setDay(Integer.parseInt(data[8]));
-                    p.add(counter,pb);
-                    counter++;
+                    switch(data[2])
+                    {
+                        case "'garage1'":
+                            System.out.println("case garage1");
+                            p.get(0).add(counter1, addNewParkStruct(data));
+                            counter1++;
+                            break;
+                        case "'garage2'":
+                            p.get(1).add(counter2, addNewParkStruct(data));
+                            counter2++;
+                            break;
+                        case "'garage3'":
+                            p.get(2).add(counter3, addNewParkStruct(data));
+                            counter3++;
+                            break;
+                        case "'garage4'":
+                            p.get(3).add(counter4, addNewParkStruct(data));
+                            counter4++;
+                            break;
+                        case "'garage5'":
+                            p.get(4).add(counter5, addNewParkStruct(data));
+                            counter5++;
+                            break;
+                    }
+
                 } else {
                     System.err.println("Skipping invalid line: " + line);
                 }
             }
             scanner.close();
+            System.out.println("master arraylist size = " + p.size() + " , garage1 arraylist size: " + p.get(0).size());
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + fileName);
         }
 
-        // Now, you can use the vectors as needed.
-        // For example, you can iterate over them and perform operations.
-        for (int i = 0; i < p.size(); i++) {
-            System.out.println(p.get(i));
-//            System.out.println("Time: " + times.get(i));
-//            System.out.println("Garage ID: " + garageIds.get(i));
-//            System.out.println("Current Occupancy: " + occupancies.get(i));
-//            System.out.println("Capacity: " + capacities.get(i));
-//            System.out.println("Notification: " + notifications.get(i));
-//            System.out.println("Clock Time: " + clockTimes.get(i));
-//            System.out.println("Month: " + months.get(i));
-//            System.out.println("Day: " + days.get(i));
-//            System.out.println();
-        }
+    }
+
+    public static parkingStructure addNewParkStruct(String[] data) {
+        parkingStructure pb = new parkingStructure();
+        pb.setSimulationNumber(Integer.parseInt(data[0]));
+        pb.setTime(Integer.parseInt(data[1]));
+        pb.setGarage_id(data[2]);
+        pb.setCurrent_capacity(Integer.parseInt(data[3]));
+        pb.setTotal_capacity(Integer.parseInt(data[4]));
+        pb.setNotification(data[5]);
+        pb.setClock_time(data[6]);
+        pb.setMonth(data[7]);
+        pb.setDay(Integer.parseInt(data[8]));
+        System.out.println(pb.toString());
+        return pb;
     }
 
 }

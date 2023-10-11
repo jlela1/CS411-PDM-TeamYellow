@@ -19,30 +19,48 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 public class createGraph extends JFrame {
-    public createGraph(String input) {
-        trendsTest.main(new String[0]);
-        ArrayList<parkingStructure> garages = new ArrayList<parkingStructure>();
-        parkingStructure pb = new parkingStructure();
-        trendsTest.readAndStoreToGraph(garages);
+    public createGraph(String input, int numGar) {
+        //trendsTest.main(new String[0]);
+        ArrayList<ArrayList<parkingStructure>> garages = new ArrayList<ArrayList<parkingStructure>>();
+        trendsTest.readAndStoreToGraph(garages, numGar);
 //        pb.setTime(10);
 //        pb.setCurrent_capacity(10);
 //        pb.setGarage_id("G1");
 //        garages.add(pb);
-        boolean checker = garages.contains(input);
-        if (checker = true) {
-            XYDataset dataset = createDataset(input, garages);
 
-            JFreeChart xyChart = ChartFactory.createXYLineChart(
-                    "PDM Trends",
-                    "Time",
-                    "Used Capc.",
-                    dataset,
-                    PlotOrientation.VERTICAL,
-                    true, true, false
-            );
-            ChartPanel panel = new ChartPanel(xyChart);
-            setContentPane(panel);
+        XYDataset dataset = createDataset(input, garages.get(0));;
+
+        switch (input)
+        {
+            case "garage1":
+                dataset = createDataset(input, garages.get(0));
+                break;
+            case "garage2":
+                dataset = createDataset(input, garages.get(1));
+                break;
+            case "garage3":
+                dataset = createDataset(input, garages.get(2));
+                break;
+            case "garage4":
+                dataset = createDataset(input, garages.get(3));
+                break;
+            case "garage5":
+                dataset = createDataset(input, garages.get(4));
+                break;
         }
+
+
+        JFreeChart xyChart = ChartFactory.createXYLineChart(
+                "PDM Trends",
+                "Time",
+                "Used Capc.",
+                dataset,
+                PlotOrientation.VERTICAL,
+                true, true, false
+        );
+        ChartPanel panel = new ChartPanel(xyChart);
+        setContentPane(panel);
+
     }
     private XYDataset createDataset(String input, ArrayList<parkingStructure> garages) {
         final XYSeries singleG = new XYSeries(input);
@@ -64,7 +82,7 @@ public class createGraph extends JFrame {
     public static void main(String[] args) throws Exception {
 
         SwingUtilities.invokeAndWait(() -> {
-            createGraph example = new createGraph("G1");
+            createGraph example = new createGraph("garage3", 3);
             example.setSize(800, 400);
             example.setLocationRelativeTo(null);
             example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
