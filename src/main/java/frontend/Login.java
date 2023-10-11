@@ -2,13 +2,16 @@ package frontend;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.ImageIcon;
+
 import javax.swing.text.JTextComponent;
-import java.awt.Image;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Login extends JFrame implements ActionListener {
 
@@ -24,39 +27,26 @@ public class Login extends JFrame implements ActionListener {
         pageLabel = new JLabel("PDM Login");
         pageLabel.setFont(new Font ("Roboto", Font.BOLD, 24));
 
-        /* /*Username* /// */
-        //userLabel = new JLabel();
-        //userLabel.setText("Username:");
-        //userLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
-
-        ImageIcon userIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/user.png"); // Provide the path to your image
+        ImageIcon userIcon = new ImageIcon("resources/user.png"); // Provide the path to your image
         Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Set the size as needed
         JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
 
-        //Username length
         textField1 = new JTextField (20);
         setPlaceholder(textField1, "Username");
 
-
-        //Password
-        ImageIcon passIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/password1.png"); // Provide the path to your password image
+        ImageIcon passIcon = new ImageIcon("resources/password1.png"); // Provide the path to your password image
         Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Set the size as needed
         JLabel passImageLabel = new JLabel(new ImageIcon(passImage));
 
-        //Password length
         textField2 = new JPasswordField(20);
         setPlaceholder(textField2, "Password");
 
-
-        //Submit Button
         b1 = new JButton("Submit");
         b1.setFont(new Font("Roboto", Font.BOLD, 16));
 
         b2 = new JButton("Register");
         b2.setFont(new Font("Roboto", Font.BOLD, 16));
 
-
-        //New Panel
         newPanel = new JPanel(new BorderLayout());
 
         JPanel headingPanel = PDMPanels.createHeader("PDM Login");
@@ -106,49 +96,75 @@ public class Login extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setTitle("PDM Login");
     }
-     private void setPlaceholder(JTextComponent component, String placeholder) {
-         component.setForeground(Color.GRAY);
-         component.setText(placeholder);
-         component.addFocusListener(new FocusAdapter() {
-             @Override
-             public void focusGained(FocusEvent e) {
-                 if (component.getForeground() == Color.GRAY) {
-                     component.setText("");
-                     component.setForeground(Color.BLACK);
-                 }
-             }
 
-             @Override
-             public void focusLost(FocusEvent e) {
-                 if (component.getText().trim().isEmpty()) {
-                     component.setText(placeholder);
-                     component.setForeground(Color.GRAY);
-                 }
-             }
-         });
-     }
+    private void setPlaceholder(JTextComponent component, String placeholder) {
+        component.setForeground(Color.GRAY);
+        component.setText(placeholder);
+        component.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (component.getForeground() == Color.GRAY) {
+                    component.setText("");
+                    component.setForeground(Color.BLACK);
+                }
+            }
 
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (component.getText().trim().isEmpty()) {
+                    component.setText(placeholder);
+                    component.setForeground(Color.GRAY);
+                }
+            }
+        });
+    }
 
-     public void actionPerformed(ActionEvent ae) {
-         if (ae.getSource() == b1) { // Submit button clicked
-             // Check the login logic here
-             String userValue = textField1.getText();
-             char[] passValue = textField2.getPassword();
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == b1) { // Submit button clicked
+            String userValue = textField1.getText();
+            char[] passValue = textField2.getPassword();
 
-             // Replace this logic with your actual login logic
-             if (userValue.equals("test@gmail.com") && new String(passValue).equals("test")) {
-                 // Successful login, perform action here (e.g., open a new page)
-                 this.dispose();
-                 AdminHomePage adminHomePage = new AdminHomePage();
-                 adminHomePage.setVisible(true);
-             } else {
-                 JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
-             }
-         } else if (ae.getSource() == b2) { // Register button clicked
-             // Open the registration page
-             this.dispose(); // Close the login window
-             Reg registration = new Reg(); // Open the registration window
-             registration.setVisible(true);
-         }
-     }
- }
+            if (authenticateUser(userValue, new String(passValue))) {
+                this.dispose();
+                // Replace with your logic to open the appropriate page
+                // Example: AdminHomePage adminHomePage = new AdminHomePage();
+                // adminHomePage.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
+            }
+        } else if (ae.getSource() == b2) { // Register button clicked
+            this.dispose();
+            Reg registration = new Reg();
+            registration.setVisible(true);
+        }
+    }
+
+    private boolean authenticateUser(String username, String password) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("src\\main\\java\\backend\\database\\user_data.txt"));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 2) {
+                    String storedUsername = parts[0];
+                    String storedPassword = parts[1];
+                    if (username.equals(storedUsername) && password.equals(storedPassword)) {
+                        reader.close();
+                        return true;
+                    }
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            Login login = new Login();
+            login.setVisible(true);
+        });
+    }
+}
