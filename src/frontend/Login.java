@@ -2,93 +2,82 @@ package frontend;
 
 import javax.swing.*;
 import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.text.JTextComponent;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
- public class Login extends JFrame implements ActionListener {
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
+public class Login extends JFrame implements ActionListener {
 
     JButton b1, b2;
     JPanel newPanel;
-    JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, pagelabel;
+    JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, pageLabel;
     final JTextField textField1;
     final JPasswordField textField2;
 
     public Login() {
 
        // Page Title Label
-        pagelabel = new JLabel("PDM Login");
-        pagelabel.setFont(new Font ("Roboto", Font.BOLD, 24));
-/*
-        // PDM Heading
-        pdmLabel = new JLabel("PDM");
-        pdmLabel.setFont(new Font("Roboto", Font.BOLD, 48));
-        pdmLabel.setForeground(Color.DARK_GRAY);
-        pdmLabel.setHorizontalAlignment(JLabel.CENTER);
+        pageLabel = new JLabel("PDM Login");
+        pageLabel.setFont(new Font ("Roboto", Font.BOLD, 24));
 
-        // Sub Heading
-        madeEasyLabel = new JLabel("Parking Made Easy");
-        madeEasyLabel.setFont(new Font("Roboto", Font.PLAIN, 18));
-        madeEasyLabel.setForeground(Color.DARK_GRAY);
-        madeEasyLabel.setHorizontalAlignment(JLabel.CENTER);
-
-*/
         /* /*Username* /// */
-        userLabel = new JLabel();
-        userLabel.setText("Username:");
-        userLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
+        //userLabel = new JLabel();
+        //userLabel.setText("Username:");
+        //userLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
 
-        /* /*Username length* /// */
-        textField1 = new JTextField (15);
+        ImageIcon userIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/user.png"); // Provide the path to your image
+        Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Set the size as needed
+        JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
 
-
-        /* /*Password* /// */
-        passLabel = new JLabel();
-        passLabel.setText("Password:");
-        passLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
-
-        /* /*Password length* /// */
-        textField2 = new JPasswordField(15);
+        //Username length
+        textField1 = new JTextField (20);
+        setPlaceholder(textField1, "Username");
 
 
-        /* /*Submit Button* /// */
+        //Password
+        ImageIcon passIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/password1.png"); // Provide the path to your password image
+        Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT); // Set the size as needed
+        JLabel passImageLabel = new JLabel(new ImageIcon(passImage));
+
+        //Password length
+        textField2 = new JPasswordField(20);
+        setPlaceholder(textField2, "Password");
+
+
+        //Submit Button
         b1 = new JButton("Submit");
         b1.setFont(new Font("Roboto", Font.BOLD, 16));
 
         b2 = new JButton("Register");
         b2.setFont(new Font("Roboto", Font.BOLD, 16));
 
-        /* New Panel */
+
+        //New Panel
         newPanel = new JPanel(new BorderLayout());
 
+        JPanel headingPanel = PDMPanels.createHeader("PDM Login");
 
-        JPanel headingPanel = new JPanel(new BorderLayout());
-        headingPanel.setBackground(Color.LIGHT_GRAY);
-
-        JPanel pdmPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pdmLabel = new JLabel("PDM Login");
-        pdmLabel.setFont(new Font("Roboto", Font.BOLD, 48));
-        pdmPanel.setBackground(Color.LIGHT_GRAY);
-        pdmLabel.setForeground(Color.DARK_GRAY);
-        pdmPanel.add(pdmLabel);
-
-        JPanel madeEasyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        madeEasyLabel = new JLabel("Parking Made Easy");
-        madeEasyLabel.setFont(new Font("Roboto", Font.PLAIN, 20));
-        madeEasyLabel.setForeground(Color.DARK_GRAY);
-        madeEasyPanel.setBackground(Color.lightGray);
-        madeEasyPanel.add(madeEasyLabel);
-
-        headingPanel.add(pdmPanel, BorderLayout.NORTH);
-        headingPanel.add(madeEasyPanel, BorderLayout.CENTER);
+        JLabel welcomeLabel = new JLabel("Parking Made Easy");
+        welcomeLabel.setForeground(Color.DARK_GRAY);
+        welcomeLabel.setBackground(Color.lightGray);
+        welcomeLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+        welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headingPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
+        headingPanel.add(welcomeLabel);
 
         JPanel componentsPanel = new JPanel();
         componentsPanel.setLayout(new GridLayout(7, 1, 5, 5));
 
         JPanel userPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        userPanel.add(userLabel);
+        userPanel.add(userImageLabel);
         userPanel.add(textField1);
 
         JPanel passPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        passPanel.add(passLabel);
+        passPanel.add(passImageLabel);
         passPanel.add(textField2);
 
         componentsPanel.add(userPanel);
@@ -105,28 +94,40 @@ import java.awt.event.ActionListener;
 
         add(newPanel, BorderLayout.CENTER);
 
-
         b1.addActionListener(this);
         b2.addActionListener(this);
 
-        //Create a PDM footer
-        JLabel footerLabel = new JLabel("Parking Demand Management (PDM)");
-        footerLabel.setFont(new Font("Roboto", Font.ITALIC, 15));
-        footerLabel.setForeground(Color.WHITE);
-        footerLabel.setHorizontalAlignment(JLabel.CENTER);
-
-        JPanel footerPanel = new JPanel();
-        footerPanel.setBackground(new Color(122, 114, 114, 173));
-        footerPanel.add(footerLabel);
+        // Create and add the footer using PageLayout
+        JPanel footerPanel = PDMPanels.createFooter();
         add(footerPanel, BorderLayout.SOUTH);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
         setTitle("PDM Login");
-
     }
+     private void setPlaceholder(JTextComponent component, String placeholder) {
+         component.setForeground(Color.GRAY);
+         component.setText(placeholder);
+         component.addFocusListener(new FocusAdapter() {
+             @Override
+             public void focusGained(FocusEvent e) {
+                 if (component.getForeground() == Color.GRAY) {
+                     component.setText("");
+                     component.setForeground(Color.BLACK);
+                 }
+             }
+
+             @Override
+             public void focusLost(FocusEvent e) {
+                 if (component.getText().trim().isEmpty()) {
+                     component.setText(placeholder);
+                     component.setForeground(Color.GRAY);
+                 }
+             }
+         });
+     }
+
 
      public void actionPerformed(ActionEvent ae) {
          if (ae.getSource() == b1) { // Submit button clicked

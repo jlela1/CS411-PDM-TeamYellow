@@ -3,116 +3,150 @@ package frontend;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.ImageIcon;
+import javax.swing.text.JTextComponent;
+import java.awt.Image;
 import java.io.FileWriter;
 import java.io.IOException;
 
 class Reg extends JFrame implements ActionListener {
 
-    JButton b3, b4;
+    JButton registerButton, backButton;
     JPanel newPanel;
-    JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, confirmPassLabel, pagelabel;
+    JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, confirmPassLabel, logoLabel;
     final JTextField textField1;
     final JPasswordField textField2, textField3;
 
-    Reg() {
-        /* Username */
-        userLabel = new JLabel();
-        userLabel.setText("Username");
-        userLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
 
-        /* Username length */
-        textField1 = new JTextField(15);
+    public Reg() {
 
-        /* Password */
-        passLabel = new JLabel();
-        passLabel.setText("Password");
-        passLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
+        setTitle("PDM Registration");
 
-        /* Password length */
-        textField2 = new JPasswordField(15);
+        //ImageIcon oduLogo = new ImageIcon("CS411-PDM-TeamYellow/resources/ODULogo.png");
+        //Image Logo = oduLogo.getImage().getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+        //JLabel logoLabel = new JLabel(new ImageIcon(Logo));
 
-        confirmPassLabel = new JLabel();
-        confirmPassLabel.setText("Confirm Password");
-        confirmPassLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
+        //Username
+        ImageIcon userIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/user.png");
+        Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+        JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
+        textField1 = new JTextField(20);
 
-        textField3 = new JPasswordField(15);
+        //Password
+        ImageIcon passIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/password1.png");
+        Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
+        JLabel passImageLabel = new JLabel(new ImageIcon(passImage));
+        textField2 = new JPasswordField(20);
 
-        /* Submit Button */
-        b3 = new JButton("Submit");
-        b3.setFont(new Font("Roboto", Font.BOLD, 16));
+        //Confirm Password
+        ImageIcon confirmPassIcon = new ImageIcon("CS411-PDM-TeamYellow/resources/confirmed.png");
+        Image confirmImage = confirmPassIcon.getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT);
+        JLabel confirmPassLabel = new JLabel(new ImageIcon(confirmImage));
+        //confirmPassLabel = new JLabel("Confirm Password:");
+       // confirmPassLabel.setFont(new Font("Roboto", Font.PLAIN, 15));
+        textField3 = new JPasswordField(20);
 
-        b4 = new JButton("Back to Login Page");
-        b4.setFont(new Font("Roboto", Font.BOLD, 16));
+        // Register and Back buttons
 
-        /* New Panel */
+        registerButton = new JButton("Register");
+        PDMPanels.styleButton(registerButton);
+
+        backButton = new JButton("Login Page");
+        PDMPanels.styleButton(backButton);
+
+
+        //New Panel
         newPanel = new JPanel(new BorderLayout());
 
-        JPanel headingPanel = new JPanel(new BorderLayout());
-        headingPanel.setBackground(Color.LIGHT_GRAY);
+        JPanel headingPanel = PDMPanels.createHeader("PDM Registration");
 
-        JPanel pdmPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        pdmLabel = new JLabel("PDM Registration");
-        pdmLabel.setFont(new Font("Roboto", Font.BOLD, 48));
-        pdmLabel.setForeground(Color.DARK_GRAY);
-        pdmPanel.setBackground(Color.LIGHT_GRAY);
-        pdmPanel.add(pdmLabel);
-
-        JPanel madeEasyPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        madeEasyLabel = new JLabel("Parking Made Easy");
-        madeEasyLabel.setFont(new Font("Roboto", Font.PLAIN, 18));
-        madeEasyLabel.setForeground(Color.DARK_GRAY);
-        madeEasyPanel.setBackground(Color.lightGray);
-        madeEasyPanel.add(madeEasyLabel);
-
-        headingPanel.add(pdmPanel, BorderLayout.NORTH);
-        headingPanel.add(madeEasyPanel, BorderLayout.CENTER);
+        JLabel welcomeLabel = new JLabel("Parking Made Easy");
+        welcomeLabel.setForeground(Color.DARK_GRAY);
+        welcomeLabel.setBackground(Color.lightGray);
+        welcomeLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+        welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headingPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
+        headingPanel.add(welcomeLabel);
 
         JPanel componentsPanel = new JPanel();
-        componentsPanel.setLayout(new GridLayout(7, 1, 5, 5));
+        componentsPanel.setLayout(new GridLayout(4, 1, 3,3 ));
+
+        //Set placeholders and text color for the text fields
+        setPlaceholder(textField1, "Username");
+        setPlaceholder(textField2, "Password");
+        setPlaceholder(textField3, "Password");
 
         JPanel userPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        userPanel.add(userLabel);
+        userPanel.add(userImageLabel);
         userPanel.add(textField1);
 
         JPanel passPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        passPanel.add(passLabel);
+        passPanel.add(passImageLabel);
         passPanel.add(textField2);
+
+        JPanel confirmPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        confirmPanel.add(confirmPassLabel);
+        confirmPanel.add(textField3);
 
         componentsPanel.add(userPanel);
         componentsPanel.add(passPanel);
+        componentsPanel.add(confirmPanel);
 
         JPanel buttonPanel = new JPanel(); // Create a separate panel for buttons
-        buttonPanel.add(b3);
-        buttonPanel.add(b4);
+        buttonPanel.add(registerButton);
+        buttonPanel.add(backButton);
 
         componentsPanel.add(buttonPanel);
 
+        //JPanel logoPanel = new JPanel();
+        //logoPanel.setLayout(new BorderLayout ());
+        //logoPanel.add(logoLabel);
+
+
         newPanel.add(headingPanel, BorderLayout.NORTH);
-        newPanel.add(componentsPanel, BorderLayout.PAGE_END);
+        //newPanel.add(logoPanel, BorderLayout.PAGE_END);
+        newPanel.add(componentsPanel, BorderLayout.CENTER);
 
         add(newPanel, BorderLayout.CENTER);
 
-        b3.addActionListener(this);
-        b4.addActionListener(this);
+        registerButton.addActionListener(this);
+        backButton.addActionListener(this);
 
-        // PDM Footer
-        JLabel footerLabel = new JLabel("Parking Demand Management (PDM)");
-        footerLabel.setFont(new Font("Roboto", Font.ITALIC, 15));
-        footerLabel.setForeground(Color.WHITE);
-        footerLabel.setHorizontalAlignment(JLabel.CENTER);
-
-        JPanel footerPanel = new JPanel();
-        footerPanel.setBackground(new Color(122, 114, 114, 173));
-        footerPanel.add(footerLabel);
+        // Create and add the footer using PageLayout
+        JPanel footerPanel = PDMPanels.createFooter();
         add(footerPanel, BorderLayout.SOUTH);
 
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Set JFrame to full-screen
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
     }
 
+    private void setPlaceholder(JTextComponent component, String placeholder) {
+        component.setForeground(Color.GRAY);
+        component.setText(placeholder);
+        component.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (component.getForeground() == Color.GRAY) {
+                    component.setText("");
+                    component.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (component.getText().trim().isEmpty()) {
+                    component.setText(placeholder);
+                    component.setForeground(Color.GRAY);
+                }
+            }
+        });
+    }
+
+
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == b3) { // Submit button clicked for registration
+        if (ae.getSource() == registerButton) { // Submit button clicked for registration
             String username = textField1.getText();
             String password = new String(textField2.getPassword());
 
@@ -130,7 +164,7 @@ class Reg extends JFrame implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(this, "Username and password cannot be empty. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } else if (ae.getSource() == b4) { // Back button clicked
+        } else if (ae.getSource() == backButton) { // Back button clicked
             // Go back to the login page
             this.dispose(); // Close the registration window
             Login login = new Login(); // Open the login window
