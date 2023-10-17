@@ -62,8 +62,10 @@ public class sendEmail {
 
         // Provide the file path of the attachment
         String attachmentFilePath = "src/trendy.txt";
-
+        String userDataFilePath = "src/backend/database/user_data.txt";
         sendEmailWithAttachment(to, subject, body, attachmentFilePath);
+        sendEmailWithAttachment(to, subject, body, userDataFilePath);
+
     }
 
 } 

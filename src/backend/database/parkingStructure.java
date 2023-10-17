@@ -31,12 +31,17 @@ public class parkingStructure {
     } /**
      * Create new parking structure with specified inputs
      */
-    public parkingStructure(String garage_id, int total_capacity, int current_capacity, int parking_availability, int proximity) {
+    public parkingStructure(String garage_id, int total_capacity, int current_capacity, String notification,
+                            int simulation_number, int time, String month, int day, String clock_time) {
         this.garage_id = garage_id;
         this.total_capacity = total_capacity;
         this.current_capacity = current_capacity;
-        this.parking_availability = parking_availability;
-        this.proximity = proximity;
+        this.notification = notification;
+        this.simulation_number = simulation_number;
+        this.time = time;
+        this.month = month;
+        this.day = day;
+        this.clock_time = clock_time;
     }
 
 
