@@ -146,7 +146,7 @@ public class SimulationUserInputGUI extends JFrame {
 
                 // Create an instance of SimulationGUI
                 SimulationGUI simulationGUI = new SimulationGUI(garages, vehiclesPerMinute,
-                        avgTimeToPark, avgParkTime, simulationDuration, gbc);
+                        avgTimeToPark, avgParkTime, simulationDuration, new BorderLayout());
 
                 // Make the SimulationGUI visible
                 simulationGUI.setVisible(true);

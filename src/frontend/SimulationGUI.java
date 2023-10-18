@@ -8,20 +8,24 @@ import java.util.ArrayList;
 
 public class SimulationGUI extends JFrame {
 
-    private GridBagConstraints gbc;
     private JLabel timeLabel;
     private JLabel garage1CapacityLabel;
+    private JProgressBar garage1OccupancyBar;
     private JLabel garage2CapacityLabel;
+    private JProgressBar garage2OccupancyBar;
     private JLabel garage3CapacityLabel;
+    private JProgressBar garage3OccupancyBar;
     private JLabel garage4CapacityLabel;
+    private JProgressBar garage4OccupancyBar;
     private JLabel garage5CapacityLabel;
+    private JProgressBar garage5OccupancyBar;
     private JButton seeTrendsButton;
 
     private ArrayList<Garage> garages;
 
     // Initialize GUI for active portion of simulation
     public SimulationGUI(ArrayList<Garage> garagesList, int vehiclesPerMinute,
-                         int avgTimeToPark, int avgParkTime, int simulationDuration, GridBagConstraints gbcReturn) {
+                         int avgTimeToPark, int avgParkTime, int simulationDuration, BorderLayout borderLayout) {
 
         garages = garagesList; //initialize value for private var, enable access on all functions in this class
 
@@ -29,103 +33,315 @@ public class SimulationGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        gbc = gbcReturn;
+        setLayout(new BorderLayout());
 
-        setLayout(new GridBagLayout());
+        // Create header panel
+        JPanel headingPanel = PDMPanels.createHeader("PDM");
+        add(headingPanel, BorderLayout.NORTH);
+        JLabel simulationLabel = new JLabel("Garage Simulation");
+        simulationLabel.setForeground(Color.DARK_GRAY);
+        simulationLabel.setBackground(Color.lightGray);
+        simulationLabel.setFont(new Font("Roboto", Font.BOLD, 24));
+        simulationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headingPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        headingPanel.add(simulationLabel);
 
+        JPanel footerPanel = PDMPanels.createFooter();
+        add(footerPanel, BorderLayout.SOUTH);
+
+        // Create and add main center panel that will contain time, notifications, and simulation labels
+        JPanel centerPanel = new JPanel();
+        centerPanel.add(Box.createRigidArea(new Dimension(getWidth(), getHeight())));
+        add(centerPanel, BorderLayout.CENTER);
+        centerPanel.setPreferredSize(new Dimension(2000, 1000));
+
+        // Create a panel for the time label to be placed at the top of the center panel
+        JPanel timePanel = new JPanel();
+        timePanel.setPreferredSize(new Dimension(1500, 50));
+
+        // Create time label
         int time = 420;
+        timeLabel = createLabel("Time: " + convertMinutesToAMPM(time));
+        timePanel.add(timeLabel, BorderLayout.CENTER);
 
-        timeLabel = createLabel("Time: " + convertMinutesToAMPM(time), gbc);
+        // Create a panel for the notification label to be placed under the time label in the center panel
+        JPanel notificationPanel = new JPanel();
+        notificationPanel.setPreferredSize(new Dimension(1500, 100));
 
-        JPanel headingPanel = PDMPanels.createHeader("Garage Simulation");
-        headingPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        // Create notification label
+        JLabel notificationLabel = new JLabel("Notification:", SwingConstants.CENTER);
+        Font labelFont = new Font("Roboto", Font.BOLD, 18);
+        notificationLabel.setFont(labelFont);
+        notificationLabel.setOpaque(true);
+        notificationLabel.setBackground(Color.LIGHT_GRAY);
+        notificationLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        notificationLabel.setPreferredSize(new Dimension(1000, 50));
+        notificationPanel.add(notificationLabel, BorderLayout.CENTER);
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(headingPanel, gbc);
+        // Create garages panel
+        JPanel garagesPanel = new JPanel();
+        garagesPanel.setPreferredSize(new Dimension(1800, 500));
+        garagesPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
-        gbc.gridx = 0;
-        gbc.gridy = 7;
-        add(timeLabel, gbc);
+        centerPanel.add(timePanel, BorderLayout.NORTH);
+        centerPanel.add(notificationPanel, BorderLayout.CENTER);
+        centerPanel.add(garagesPanel, BorderLayout.SOUTH);
+
+        ImageIcon garageImage = new ImageIcon("resources/garage_clipart.png");
 
         switch (garages.size()) //create labels based on num of garages (up to 5)
         {
             case 1:
-                gbc.gridy = 8;
-                garage1CapacityLabel = createLabel(garages.get(0).getName() + " 0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
-                add(garage1CapacityLabel, gbc);
+
+                JPanel garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
+
                 break;
+
             case 2:
-                gbc.gridy = 8;
-                garage1CapacityLabel = createLabel(garages.get(0).getName() + " 0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
-                add(garage1CapacityLabel, gbc);
 
-                gbc.gridy = 9;
-                garage2CapacityLabel = createLabel(garages.get(1).getName() + " 0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
-                add(garage2CapacityLabel, gbc);
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
+
+                JPanel garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
 
                 break;
+
             case 3:
-                gbc.gridy = 8;
-                garage1CapacityLabel = createLabel(garages.get(0).getName() + " 0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
-                add(garage1CapacityLabel, gbc);
 
-                gbc.gridy = 9;
-                garage2CapacityLabel = createLabel(garages.get(1).getName() + " 0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
-                add(garage2CapacityLabel, gbc);
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
 
-                gbc.gridy = 10;
-                garage3CapacityLabel = createLabel(garages.get(2).getName() + " 0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
-                add(garage3CapacityLabel, gbc);
+                garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
+
+                JPanel garage3Panel = new JPanel();
+                garage3OccupancyBar = new JProgressBar();
+                garage3OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setStringPainted(true);
+                garage3Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage3ImageLabel = new JLabel();
+                garage3ImageLabel.setIcon(garageImage);
+                garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3CapacityLabel = createLabel(garages.get(2).getName());
+                garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
+                garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
+                garage3Panel.add(garage3OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage3Panel, BorderLayout.CENTER);
 
                 break;
+
             case 4:
-                gbc.gridy = 8;
-                garage1CapacityLabel = createLabel(garages.get(0).getName() + " 0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
-                add(garage1CapacityLabel, gbc);
 
-                gbc.gridy = 9;
-                garage2CapacityLabel = createLabel(garages.get(1).getName() + " 0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
-                add(garage2CapacityLabel, gbc);
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
 
-                gbc.gridy = 10;
-                garage3CapacityLabel = createLabel(garages.get(2).getName() + " 0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
-                add(garage3CapacityLabel, gbc);
+                garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
 
-                gbc.gridy = 11;
-                garage4CapacityLabel = createLabel(garages.get(3).getName() + " 0/" + Integer.toString(garages.get(3).getMaxCapacity()), gbc);
-                add(garage4CapacityLabel, gbc);
+                garage3Panel = new JPanel();
+                garage3OccupancyBar = new JProgressBar();
+                garage3OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setStringPainted(true);
+                garage3Panel.setPreferredSize(new Dimension(300, 300));
+                garage3ImageLabel = new JLabel();
+                garage3ImageLabel.setIcon(garageImage);
+                garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3CapacityLabel = createLabel(garages.get(2).getName());
+                garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
+                garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
+                garage3Panel.add(garage3OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage3Panel, BorderLayout.CENTER);
+
+                JPanel garage4Panel = new JPanel();
+                garage4OccupancyBar = new JProgressBar();
+                garage4OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setStringPainted(true);
+                garage4Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage4ImageLabel = new JLabel();
+                garage4ImageLabel.setIcon(garageImage);
+                garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4CapacityLabel = createLabel(garages.get(3).getName());
+                garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
+                garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
+                garage4Panel.add(garage4OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage4Panel, BorderLayout.CENTER);
 
                 break;
+
             case 5:
-                gbc.gridy = 8;
-                garage1CapacityLabel = createLabel(garages.get(0).getName() + " 0/" + Integer.toString(garages.get(0).getMaxCapacity()), gbc);
-                add(garage1CapacityLabel, gbc);
 
-                gbc.gridy = 9;
-                garage2CapacityLabel = createLabel(garages.get(1).getName() + " 0/" + Integer.toString(garages.get(1).getMaxCapacity()), gbc);
-                add(garage2CapacityLabel, gbc);
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
 
-                gbc.gridy = 10;
-                garage3CapacityLabel = createLabel(garages.get(2).getName() + " 0/" + Integer.toString(garages.get(2).getMaxCapacity()), gbc);
-                add(garage3CapacityLabel, gbc);
+                garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
 
-                gbc.gridy = 11;
-                garage4CapacityLabel = createLabel(garages.get(3).getName() + " 0/" + Integer.toString(garages.get(3).getMaxCapacity()), gbc);
-                add(garage4CapacityLabel, gbc);
+                garage3Panel = new JPanel();
+                garage3OccupancyBar = new JProgressBar();
+                garage3OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setStringPainted(true);
+                garage3Panel.setPreferredSize(new Dimension(300, 300));
+                garage3ImageLabel = new JLabel();
+                garage3ImageLabel.setIcon(garageImage);
+                garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3CapacityLabel = createLabel(garages.get(2).getName());
+                garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
+                garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
+                garage3Panel.add(garage3OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage3Panel, BorderLayout.CENTER);
 
-                gbc.gridy = 12;
-                garage5CapacityLabel = createLabel(garages.get(4).getName() + " 0/" + Integer.toString(garages.get(4).getMaxCapacity()), gbc);
-                add(garage5CapacityLabel, gbc);
+                garage4Panel = new JPanel();
+                garage4OccupancyBar = new JProgressBar();
+                garage4OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setStringPainted(true);
+                garage4Panel.setPreferredSize(new Dimension(300, 300));
+                garage4ImageLabel = new JLabel();
+                garage4ImageLabel.setIcon(garageImage);
+                garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4CapacityLabel = createLabel(garages.get(3).getName());
+                garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
+                garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
+                garage4Panel.add(garage4OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage4Panel, BorderLayout.CENTER);
+
+                JPanel garage5Panel = new JPanel();
+                garage5OccupancyBar = new JProgressBar();
+                garage5OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setStringPainted(true);
+                garage5Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage5ImageLabel = new JLabel();
+                garage5ImageLabel.setIcon(garageImage);
+                garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5CapacityLabel = createLabel(garages.get(4).getName());
+                garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
+                garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
+                garage5Panel.add(garage5OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage5Panel, BorderLayout.CENTER);
 
                 break;
 
         }
 
-        gbc.gridy = 13;
-        seeTrendsButton = createButton("See Trends", gbc);
-        add(seeTrendsButton, gbc);
-        seeTrendsButton.setVisible(true);
+        seeTrendsButton = new JButton("See Trends");
+        seeTrendsButton.setPreferredSize(new Dimension(1500, 50));
+        seeTrendsButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        garagesPanel.add(seeTrendsButton, BorderLayout.SOUTH);
 
         // Repaint the frame to update the changes
         getContentPane().validate();
@@ -156,38 +372,54 @@ public class SimulationGUI extends JFrame {
         switch (garages.size()) //create labels based on num of garages (up to 5)
         {
             case 1:
-                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
                 break;
             case 2:
-                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
-                garage2CapacityLabel.setText(garages.get(1).getName() + " " + garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
                 break;
             case 3:
-                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
-                garage2CapacityLabel.setText(garages.get(1).getName() + " " + garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
-                garage3CapacityLabel.setText(garages.get(2).getName() + " " + garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setValue(getOccupancyPercentage(garages.get(2)));
                 break;
             case 4:
-                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
-                garage2CapacityLabel.setText(garages.get(1).getName() + " " + garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
-                garage3CapacityLabel.setText(garages.get(2).getName() + " " + garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
-                garage4CapacityLabel.setText(garages.get(3).getName() + " " + garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setValue(getOccupancyPercentage(garages.get(2)));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setValue(getOccupancyPercentage(garages.get(3)));
                 break;
             case 5:
-                garage1CapacityLabel.setText(garages.get(0).getName() + " " + garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
-                garage2CapacityLabel.setText(garages.get(1).getName() + " " + garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
-                garage3CapacityLabel.setText(garages.get(2).getName() + " " + garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
-                garage4CapacityLabel.setText(garages.get(3).getName() + " " + garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
-                garage5CapacityLabel.setText(garages.get(4).getName() + " " + garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setValue(getOccupancyPercentage(garages.get(2)));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setValue(getOccupancyPercentage(garages.get(3)));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setValue(getOccupancyPercentage(garages.get(4)));
                 break;
         }
     }
 
-    private JLabel createLabel(String text, GridBagConstraints gbc) {
+    private JLabel createLabel(String text) {
+
         JLabel label = new JLabel(text);
 
         // Increase font size
-        Font labelFont = new Font("SansSerif", Font.BOLD, 18);
+        Font labelFont = new Font("Roboto", Font.BOLD, 18);
         label.setFont(labelFont);
 
         // Add padding and background color
@@ -195,17 +427,30 @@ public class SimulationGUI extends JFrame {
         label.setBackground(Color.LIGHT_GRAY);
         label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        gbc.weightx = 0.0;
-        gbc.gridx = 2;
         return label;
+
     }
 
-    private JButton createButton(String text, GridBagConstraints gbc) {
+    private JButton createButton(String text) {
+
         JButton button = new JButton(text);
-        gbc.gridwidth = 3;
-        gbc.gridx = 0;
-        gbc.gridy++;
         return button;
+
+    }
+
+    // Takes a garage object and returns its current occupancy as a percentage
+    private static int getOccupancyPercentage(Garage garage) {
+
+        int maxCapacity = garage.getMaxCapacity();
+        int occupancy = garage.getOccupancy();
+
+        double doublePercentage = ((double) occupancy / maxCapacity) * 100;
+        int percentage = (int)Math.round(doublePercentage);
+
+        System.out.println(percentage);
+
+        return percentage;
+
     }
 
     public static String convertMinutesToAMPM(int minutes) {
