@@ -64,16 +64,18 @@ public class createGraph extends JFrame {
     }
     private XYDataset createDataset(String input, ArrayList<parkingStructure> garages) {
         final XYSeries singleG = new XYSeries(input);
-        for(int i=0; i < garages.size(); i++){
+       // for(int i=0; i < garages.size(); i++){
             //TO:DO Rewrite this method to be able to use database data
 
-            singleG.add(garages.get(i).getTime(),garages.get(i).getCurrent_capacity());
+         //   singleG.add(garages.get(i).getTime(),garages.get(i).getCurrent_capacity());
 //            singleG.add(130,75);
 //            singleG.add(200,1);
 //            singleG.add(230,69);
-        }
+        //}
 
-
+        singleG.add(130,75);
+       singleG.add(200,1);
+        singleG.add(230,69);
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(singleG);
         return dataset;
