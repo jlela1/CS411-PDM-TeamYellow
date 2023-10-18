@@ -1,19 +1,21 @@
 package backend.database.Presets;
+
 import backend.database.parkingStructure;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class NormalDay {
+public class Football {
     /* to access a certain garage, simply call the garage ex:
     NormalDay normalDay = new NormalDay();
     parkingStructure garage = normalDay.G1.getDay;
     garage.setTotal_capacity(100); // Modify a public property of G1
 
+
     time to park, time parked, and cars per minute are all public for easy access */
-    public int vehiclesPerMin = 40;
-    public int timeToPark = 5;
-    public int timeParked = 30;
+    public int vehiclesPerMin = 100;
+    public int timeToPark = 20;
+    public int timeParked = 60;
     Random rand = new Random(); // random number to distinguish between runs in SQL
     int upperbound = 5208;
     int random_num = rand.nextInt(upperbound);
@@ -61,4 +63,3 @@ public class NormalDay {
 
     }
 }
-

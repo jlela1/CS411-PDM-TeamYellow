@@ -3,17 +3,16 @@ import backend.database.parkingStructure;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-public class NormalDay {
+public class Fire {
     /* to access a certain garage, simply call the garage ex:
     NormalDay normalDay = new NormalDay();
     parkingStructure garage = normalDay.G1.getDay;
     garage.setTotal_capacity(100); // Modify a public property of G1
 
     time to park, time parked, and cars per minute are all public for easy access */
-    public int vehiclesPerMin = 40;
-    public int timeToPark = 5;
-    public int timeParked = 30;
+    public int vehiclesPerMin = 70;
+    public int timeToPark = 15;
+    public int timeParked = 45;
     Random rand = new Random(); // random number to distinguish between runs in SQL
     int upperbound = 5208;
     int random_num = rand.nextInt(upperbound);
@@ -28,7 +27,7 @@ public class NormalDay {
     public parkingStructure G1 = new parkingStructure("43rd & Elkhorn Ave", 655, 0, "", random_num, 0, Months[random], RandomDay, "");
     public parkingStructure G2 = new parkingStructure("Constant Center South", 1535, 0, "", random_num, 0, Months[random], RandomDay, "");
     public parkingStructure G3 = new parkingStructure("Constant Center North", 1045, 0, "", random_num, 0, Months[random], RandomDay, "");
-    public parkingStructure G4 = new parkingStructure("49th Street Stadium ", 745, 0, "", random_num, 0, Months[random], RandomDay, "");
+    public parkingStructure G4 = new parkingStructure("49th Street Stadium ", 0, 0, "", random_num, 0, Months[random], RandomDay, "");
     public parkingStructure G5 = new parkingStructure("43rd & Bluestone Ave", 1535, 0, "", random_num, 0, Months[random], RandomDay, "");
 
     public void setArray() {
@@ -61,4 +60,3 @@ public class NormalDay {
 
     }
 }
-
