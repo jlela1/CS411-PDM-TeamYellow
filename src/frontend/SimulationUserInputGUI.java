@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
 public class SimulationUserInputGUI extends JFrame {
 
@@ -18,6 +20,8 @@ public class SimulationUserInputGUI extends JFrame {
     private JButton startSimulationButton;
     private JButton seeTrendsButton;
 
+    private JComboBox<String> garageSelector;
+
     public SimulationUserInputGUI(ArrayList<Garage> garages) {
 
         setTitle("PDM Garage Simulation"); // Updated the title
@@ -30,6 +34,22 @@ public class SimulationUserInputGUI extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
 
         // Create and initialize components
+        String[] garageNames = new String[garages.size()];
+        for (int i = 0; i < garages.size(); i++) {
+            garageNames[i] = garages.get(i).getName();
+        }
+        garageSelector = new JComboBox<>(garageNames);
+
+        JLabel selectGarageLabel = new JLabel("Select garage");
+        selectGarageLabel.setFont(new Font("Arial", Font.BOLD, 26));
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10,10,10,10);
+        add(selectGarageLabel, gbc);
+
+        gbc.gridx = -2;
+        gbc.gridy++;
+        add(garageSelector, gbc);
 
         vehiclesSlider = createSlider(1, 60, 1, gbc);
         vehiclesValue = createLabel("1", gbc);
@@ -105,16 +125,16 @@ public class SimulationUserInputGUI extends JFrame {
         add(parkTimeValue, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 20;
         add(simulationDurationLabel, gbc);
         gbc.gridx = 1;
         add(durationSlider, gbc);
         gbc.gridx = 2;
         add(durationValue, gbc);
 
-        gbc.gridwidth = 3;
+
         gbc.gridx = 0;
-        gbc.gridy = 7;
+        gbc.gridy = -10;
         add(startSimulationButton, gbc);
 
         gbc.gridy = 12;
@@ -124,6 +144,22 @@ public class SimulationUserInputGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                String selectedGarageName = (String) garageSelector.getSelectedItem();
+                Garage selectedGarage = null;
+
+                // Declare selectedGarageName outside the if block
+                for (Garage garage : garages) {
+                    if (garage.getName().equals(selectedGarageName)) {
+                        selectedGarage = garage;
+                        break;
+                    }
+                }
+
+                if (selectedGarage == null) {
+                    // Handle the case where no garage is selected
+                    JOptionPane.showMessageDialog(SimulationUserInputGUI.this, "Please select a garage.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 // Get the values from the sliders and other components
                 int vehiclesPerMinute = vehiclesSlider.getValue();
                 int avgTimeToPark = timeToParkSlider.getValue();
