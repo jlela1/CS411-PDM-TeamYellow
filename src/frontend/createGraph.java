@@ -3,7 +3,7 @@ import backend.database.parkingStructure;
 import javax.swing.*;
 import java.sql.*;
 import java.sql.SQLException;
-
+import java.util.Random; //used solely for testing REMOVE after
 import javax.management.Query;
 
 import java.io.BufferedReader;
@@ -72,10 +72,20 @@ public class createGraph extends JFrame {
 //            singleG.add(200,1);
 //            singleG.add(230,69);
         //}
+        Random rand = new Random();
+        int rand_int1 = rand.nextInt(1000);
+        int rand_int2 = rand.nextInt(1000);
+        int rand_int3 = rand.nextInt(1000);
+        int rand_int4 = rand.nextInt(1000);
+        int rand_int5 = rand.nextInt(1000);
+        int rand_int6 = rand.nextInt(1000);
 
-        singleG.add(130,75);
-       singleG.add(200,1);
-        singleG.add(230,69);
+        singleG.add(130,rand_int1);
+       singleG.add(200,rand_int2);
+        singleG.add(230,rand_int3);
+        singleG.add(300,rand_int4);
+        singleG.add(330,rand_int5);
+        singleG.add(400,rand_int6);
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(singleG);
         return dataset;

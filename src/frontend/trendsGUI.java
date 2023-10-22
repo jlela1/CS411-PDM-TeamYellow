@@ -4,49 +4,80 @@ import javax.swing.*;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import frontend.createGraph;
+import frontend.GarageManager;
 import java.awt.*;
-import com.github.lgooddatepicker.components.DatePicker;
+
 
 
 import java.time.*;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Properties;
 
 
-public class trendsGUI extends JFrame {
+public class trendsGUI extends JFrame implements ActionListener {
 
 
-
+    private JButton getGraph, home;
+    private String garageName;
+    private JTextField userSelectionGarage;
+    private LocalDate date1, date2 ;
+    private DatePicker datePickerStart, datePickerEnd;
+    private JPanel subPanelGrid, subPanelBox, graphPanel;
+    private JFrame tGUI;
+    createGraph trendsGraph;
 
 
 
 
     public trendsGUI()
     {
+        tGUI = new JFrame();
+        garageName = "default";
+
         //Create the frame title and layout
-        setTitle("PDM Trends Dashboard");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLayout(new BorderLayout());
+        tGUI.setTitle("PDM Trends Dashboard");
+        tGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        tGUI.setLayout(new BorderLayout());
         //Header
         JPanel trendsHeader = PDMPanels.createHeader("PDM Trends Dashboard");
-        add(trendsHeader, BorderLayout.NORTH);
+        tGUI.add(trendsHeader, BorderLayout.NORTH);
 
         //User selection
 
-        //subFrame
-        JPanel subPanel = new JPanel();
-        //user selection for garage
-        JTextField userSelectionGarage = new JTextField("Which Garage?: ",20);
-        subPanel.add(userSelectionGarage);
+        //subPanel
+        subPanelBox = new JPanel();
+        subPanelGrid = new JPanel();
+
+        subPanelBox.setLayout(new BoxLayout(subPanelBox,BoxLayout.Y_AXIS));
+        //user selection for garage via text entry
+        JLabel userSelectTextPrompt = new JLabel("Please type in which garage you wish you view the trends of: ",JLabel.CENTER);
+        subPanelGrid.add(userSelectTextPrompt);
+
+        userSelectionGarage = new JTextField("");
+        userSelectionGarage.setColumns(20);
+
+        subPanelGrid.add(userSelectionGarage);
+        /* user garage selection via dropdown
+        JComboBox<ArrayList> dropdownUserSelect = new JComboBox<>();
+        ArrayList<Garage> g = ; note the ArrayList<Garage> that generates the list of garages is declared private with no getter or setter in other classes
+        */
+
         //Date picker
-        DatePicker datePickerStart = new DatePicker();
-        subPanel.add(datePickerStart);
-        DatePicker datePickerEnd = new DatePicker();
-        subPanel.add(datePickerEnd);
+        datePickerStart = new DatePicker();
+        JLabel userSelectionDate1 = new JLabel("Please select the beginning date: ");
+        subPanelGrid.add(userSelectionDate1);
+        subPanelGrid.add(datePickerStart);
+        JLabel userSelectionDate2 = new JLabel("Please select the ending date: ");
+        subPanelGrid.add(userSelectionDate2);
+        datePickerEnd = new DatePicker();
+        subPanelGrid.add(datePickerEnd);
+        //Button to create graph
+        getGraph = new JButton("Generate Trends Graph");
+        getGraph.addActionListener(this);
+        subPanelBox.add(subPanelGrid);
+        subPanelBox.add(getGraph);
+
 
 
 
@@ -58,22 +89,63 @@ public class trendsGUI extends JFrame {
 
         // calls createGraph and adds it
 
-        createGraph trendsGraph = new createGraph("garage1",1);
-        subPanel.add(trendsGraph.getContentPane(),BorderLayout.SOUTH);
+         trendsGraph = new createGraph(garageName,1);
+         graphPanel = new JPanel();
 
+        graphPanel.add(trendsGraph.getContentPane());
+        subPanelBox.add(graphPanel);
+        //home button
+        home = new JButton("Home");
+        subPanelBox.add(home);
         //Footer
         JPanel trendsFooter = PDMPanels.createFooter();
-        add(trendsFooter,BorderLayout.SOUTH);
-        add(subPanel,BorderLayout.CENTER);
+        tGUI.add(trendsFooter,BorderLayout.SOUTH);
+        tGUI.add(subPanelBox,BorderLayout.CENTER);
 
 
 
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        tGUI.setVisible(true);
+        tGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
 
 
 
     }
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource()==getGraph)
+        {
+            graphPanel.remove(trendsGraph.getContentPane());
+            tGUI.revalidate();
+            tGUI.repaint();
+
+
+            String garageNewName = userSelectionGarage.getText();
+            trendsGraph = new createGraph(garageNewName,1);
+            date1 = datePickerStart.getDate();
+            date2 = datePickerEnd.getDate();
+
+            graphPanel.add(trendsGraph.getContentPane());
+
+
+
+            tGUI.revalidate();
+            tGUI.repaint();
+
+
+
+
+
+
+        } else if (e.getSource()== home)
+        {
+
+        }
+    }
+
+
+
     public static void main(String[] args)
     {
         trendsGUI trendsGUI = new trendsGUI();
