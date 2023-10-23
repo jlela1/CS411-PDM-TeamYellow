@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.sql.*;
 public class pushTestDB { //this will populate your local SQL DB with the test values
     public static void main(String[] args) {
-        String connectionString = "jdbc:sqlserver://172.20.10.3;encrypt=true;trustServerCertificate=true;database=Trends;";
+        String connectionString = "jdbc:sqlserver://10.20.30.1;encrypt=true;trustServerCertificate=true;database=Trends;";
         /*replace the 192.168.0.170 with your IPv4 address. You can get this by opening a terminal and running "ipconfig"
         scroll down until you see the "Wireless LAN adapter Wi-Fi:". Use the IPv4 address from there. You will also need to
         enable SQL Server Authentication and enable the sa account https://www.fosstechnix.com/how-to-enable-sa-account-in-sql-server/

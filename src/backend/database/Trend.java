@@ -104,7 +104,7 @@ public class Trend {
             e.printStackTrace();
         }
 
-        String connectionString = "jdbc:sqlserver://172.20.10.3;encrypt=true;trustServerCertificate=true;database=Trends;";
+        String connectionString = "jdbc:sqlserver://10.20.30.1;encrypt=true;trustServerCertificate=true;database=Trends;";
         String user = "sa";
         String password = "admin";
 
