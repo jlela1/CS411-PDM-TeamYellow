@@ -1,4 +1,6 @@
 package frontend;
+import backend.database.Garage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -78,27 +80,18 @@ public class SimulationUserInputGUI extends JFrame {
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-//        add(footballStadiumCapacityLabel, gbc);
         gbc.gridx = 1;
-//        add(capacitySlider, gbc);
         gbc.gridx = 2;
-//        add(capacityValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-//        add(garage1CapacityLabel, gbc);
         gbc.gridx = 1;
-//        add(garage1CapacitySlider, gbc);
         gbc.gridx = 2;
-//        add(garage1CapacityValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-//        add(garage2CapacityLabel, gbc);
         gbc.gridx = 1;
-//        add(garage2CapacitySlider, gbc);
         gbc.gridx = 2;
-//        add(garage2CapacityValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;

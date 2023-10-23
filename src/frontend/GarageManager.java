@@ -1,5 +1,7 @@
 package frontend;
 
+import backend.database.Garage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

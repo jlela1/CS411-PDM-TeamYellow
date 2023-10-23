@@ -1,7 +1,7 @@
 package frontend;
+import backend.database.Garage;
 import backend.database.Trend;
 import backend.database.vehicle;
-import frontend.SimulationGUI;
 
 import java.util.ArrayList;
 import java.util.List;
