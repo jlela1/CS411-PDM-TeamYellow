@@ -19,12 +19,15 @@ public class trendsGUI extends JFrame implements ActionListener {
 
 
     private JButton getGraph, home;
-    private String garageName;
+    private String garageName, graphType;
     private JTextField userSelectionGarage;
     private LocalDate date1, date2 ;
     private DatePicker datePickerStart, datePickerEnd;
     private JPanel subPanelGrid, subPanelBox, graphPanel;
     private JFrame tGUI;
+
+    String garageTypeSelector[] = {"Occupancy","Availability","Vehicles Per Minute"};
+    static JComboBox garageTypeSelectionComboBox;
     createGraph trendsGraph;
 
 
@@ -34,6 +37,9 @@ public class trendsGUI extends JFrame implements ActionListener {
     {
         tGUI = new JFrame();
         garageName = "default";
+        graphType = "default";
+        garageTypeSelectionComboBox = new JComboBox(garageTypeSelector);
+
 
         //Create the frame title and layout
         tGUI.setTitle("PDM Trends Dashboard");
@@ -54,6 +60,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         JLabel userSelectTextPrompt = new JLabel("Please type in which garage you wish you view the trends of: ",JLabel.CENTER);
         subPanelGrid.add(userSelectTextPrompt);
 
+
         userSelectionGarage = new JTextField("");
         userSelectionGarage.setColumns(20);
 
@@ -72,6 +79,10 @@ public class trendsGUI extends JFrame implements ActionListener {
         subPanelGrid.add(userSelectionDate2);
         datePickerEnd = new DatePicker();
         subPanelGrid.add(datePickerEnd);
+        //ComboBox for graphType
+        JLabel userGraphTypePrompt = new JLabel("Please select which data you wish to view: ");
+        subPanelGrid.add(userGraphTypePrompt);
+        subPanelGrid.add(garageTypeSelectionComboBox);
         //Button to create graph
         getGraph = new JButton("Generate Trends Graph");
         getGraph.addActionListener(this);
@@ -120,7 +131,7 @@ public class trendsGUI extends JFrame implements ActionListener {
             tGUI.revalidate();
             tGUI.repaint();
 
-
+            graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
             String garageNewName = userSelectionGarage.getText();
             trendsGraph = new createGraph(garageNewName,1);
             date1 = datePickerStart.getDate();
@@ -132,6 +143,8 @@ public class trendsGUI extends JFrame implements ActionListener {
 
             tGUI.revalidate();
             tGUI.repaint();
+
+            System.out.println(graphType);
 
 
 
