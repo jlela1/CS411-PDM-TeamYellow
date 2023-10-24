@@ -164,6 +164,9 @@ public class GarageManager {
 
         JFrame garageListFrame = new JFrame("Garage List");
         garageListFrame.setLayout(new BorderLayout());
+        garageListFrame.setPreferredSize(new Dimension(500, 400));
+
+        JPanel headingPanel = PDMPanels.createHeader("Saved Garages for Simulation");
 
         JList<String> viewGarageList = new JList<>(garageListModel);
         viewGarageList.setFont(new Font("Roboto", Font.PLAIN, 16));
@@ -171,6 +174,7 @@ public class GarageManager {
 
         garageListFrame.add(scrollPane, BorderLayout.CENTER);
 
+        garageListFrame.add(headingPanel, BorderLayout.NORTH);
         garageListFrame.pack();
         garageListFrame.setVisible(true);
         garageListFrame.setLocationRelativeTo(null);
