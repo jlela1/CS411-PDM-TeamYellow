@@ -169,10 +169,6 @@ public class SimulationUserInputGUI extends JFrame {
                         garage.setNumVehiclesEnteringPerMin(Integer.parseInt(vehiclesValue.getText()));
                         garage.setAvgTimeToPark(Integer.parseInt(timeToParkValue.getText()));
                         garage.setAvgParkingDuration(Integer.parseInt(parkTimeValue.getText()));
-                        System.out.println(garage.getName());
-                        System.out.println(garage.getNumVehiclesEnteringPerMin());
-                        System.out.println(garage.getAvgTimeToPark());
-                        System.out.println(garage.getAvgParkingDuration());
                         vehiclesSlider.setValue(1);
                         timeToParkSlider.setValue(1);
                         parkTimeSlider.setValue(1);
@@ -202,11 +198,10 @@ public class SimulationUserInputGUI extends JFrame {
                 getContentPane().remove(simulationDurationLabel);
 
                 // Create an instance of SimulationGUI
-                // Constructor is currently invalid as parameters for SimulationGUI creation need to be updated
-                //SimulationGUI simulationGUI = new SimulationGUI(garages, Integer.parseInt(String.valueOf(durationValue)), new BorderLayout());
+                SimulationGUI simulationGUI = new SimulationGUI(garages, Integer.parseInt(durationValue.getText()), new BorderLayout());
 
                 // Make the SimulationGUI visible
-                //simulationGUI.setVisible(true);
+                simulationGUI.setVisible(true);
 
             }
         });

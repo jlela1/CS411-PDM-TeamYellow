@@ -26,8 +26,7 @@ public class SimulationGUI extends JFrame {
     private ArrayList<Garage> garages;
 
     // Initialize GUI for active portion of simulation
-    public SimulationGUI(ArrayList<Garage> garagesList, int vehiclesPerMinute,
-                         int avgTimeToPark, int avgParkTime, int simulationDuration, BorderLayout borderLayout) {
+    public SimulationGUI(ArrayList<Garage> garagesList, int simulationDuration, BorderLayout borderLayout) {
 
         garages = garagesList; //initialize value for private var, enable access on all functions in this class
 
@@ -359,8 +358,7 @@ public class SimulationGUI extends JFrame {
             }
         });
 
-        GarageSimulation garageSimulation = new GarageSimulation(this, garages, vehiclesPerMinute,
-                avgTimeToPark, avgParkTime, simulationDuration, time);
+        GarageSimulation garageSimulation = new GarageSimulation(this, garages, simulationDuration, time);
 
     }
 
@@ -448,8 +446,6 @@ public class SimulationGUI extends JFrame {
 
         double doublePercentage = ((double) occupancy / maxCapacity) * 100;
         int percentage = (int)Math.round(doublePercentage);
-
-        System.out.println(percentage);
 
         return percentage;
 

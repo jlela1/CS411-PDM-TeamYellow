@@ -1,5 +1,8 @@
 package backend.database;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 public class Garage {
     private String name;
     private int maxCapacity;
@@ -8,6 +11,8 @@ public class Garage {
     private int avgParkingDuration;
     private int avgTimeToPark;
 
+    public List<vehicle> parkingVehicleList;
+
     public Garage(String name, int maxCapacity) {
         this.name = name;
         this.maxCapacity = maxCapacity;
@@ -15,6 +20,7 @@ public class Garage {
         this.numVehiclesEnteringPerMin = 0;
         this.avgParkingDuration = 0;
         this.avgTimeToPark = 0;
+        this.parkingVehicleList = new CopyOnWriteArrayList<>();
     }
 
     public String getName() {
