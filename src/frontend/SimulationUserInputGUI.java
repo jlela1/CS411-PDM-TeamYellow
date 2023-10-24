@@ -1,6 +1,4 @@
 package frontend;
-import backend.database.Garage;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,9 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-
 public class SimulationUserInputGUI extends JFrame {
-
     private JSlider vehiclesSlider;
     private JLabel vehiclesValue;
     private JSlider parkTimeSlider;
@@ -21,9 +17,7 @@ public class SimulationUserInputGUI extends JFrame {
     private JLabel durationValue;
     private JButton startSimulationButton;
     private JButton seeTrendsButton;
-
     private JComboBox<String> garageSelector;
-
     public SimulationUserInputGUI(ArrayList<Garage> garages) {
 
         setTitle("PDM Garage Simulation"); // Updated the title
@@ -42,8 +36,15 @@ public class SimulationUserInputGUI extends JFrame {
         }
         garageSelector = new JComboBox<>(garageNames);
 
+        GridBagConstraints durationSliderGBC = new GridBagConstraints();
+        durationSliderGBC.insets = new Insets(10, 10, 10, 10);
+        durationSliderGBC.gridx = 3;
+        durationSliderGBC.gridy = 10;
+
+        int rowSpacing = 2;
+
         JLabel selectGarageLabel = new JLabel("Select garage");
-        selectGarageLabel.setFont(new Font("Arial", Font.BOLD, 26));
+        selectGarageLabel.setFont(new Font("Arial", Font.BOLD, 20));
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.insets = new Insets(10,10,10,10);
@@ -60,11 +61,10 @@ public class SimulationUserInputGUI extends JFrame {
         parkTimeSlider = createSlider(1, 180, 1, gbc);
         parkTimeValue = createLabel("1", gbc);
         durationSlider = createSlider(1, 720, 1, gbc);
-        durationValue = createLabel("1", gbc);
+        durationValue = createLabel("1", durationSliderGBC);
         startSimulationButton = createButton("Start Simulation", gbc);
         seeTrendsButton = createButton("See Trends", gbc);
         seeTrendsButton.setVisible(false);
-
 
         JLabel vehiclesEnteringPerMinuteLabel = new JLabel("Vehicles Entering per Minute:");
         JLabel averageTimeToParkLabel = new JLabel("Average Time to Park (minutes):");
@@ -76,62 +76,73 @@ public class SimulationUserInputGUI extends JFrame {
         addSliderChangeListener(parkTimeSlider, parkTimeValue);
         addSliderChangeListener(durationSlider, durationValue);
 
-        // Place components in the grid
-        gbc.gridwidth = 1;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridx = 1;
-        gbc.gridx = 2;
+        gbc.gridwidth = 1;
+        add(selectGarageLabel, gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
         gbc.gridx = 1;
-        gbc.gridx = 2;
+        gbc.gridy = 0;
+        add(garageSelector, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.gridx = 1;
-        gbc.gridx = 2;
-
-        gbc.gridx = 0;
-        gbc.gridy = 3;
         add(vehiclesEnteringPerMinuteLabel, gbc);
+
         gbc.gridx = 1;
+        gbc.gridy = 2;
         add(vehiclesSlider, gbc);
+
         gbc.gridx = 2;
+        gbc.gridy = 2;
         add(vehiclesValue, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
         add(averageTimeToParkLabel, gbc);
+
         gbc.gridx = 1;
+        gbc.gridy = 4;
         add(timeToParkSlider, gbc);
+
         gbc.gridx = 2;
+        gbc.gridy = 4;
         add(timeToParkValue, gbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         add(averageTimeParkedLabel, gbc);
+
         gbc.gridx = 1;
+        gbc.gridy = 6;
         add(parkTimeSlider, gbc);
+
         gbc.gridx = 2;
+        gbc.gridy = 6;
         add(parkTimeValue, gbc);
 
+        // "Duration" label and slider
         gbc.gridx = 0;
-        gbc.gridy = 20;
+        gbc.gridy = -7;
         add(simulationDurationLabel, gbc);
+
         gbc.gridx = 1;
+        gbc.gridy = -7;
         add(durationSlider, gbc);
+
         gbc.gridx = 2;
+        gbc.gridy = -7;
         add(durationValue, gbc);
 
-
-        gbc.gridx = 0;
-        gbc.gridy = -10;
+        // Move "Duration" components to the very bottom
+        gbc.gridx = 5;
+        gbc.gridy = 0; // Adjust the row number as needed
         add(startSimulationButton, gbc);
 
         gbc.gridy = 12;
         add(seeTrendsButton, gbc);
+
+        getContentPane().setBackground(Color.PINK);
 
         startSimulationButton.addActionListener(new ActionListener() {
             @Override
@@ -184,7 +195,6 @@ public class SimulationUserInputGUI extends JFrame {
         });
 
     }
-
     private JSlider createSlider(int min, int max, int value, GridBagConstraints gbc) {
         JSlider slider = new JSlider(min, max, value);
         slider.setMajorTickSpacing((max - min) / 4);
