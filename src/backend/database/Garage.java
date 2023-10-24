@@ -6,6 +6,7 @@ public class Garage {
     private int occupancy;
     private int numVehiclesEnteringPerMin;
     private int avgParkingDuration;
+    private int avgTimeToPark;
 
     public Garage(String name, int maxCapacity) {
         this.name = name;
@@ -13,6 +14,7 @@ public class Garage {
         this.occupancy = 0;
         this.numVehiclesEnteringPerMin = 0;
         this.avgParkingDuration = 0;
+        this.avgTimeToPark = 0;
     }
 
     public String getName() {
@@ -32,6 +34,7 @@ public class Garage {
 
     public int getAvgParkingDuration() {return avgParkingDuration;}
     public void setAvgParkingDuration(int newParkDur) {avgParkingDuration = newParkDur;}
+    public int getAvgTimeToPark() {return avgTimeToPark;}
+    public void setAvgTimeToPark(int newAvgTimeToPark) {avgTimeToPark = newAvgTimeToPark;}
 
 }
-

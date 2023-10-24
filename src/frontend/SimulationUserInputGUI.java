@@ -1,4 +1,6 @@
 package frontend;
+import backend.database.Garage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,7 +8,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+
 public class SimulationUserInputGUI extends JFrame {
+
     private JSlider vehiclesSlider;
     private JLabel vehiclesValue;
     private JSlider parkTimeSlider;
@@ -15,160 +19,173 @@ public class SimulationUserInputGUI extends JFrame {
     private JLabel parkTimeValue;
     private JSlider durationSlider;
     private JLabel durationValue;
+    private JButton saveGarageButton;
     private JButton startSimulationButton;
     private JButton seeTrendsButton;
-    private JComboBox<String> garageSelector;
+
+    private JComboBox<String> garageSelectorComboBox;
+
     public SimulationUserInputGUI(ArrayList<Garage> garages) {
 
-        setTitle("PDM Garage Simulation"); // Updated the title
-        setExtendedState(JFrame.MAXIMIZED_BOTH); //Maximize the screen
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Set JFrame to full-screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        setLayout(new BorderLayout());
 
-        // Create and initialize components
-        String[] garageNames = new String[garages.size()];
-        for (int i = 0; i < garages.size(); i++) {
-            garageNames[i] = garages.get(i).getName();
+        // Create header panel
+        JPanel headingPanel = PDMPanels.createHeader("PDM");
+        add(headingPanel, BorderLayout.NORTH);
+        JLabel simulationLabel = new JLabel("Garage Simulation Settings");
+        simulationLabel.setForeground(Color.DARK_GRAY);
+        simulationLabel.setBackground(Color.lightGray);
+        simulationLabel.setFont(new Font("Roboto", Font.BOLD, 24));
+        simulationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headingPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        headingPanel.add(simulationLabel);
+
+        JPanel footerPanel = PDMPanels.createFooter();
+        add(footerPanel, BorderLayout.SOUTH);
+
+        // topPanel contains selectGarageLabel, garageSelectorComboBox, and slidersPanel.
+        JPanel topPanel = new JPanel();
+        topPanel.add(Box.createRigidArea(new Dimension(getWidth(), getHeight())));
+        add(topPanel, BorderLayout.CENTER);
+        topPanel.setPreferredSize(new Dimension(2000, 1000));
+
+        JLabel selectGarageLabel = createLabel("Select Garage:");
+
+        selectGarageLabel.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
+
+        topPanel.add(selectGarageLabel, BorderLayout.NORTH);
+
+        // Initialize the garageSelectorComboBox
+        garageSelectorComboBox = new JComboBox<String>();
+
+        garageSelectorComboBox.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
+
+        // Add items to the combo box
+        for (Garage garage : garages) {
+            garageSelectorComboBox.addItem(garage.getName());
         }
-        garageSelector = new JComboBox<>(garageNames);
 
-        GridBagConstraints durationSliderGBC = new GridBagConstraints();
-        durationSliderGBC.insets = new Insets(10, 10, 10, 10);
-        durationSliderGBC.gridx = 3;
-        durationSliderGBC.gridy = 10;
+        // Add combo box to the top of the center panel
+        topPanel.add(garageSelectorComboBox, BorderLayout.NORTH);
 
-        int rowSpacing = 2;
+        JPanel slidersPanel = new JPanel();
 
-        JLabel selectGarageLabel = new JLabel("Select garage");
-        selectGarageLabel.setFont(new Font("Arial", Font.BOLD, 20));
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(10,10,10,10);
-        add(selectGarageLabel, gbc);
+        topPanel.add(slidersPanel, BorderLayout.NORTH);
+        slidersPanel.setPreferredSize(new Dimension(2000, 200));
 
-        gbc.gridx = -2;
-        gbc.gridy++;
-        add(garageSelector, gbc);
+        slidersPanel.setLayout(new GridBagLayout());
+
+        GridBagConstraints gbc = new GridBagConstraints();
 
         vehiclesSlider = createSlider(1, 60, 1, gbc);
-        vehiclesValue = createLabel("1", gbc);
+        vehiclesValue = createLabelGBC("1", gbc);
         timeToParkSlider = createSlider(1, 60, 1, gbc);
-        timeToParkValue = createLabel("1", gbc);
+        timeToParkValue = createLabelGBC("1", gbc);
         parkTimeSlider = createSlider(1, 180, 1, gbc);
-        parkTimeValue = createLabel("1", gbc);
-        durationSlider = createSlider(1, 720, 1, gbc);
-        durationValue = createLabel("1", durationSliderGBC);
-        startSimulationButton = createButton("Start Simulation", gbc);
-        seeTrendsButton = createButton("See Trends", gbc);
-        seeTrendsButton.setVisible(false);
+        parkTimeValue = createLabelGBC("1", gbc);
 
         JLabel vehiclesEnteringPerMinuteLabel = new JLabel("Vehicles Entering per Minute:");
         JLabel averageTimeToParkLabel = new JLabel("Average Time to Park (minutes):");
         JLabel averageTimeParkedLabel = new JLabel("Average Time Parked (minutes):");
+
+        gbc.gridx = -1;
+        gbc.gridy = 0;
+        slidersPanel.add(vehiclesEnteringPerMinuteLabel, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        slidersPanel.add(vehiclesSlider, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        slidersPanel.add(vehiclesValue, gbc);
+        gbc.gridx = -1;
+        gbc.gridy = 4;
+        slidersPanel.add(averageTimeToParkLabel, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        slidersPanel.add(timeToParkSlider, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        slidersPanel.add(timeToParkValue, gbc);
+        gbc.gridx = -1;
+        gbc.gridy = 8;
+        slidersPanel.add(averageTimeParkedLabel, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 10;
+        slidersPanel.add(parkTimeSlider, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 10;
+        slidersPanel.add(parkTimeValue, gbc);
+
+        saveGarageButton = createButton("Save Garage", gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 11;
+        slidersPanel.add(saveGarageButton, gbc);
+
         JLabel simulationDurationLabel = new JLabel("Simulation Duration (minutes):");
+
+        gbc.gridx = 0;
+        gbc.gridy = 12;
+        slidersPanel.add(simulationDurationLabel, gbc);
+
+        durationSlider = createSlider(1, 720, 1, gbc);
+        durationValue = createLabelGBC("1", gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 13;
+        slidersPanel.add(durationSlider, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 13;
+        slidersPanel.add(durationValue, gbc);
+
+        startSimulationButton = createButton("Start Simulation", gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 14;
+        slidersPanel.add(startSimulationButton, gbc);
 
         addSliderChangeListener(vehiclesSlider, vehiclesValue);
         addSliderChangeListener(timeToParkSlider, timeToParkValue);
         addSliderChangeListener(parkTimeSlider, parkTimeValue);
         addSliderChangeListener(durationSlider, durationValue);
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        add(selectGarageLabel, gbc);
+        saveGarageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        add(garageSelector, gbc);
+                // Equal to the string of the currently selected garage in the dropdown menu
+                String selectedGarage = (String) garageSelectorComboBox.getSelectedItem();
 
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        add(vehiclesEnteringPerMinuteLabel, gbc);
+                Garage garageToSave = null;
 
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        add(vehiclesSlider, gbc);
+                for (Garage garage : garages) {
+                    assert selectedGarage != null;
+                    if (selectedGarage.equals(garage.getName())) {
+                        garage.setNumVehiclesEnteringPerMin(Integer.parseInt(vehiclesValue.getText()));
+                        garage.setAvgTimeToPark(Integer.parseInt(timeToParkValue.getText()));
+                        garage.setAvgParkingDuration(Integer.parseInt(parkTimeValue.getText()));
+                        System.out.println(garage.getName());
+                        System.out.println(garage.getNumVehiclesEnteringPerMin());
+                        System.out.println(garage.getAvgTimeToPark());
+                        System.out.println(garage.getAvgParkingDuration());
+                        vehiclesSlider.setValue(1);
+                        timeToParkSlider.setValue(1);
+                        parkTimeSlider.setValue(1);
+                        durationSlider.setValue(1);
+                    }
+                }
 
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        add(vehiclesValue, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        add(averageTimeToParkLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        add(timeToParkSlider, gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 4;
-        add(timeToParkValue, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        add(averageTimeParkedLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 6;
-        add(parkTimeSlider, gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 6;
-        add(parkTimeValue, gbc);
-
-        // "Duration" label and slider
-        gbc.gridx = 0;
-        gbc.gridy = -7;
-        add(simulationDurationLabel, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = -7;
-        add(durationSlider, gbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = -7;
-        add(durationValue, gbc);
-
-        // Move "Duration" components to the very bottom
-        gbc.gridx = 5;
-        gbc.gridy = 0; // Adjust the row number as needed
-        add(startSimulationButton, gbc);
-
-        gbc.gridy = 12;
-        add(seeTrendsButton, gbc);
-
-        getContentPane().setBackground(Color.PINK);
+            }
+        });
 
         startSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-                String selectedGarageName = (String) garageSelector.getSelectedItem();
-                Garage selectedGarage = null;
-
-                // Declare selectedGarageName outside the if block
-                for (Garage garage : garages) {
-                    if (garage.getName().equals(selectedGarageName)) {
-                        selectedGarage = garage;
-                        break;
-                    }
-                }
-
-                if (selectedGarage == null) {
-                    // Handle the case where no garage is selected
-                    JOptionPane.showMessageDialog(SimulationUserInputGUI.this, "Please select a garage.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-                // Get the values from the sliders and other components
-                int vehiclesPerMinute = vehiclesSlider.getValue();
-                int avgTimeToPark = timeToParkSlider.getValue();
-                int avgParkTime = parkTimeSlider.getValue();
-                int simulationDuration = durationSlider.getValue();
 
                 getContentPane().remove(vehiclesSlider);
                 getContentPane().remove(timeToParkSlider);
@@ -185,16 +202,42 @@ public class SimulationUserInputGUI extends JFrame {
                 getContentPane().remove(simulationDurationLabel);
 
                 // Create an instance of SimulationGUI
-                SimulationGUI simulationGUI = new SimulationGUI(garages, vehiclesPerMinute,
-                        avgTimeToPark, avgParkTime, simulationDuration, new BorderLayout());
+                // Constructor is currently invalid as parameters for SimulationGUI creation need to be updated
+                //SimulationGUI simulationGUI = new SimulationGUI(garages, Integer.parseInt(String.valueOf(durationValue)), new BorderLayout());
 
                 // Make the SimulationGUI visible
-                simulationGUI.setVisible(true);
+                //simulationGUI.setVisible(true);
 
             }
         });
 
     }
+
+    private JLabel createLabelGBC(String text, GridBagConstraints gbc) {
+
+        JLabel label = new JLabel(text);
+        gbc.weightx = 0.0;
+        gbc.gridx = 2;
+        return label;
+
+    }
+
+    private JLabel createLabel(String text) {
+
+        JLabel label = new JLabel(text);
+
+        // Increase font size
+        Font labelFont = new Font("Roboto", Font.BOLD, 18);
+        label.setFont(labelFont);
+
+        // Add padding and background color
+        label.setOpaque(true);
+        label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        return label;
+
+    }
+
     private JSlider createSlider(int min, int max, int value, GridBagConstraints gbc) {
         JSlider slider = new JSlider(min, max, value);
         slider.setMajorTickSpacing((max - min) / 4);
@@ -206,18 +249,8 @@ public class SimulationUserInputGUI extends JFrame {
         return slider;
     }
 
-    private JLabel createLabel(String text, GridBagConstraints gbc) {
-        JLabel label = new JLabel(text);
-        gbc.weightx = 0.0;
-        gbc.gridx = 2;
-        return label;
-    }
-
     private JButton createButton(String text, GridBagConstraints gbc) {
         JButton button = new JButton(text);
-        gbc.gridwidth = 3;
-        gbc.gridx = 0;
-        gbc.gridy++;
         return button;
     }
 
