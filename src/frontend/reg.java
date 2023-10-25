@@ -1,5 +1,6 @@
 package frontend;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -9,7 +10,9 @@ import java.awt.Image;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 class Reg extends JFrame implements ActionListener {
+
 
     JButton registerButton, backButton;
     JPanel newPanel;
@@ -17,8 +20,10 @@ class Reg extends JFrame implements ActionListener {
     final JTextField textField1;
     final JPasswordField textField2, textField3;
 
+
     public Reg() {
         setTitle("PDM Registration");
+
 
         // Username
         ImageIcon userIcon = new ImageIcon("resources/user.png");
@@ -26,11 +31,13 @@ class Reg extends JFrame implements ActionListener {
         JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
         textField1 = new JTextField(20);
 
+
         // Password
         ImageIcon passIcon = new ImageIcon("resources/password1.png");
         Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel passImageLabel = new JLabel(new ImageIcon(passImage));
         textField2 = new JPasswordField(20);
+
 
         // Confirm Password
         ImageIcon confirmPassIcon = new ImageIcon("resources/confirmed.png");
@@ -38,17 +45,22 @@ class Reg extends JFrame implements ActionListener {
         JLabel confirmPassImageLabel = new JLabel(new ImageIcon(confirmImage));
         textField3 = new JPasswordField(20);
 
+
         // Register and Back buttons
         registerButton = new JButton("Register");
         PDMPanels.styleButton(registerButton);
 
+
         backButton = new JButton("Login Page");
         PDMPanels.styleButton(backButton);
+
 
         // New Panel
         newPanel = new JPanel(new BorderLayout());
 
+
         JPanel headingPanel = PDMPanels.createHeader("PDM Registration");
+
 
         JLabel welcomeLabel = new JLabel("Parking Made Easy");
         welcomeLabel.setForeground(Color.DARK_GRAY);
@@ -58,69 +70,86 @@ class Reg extends JFrame implements ActionListener {
         headingPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
         headingPanel.add(welcomeLabel);
 
+
         JPanel componentsPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+
 
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
 
+
         // Set placeholders and text color for the text fields
         setPlaceholder(textField1, "Username");
         setPlaceholder(textField2, "Password");
         setPlaceholder(textField3, "Confirm Password");
 
+
         gbc.gridx = 0;
         gbc.gridy = 1;
         componentsPanel.add(userImageLabel, gbc);
+
 
         gbc.gridx = 1;
         gbc.gridy = 1;
         componentsPanel.add(textField1, gbc);
 
+
         gbc.gridx = 0;
         gbc.gridy = 2;
         componentsPanel.add(passImageLabel, gbc);
+
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         componentsPanel.add(textField2, gbc);
 
+
         gbc.gridx = 0;
         gbc.gridy = 3;
         componentsPanel.add(confirmPassImageLabel, gbc);
 
+
         gbc.gridx = 1;
         gbc.gridy = 3;
         componentsPanel.add(textField3, gbc);
+
 
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.add(registerButton);
         buttonsPanel.add(backButton);
         componentsPanel.add(buttonsPanel, gbc);
 
+
         newPanel.add(headingPanel, BorderLayout.NORTH);
         newPanel.add(componentsPanel, BorderLayout.CENTER);
 
+
         add(newPanel, BorderLayout.CENTER);
+
 
         registerButton.addActionListener(this);
         backButton.addActionListener(this);
+
 
         // Create and add the footer using PageLayout
         JPanel footerPanel = PDMPanels.createFooter();
         add(footerPanel, BorderLayout.SOUTH);
 
+
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
+
 
     private void setPlaceholder(JTextComponent component, String placeholder) {
         component.setForeground(Color.GRAY);
@@ -134,6 +163,7 @@ class Reg extends JFrame implements ActionListener {
                 }
             }
 
+
             @Override
             public void focusLost(FocusEvent e) {
                 if (component.getText().trim().isEmpty()) {
@@ -144,27 +174,36 @@ class Reg extends JFrame implements ActionListener {
         });
     }
 
+
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == registerButton) { // Submit button clicked for registration
             String username = textField1.getText();
             String password = new String(textField2.getPassword());
 
+
+
+
             // Check if the username and password are not empty
             if (!username.isEmpty() && !password.isEmpty()) {
-                // Save the registration data to a file
-                try {
-                    String filePath = "src\\backend\\database\\user_data.txt";
-                    FileWriter writer = new FileWriter(filePath, true);
-                    writer.write(username + "," + password + "\n");
-                    writer.close();
-                    // Show registration successful message
-                    JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    // Close the registration window and open the login window
-                    this.dispose(); // Close the registration window
-                    Login login = new Login(); // Open the login window
-                    login.setVisible(true);
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(this, "Error saving registration data.", "Error", JOptionPane.ERROR_MESSAGE);
+                // Check if the username contains "admin" or "user"
+                if (username.toLowerCase().contains("admin") || username.toLowerCase().contains("user")) {
+                    // Save the registration data to a file
+                    try {
+                        String filePath = "src\\backend\\database\\user_data.txt";
+                        FileWriter writer = new FileWriter(filePath, true);
+                        writer.write(username + "," + password + "\n");
+                        writer.close();
+                        // Show registration successful message
+                        JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        // Close the registration window and open the login window
+                        this.dispose(); // Close the registration window
+                        Login login = new Login(); // Open the login window
+                        login.setVisible(true);
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(this, "Error saving registration data.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Invalid Login, please add \"admin\" or \"user\" to your username.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Username and password cannot be empty. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -176,6 +215,7 @@ class Reg extends JFrame implements ActionListener {
             login.setVisible(true);
         }
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
