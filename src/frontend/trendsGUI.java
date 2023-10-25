@@ -1,149 +1,170 @@
 package frontend;
 
 import javax.swing.*;
+
+import com.github.lgooddatepicker.components.DatePicker;
+import frontend.createGraph;
+import frontend.GarageManager;
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
+
+
+
+import java.time.*;
+import java.util.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class trendsGUI extends JFrame {
-    private JComboBox<String> timeSelection;
-    private JButton homeButton;
-    private JPanel garagePanel;
-    private Map<String, Integer> garageCapacities;
-    //JLabel headerLabel, footerLabel ;
-    //JPanel headerPanel,subPanel;
+public class trendsGUI extends JFrame implements ActionListener {
 
-    public trendsGUI() {
-        setTitle("PDM Trends Dashboard");
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Set JFrame to full-screen
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
 
-        initializeGarageCapacities();
-// Header
-        JPanel headerPanel = new JPanel();
-        headerPanel.setBackground(Color.GRAY);
-        headerPanel.setLayout(new BorderLayout());
+    private JButton getGraph, home;
+    private String garageName, graphType;
+    private JTextField userSelectionGarage;
+    private LocalDate date1, date2 ;
+    private DatePicker datePickerStart, datePickerEnd;
+    private JPanel subPanelGrid, subPanelBox, graphPanel;
+    private JFrame tGUI;
 
-        JLabel headingLabel = new JLabel("PDM Trends Page");
-        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
-        headingLabel.setForeground(Color.WHITE);
-        headingLabel.setHorizontalAlignment(JLabel.CENTER);
-        headerPanel.add(headingLabel, BorderLayout.NORTH);
+    String garageTypeSelector[] = {"Occupancy","Availability","Vehicles Per Minute"};
+    static JComboBox garageTypeSelectionComboBox;
+    createGraph trendsGraph;
 
-        // Time Dropdown
-        JPanel timeSection = new JPanel();
-        timeSection.setBackground(Color.GRAY);
-        timeSelection = new JComboBox<>(new String[]{
-                "07:00 AM", "07:10 AM", "07:20 AM", "07:30 AM", "07:40 AM", "07:50 AM",
-                "08:00 AM", "08:10 AM", "08:20 AM", "08:30 AM", "08:40 AM", "08:50 AM",
-                "09:00 AM", "09:10 AM", "09:20 AM", "09:30 AM", "09:40 AM", "09:50 AM",
-                "10:00 AM"
-        });
-        timeSelection.setFont(new Font("Roboto", Font.PLAIN, 16));
-        timeSelection.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                updateGarageCapacities();
-            }
-        });
-        timeSection.add(new JLabel("Select Time Period:"));
-        timeSection.add(timeSelection);
-        headerPanel.add(timeSection, BorderLayout.CENTER);
-        add(headerPanel, BorderLayout.NORTH);
 
-        // Garage Panel
-        garagePanel = new JPanel();
-        garagePanel.setLayout(new GridLayout(3, 1));
 
-        // Add initial garage information to the panel
-        updateGarageCapacities();
 
-        JScrollPane scrollPane = new JScrollPane(garagePanel);
-        add(scrollPane, BorderLayout.CENTER);
+    public trendsGUI()
+    {
+        tGUI = new JFrame();
+        garageName = "default";
+        graphType = "default";
+        garageTypeSelectionComboBox = new JComboBox(garageTypeSelector);
 
-        // Home Button
-        JButton controlsPanel = new JButton();
-        homeButton = new JButton(" Go Home Page");
-        homeButton.setFont(new Font("Roboto", Font.BOLD, 15));
-        controlsPanel.add(homeButton);
-        controlsPanel.setFocusPainted(false);
-        add(controlsPanel, BorderLayout.LINE_START);
 
-        homeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AdminHomePage adminHomePage = new AdminHomePage();
-                adminHomePage.setVisible(true);
-            }
-        });
+        //Create the frame title and layout
+        tGUI.setTitle("PDM Trends Dashboard");
+        tGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        tGUI.setLayout(new BorderLayout());
+        //Header
+        JPanel trendsHeader = PDMPanels.createHeader("PDM Trends Dashboard");
+        tGUI.add(trendsHeader, BorderLayout.NORTH);
 
-        JLabel footerLabel = new JLabel("Parking Demand Management (PDM)");
-        footerLabel.setFont(new Font("Roboto", Font.ITALIC, 15));
-        footerLabel.setForeground(Color.WHITE);
-        footerLabel.setHorizontalAlignment(JLabel.CENTER);
+        //User selection
 
-        JPanel footerPanel = new JPanel();
-        footerPanel.setBackground(new Color(122, 114, 114, 173));
-        footerPanel.add(footerLabel);
-        add(footerPanel, BorderLayout.SOUTH);
+        //subPanel
+        subPanelBox = new JPanel();
+        subPanelGrid = new JPanel();
+
+        subPanelBox.setLayout(new BoxLayout(subPanelBox,BoxLayout.Y_AXIS));
+        //user selection for garage via text entry
+        JLabel userSelectTextPrompt = new JLabel("Please type in which garage you wish you view the trends of: ",JLabel.CENTER);
+        subPanelGrid.add(userSelectTextPrompt);
+
+
+        userSelectionGarage = new JTextField("");
+        userSelectionGarage.setColumns(20);
+
+        subPanelGrid.add(userSelectionGarage);
+        /* user garage selection via dropdown
+        JComboBox<ArrayList> dropdownUserSelect = new JComboBox<>();
+        ArrayList<Garage> g = ; note the ArrayList<Garage> that generates the list of garages is declared private with no getter or setter in other classes
+        */
+
+        //Date picker
+        datePickerStart = new DatePicker();
+        JLabel userSelectionDate1 = new JLabel("Please select the beginning date: ");
+        subPanelGrid.add(userSelectionDate1);
+        subPanelGrid.add(datePickerStart);
+        JLabel userSelectionDate2 = new JLabel("Please select the ending date: ");
+        subPanelGrid.add(userSelectionDate2);
+        datePickerEnd = new DatePicker();
+        subPanelGrid.add(datePickerEnd);
+        //ComboBox for graphType
+        JLabel userGraphTypePrompt = new JLabel("Please select which data you wish to view: ");
+        subPanelGrid.add(userGraphTypePrompt);
+        subPanelGrid.add(garageTypeSelectionComboBox);
+        //Button to create graph
+        getGraph = new JButton("Generate Trends Graph");
+        getGraph.addActionListener(this);
+        subPanelBox.add(subPanelGrid);
+        subPanelBox.add(getGraph);
+
+
+
+
+
+
+
+
+
+
+        // calls createGraph and adds it
+
+        trendsGraph = new createGraph(garageName,1);
+        graphPanel = new JPanel();
+
+        graphPanel.add(trendsGraph.getContentPane());
+        subPanelBox.add(graphPanel);
+        //home button
+        home = new JButton("Home");
+        subPanelBox.add(home);
+        //Footer
+        JPanel trendsFooter = PDMPanels.createFooter();
+        tGUI.add(trendsFooter,BorderLayout.SOUTH);
+        tGUI.add(subPanelBox,BorderLayout.CENTER);
+
+
+
+        tGUI.setVisible(true);
+        tGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+
+
 
     }
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getSource()==getGraph)
+        {
+            graphPanel.remove(trendsGraph.getContentPane());
+            tGUI.revalidate();
+            tGUI.repaint();
 
-    private void initializeGarageCapacities() {
-        garageCapacities = new HashMap<>();
-        garageCapacities.put("  Football Stadium", 44);
-        garageCapacities.put("  43rd & Elkhorn", 55);
-        garageCapacities.put("  43rd & Bluestone", 49);
-    }
+            graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
+            String garageNewName = userSelectionGarage.getText();
+            trendsGraph = new createGraph(garageNewName,1);
+            date1 = datePickerStart.getDate();
+            date2 = datePickerEnd.getDate();
 
-    private void updateGarageCapacities() {
-        String selectedTime = (String) timeSelection.getSelectedItem();
-
-        // Check if the selectedTime string has a valid format (hh:mm AM/PM)
-        if (selectedTime.matches("\\d{2}:\\d{2} [APap][Mm]")) {
-            // Extract the hour part from the selected time
-            int hour = Integer.parseInt(selectedTime.substring(0, 2));
-
-            // Simulate changing capacities based on the selected time
-            int capacityChange = hour >= 7 && hour <= 10 ? hour - 6 : 0;
-
-            // Update garage capacities
-            for (Map.Entry<String, Integer> entry : garageCapacities.entrySet()) {
-                int updatedCapacity = entry.getValue() + capacityChange;
-                entry.setValue(Math.max(updatedCapacity, 0));
-            }
+            graphPanel.add(trendsGraph.getContentPane());
 
 
-            updateGaragePanel();
-        } else {
-            // Handle invalid input format
-            JOptionPane.showMessageDialog(this, "Invalid time format. Please select a valid time.");
+
+            tGUI.revalidate();
+            tGUI.repaint();
+
+
+
+
+
+
+
+
+        } else if (e.getSource()== home) //home button listener
+        {
+
         }
     }
 
 
-    private void updateGaragePanel() {
-        garagePanel.removeAll();
 
-        for (Map.Entry<String, Integer> entry : garageCapacities.entrySet()) {
-            JPanel garageInfoPanel = new JPanel(new GridLayout(3, 1));
-            garageInfoPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-            JLabel garageNameLabel = new JLabel(entry.getKey());
-            JLabel capacityLabel = new JLabel("  Capacity: " + entry.getValue());
-
-            garageInfoPanel.add(garageNameLabel);
-            garageInfoPanel.add(capacityLabel);
-
-            garagePanel.add(garageInfoPanel);
-        }
-
-        garagePanel.revalidate();
-        garagePanel.repaint();
+    public static void main(String[] args)
+    {
+        trendsGUI trendsGUI = new trendsGUI();
     }
+
 
 }
+
+
