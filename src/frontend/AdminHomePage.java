@@ -63,6 +63,7 @@ public class AdminHomePage extends JFrame{
         createSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dispose();
                 SimulationOptions simulationOptions = new SimulationOptions();
                 simulationOptions.setVisible(true);
             }

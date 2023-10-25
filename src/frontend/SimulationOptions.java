@@ -145,6 +145,8 @@ public class SimulationOptions extends JFrame {
         CustomSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                dispose();
                 GarageManager simulationStart = new GarageManager();
             }
         });
@@ -218,6 +220,7 @@ public class SimulationOptions extends JFrame {
                 garages.add(2, garage3);
                 garages.add(3, garage4);
 
+                dispose();
                 // Create an instance of SimulationGUI
                 SimulationGUI simulationGUI = new SimulationGUI(garages, time, new BorderLayout());
 

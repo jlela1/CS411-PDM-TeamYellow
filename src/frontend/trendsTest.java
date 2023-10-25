@@ -1,11 +1,7 @@
 package frontend;
 import java.sql.*;
-import javax.management.Query;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 import backend.database.parkingStructure;
 import java.util.ArrayList;
@@ -25,33 +21,34 @@ public class trendsTest {
         String fileName = "src/trendy.txt";
         Vector<Integer> simulationNumbers = new Vector<>();
         Vector<Integer> times = new Vector<>();
-        Vector<String> garageIds = new Vector<>();
+        Vector<String> garageNames = new Vector<>();
         Vector<Integer> occupancies = new Vector<>();
         Vector<Integer> capacities = new Vector<>();
+        Vector<Integer> garageIDs = new Vector<>();
         Vector<String> notifications = new Vector<>();
         Vector<String> clockTimes = new Vector<>();
         Vector<String> months = new Vector<>();
         Vector<Integer> days = new Vector<>();
         Vector<String> long_dates = new Vector<>();
-        parkingStructure garages;
-        garages = new parkingStructure();
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
-                if (data.length == 10) {
+                if (data.length == 11) {
 
-                    simulationNumbers.add(Integer.parseInt(data[0]));                    times.add(Integer.parseInt(data[1]));
-                    garageIds.add(data[2]);
+                    simulationNumbers.add(Integer.parseInt(data[0]));
+                    times.add(Integer.parseInt(data[1]));
+                    garageNames.add(data[2]);
                     occupancies.add(Integer.parseInt(data[3]));
                     capacities.add(Integer.parseInt(data[4]));
-                    notifications.add(data[5]);
-                    clockTimes.add(data[6]);
-                    months.add(data[7]);
-                    days.add(Integer.parseInt(data[8]));
-                    long_dates.add(data[9]);
+                    garageIDs.add(Integer.parseInt(data[5]));
+                    notifications.add(data[6]);
+                    clockTimes.add(data[7]);
+                    months.add(data[8]);
+                    days.add(Integer.parseInt(data[9]));
+                    long_dates.add(data[10]);
                 } else {
                     System.err.println("Skipping invalid line: " + line);
                 }
@@ -66,7 +63,7 @@ public class trendsTest {
         for (int i = 0; i < simulationNumbers.size(); i++) {
             System.out.println("Simulation Number: " + simulationNumbers.get(i));
             System.out.println("Time: " + times.get(i));
-            System.out.println("Garage ID: " + garageIds.get(i));
+            System.out.println("Garage ID: " + garageNames.get(i));
             System.out.println("Current Occupancy: " + occupancies.get(i));
             System.out.println("Capacity: " + capacities.get(i));
             System.out.println("Notification: " + notifications.get(i));
@@ -191,28 +188,27 @@ public class trendsTest {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
-                if (data.length == 10) {
+                if (data.length == 11) {
 
-                    switch(data[2])
+                    switch(Integer.parseInt(data[5]))
                     {
-                        case "'garage1'":
-                            System.out.println("case garage1");
+                        case 0:
                             p.get(0).add(counter1, addNewParkStruct(data));
                             counter1++;
                             break;
-                        case "'garage2'":
+                        case 1:
                             p.get(1).add(counter2, addNewParkStruct(data));
                             counter2++;
                             break;
-                        case "'garage3'":
+                        case 2:
                             p.get(2).add(counter3, addNewParkStruct(data));
                             counter3++;
                             break;
-                        case "'garage4'":
+                        case 3:
                             p.get(3).add(counter4, addNewParkStruct(data));
                             counter4++;
                             break;
-                        case "'garage5'":
+                        case 4:
                             p.get(4).add(counter5, addNewParkStruct(data));
                             counter5++;
                             break;
@@ -234,14 +230,15 @@ public class trendsTest {
         parkingStructure pb = new parkingStructure();
         pb.setSimulationNumber(Integer.parseInt(data[0]));
         pb.setTime(Integer.parseInt(data[1]));
-        pb.setGarage_id(data[2]);
+        pb.setGarage_name(data[2]);
         pb.setCurrent_capacity(Integer.parseInt(data[3]));
         pb.setTotal_capacity(Integer.parseInt(data[4]));
-        pb.setNotification(data[5]);
-        pb.setClock_time(data[6]);
-        pb.setMonth(data[7]);
-        pb.setDay(Integer.parseInt(data[8]));
-        System.out.println(pb.toString());
+        pb.setGarageID(Integer.parseInt(data[5]));
+        pb.setNotification(data[6]);
+        pb.setClock_time(data[7]);
+        pb.setMonth(data[8]);
+        pb.setDay(Integer.parseInt(data[9]));
+        pb.setLong_date(data[10]);
         return pb;
     }
 

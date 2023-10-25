@@ -353,7 +353,8 @@ public class SimulationGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SwingUtilities.invokeLater(() -> {
-                    trendsGUI trendsPage = new trendsGUI(garages.get(0).getName(), garages.size());
+                    dispose();
+                    trendsGUI trendsPage = new trendsGUI(garages.get(0).getName(), garages.size(), garages);
                     trendsPage.setVisible(true);
                 });
             }

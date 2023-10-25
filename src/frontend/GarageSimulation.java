@@ -38,20 +38,19 @@ public class GarageSimulation {
                 MilitaryTimeConverter converter = new MilitaryTimeConverter();
 
                 for (Garage garage : garages) {
-                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation);
+                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation, garage.getGarageID());
                     // ...
                 }
 
                 // end of SQL stuff
 
-
+                //check for cars entering garage rate changes
                 for (int i = 0; i < garages.size(); i++) { //for each garage, execute vehicle algorithms
 
                     //update num vehicles parking per minute
                     for (int j = 0; j < garages.get(i).variableNumVehPerMin.size(); j++) { //iterate over number of vehicle rate changes in stored arrayList
                         if (garages.get(i).variableNumVehPerMin.get(j).getTime() == time) { //if the time set in one of the arrayList values is equal to the current time (time to change vehicle rates)
                             garages.get(i).setNumVehiclesEnteringPerMin(garages.get(i).variableNumVehPerMin.get(j).getRate()); //set current num of vehicle rate to specified one stored in array
-                            System.out.println(garages.get(i).getName() + "'s veh per min is now set to " + garages.get(i).getNumVehiclesEnteringPerMin() + " at " + time); //test
                         }
                     }
 
@@ -149,7 +148,7 @@ public class GarageSimulation {
                     simulationGUI.updateSimLabels(garages, time, notificiation);
 
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

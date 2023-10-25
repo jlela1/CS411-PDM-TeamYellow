@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Objects;
 import java.util.Random;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -31,7 +30,7 @@ public class Trend {
         return input.replace(",", "");
     }
 
-    public void setGarage(Trend stats, int time, int garage1Occupancy, int garage1Capacity, String Clock_time, String name, String long_date, String notification){
+    public void setGarage(Trend stats, int time, int garage1Occupancy, int garage1Capacity, String Clock_time, String name, String long_date, String notification, int garageID){
 
         // initialize trending object to output stats from garages for SQL
         stats = new Trend();
@@ -49,7 +48,7 @@ public class Trend {
         Old random month and day functionality */
 
         // Start of SQL stuff. Set variables to pass into trend.txt and SQL DB
-            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + "'" + removeCommasFromString(notification) + "'" + "," + "'" + Clock_time + "'" + "," + "'" + dtf.format(now) +"'" + "," + dtf2.format(now) + "," + "'" + long_date +"'" ); // output line
+            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + garageID + "," + "'" + removeCommasFromString(notification) + "'" + "," + "'" + Clock_time + "'" + "," + "'" + dtf.format(now) +"'" + "," + dtf2.format(now) + "," + "'" + long_date +"'" ); // output line
 
         stats.setString(line);
 

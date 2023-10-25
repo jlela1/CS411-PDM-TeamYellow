@@ -20,35 +20,39 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class createGraph extends JFrame {
     public createGraph(String input, int numGar) {
-        //trendsTest.main(new String[0]);
         ArrayList<ArrayList<parkingStructure>> garages = new ArrayList<ArrayList<parkingStructure>>();
         trendsTest.readAndStoreToGraph(garages, numGar);
-//        pb.setTime(10);
-//        pb.setCurrent_capacity(10);
-//        pb.setGarage_id("G1");
-//        garages.add(pb);
 
-        XYDataset dataset = createDataset(input, garages.get(0));;
+        XYDataset dataset = createDataset(input, garages.get(1)); //initialize as base case
 
-        switch (input)
+        int inputGarageID = -1; //initialize input garage ID
+
+        String normalizedInputString = "'" + input + "'";
+
+        for (int i = 0; i < garages.size(); i++) {
+            if (garages.get(i).get(0).getGarage_name().equals(normalizedInputString)) {
+                inputGarageID = garages.get(i).get(0).getGarageID();
+            }
+        }
+
+        switch (inputGarageID)
         {
-            case "garage1":
+            case 0:
                 dataset = createDataset(input, garages.get(0));
                 break;
-            case "garage2":
+            case 1:
                 dataset = createDataset(input, garages.get(1));
                 break;
-            case "garage3":
+            case 2:
                 dataset = createDataset(input, garages.get(2));
                 break;
-            case "garage4":
+            case 3:
                 dataset = createDataset(input, garages.get(3));
                 break;
-            case "garage5":
+            case 4:
                 dataset = createDataset(input, garages.get(4));
                 break;
         }
-
 
         JFreeChart xyChart = ChartFactory.createXYLineChart(
                 "PDM Trends",
@@ -82,7 +86,7 @@ public class createGraph extends JFrame {
     public static void main(String[] args) throws Exception {
 
         SwingUtilities.invokeAndWait(() -> {
-            createGraph example = new createGraph("garage3", 3);
+            createGraph example = new createGraph("Constant Center South", 4);
             example.setSize(800, 400);
             example.setLocationRelativeTo(null);
             example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

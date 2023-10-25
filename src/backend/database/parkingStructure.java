@@ -1,7 +1,9 @@
 package backend.database;
 
 public class parkingStructure {
-    private String garage_id;
+    private String garage_name;
+
+    private int garageID;
     private int total_capacity;
     private int current_capacity; //cars in lot
     private int parking_availability; //spots available
@@ -18,7 +20,7 @@ public class parkingStructure {
      * Create new parking structure
      */
     public parkingStructure() {
-        this.garage_id = "";
+        this.garage_name = "";
         this.total_capacity = 0;
         this.current_capacity = 0;
         this.parking_availability = 0;
@@ -33,9 +35,9 @@ public class parkingStructure {
     } /**
      * Create new parking structure with specified inputs
      */
-    public parkingStructure(String garage_id, int total_capacity, int current_capacity, String notification,
+    public parkingStructure(String garage_name, int total_capacity, int current_capacity, String notification,
                             int simulation_number, int time, String month, int day, String clock_time, String long_date) {
-        this.garage_id = garage_id;
+        this.garage_name = garage_name;
         this.total_capacity = total_capacity;
         this.current_capacity = current_capacity;
         this.notification = notification;
@@ -49,8 +51,8 @@ public class parkingStructure {
 
 
     // Getter methods
-    public String getGarage_id() {
-        return garage_id;
+    public String getGarage_name() {
+        return garage_name;
     }
 
     public int getTotal_capacity() {
@@ -70,8 +72,8 @@ public class parkingStructure {
     }
 
     // Setter methods
-    public void setGarage_id(String garage_id) {
-        this.garage_id = garage_id;
+    public void setGarage_name(String garage_name) {
+        this.garage_name = garage_name;
     }
 
     public void setTotal_capacity(int total_capacity) {
@@ -159,10 +161,14 @@ public class parkingStructure {
     public void setLong_date(String long_date) {
         this.long_date = long_date;
     }
+
+    public int getGarageID() {return garageID;}
+
+    public void setGarageID(int newGarageID) {garageID = newGarageID;}
     @Override
     public String toString() {
         return "ParkingStructure [" +
-                "garage_id:'" + garage_id + '\'' +
+                "garage_id:'" + garage_name + '\'' +
                 ", total_capacity:" + total_capacity +
                 ", current_capacity:" + current_capacity +
                 ", parking_availability:" + parking_availability +
