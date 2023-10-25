@@ -22,6 +22,7 @@ public class SimulationGUI extends JFrame {
     private JLabel garage5CapacityLabel;
     private JProgressBar garage5OccupancyBar;
     private JButton seeTrendsButton;
+    private JLabel notificationLabel;
 
     private ArrayList<Garage> garages;
 
@@ -70,7 +71,7 @@ public class SimulationGUI extends JFrame {
         notificationPanel.setPreferredSize(new Dimension(1500, 100));
 
         // Create notification label
-        JLabel notificationLabel = new JLabel("Notification:", SwingConstants.CENTER);
+        notificationLabel = new JLabel("Notification:", SwingConstants.CENTER);
         Font labelFont = new Font("Roboto", Font.BOLD, 18);
         notificationLabel.setFont(labelFont);
         notificationLabel.setOpaque(true);
@@ -363,11 +364,13 @@ public class SimulationGUI extends JFrame {
     }
 
     // Called by simulation driver code at the end of each simulation tick
-    public void updateSimLabels(ArrayList<Garage> garageList, int time) {
+    public void updateSimLabels(ArrayList<Garage> garageList, int time, String notification) {
 
         garages = garageList; //update local private var with new info
 
         timeLabel.setText("Time: " + convertMinutesToAMPM(time));
+
+        notificationLabel.setText(notification);
 
         switch (garages.size()) //create labels based on num of garages (up to 5)
         {

@@ -20,6 +20,7 @@ public class GarageSimulation {
 
             int time = timeValue;
             int endTime = time + simulationDuration;
+            String notificiation = "Notification: ";
 
             //establishing SQL trend stuff
             Trend stats;
@@ -52,7 +53,14 @@ public class GarageSimulation {
                             // Time to park!
                             if (vehicle.getParking_in() <= 0) { //if wait to park equal to 0: waiting ended
 
-                                assignGarage(vehicle, garages, i); //assign vehicle to a garage
+                                String tempNotification = assignGarage(vehicle, garages, i); //assign vehicle to garage, output string if full
+                                if (tempNotification != "") {
+                                    notificiation = "Notification: " + tempNotification;
+                                }
+
+                                //update gui with notifications
+                                simulationGUI.updateSimLabels(garages, time, notificiation);
+
 
                                 //update counters
                                 if (vehicle.getGarageIndex() == 0) { //check if assigned to garage 0
@@ -124,7 +132,7 @@ public class GarageSimulation {
                         garages.get(i).parkingVehicleList.add(newVehicle);
                     }
 
-                    simulationGUI.updateSimLabels(garages, time);
+                    simulationGUI.updateSimLabels(garages, time, notificiation);
 
                     try {
                         Thread.sleep(100);
@@ -133,6 +141,7 @@ public class GarageSimulation {
                     }
 
                 }
+
             }
 
             stats.Write(); // write to file and SQL DB
@@ -143,7 +152,7 @@ public class GarageSimulation {
 
     }
 
-    private void assignGarage(vehicle vehicleToAssign, ArrayList<Garage> garages, int prefGarage) {
+    private String assignGarage(vehicle vehicleToAssign, ArrayList<Garage> garages, int prefGarage) {
 
         //logic:
         //check of all garages full
@@ -163,7 +172,7 @@ public class GarageSimulation {
         }
         //if all garages full, return without doing anything
         if (fullCounter >= garages.size()) {
-            return;
+            return "All Garages Are Full! You cannot park at this time.";
         }
 
         // Check if the chosen garage is 90% or greater capacity (full/unlikely to find a spot)
@@ -186,14 +195,15 @@ public class GarageSimulation {
                 if (garages.get(prefGarage).getMaxCapacity() > garages.get(prefGarage).getOccupancy()) {
                     vehicleToAssign.setParked(true);
                     vehicleToAssign.setGarageIndex(prefGarage);
-                    return;
+                    return "Vehicle Assigned to Preferred Garage";
                 } else { //pref garage is full, assign to another random garage less than 100% full
 
                     boolean successfullyAssigned = false; //temp var to support while loop to loop until random garage int matches an available garage
+                    int randomGarageInt = 0;
                     while (successfullyAssigned == false) {
 
                         //generate random int based on how many garages (1-5)
-                        int randomGarageInt = 0;
+                        randomGarageInt = 0;
                         switch (garages.size())
                         {
                             case 1:
@@ -224,7 +234,7 @@ public class GarageSimulation {
                         } //one of these if statements has to work, since we checked if all garages were full at the beginning. Cannot be infinite loop.
                     }
 
-                    return;
+                    return "" + garages.get(prefGarage).getName() + " is full, assigning vehicle to " + garages.get(randomGarageInt).getName();
 
                 }
 
@@ -232,10 +242,11 @@ public class GarageSimulation {
 
 
                 boolean successfullyAssigned = false; //temp var to support while loop to loop until random garage int matches an available garage
+                int randomGarageInt = 0;
                 while (successfullyAssigned == false) {
 
                     //generate random int based on how many garages
-                    int randomGarageInt = 0;
+                    randomGarageInt = 0;
                     switch (garages.size())
                     {
                         case 1:
@@ -267,7 +278,7 @@ public class GarageSimulation {
                     } //one of these if statements has to work, since we checked if all garages were full at the beginning. Cannot be infinite loop.
                 }
 
-                return;
+                return "" + garages.get(prefGarage).getName() + " is full, assigning vehicle to " + garages.get(randomGarageInt).getName();
             }
 
 
@@ -278,29 +289,7 @@ public class GarageSimulation {
 
         }
 
-
-        // Generate a random integer 0-5 to pick one of the garages to park in
-
-        //generate random int based on how many garages (1-5)
-        switch (garages.size())
-        {
-            case 1:
-                prefGarage = ThreadLocalRandom.current().nextInt(0, 1);
-                break;
-            case 2:
-                prefGarage = ThreadLocalRandom.current().nextInt(0, 2);
-                break;
-            case 3:
-                prefGarage = ThreadLocalRandom.current().nextInt(0, 3);
-                break;
-            case 4:
-                prefGarage = ThreadLocalRandom.current().nextInt(0, 4);
-                break;
-            case 5:
-                prefGarage = ThreadLocalRandom.current().nextInt(0, 5);
-                break;
-        }
-
+        return "";
     }
 
     public static String convertMinutesToAMPM(int minutes) {
