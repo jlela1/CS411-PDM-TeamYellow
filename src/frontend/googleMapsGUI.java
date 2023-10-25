@@ -20,8 +20,8 @@ public class googleMapsGUI extends JFrame {
         setLayout(new BorderLayout());
 
         //Header Panel
-        JPanel headerPanel = PDMPanels.createHeader("Recommended Garage");
-        headerPanel.setPreferredSize(new Dimension(900, 60));
+        JPanel headerPanel = PDMPanels.createUserHeader("Recommended Garage");
+        //headerPanel.setPreferredSize(new Dimension(900, 60));
         add(headerPanel, BorderLayout.NORTH);
 
         // Content Panel
@@ -70,10 +70,10 @@ public class googleMapsGUI extends JFrame {
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Navigate to AdminHomePage
+                // Navigate to UserDashboard
                 dispose(); // Close the current window
-                AdminHomePage adminHomePage = new AdminHomePage();
-                adminHomePage.setVisible(true);
+                UserDashboard userDashboard = new UserDashboard();
+                userDashboard.setVisible(true);
             }
         });
         JPanel buttonPanel = new JPanel();
