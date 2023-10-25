@@ -144,14 +144,14 @@ public class trendsGUI extends JFrame implements ActionListener {
             tGUI.revalidate();
             tGUI.repaint();
 
-            System.out.println(graphType);
+            
 
 
 
 
 
 
-        } else if (e.getSource()== home)
+        } else if (e.getSource()== home) //home button listener
         {
 
         }
