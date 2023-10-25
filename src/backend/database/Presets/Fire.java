@@ -45,7 +45,7 @@ public class Fire {
         for (int i = 0; i < 5; i++) {
             System.out.println("Simulation Number: " + garageList.get(i).getSimulationNumber());
             System.out.println("Time: " + garageList.get(i).getTime());
-            System.out.println("Garage ID: " + garageList.get(i).getGarage_id());
+            System.out.println("Garage ID: " + garageList.get(i).getGarage_name());
             System.out.println("Current Occupancy: " + garageList.get(i).getCurrent_capacity());
             System.out.println("Capacity: " + garageList.get(i).getTotal_capacity());
             System.out.println("Notification: " + garageList.get(i).getNotification());
