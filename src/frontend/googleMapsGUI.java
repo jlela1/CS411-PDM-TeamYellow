@@ -2,6 +2,15 @@ package frontend;
 
 import backend.database.Garage;
 import backend.database.parkingStructure;
+import javafx.application.Platform;
+import javafx.scene.Scene;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.web.WebView;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,6 +39,15 @@ public class googleMapsGUI extends JFrame {
 
         // Content Panel
         JPanel contentPanel = new JPanel();
+        final JFXPanel fxPanel = new JFXPanel();
+        this.add(fxPanel);
+
+        JPanel panel = new JPanel();
+        fxPanel.setLayout(null);
+        fxPanel.setBounds(350, 200, 1200,700);
+        this.add(panel);
+
+
 
         // should be simulated data, but for now I put something
         String recommendedGarage = "43rd & Elkhorn Ave";
@@ -127,26 +145,43 @@ public class googleMapsGUI extends JFrame {
                     }
                 }
 
-                switch(selectedGarageNumID) {
+                switch (selectedGarageNumID) {
                     case 0:
                         //display 443rd and elkhorn route here
+                        Platform.runLater(()-> {
+                            WebView webView1 = new WebView();
+                            fxPanel.setScene(new Scene(webView1));
+                            webView1.getEngine().load("https://www.google.com/maps/place/43rd+Street+%26+Elkhorn+Avenue+Garage/@36.8836065,-76.309158,17.75z/data=!4m6!3m5!1s0x89ba9852ea8d5105:0xe605282c33baec84!8m2!3d36.8836248!4d-76.3078488!16s%2Fg%2F11gd689zbg?entry=ttu");
 
+                        });
                         break;
                     case 1:
                         //display constant garage south here
-
+                        Platform.runLater(()-> {
+                            WebView webView2 = new WebView();
+                            fxPanel.setScene(new Scene(webView2));
+                            webView2.getEngine().load("https://www.google.com/maps/place/Constant+Center+South+Garage,+1067+W+43rd+St,+Norfolk,+VA+23508/@36.8827237,-76.3011169,18z/data=!4m6!3m5!1s0x89ba984c96c90c79:0x11bc0a5e1a234d35!8m2!3d36.8824983!4d-76.3009467!16s%2Fg%2F1tgxvf_w?entry=ttu");
+                        });
                         break;
                     case 2:
                         //display constant garage north here
+                        Platform.runLater(()-> {
+                            WebView webView3 = new WebView();
+                            fxPanel.setScene(new Scene(webView3));
+                            webView3.getEngine().load("https://www.google.com/maps/place/Constant+Center+North+Parking+Garage,+1067+W+43rd+St,+Norfolk,+VA+23529/@36.8855803,-76.3011016,18z/data=!4m6!3m5!1s0x89ba99b3443fdf97:0x77d74bf5702aa998!8m2!3d36.8852306!4d-76.3010372!16s%2Fg%2F1ts_7htk?entry=ttu");
 
+                        });
                         break;
                     case 3:
                         //display 49th and bluestone here
+                        Platform.runLater(()-> {
+                            WebView webView3 = new WebView();
+                            fxPanel.setScene(new Scene(webView3));
+                            webView3.getEngine().load("https://www.google.com/maps/place/49th+Street+Stadium+Garage/@36.8881333,-76.3057912,18.25z/data=!4m6!3m5!1s0x89ba99b27bec601f:0x75de86b7374c31a8!8m2!3d36.887864!4d-76.305469!16s%2Fg%2F12hn1l2tl?entry=ttu");
 
+                        });
                         break;
-                    case 4:
 
-                        break;
                 }
 
             }
