@@ -122,8 +122,18 @@ public class Login extends JFrame implements ActionListener {
 
             if (authenticateUser(userValue, new String(passValue))) {
                 this.dispose();
-                AdminHomePage adminHomePage = new AdminHomePage();
-                adminHomePage.setVisible(true);
+
+                // Check if the username contains "Admin"
+                if (userValue.toLowerCase().contains("admin")) {
+                    AdminHomePage adminHomePage = new AdminHomePage();
+                    adminHomePage.setVisible(true);
+                } else if (userValue.toLowerCase().contains("user")) {
+                    UserDashboard userDashboard = new UserDashboard();
+                    userDashboard.setVisible(true);
+                } else {
+                    // Handle other user roles or scenarios
+                    // You can add more checks or create different dashboards for different roles.
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
