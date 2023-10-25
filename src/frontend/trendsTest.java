@@ -22,7 +22,7 @@ public class trendsTest {
     }
 
     public static void readAndStoreDB() {
-        String fileName = "src/testDatabaseMaster.txt";
+        String fileName = "src/trendy.txt";
         Vector<Integer> simulationNumbers = new Vector<>();
         Vector<Integer> times = new Vector<>();
         Vector<String> garageIds = new Vector<>();
@@ -32,6 +32,7 @@ public class trendsTest {
         Vector<String> clockTimes = new Vector<>();
         Vector<String> months = new Vector<>();
         Vector<Integer> days = new Vector<>();
+        Vector<String> long_dates = new Vector<>();
         parkingStructure garages;
         garages = new parkingStructure();
         try {
@@ -40,10 +41,9 @@ public class trendsTest {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
-                if (data.length == 9) {
+                if (data.length == 10) {
 
-                    garages.setSimulationNumber(Integer.parseInt(data[0]));
-                    times.add(Integer.parseInt(data[1]));
+                    simulationNumbers.add(Integer.parseInt(data[0]));                    times.add(Integer.parseInt(data[1]));
                     garageIds.add(data[2]);
                     occupancies.add(Integer.parseInt(data[3]));
                     capacities.add(Integer.parseInt(data[4]));
@@ -51,6 +51,7 @@ public class trendsTest {
                     clockTimes.add(data[6]);
                     months.add(data[7]);
                     days.add(Integer.parseInt(data[8]));
+                    long_dates.add(data[9]);
                 } else {
                     System.err.println("Skipping invalid line: " + line);
                 }
@@ -72,12 +73,13 @@ public class trendsTest {
             System.out.println("Clock Time: " + clockTimes.get(i));
             System.out.println("Month: " + months.get(i));
             System.out.println("Day: " + days.get(i));
+            System.out.println("long_date: " + long_dates.get(i));
             System.out.println();
         }
     }
 
     public static void SQLQuery() {
-        String connectioString = "jdbc:sqlserver://192.168.0.170;Database=Trends;encrypt=true;trustServerCertificate=true";
+        String connectioString = "jdbc:sqlserver://10.20.30.1;Database=Trends;encrypt=true;trustServerCertificate=true";
         //IMPORTANT: The IP Address periodically changes. If you get an "error connecting to db" error, let me know and i'll
         //give you the new one
         String user = "sa";
@@ -189,7 +191,7 @@ public class trendsTest {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
-                if (data.length == 9) {
+                if (data.length == 10) {
 
                     switch(data[2])
                     {

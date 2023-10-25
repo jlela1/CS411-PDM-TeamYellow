@@ -1,5 +1,6 @@
 package frontend;
 import backend.database.Garage;
+import backend.database.MilitaryTimeConverter;
 import backend.database.Trend;
 import backend.database.vehicle;
 
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
 
 public class GarageSimulation {
 
@@ -32,8 +34,11 @@ public class GarageSimulation {
                 time += 1;
 
                 // SQL function call NEEDS TO BE FIXED
+                // call func to get current military time
+                MilitaryTimeConverter converter = new MilitaryTimeConverter();
+
                 for (Garage garage : garages) {
-                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName());
+                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation);
                     // ...
                 }
 

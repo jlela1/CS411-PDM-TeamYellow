@@ -12,6 +12,7 @@ public class parkingStructure {
     private String month;
     private int day;
     private String clock_time;
+    private String long_date;
 
     /**
      * Create new parking structure
@@ -28,11 +29,12 @@ public class parkingStructure {
         this.month = "";
         this.day = 0;
         this.clock_time = "";
+        this.long_date = "";
     } /**
      * Create new parking structure with specified inputs
      */
     public parkingStructure(String garage_id, int total_capacity, int current_capacity, String notification,
-                            int simulation_number, int time, String month, int day, String clock_time) {
+                            int simulation_number, int time, String month, int day, String clock_time, String long_date) {
         this.garage_id = garage_id;
         this.total_capacity = total_capacity;
         this.current_capacity = current_capacity;
@@ -42,6 +44,7 @@ public class parkingStructure {
         this.month = month;
         this.day = day;
         this.clock_time = clock_time;
+        this.long_date = long_date;
     }
 
 
@@ -145,6 +148,16 @@ public class parkingStructure {
     // Setter for Clock_time
     public void setClock_time(String clockTime) {
         this.clock_time = clockTime;
+    }
+
+    // Getter for long_date
+    public String getLong_date() {
+        return long_date;
+    }
+
+    // Setter for long_date
+    public void setLong_date(String long_date) {
+        this.long_date = long_date;
     }
     @Override
     public String toString() {

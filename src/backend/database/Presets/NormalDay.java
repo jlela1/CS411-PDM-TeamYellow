@@ -1,8 +1,10 @@
 package backend.database.Presets;
+import backend.database.MilitaryTimeConverter;
 import backend.database.parkingStructure;
-
 import java.util.ArrayList;
 import java.util.Random;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class NormalDay {
     /* to access a certain garage, simply call the garage ex:
@@ -25,11 +27,13 @@ public class NormalDay {
     int upperDay = 28;
     int RandomDay = dayRand.nextInt(upperDay); // get a random day
     public ArrayList<parkingStructure> garageList = new ArrayList<parkingStructure>();
-    public parkingStructure G1 = new parkingStructure("43rd & Elkhorn Ave", 655, 0, "", random_num, 0, Months[random], RandomDay, "");
-    public parkingStructure G2 = new parkingStructure("Constant Center South", 1535, 0, "", random_num, 0, Months[random], RandomDay, "");
-    public parkingStructure G3 = new parkingStructure("Constant Center North", 1045, 0, "", random_num, 0, Months[random], RandomDay, "");
-    public parkingStructure G4 = new parkingStructure("49th Street Stadium ", 745, 0, "", random_num, 0, Months[random], RandomDay, "");
-    public parkingStructure G5 = new parkingStructure("43rd & Bluestone Ave", 1535, 0, "", random_num, 0, Months[random], RandomDay, "");
+    MilitaryTimeConverter converter = new MilitaryTimeConverter();
+    public String long_date = converter.getMilitaryTime();
+    public parkingStructure G1 = new parkingStructure("43rd & Elkhorn Ave", 655, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public parkingStructure G2 = new parkingStructure("Constant Center South", 1535, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public parkingStructure G3 = new parkingStructure("Constant Center North", 1045, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public parkingStructure G4 = new parkingStructure("49th Street Stadium ", 745, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public parkingStructure G5 = new parkingStructure("43rd & Bluestone Ave", 1535, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
 
     public void setArray() {
         //set list with all garages
@@ -57,7 +61,7 @@ public class NormalDay {
     public static void main(String[] args){
         NormalDay obj = new NormalDay();
         obj.setArray();
-
+        System.out.println(obj.G1.getLong_date());
 
     }
 }

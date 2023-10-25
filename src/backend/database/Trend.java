@@ -5,7 +5,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Objects;
 import java.util.Random;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Trend {
     public int counter = 0;
@@ -23,32 +26,36 @@ public class Trend {
         notifications[counter] = new String(s);
         counter++;
     }
+    public static String removeCommasFromString(String input) {
+        // Replace all commas with an empty string in the input.
+        return input.replace(",", "");
+    }
 
-    public void setGarage(Trend stats, int time, int garage1Occupancy, int garage1Capacity,  String Clock_time, String name){
+    public void setGarage(Trend stats, int time, int garage1Occupancy, int garage1Capacity, String Clock_time, String name, String long_date, String notification){
 
         // initialize trending object to output stats from garages for SQL
         stats = new Trend();
-        Random rand2 = new Random();
-        int upper = 12;
-        int rand = rand2.nextInt(upper);
-        String[] Months = new String[] {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-        Random dayRand = new Random();
-        int upperDay = 28;
+         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM");
+         DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd");
+
+        LocalDateTime now = LocalDateTime.now();
+        /*Random rand2 = new Random();
+        //int upper = 12;
+        //int rand = rand2.nextInt(upper);
+        //String[] Months = new String[] {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+        //Random dayRand = new Random();
+        //int upperDay = 28;
         int RandomDay = dayRand.nextInt(upperDay);
+        Old random month and day functionality */
 
         // Start of SQL stuff. Set variables to pass into trend.txt and SQL DB
-        if (garage1Occupancy >= garage1Capacity* .90) { // if G1 is full
-            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + "'Garage full, sending elsewhere'" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] +"'" + "," + RandomDay); // G1 Full, G2 Not Full
-
-        } else {
-            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + "''" + "," + "'" + Clock_time + "'" + "," + "'" + Months[rand] + "'" + "," + RandomDay); // Neither are full
-        }
+            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + "'" + removeCommasFromString(notification) + "'" + "," + "'" + Clock_time + "'" + "," + "'" + dtf.format(now) +"'" + "," + dtf2.format(now) + "," + "'" + long_date +"'" ); // output line
 
         stats.setString(line);
 
         setString(line);
         // end of SQL stuff
-        //System.out.println(line + line2 + line3);
+        //System.out.println(line);
     }
 
     public void newGarage(){
@@ -90,13 +97,17 @@ public class Trend {
             PrintWriter printWriter1 = new PrintWriter(fileWriter1);
             for (int i = 0; i < notifications.length; i++) {
                 if (notifications[i] != null) {
+                    //System.out.println("Writing to trend.txt: " + notifications[i]);
                     printWriter.println(notifications[i]);
-                    printWriter1.println((notifications[i]));
+                    //System.out.println("Writing to trendy.txt: " + notifications[i]);
+                    printWriter1.println(notifications[i]);
                 }
             }
 
             printWriter.close();
             fileWriter.close();
+            printWriter1.close();
+            fileWriter1.close();
             //appendFile(filePath, "src/newFile.txt"); //
             backend.database.sendEmail.main(new String[0]); // send email of new .txt file
 
@@ -123,7 +134,8 @@ public class Trend {
                     sql2.append("notification,");
                     sql2.append("Clock_time,");
                     sql2.append("month_,");
-                    sql2.append("day)");
+                    sql2.append("day,");
+                    sql2.append("long_date)");
                     sql2.append("VALUES(");
                     sql2.append(line);
                     int result = line.lastIndexOf(",");
