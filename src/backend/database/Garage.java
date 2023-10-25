@@ -17,7 +17,7 @@ public class Garage {
 
     public List<vehicle> parkingVehicleList;
 
-    public ArrayList<Integer> variableNumVehPerMin;
+    public ArrayList<numVehEnteringRate> variableNumVehPerMin;
 
     //vars are temporarily public to make integration easier
     public int simNumber;
@@ -32,6 +32,7 @@ public class Garage {
         this.avgParkingDuration = 0;
         this.avgTimeToPark = 0;
         this.parkingVehicleList = new CopyOnWriteArrayList<>();
+        this.variableNumVehPerMin = new ArrayList<numVehEnteringRate>();
     }
 
     public String getName() {

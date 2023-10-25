@@ -14,7 +14,7 @@ public class Trend {
     public int counter = 0;
     public int pCounter = 0;
     public int time = 0;
-    public String[] notifications = new String[1000];
+    public String[] notifications = new String[5000];
     String line = "";
     String line2 = "";
     String line3 = "";

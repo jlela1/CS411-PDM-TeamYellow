@@ -47,6 +47,15 @@ public class GarageSimulation {
 
                 for (int i = 0; i < garages.size(); i++) { //for each garage, execute vehicle algorithms
 
+                    //update num vehicles parking per minute
+                    for (int j = 0; j < garages.get(i).variableNumVehPerMin.size(); j++) { //iterate over number of vehicle rate changes in stored arrayList
+                        if (garages.get(i).variableNumVehPerMin.get(j).getTime() == time) { //if the time set in one of the arrayList values is equal to the current time (time to change vehicle rates)
+                            garages.get(i).setNumVehiclesEnteringPerMin(garages.get(i).variableNumVehPerMin.get(j).getRate()); //set current num of vehicle rate to specified one stored in array
+                            System.out.println(garages.get(i).getName() + "'s veh per min is now set to " + garages.get(i).getNumVehiclesEnteringPerMin() + " at " + time); //test
+                        }
+                    }
+
+
                     int numVehiclesParking = garages.get(i).getNumVehiclesEnteringPerMin(); //get num of cars entering specific garage this minute
 
                     for (vehicle vehicle : garages.get(i).parkingVehicleList) { //for each vehicle in garages's specific vehicle list
