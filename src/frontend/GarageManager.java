@@ -104,6 +104,7 @@ public class GarageManager {
                 int capacity = Integer.parseInt(capacityText);
                 Garage garage = new Garage(name, capacity);
                 garages.add(garage);
+                garages.get(garages.size() - 1).setGarageID(garages.size() - 1); //set garageID based on location in garages array to call instead of calling name
                 updateGarageList();
                 nameField.setText("");
                 capacityField.setText("");

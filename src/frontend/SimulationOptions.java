@@ -136,7 +136,7 @@ public class SimulationOptions extends JFrame {
         CustomSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                GarageManager simulationStart = new GarageManager();
             }
         });
 

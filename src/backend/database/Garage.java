@@ -1,17 +1,28 @@
 package backend.database;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Garage {
     private String name;
+    private int garageID;
     private int maxCapacity;
     private int occupancy;
     private int numVehiclesEnteringPerMin;
     private int avgParkingDuration;
     private int avgTimeToPark;
 
+    private boolean isClosed;
+
     public List<vehicle> parkingVehicleList;
+
+    public ArrayList<Integer> variableNumVehPerMin;
+
+    //vars are temporarily public to make integration easier
+    public int simNumber;
+    public int time;
+
 
     public Garage(String name, int maxCapacity) {
         this.name = name;
@@ -42,5 +53,13 @@ public class Garage {
     public void setAvgParkingDuration(int newParkDur) {avgParkingDuration = newParkDur;}
     public int getAvgTimeToPark() {return avgTimeToPark;}
     public void setAvgTimeToPark(int newAvgTimeToPark) {avgTimeToPark = newAvgTimeToPark;}
+
+    public boolean getIsClosed() {return isClosed;}
+
+    public void setIsClosed(boolean newIsClosed) {isClosed = newIsClosed;}
+
+    public int getGarageID() {return garageID;}
+
+    public void setGarageID(int newGarageID) {garageID = newGarageID;}
 
 }

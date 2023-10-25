@@ -63,7 +63,8 @@ public class AdminHomePage extends JFrame{
         createSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GarageManager simulationStart = new GarageManager();
+                SimulationOptions simulationOptions = new SimulationOptions();
+                simulationOptions.setVisible(true);
             }
         });
 
