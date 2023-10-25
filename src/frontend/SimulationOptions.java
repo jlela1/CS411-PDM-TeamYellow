@@ -10,6 +10,7 @@ import java.awt.event.FocusEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.awt.Insets;
 
 public class SimulationOptions extends JFrame {
 
@@ -27,9 +28,14 @@ public class SimulationOptions extends JFrame {
         header.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
         add(header, BorderLayout.NORTH);
 
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 500, 40));
-        contentPanel.setBackground(Color.WHITE);
+        JPanel componentsPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(30, 30, 30, 30);
+
 
         //Custom Sim Button
         JButton CustomSimulationButton = new JButton("Custom Simulation");
@@ -40,15 +46,16 @@ public class SimulationOptions extends JFrame {
         CustomSimulationButton.setFocusPainted(false);
         CustomSimulationButton.setPreferredSize(new Dimension(250, 50));
         CustomSimulationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        CustomSimulationButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+
 
 
         //simulation preset title
-        JLabel simTitle = new JLabel("Simulation Presets");
+        JLabel simTitle = new JLabel("        Simulation Presets");
         simTitle.setFont(new Font("Roboto", Font.PLAIN, 20));
         simTitle.setBorder(BorderFactory.createLineBorder(Color.WHITE, 0));
-        simTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        simTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+        simTitle.setSize(250, 50);
+        simTitle.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        simTitle.setAlignmentY(JLabel.CENTER_ALIGNMENT);
 
 
         //Normal Day Button
@@ -60,7 +67,7 @@ public class SimulationOptions extends JFrame {
         NormalDayButton.setFocusPainted(false);
         NormalDayButton.setPreferredSize(new Dimension(250, 50));
         NormalDayButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        NormalDayButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+
 
         //Fire in Elkhorn Garage
         JButton ElkFireButton = new JButton("Fire in Elkhorn Garage");
@@ -71,7 +78,7 @@ public class SimulationOptions extends JFrame {
         ElkFireButton.setFocusPainted(false);
         ElkFireButton.setPreferredSize(new Dimension(250, 50));
         ElkFireButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        ElkFireButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+
 
         //Football Game Button
         JButton FootballButton = new JButton("Football Game");
@@ -82,7 +89,7 @@ public class SimulationOptions extends JFrame {
         FootballButton.setFocusPainted(false);
         FootballButton.setPreferredSize(new Dimension(250, 50));
         FootballButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        FootballButton.setAlignmentY(Component.CENTER_ALIGNMENT);
+
 
         JButton HomeButton = new JButton("Home");
         HomeButton.setFont(new Font("Roboto", Font.BOLD, 16));
@@ -92,16 +99,31 @@ public class SimulationOptions extends JFrame {
         HomeButton.setFocusPainted(false);
         HomeButton.setPreferredSize(new Dimension(250, 50));
         HomeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        HomeButton.setAlignmentY(Component.CENTER_ALIGNMENT);
 
 
-        contentPanel.add(CustomSimulationButton);
-        contentPanel.add(simTitle);
-        contentPanel.add(NormalDayButton);
-        contentPanel.add(ElkFireButton);
-        contentPanel.add(FootballButton);
-        contentPanel.add(HomeButton);
-        add(contentPanel, BorderLayout.CENTER);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        componentsPanel.add(CustomSimulationButton, gbc);
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        componentsPanel.add(simTitle, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        componentsPanel.add(ElkFireButton, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 8;
+        componentsPanel.add(FootballButton, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 10;
+        componentsPanel.add(HomeButton, gbc);
+
+        add(componentsPanel, BorderLayout.CENTER);
 
 
         //Create a PDM footer
@@ -109,7 +131,44 @@ public class SimulationOptions extends JFrame {
         add(footer, BorderLayout.SOUTH);
 
         setLocationRelativeTo(null);
+
+
+        CustomSimulationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        NormalDayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        ElkFireButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        FootballButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        HomeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -120,5 +179,6 @@ public class SimulationOptions extends JFrame {
             }
         });
     }
+
 
 }
