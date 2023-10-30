@@ -61,6 +61,7 @@ public class DatabaseAccess extends JFrame {
 	Connection con = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
+	private JTable tblData;
 
 	/*
 	 * Create the frame.
@@ -136,6 +137,62 @@ public class DatabaseAccess extends JFrame {
 		panel.add(btnAddnew);
 
 		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					// ServerConfig server = new ServerConfig();
+
+					// load the driver
+					Class.forName("com.mysql.cj.jdbc.Driver");
+
+					// Establish the connection between java application with MySQL database
+					Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/trends", "root",
+							"226983");
+
+					// Create statement object
+					// Statement stm =con.createStatement();
+
+					String query = "select * from trenddata";
+
+					Statement stm = con.createStatement();
+					ResultSet rs = stm.executeQuery(query);
+					ResultSetMetaData rsmd = rs.getMetaData();
+					DefaultTableModel model = (DefaultTableModel) tblData.getModel();
+
+					int cols = rsmd.getColumnCount();
+					String[] colName = new String[cols];
+					for (int i = 0; i < cols; i++)
+						colName[i] = rsmd.getColumnName(i + 1);
+
+					model.setColumnIdentifiers(colName);
+
+					while (rs.next()) {
+						String simulationnumber = rs.getString(1);
+						String time = rs.getString(2);
+						String garageid = rs.getString(3);
+						String capacity = rs.getString(4);
+						String current = rs.getString(5);
+						String notification = rs.getString(6);
+						String clocktime = rs.getString(7);
+						String month = rs.getString(8);
+						String day = rs.getString(9);
+						String[] row = { simulationnumber, time, garageid, capacity, current, notification, clocktime,
+								month, day };
+
+						model.addRow(row);
+					}
+					stm.close();
+					con.close();
+
+				} catch (ClassNotFoundException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				} catch (SQLException ex) {
+					ex.printStackTrace();
+				}
+			}
+
+		});
+		
 		btnUpdate.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnUpdate.setFont(new Font("Yu Gothic", Font.BOLD, 14));
 		btnUpdate.setBounds(36, 56, 108, 36);
@@ -342,6 +399,18 @@ public class DatabaseAccess extends JFrame {
 		textDay.setBounds(247, 270, 365, 32);
 		panel_1.add(textDay);
 		textDay.setColumns(10);
+		
+		tblData = new JTable();
+		tblData.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
+		tblData.setBorder(new LineBorder(new Color(0, 128, 64), 2));
+		tblData.setBounds(10, 332, 893, 234);
+		contentPane.add(tblData);
+		/*
+		tblData = new JTable();
+		tblData.setBorder(new LineBorder(new Color(0, 128, 64), 3));
+		tblData.setBounds(20, 332, 790, 234);
+		contentPane.add(tblData);
+		*/
 	}
 }
 
