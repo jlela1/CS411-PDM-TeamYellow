@@ -1,14 +1,7 @@
 package frontend;
-import backend.database.parkingStructure;
+import backend.database.trendsGarage;
 import javax.swing.*;
-import java.sql.*;
-import java.sql.SQLException;
 
-import javax.management.Query;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.PlotOrientation;
@@ -20,7 +13,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class createGraph extends JFrame {
     public createGraph(String input, int numGar) {
-        ArrayList<ArrayList<parkingStructure>> garages = new ArrayList<ArrayList<parkingStructure>>();
+        ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<ArrayList<trendsGarage>>();
         trendsTest.readAndStoreToGraph(garages, numGar);
 
         XYDataset dataset = createDataset(input, garages.get(1)); //initialize as base case
@@ -66,7 +59,7 @@ public class createGraph extends JFrame {
         setContentPane(panel);
 
     }
-    private XYDataset createDataset(String input, ArrayList<parkingStructure> garages) {
+    private XYDataset createDataset(String input, ArrayList<trendsGarage> garages) {
         final XYSeries singleG = new XYSeries(input);
         for(int i=0; i < garages.size(); i++){
             //TO:DO Rewrite this method to be able to use database data

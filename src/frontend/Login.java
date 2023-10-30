@@ -7,9 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Login extends JFrame implements ActionListener {
     JButton b1, b2;
@@ -164,6 +166,77 @@ public class Login extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void parseTextFile(){
+        String inputFileName = "src/backend/database/user_data.txt";
+        String outputFileName = "src/backend/database/userDataToPush.txt";
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(inputFileName));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 1) {
+                    String firstPart = parts[0];
+                    // Add single quotes around the first part and reconstruct the line.
+                    String modifiedLine = "'" + firstPart + "'" + line.substring(firstPart.length());
+                    writer.write(modifiedLine + "\n");
+                }
+            }
+
+            reader.close();
+            writer.close();
+
+            System.out.println("Parsing completed. Modified data written to " + outputFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void pushLogins(){
+        parseTextFile();
+        String connectionString = "jdbc:sqlserver://10.20.30.1;encrypt=true;trustServerCertificate=true;database=Logins;";
+    /*replace the 192.168.0.170 with your IPv4 address. You can get this by opening a terminal and running "ipconfig"
+    scroll down until you see the "Wireless LAN adapter Wi-Fi:". Use the IPv4 address from there. You will also need to
+    enable SQL Server Authentication and enable the sa account https://www.fosstechnix.com/how-to-enable-sa-account-in-sql-server/
+    make sure the sa password is "admin"
+    /*/
+        String user = "sa";
+        String password = "admin";
+
+        try (Connection connection = DriverManager.getConnection(connectionString, user, password)) {
+            System.out.println("Connection Established");
+            try (BufferedReader br = new BufferedReader(new FileReader("src/backend/database/userDataToPush.txt"))) {
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    StringBuilder sql2 = new StringBuilder("INSERT INTO Logins ");
+                    sql2.append("(username, ");
+                    sql2.append("password)");
+                    sql2.append("VALUES(");
+                    sql2.append(line);
+                    int result = line.lastIndexOf(",");
+                    //System.out.println("result is: " + result + " last character is: " + line.charAt(result) + " and length is: " + line.length());
+                    if (line.length() == result + 1) {
+                        sql2.append("'none')");
+                    } else {
+                        sql2.append(")");
+                    }
+                    System.out.println(sql2.toString());
+
+                    Statement stmt2 = connection.createStatement();
+                    stmt2.executeUpdate(sql2.toString());
+                }
+                System.out.println("Uploaded to DB successfully.");
+
+            }
+        } catch (SQLException | IOException e) {
+            System.out.println("Error connecting to the db");
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {

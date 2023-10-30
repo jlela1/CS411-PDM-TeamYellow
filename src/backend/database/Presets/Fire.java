@@ -1,6 +1,6 @@
 package backend.database.Presets;
 import backend.database.MilitaryTimeConverter;
-import backend.database.parkingStructure;
+import backend.database.trendsGarage;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,14 +24,14 @@ public class Fire {
     Random dayRand = new Random();
     int upperDay = 28;
     int RandomDay = dayRand.nextInt(upperDay); // get a random day
-    public ArrayList<parkingStructure> garageList = new ArrayList<parkingStructure>();
+    public ArrayList<trendsGarage> garageList = new ArrayList<trendsGarage>();
     MilitaryTimeConverter converter = new MilitaryTimeConverter();
     public String long_date = converter.getMilitaryTime();
-    public parkingStructure G1 = new parkingStructure("43rd & Elkhorn Ave", 655, 0, "", random_num, 0, Months[random], RandomDay, "", long_date );
-    public parkingStructure G2 = new parkingStructure("Constant Center South", 1535, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
-    public parkingStructure G3 = new parkingStructure("Constant Center North", 1045, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
-    public parkingStructure G4 = new parkingStructure("49th Street Stadium ", 0, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
-    public parkingStructure G5 = new parkingStructure("43rd & Bluestone Ave", 1535, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public trendsGarage G1 = new trendsGarage("43rd & Elkhorn Ave", 655, 0, "", random_num, 0, Months[random], RandomDay, "", long_date );
+    public trendsGarage G2 = new trendsGarage("Constant Center South", 1535, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public trendsGarage G3 = new trendsGarage("Constant Center North", 1045, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public trendsGarage G4 = new trendsGarage("49th Street Stadium ", 0, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public trendsGarage G5 = new trendsGarage("43rd & Bluestone Ave", 1535, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
 
     public void setArray() {
         //set list with all garages

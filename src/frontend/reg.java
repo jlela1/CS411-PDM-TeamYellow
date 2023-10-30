@@ -9,7 +9,7 @@ import javax.swing.text.JTextComponent;
 import java.awt.Image;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import frontend.Login;
 
 class Reg extends JFrame implements ActionListener {
 
@@ -193,6 +193,8 @@ class Reg extends JFrame implements ActionListener {
                         FileWriter writer = new FileWriter(filePath, true);
                         writer.write(username + "," + password + "\n");
                         writer.close();
+                        Login obj = new Login(); // creating object of login class to push the updated data to database
+                        obj.pushLogins();;
                         // Show registration successful message
                         JOptionPane.showMessageDialog(this, "Registration Successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
                         // Close the registration window and open the login window

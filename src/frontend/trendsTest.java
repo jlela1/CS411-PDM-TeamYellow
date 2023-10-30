@@ -3,7 +3,7 @@ import java.sql.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-import backend.database.parkingStructure;
+import backend.database.trendsGarage;
 import java.util.ArrayList;
 
 public class trendsTest {
@@ -105,8 +105,8 @@ public class trendsTest {
                     Vector<String> cur_data = new Vector<>();
                     Vector<String> not_data = new Vector<>();
 
-                    parkingStructure garages;
-                    garages = new parkingStructure();
+                    trendsGarage garages;
+                    garages = new trendsGarage();
                     while (rs.next()) {
                         sim_data.add(rs.getString("simulation_number"));
                         time_data.add(rs.getString("time_"));
@@ -128,7 +128,7 @@ public class trendsTest {
         }
     }
 
-    public static void readAndStoreToGraph(ArrayList<ArrayList<parkingStructure>> p, int numGar) {
+    public static void readAndStoreToGraph(ArrayList<ArrayList<trendsGarage>> p, int numGar) {
         String fileName = "src/trend.txt"; //
         //String fileName = "src/testDatabaseMaster.txt";
 //        Vector<Integer> simulationNumbers = new Vector<>();
@@ -141,11 +141,11 @@ public class trendsTest {
 //        Vector<String> months = new Vector<>();
 //        Vector<Integer> days = new Vector<>();
 
-        ArrayList<parkingStructure> garage1 = new ArrayList<>();
-        ArrayList<parkingStructure> garage2 = new ArrayList<>();
-        ArrayList<parkingStructure> garage3 = new ArrayList<>();
-        ArrayList<parkingStructure> garage4 = new ArrayList<>();
-        ArrayList<parkingStructure> garage5 = new ArrayList<>();
+        ArrayList<trendsGarage> garage1 = new ArrayList<>();
+        ArrayList<trendsGarage> garage2 = new ArrayList<>();
+        ArrayList<trendsGarage> garage3 = new ArrayList<>();
+        ArrayList<trendsGarage> garage4 = new ArrayList<>();
+        ArrayList<trendsGarage> garage5 = new ArrayList<>();
 
         switch(numGar) //create arrayLists for each garage and put in master arrayList
         {
@@ -226,8 +226,8 @@ public class trendsTest {
 
     }
 
-    public static parkingStructure addNewParkStruct(String[] data) {
-        parkingStructure pb = new parkingStructure();
+    public static trendsGarage addNewParkStruct(String[] data) {
+        trendsGarage pb = new trendsGarage();
         pb.setSimulationNumber(Integer.parseInt(data[0]));
         pb.setTime(Integer.parseInt(data[1]));
         pb.setGarage_name(data[2]);

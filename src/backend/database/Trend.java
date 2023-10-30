@@ -57,11 +57,6 @@ public class Trend {
         //System.out.println(line);
     }
 
-    public void newGarage(){
-
-        // function for new garage to make it scalable
-
-    }
     public static void appendFile(String sourceFileName, String destinationFileName) {
         try {
             // Open the source file for reading
@@ -130,6 +125,7 @@ public class Trend {
                     sql2.append("garage_id,");
                     sql2.append("capacity,");
                     sql2.append("current_ ,");
+                    sql2.append("graphGarageID,");
                     sql2.append("notification,");
                     sql2.append("Clock_time,");
                     sql2.append("month_,");

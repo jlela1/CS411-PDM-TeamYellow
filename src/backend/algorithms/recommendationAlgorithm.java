@@ -1,6 +1,6 @@
 package backend.algorithms;
 
-import backend.database.parkingStructure;
+import backend.database.trendsGarage;
 import frontend.trendsTest;
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public class recommendationAlgorithm {
 
     public static String recommendation(String closestGarage, int timeOfArrival, int numGar) {
 
-        ArrayList<ArrayList<parkingStructure>> garages = new ArrayList<ArrayList<parkingStructure>>(); //create data storage arrayList
+        ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<ArrayList<trendsGarage>>(); //create data storage arrayList
         String recommendedGarage = "";
 
         trendsTest.readAndStoreToGraph(garages, numGar); //create dataset arrayLists from stored data
