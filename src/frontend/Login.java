@@ -179,10 +179,14 @@ public class Login extends JFrame implements ActionListener {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length >= 1) {
+                if (parts.length >= 2) {
                     String firstPart = parts[0];
-                    // Add single quotes around the first part and reconstruct the line.
-                    String modifiedLine = "'" + firstPart + "'" + line.substring(firstPart.length());
+                    String secondPart = parts[1];
+                    // Enclose both parts with single quotes and handle shorter lines.
+                    String modifiedLine = "'" + firstPart + "','" + secondPart + "'";
+                    if (line.length() > firstPart.length() + secondPart.length() + 1) {
+                        modifiedLine += line.substring(firstPart.length() + secondPart.length() + 1);
+                    }
                     writer.write(modifiedLine + "\n");
                 }
             }

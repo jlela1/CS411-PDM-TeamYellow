@@ -2,7 +2,7 @@ package frontend;
 
 import backend.database.Garage;
 import backend.database.numVehEnteringRate;
-import backend.database.parkingStructure;
+import backend.database.trendsGarage;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,7 +1,7 @@
 package frontend;
 
 import backend.database.Garage;
-import backend.database.parkingStructure;
+import backend.database.trendsGarage;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.application.Platform;
@@ -65,7 +65,7 @@ public class googleMapsGUI extends JFrame {
 //        contentPanel.add(recommendedGarageField);
 
         //create garage data
-        ArrayList<ArrayList<parkingStructure>> garages = new ArrayList<ArrayList<parkingStructure>>();
+        ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<ArrayList<trendsGarage>>();
         trendsTest.readAndStoreToGraph(garages, 4); //num garages hardcoded temporarily
 
         // Initialize the garageSelectorComboBox
@@ -74,7 +74,7 @@ public class googleMapsGUI extends JFrame {
         //userSelectionGarage.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
         // Add items to the combo box
-        for (ArrayList<parkingStructure> garage : garages) {
+        for (ArrayList<trendsGarage> garage : garages) {
             userSelectionGarage.addItem(garage.get(0).getGarage_name());
         }
 

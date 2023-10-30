@@ -1,6 +1,6 @@
 package backend.algorithms;
 
-import backend.database.parkingStructure;
+import backend.database.trendsGarage;
 import backend.database.vehicle;
 
 import java.util.Random;
