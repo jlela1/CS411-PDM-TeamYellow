@@ -4,7 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import backend.database.Schedule;
+import backend.database.userProfile;
 import frontend.SimulationUserInputGUI;
+import frontend.UserProfileGUI;
 
 public class UserDashboard extends JFrame{
     public UserDashboard() {
@@ -59,6 +64,16 @@ public class UserDashboard extends JFrame{
         recommendationButton.setPreferredSize(new Dimension(250, 50));
         recommendationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Create UserProfile Button
+        JButton userProfileButton = new JButton("User Profile");
+        userProfileButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        userProfileButton.setForeground(Color.BLACK);
+        userProfileButton.setBackground(new Color(222, 50, 50, 255));
+        userProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        userProfileButton.setFocusPainted(false);
+        userProfileButton.setPreferredSize(new Dimension(250, 50));
+        userProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         recommendationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -68,8 +83,21 @@ public class UserDashboard extends JFrame{
             }
         });
 
-        contentPanel.add(recommendationButton);
+        // Add behavior to UserProfile Button: Creates a new instance of UserProfileGUI and sets visible
+        userProfileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Creating a test user on userProfileGUI creation. A real user will need to be retrieved.
+                removeAll();
+                UserProfileGUI userProfileGUI = new UserProfileGUI(new userProfile("12345", "Carson", "Parker", "Fall Semester", "0", "0", "Commuter", new Schedule(), new ArrayList<Integer>()));
+                userProfileGUI.setVisible(true);
+                userProfileGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                userProfileGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            }
+        });
 
+        contentPanel.add(recommendationButton);
+        contentPanel.add(userProfileButton);
 
         //Create a PDM footer
         JPanel footer = PDMPanels.createFooter();

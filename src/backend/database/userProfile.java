@@ -1,5 +1,7 @@
 package backend.database;
 import backend.database.Schedule;
+import java.util.ArrayList;
+
 public class userProfile {
     private String vehicleId;
     private String userFirstName;
@@ -9,9 +11,10 @@ public class userProfile {
     private String parkingMeter;
     private String userRole;
     private Schedule schedule;
+    private ArrayList<Integer> dailyStartTimes;
 
     // Constructor
-    public userProfile(String vehicleId, String userFirstName, String userLastName, String permitType, String parkingCost, String parkingMeter, String userRole, Schedule schedule) {
+    public userProfile(String vehicleId, String userFirstName, String userLastName, String permitType, String parkingCost, String parkingMeter, String userRole, Schedule schedule, ArrayList<Integer> dailyStartTimes) {
         this.vehicleId = vehicleId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -19,6 +22,13 @@ public class userProfile {
         this.parkingCost = parkingCost;
         this.parkingMeter = parkingMeter;
         this.userRole = userRole;
+        this.dailyStartTimes = new ArrayList<Integer>(7);
+
+        // Set each daily start time to 7AM by default
+        for (int i = 0; i < 7; i++) {
+            this.dailyStartTimes.add(420);
+        }
+
     }
 
     // Getter and Setter methods for vehicleId
@@ -90,6 +100,11 @@ public class userProfile {
         return this.schedule;
     }
 
+    // Takes a day index 0-6 (Monday == 0, Tuesday == 1, etc.) and sets its value equal to the time parameter
+    public void setDailyStartTime(int dayToSet, int time) { this.dailyStartTimes.set(dayToSet, time); }
+
+    // Takes a day index 0-6 (Monday == 0, Tuesday == 1, etc.) and returns the start time associated with that day.
+    public int getDailyStartTime(int dayToGet) { return this.dailyStartTimes.get(dayToGet); }
     // You can also add any additional methods or functionality here as needed
 }
 
