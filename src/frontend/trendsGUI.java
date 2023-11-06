@@ -102,7 +102,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
         // calls createGraph and adds it
 
-        trendsGraph = new createGraph(garageName, numGar);
+        trendsGraph = new createGraph(garageName, numGar, datePickerStart.getDate(), datePickerEnd.getDate());
         graphPanel = new JPanel();
 
         graphPanel.add(trendsGraph.getContentPane());
@@ -141,10 +141,11 @@ public class trendsGUI extends JFrame implements ActionListener {
 
             graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
             String garageNewName = (String) userSelectionGarage.getSelectedItem();
-            trendsGraph = new createGraph(garageNewName, numGar);
+
+            trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate());
             date1 = datePickerStart.getDate();
             date2 = datePickerEnd.getDate();
-
+            //System.out.println(datePickerEnd.getDate() + "\n" + datePickerStart.getDate());
             graphPanel.add(trendsGraph.getContentPane());
 
             this.revalidate();
