@@ -129,17 +129,7 @@ public class trendsTest {
     }
 
     public static void readAndStoreToGraph(ArrayList<ArrayList<trendsGarage>> p, int numGar) {
-        String fileName = "src/trend.txt"; //
-        //String fileName = "src/testDatabaseMaster.txt";
-//        Vector<Integer> simulationNumbers = new Vector<>();
-//        Vector<Integer> times = new Vector<>();
-//        Vector<String> garageIds = new Vector<>();
-//        Vector<Integer> occupancies = new Vector<>();
-//        Vector<Integer> capacities = new Vector<>();
-//        Vector<String> notifications = new Vector<>();
-//        Vector<String> clockTimes = new Vector<>();
-//        Vector<String> months = new Vector<>();
-//        Vector<Integer> days = new Vector<>();
+        String fileName = "src/trend.txt";
 
         ArrayList<trendsGarage> garage1 = new ArrayList<>();
         ArrayList<trendsGarage> garage2 = new ArrayList<>();
