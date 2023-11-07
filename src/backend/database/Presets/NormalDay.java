@@ -1,66 +1,84 @@
 package backend.database.Presets;
+import backend.database.Garage;
 import backend.database.MilitaryTimeConverter;
+import backend.database.numVehEnteringRate;
 import backend.database.trendsGarage;
+import frontend.SimulationGUI;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class NormalDay {
-    /* to access a certain garage, simply call the garage ex:
-    NormalDay normalDay = new NormalDay();
-    parkingStructure garage = normalDay.G1.getDay;
-    garage.setTotal_capacity(100); // Modify a public property of G1
 
-    time to park, time parked, and cars per minute are all public for easy access */
-    public int vehiclesPerMin = 40;
-    public int timeToPark = 5;
-    public int timeParked = 30;
-    Random rand = new Random(); // random number to distinguish between runs in SQL
-    int upperbound = 5208;
-    int random_num = rand.nextInt(upperbound);
-    Random rand2 = new Random();
-    int upper = 12;
-    int random = rand2.nextInt(upper); //make a random month
-    String[] Months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
-    Random dayRand = new Random();
-    int upperDay = 28;
-    int RandomDay = dayRand.nextInt(upperDay); // get a random day
-    public ArrayList<trendsGarage> garageList = new ArrayList<trendsGarage>();
-    MilitaryTimeConverter converter = new MilitaryTimeConverter();
-    public String long_date = converter.getMilitaryTime();
-    public trendsGarage G1 = new trendsGarage("43rd & Elkhorn Ave", 655, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
-    public trendsGarage G2 = new trendsGarage("Constant Center South", 1535, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
-    public trendsGarage G3 = new trendsGarage("Constant Center North", 1045, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
-    public trendsGarage G4 = new trendsGarage("49th Street Stadium ", 745, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
-    public trendsGarage G5 = new trendsGarage("43rd & Bluestone Ave", 1535, 0, "", random_num, 0, Months[random], RandomDay, "", long_date);
+    public NormalDay() {
+        ArrayList<Garage> garages = new ArrayList<Garage>();
 
-    public void setArray() {
-        //set list with all garages
-        garageList.add(0,G1);
-        garageList.add(1,G2);
-        garageList.add(2,G3);
-        garageList.add(3,G4);
-        garageList.add(4,G5);
+        int time = 720; //time for the simulation: 12 hours
 
-//print out all garages by looping
-        for (int i = 0; i < 5; i++) {
-            System.out.println("Simulation Number: " + garageList.get(i).getSimulationNumber());
-            System.out.println("Time: " + garageList.get(i).getTime());
-            System.out.println("Garage ID: " + garageList.get(i).getGarage_name());
-            System.out.println("Current Occupancy: " + garageList.get(i).getCurrent_capacity());
-            System.out.println("Capacity: " + garageList.get(i).getTotal_capacity());
-            System.out.println("Notification: " + garageList.get(i).getNotification());
-            System.out.println("Clock Time: " + garageList.get(i).getClockTime());
-            System.out.println("Month: " + garageList.get(i).getMonth());
-            System.out.println("Day: " + garageList.get(i).getDay());
-            System.out.println();
+        Garage garage1 = new Garage("43rd & Elkhorn Ave", 655);
+        garage1.setGarageID(0);
+        garage1.setAvgParkingDuration(180);
+        garage1.setNumVehiclesEnteringPerMin(1); //starts at 1 car per min at 7am
+        garage1.setAvgTimeToPark(10);
+        //set variable vehicles per minute
+        garage1.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 5));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage1.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 7)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage1.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 5)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage1.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 3)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage1.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 2)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage1.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
 
-        }
+        Garage garage2 = new Garage("Constant Center South", 1535);
+        garage2.setGarageID(1);
+        garage2.setAvgParkingDuration(180);
+        garage2.setNumVehiclesEnteringPerMin(1);
+        garage2.setAvgTimeToPark(10);
+        //set variable vehicles per minute
+        garage2.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 5));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage2.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 7)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage2.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 5)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage2.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 3)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage2.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 2)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage2.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
+
+        Garage garage3 = new Garage("Constant Center North", 1045);
+        garage3.setGarageID(2);
+        garage3.setAvgParkingDuration(180);
+        garage3.setNumVehiclesEnteringPerMin(1);
+        garage3.setAvgTimeToPark(10);
+        //set variable vehicles per minute
+        garage3.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 5));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage3.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 7)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage3.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 5)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage3.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 3)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage3.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 2)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage3.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
+
+        Garage garage4 = new Garage("49th Street Stadium", 745);
+        garage4.setGarageID(3);
+        garage4.setAvgParkingDuration(180);
+        garage4.setNumVehiclesEnteringPerMin(1);
+        garage4.setAvgTimeToPark(10);
+        //set variable vehicles per minute
+        garage4.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 5));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage4.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 7)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage4.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 5)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage4.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 3)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage4.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 2)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage4.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
+
+        garages.add(0, garage1);
+        garages.add(1, garage2);
+        garages.add(2, garage3);
+        garages.add(3, garage4);
+
+        // Create an instance of SimulationGUI
+        SimulationGUI simulationGUI = new SimulationGUI(garages, time, new BorderLayout());
+
+        // Make the SimulationGUI visible
+        simulationGUI.setVisible(true);
     }
-    public static void main(String[] args){
-        NormalDay obj = new NormalDay();
-        obj.setArray();
-        System.out.println(obj.G1.getLong_date());
 
-    }
 }
 

@@ -209,7 +209,6 @@ public class trendsTest {
                 }
             }
             scanner.close();
-            System.out.println("master arraylist size = " + p.size() + " , garage1 arraylist size: " + p.get(0).size());
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + fileName);
         }

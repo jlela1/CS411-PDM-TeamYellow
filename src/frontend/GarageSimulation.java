@@ -44,7 +44,7 @@ public class GarageSimulation {
 
                 // end of SQL stuff
 
-                //check for cars entering garage rate changes
+                //for each garage
                 for (int i = 0; i < garages.size(); i++) { //for each garage, execute vehicle algorithms
 
                     //update num vehicles parking per minute
@@ -53,6 +53,24 @@ public class GarageSimulation {
                             garages.get(i).setNumVehiclesEnteringPerMin(garages.get(i).variableNumVehPerMin.get(j).getRate()); //set current num of vehicle rate to specified one stored in array
                         }
                     }
+
+                    //update garage closed/open
+                    for (int j = 0; j < garages.get(i).closeGarageList.size(); j++) { //iterate over number of changes in closing/opening
+                        if (garages.get(i).closeGarageList.get(j).getTime() == time) { //if the time set in one of the arrayList values is equal to the current time (time to change garage closed status)
+                            garages.get(i).setIsClosed(garages.get(i).closeGarageList.get(j).getClosed());
+
+                            //send emergency notification
+                            if(garages.get(i).closeGarageList.get(j).getClosed() == true) {
+                                notificiation = "Notification: " + garages.get(i).getName() + " is now closed!";
+                            } else {
+                                notificiation = "Notification: " + garages.get(i).getName() + " is now open!";
+                            }
+                            //push new notification to GUI
+                            simulationGUI.updateSimLabels(garages, time, notificiation);
+
+                        }
+                    }
+
 
 
                     int numVehiclesParking = garages.get(i).getNumVehiclesEnteringPerMin(); //get num of cars entering specific garage this minute
@@ -101,7 +119,7 @@ public class GarageSimulation {
                             vehicle.setparking_out(vehicle.getparking_out() - 1); //decrement time parked by 1 minute
 
                             // Vehicle exits garage
-                            if (vehicle.getparking_out() <= 0) {
+                            if ((vehicle.getparking_out() <= 0) && (!(garages.get(vehicle.getGarageIndex()).getIsClosed()))) { //if the time parked has decreased to 0 and the garage is not closed:
 
                                 if ((vehicle.getGarageIndex() == 0) && (garages.get(0)).getOccupancy() > 0) { //is vehicle in garage 0
                                     garages.get(0).setOccupancy(garages.get(0).getOccupancy() - 1); //decrement garage 0
@@ -148,7 +166,7 @@ public class GarageSimulation {
                     simulationGUI.updateSimLabels(garages, time, notificiation);
 
                     try {
-                        Thread.sleep(10);
+                        Thread.sleep(50);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -169,47 +187,47 @@ public class GarageSimulation {
 
         //logic:
         //check of all garages full
-        //check if can park in preferred garage(less than 90% full): prefGarage
-        //if not, assign to random garage thats less than 90% full
+        //check if can park in preferred garage(less than 90% full) and not closed: prefGarage
+        //if not, assign to random garage thats less than 90% full and not closed
         //if all over 90% full:
-        //check if preferred garage is less than 100% full, if so send to prefGarage
-        //if not, send to random garage not 100% full
+        //check if preferred garage is less than 100% full and not closed, if so send to prefGarage
+        //if not, send to random garage not 100% full and not closed
 
-        // Check if all garages are full
+        // Check if all garages are full or closed
         int fullCounter = 0; //initialize amount of garages full
         for (int i = 0; i < garages.size(); i++) {
 
-            if (garages.get(i).getOccupancy() >= garages.get(i).getMaxCapacity()) { //check if each garage is full
+            if ((garages.get(i).getOccupancy() >= garages.get(i).getMaxCapacity()) || (garages.get(i).getIsClosed())) { //check if each garage is full or closed
                 fullCounter++; //if garage full, increment.
             }
         }
         //if all garages full, return without doing anything
         if (fullCounter >= garages.size()) {
-            return "All Garages Are Full! You cannot park at this time.";
+            return "All Garages Are Full or Closed! You cannot park at this time.";
         }
 
-        // Check if the chosen garage is 90% or greater capacity (full/unlikely to find a spot)
-        if (garages.get(prefGarage).getOccupancy() >= (garages.get(prefGarage).getMaxCapacity() * 0.9)) {
+        // Check if the chosen garage is 90% or greater capacity or closed (full/unlikely to find a spot or closed)
+        if ((garages.get(prefGarage).getOccupancy() >= (garages.get(prefGarage).getMaxCapacity() * 0.9)) || (garages.get(prefGarage).getIsClosed())) {
 
-            //check if there are any garages below 90% capacity, if so, assign to a random one
+            //check if there are any garages below 90% capacity and are not closed, if so, assign to a random one
 
             //check num of full garages
-            int numFullGarages = 0; //initialize num of garages that are greater than 90% full
+            int numFullGarages = 0; //initialize num of garages that are greater than 90% full or closed
             for (int i = 0; i < garages.size(); i++) {
-                if (garages.get(i).getOccupancy() >= (garages.get(i).getMaxCapacity() * 0.9)) {
+                if ((garages.get(i).getOccupancy() >= (garages.get(i).getMaxCapacity() * 0.9)) || (garages.get(i).getIsClosed())) {
                     numFullGarages++;
                 }
             }
 
-            //check if all garages full
-            if (numFullGarages >= garages.size()) { //if all garages over 90% full
+            //check if all garages full or closed
+            if (numFullGarages >= garages.size()) { //if all garages over 90% full or closed
 
-                //check if preferred garage less than 100% full
-                if (garages.get(prefGarage).getMaxCapacity() > garages.get(prefGarage).getOccupancy()) {
+                //check if preferred garage less than 100% full and not closed
+                if ((garages.get(prefGarage).getMaxCapacity() > garages.get(prefGarage).getOccupancy()) && (!(garages.get(prefGarage).getIsClosed()))) {
                     vehicleToAssign.setParked(true);
                     vehicleToAssign.setGarageIndex(prefGarage);
                     return "Vehicle Assigned to Preferred Garage";
-                } else { //pref garage is full, assign to another random garage less than 100% full
+                } else { //pref garage is full or closed, assign to another random garage less than 100% full
 
                     boolean successfullyAssigned = false; //temp var to support while loop to loop until random garage int matches an available garage
                     int randomGarageInt = 0;
@@ -236,7 +254,7 @@ public class GarageSimulation {
                                 break;
                         }
 
-                        if (garages.get(randomGarageInt).getMaxCapacity() > garages.get(randomGarageInt).getOccupancy()) { //if the random garage is less than 100% full:
+                        if ((garages.get(randomGarageInt).getMaxCapacity() > garages.get(randomGarageInt).getOccupancy()) && (!(garages.get(randomGarageInt).getIsClosed()))) { //if the random garage is less than 100% full AND not closed:
 
                             //assign vehicle to random garage
                             vehicleToAssign.setParked(true);
@@ -251,7 +269,7 @@ public class GarageSimulation {
 
                 }
 
-            } else { //assign vehicle to a random less than 90% full garage
+            } else { //assign vehicle to a random less than 90% full garage thats not closed
 
 
                 boolean successfullyAssigned = false; //temp var to support while loop to loop until random garage int matches an available garage
@@ -279,7 +297,7 @@ public class GarageSimulation {
                             break;
                     }
 
-                    if ((garages.get(randomGarageInt).getMaxCapacity() * 0.9) > garages.get(randomGarageInt).getOccupancy()) { //if the random garage is less than 90% full:
+                    if (((garages.get(randomGarageInt).getMaxCapacity() * 0.9) > garages.get(randomGarageInt).getOccupancy()) && (!(garages.get(randomGarageInt).getIsClosed()))) { //if the random garage is less than 90% full and not closed:
 
                         //assign vehicle to the random garage
 

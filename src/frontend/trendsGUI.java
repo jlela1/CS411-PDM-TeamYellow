@@ -128,8 +128,6 @@ public class trendsGUI extends JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent e)
     {
-        System.out.println("button pressed"); //test
-
         if(e.getSource()==getGraph)
         {
             if (graphPanel != null) {
@@ -155,7 +153,6 @@ public class trendsGUI extends JFrame implements ActionListener {
 
         } else if (e.getSource()==home) //home button listener
         {
-            System.out.println("pressed home button from trends GUI"); //test
             dispose();
             AdminHomePage adminHomePage = new AdminHomePage();
             adminHomePage.setVisible(true);
