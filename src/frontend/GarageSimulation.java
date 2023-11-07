@@ -14,7 +14,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GarageSimulation {
 
     private ArrayList<Garage> garages;
-    public GarageSimulation(SimulationGUI simulationGUI, ArrayList<Garage> garageList, int simulationDuration, int timeValue) {
+    private int currentPreset;
+    public GarageSimulation(SimulationGUI simulationGUI, ArrayList<Garage> garageList, int simulationDuration, int timeValue, int presetType) {
+
+        //preset type: 0 = none, 1 = normalday, 2 = fire in elkhorn, 3 = football
+
+        currentPreset = presetType;
 
         garages = garageList;
 
@@ -160,6 +165,11 @@ public class GarageSimulation {
                         newVehicle.setParking_in(timeToPark);
                         newVehicle.setparking_out(timeParked);
 
+                        //set if vehicle is football authorized based on originated garage
+                        if (garages.get(i).getName().equals("49th Street Stadium") || garages.get(i).getName().equals("43rd & Elkhorn Ave")) {
+                            newVehicle.setFootballAuthorized(true);
+                        }
+
                         garages.get(i).parkingVehicleList.add(newVehicle);
                     }
 
@@ -211,7 +221,7 @@ public class GarageSimulation {
 
             //check if there are any garages below 90% capacity and are not closed, if so, assign to a random one
 
-            //check num of full garages
+            //check num of full or closed garages
             int numFullGarages = 0; //initialize num of garages that are greater than 90% full or closed
             for (int i = 0; i < garages.size(); i++) {
                 if ((garages.get(i).getOccupancy() >= (garages.get(i).getMaxCapacity() * 0.9)) || (garages.get(i).getIsClosed())) {
@@ -224,9 +234,22 @@ public class GarageSimulation {
 
                 //check if preferred garage less than 100% full and not closed
                 if ((garages.get(prefGarage).getMaxCapacity() > garages.get(prefGarage).getOccupancy()) && (!(garages.get(prefGarage).getIsClosed()))) {
-                    vehicleToAssign.setParked(true);
-                    vehicleToAssign.setGarageIndex(prefGarage);
-                    return "Vehicle Assigned to Preferred Garage";
+
+                    //check if football preset is activated, garage assigned is a football garage, and if the vehicle is football authorized:
+                    if((currentPreset == 3) && (garages.get(prefGarage).getName().equals("49th Street Stadium") || garages.get(prefGarage).getName().equals("43rd & Elkhorn Ave")) && (vehicleToAssign.getFootballAuthorized())) {
+                        vehicleToAssign.setParked(true);
+                        vehicleToAssign.setGarageIndex(prefGarage);
+                        return "Vehicle Assigned to Preferred Garage";
+                    } else if((currentPreset == 3) && (!(garages.get(prefGarage).getName().equals("49th Street Stadium") || garages.get(prefGarage).getName().equals("43rd & Elkhorn Ave")))) {
+                        vehicleToAssign.setParked(true);
+                        vehicleToAssign.setGarageIndex(prefGarage);
+                        return "Vehicle Assigned to Preferred Garage";
+                    } else {
+                        vehicleToAssign.setParked(true);
+                        vehicleToAssign.setGarageIndex(prefGarage);
+                        return "Vehicle Assigned to Preferred Garage";
+                    }
+
                 } else { //pref garage is full or closed, assign to another random garage less than 100% full
 
                     boolean successfullyAssigned = false; //temp var to support while loop to loop until random garage int matches an available garage
@@ -256,11 +279,23 @@ public class GarageSimulation {
 
                         if ((garages.get(randomGarageInt).getMaxCapacity() > garages.get(randomGarageInt).getOccupancy()) && (!(garages.get(randomGarageInt).getIsClosed()))) { //if the random garage is less than 100% full AND not closed:
 
-                            //assign vehicle to random garage
-                            vehicleToAssign.setParked(true);
-                            vehicleToAssign.setGarageIndex(randomGarageInt);
+                            //check if football preset is activated, garage assigned is a football garage, and if the vehicle is football authorized:
+                            if((currentPreset == 3) && (garages.get(randomGarageInt).getName().equals("49th Street Stadium") || garages.get(randomGarageInt).getName().equals("43rd & Elkhorn Ave")) && (vehicleToAssign.getFootballAuthorized())) {
+                                //assign vehicle to random garage
+                                vehicleToAssign.setParked(true);
+                                vehicleToAssign.setGarageIndex(randomGarageInt);
+                                successfullyAssigned = true;
+                            } else if((currentPreset == 3) && (!(garages.get(randomGarageInt).getName().equals("49th Street Stadium") || garages.get(randomGarageInt).getName().equals("43rd & Elkhorn Ave")))) {
+                                vehicleToAssign.setParked(true);
+                                vehicleToAssign.setGarageIndex(randomGarageInt);
+                                successfullyAssigned = true;
+                            } else {
+                                vehicleToAssign.setParked(true);
+                                vehicleToAssign.setGarageIndex(randomGarageInt);
+                                successfullyAssigned = true;
+                            }
 
-                            successfullyAssigned = true;
+
 
                         } //one of these if statements has to work, since we checked if all garages were full at the beginning. Cannot be infinite loop.
                     }
@@ -301,10 +336,21 @@ public class GarageSimulation {
 
                         //assign vehicle to the random garage
 
-                        vehicleToAssign.setParked(true);
-                        vehicleToAssign.setGarageIndex(randomGarageInt);
-
-                        successfullyAssigned = true;
+                        //check if football preset is activated, garage assigned is a football garage, and if the vehicle is football authorized:
+                        if((currentPreset == 3) && (garages.get(randomGarageInt).getName().equals("49th Street Stadium") || garages.get(randomGarageInt).getName().equals("43rd & Elkhorn Ave")) && (vehicleToAssign.getFootballAuthorized())) {
+                            //assign vehicle to random garage
+                            vehicleToAssign.setParked(true);
+                            vehicleToAssign.setGarageIndex(randomGarageInt);
+                            successfullyAssigned = true;
+                        } else if((currentPreset == 3) && (!(garages.get(randomGarageInt).getName().equals("49th Street Stadium") || garages.get(randomGarageInt).getName().equals("43rd & Elkhorn Ave")))) {
+                            vehicleToAssign.setParked(true);
+                            vehicleToAssign.setGarageIndex(randomGarageInt);
+                            successfullyAssigned = true;
+                        } else {
+                            vehicleToAssign.setParked(true);
+                            vehicleToAssign.setGarageIndex(randomGarageInt);
+                            successfullyAssigned = true;
+                        }
 
                     } //one of these if statements has to work, since we checked if all garages were full at the beginning. Cannot be infinite loop.
                 }
@@ -315,12 +361,22 @@ public class GarageSimulation {
 
         } else {
 
-            vehicleToAssign.setParked(true);
-            vehicleToAssign.setGarageIndex(prefGarage);
+            //check if football preset is activated, garage assigned is a football garage, and if the vehicle is football authorized:
+            if((currentPreset == 3) && (garages.get(prefGarage).getName().equals("49th Street Stadium") || garages.get(prefGarage).getName().equals("43rd & Elkhorn Ave")) && (vehicleToAssign.getFootballAuthorized())) {
+                vehicleToAssign.setParked(true);
+                vehicleToAssign.setGarageIndex(prefGarage);
+                return "Vehicle Assigned to Preferred Garage";
+            } else if((currentPreset == 3) && (!(garages.get(prefGarage).getName().equals("49th Street Stadium") || garages.get(prefGarage).getName().equals("43rd & Elkhorn Ave")))) {
+                vehicleToAssign.setParked(true);
+                vehicleToAssign.setGarageIndex(prefGarage);
+                return "Vehicle Assigned to Preferred Garage";
+            } else {
+                vehicleToAssign.setParked(true);
+                vehicleToAssign.setGarageIndex(prefGarage);
+                return "Vehicle Assigned to Preferred Garage";
+            }
 
         }
-
-        return "";
     }
 
     public static String convertMinutesToAMPM(int minutes) {

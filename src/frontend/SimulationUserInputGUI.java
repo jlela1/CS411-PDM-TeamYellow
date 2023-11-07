@@ -198,7 +198,7 @@ public class SimulationUserInputGUI extends JFrame {
                 getContentPane().remove(simulationDurationLabel);
 
                 // Create an instance of SimulationGUI
-                SimulationGUI simulationGUI = new SimulationGUI(garages, Integer.parseInt(durationValue.getText()), new BorderLayout());
+                SimulationGUI simulationGUI = new SimulationGUI(garages, Integer.parseInt(durationValue.getText()), new BorderLayout(), 0);
 
                 // Make the SimulationGUI visible
                 simulationGUI.setVisible(true);

@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.database.Presets.Fire;
+import backend.database.Presets.Football;
 import backend.database.Presets.NormalDay;
 
 import javax.swing.*;
@@ -166,6 +167,8 @@ public class SimulationOptions extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                dispose();
+                new Football();
             }
         });
 

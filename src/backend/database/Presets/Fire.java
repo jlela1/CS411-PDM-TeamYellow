@@ -75,7 +75,7 @@ public class Fire {
         garages.add(3, garage4);
 
         // Create an instance of SimulationGUI
-        SimulationGUI simulationGUI = new SimulationGUI(garages, time, new BorderLayout());
+        SimulationGUI simulationGUI = new SimulationGUI(garages, time, new BorderLayout(), 2);
 
         // Make the SimulationGUI visible
         simulationGUI.setVisible(true);

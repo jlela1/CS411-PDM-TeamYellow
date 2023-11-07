@@ -27,7 +27,7 @@ public class SimulationGUI extends JFrame {
     private ArrayList<Garage> garages;
 
     // Initialize GUI for active portion of simulation
-    public SimulationGUI(ArrayList<Garage> garagesList, int simulationDuration, BorderLayout borderLayout) {
+    public SimulationGUI(ArrayList<Garage> garagesList, int simulationDuration, BorderLayout borderLayout, int presetType) {
 
         garages = garagesList; //initialize value for private var, enable access on all functions in this class
 
@@ -360,7 +360,7 @@ public class SimulationGUI extends JFrame {
             }
         });
 
-        GarageSimulation garageSimulation = new GarageSimulation(this, garages, simulationDuration, time);
+        GarageSimulation garageSimulation = new GarageSimulation(this, garages, simulationDuration, time, presetType);
 
     }
 

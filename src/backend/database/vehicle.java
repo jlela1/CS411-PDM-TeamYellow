@@ -9,6 +9,8 @@ public class vehicle {
 	private int parking_out;
 	private int garageIndex;
 	private boolean parked;
+
+	private boolean footballAuthorized;
 	
 	// default constructor
 	public vehicle() {
@@ -17,6 +19,7 @@ public class vehicle {
 		parking_out = 0; //duration of park
 		garageIndex = -1;
 		parked = false;
+		footballAuthorized = false;
 	}
 	
 	//constructor
@@ -27,7 +30,11 @@ public class vehicle {
 		garageIndex = theGarageIndex;
 		parked = theParked;
 	}
-	
+
+	public boolean getFootballAuthorized() {return footballAuthorized;}
+
+	public void setFootballAuthorized(boolean newFootballAuthorized) {this.footballAuthorized = newFootballAuthorized;}
+
 	// return vehicle ID
 	public String getVehicle_id() {
 		return vehicle_id;
