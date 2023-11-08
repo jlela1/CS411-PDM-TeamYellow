@@ -9,6 +9,10 @@ import javax.swing.text.JTextComponent;
 import java.awt.Image;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import backend.database.Schedule;
+import backend.database.userProfile;
 import frontend.Login;
 
 class Reg extends JFrame implements ActionListener {
@@ -177,7 +181,7 @@ class Reg extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == registerButton) { // Submit button clicked for registration
-            String username = textField1.getText();
+           /* String username = textField1.getText();
             String password = new String(textField2.getPassword());
 
 
@@ -215,6 +219,11 @@ class Reg extends JFrame implements ActionListener {
             this.dispose(); // Close the registration window
             Login login = new Login(); // Open the login window
             login.setVisible(true);
+        } */
+            removeAll();
+            dispose();
+            createProfileGUI createProfile = new createProfileGUI();
+            createProfile.setVisible(true); //Points to create Profile -Bryan
         }
     }
 
