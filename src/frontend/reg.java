@@ -223,7 +223,7 @@ class Reg extends JFrame implements ActionListener {
             removeAll();
             dispose();
             createProfileGUI createProfile = new createProfileGUI();
-            createProfile.setVisible(true); //Points to create Profile
+            createProfile.setVisible(true); //Points to create Profile -Bryan
         }
     }
 
