@@ -132,6 +132,8 @@ public class createGraph extends JFrame {
             case "Vehicles Per Minute":
                 title = input + " Vehicles Per Minute Trend";
                 break;
+            case "Average Feedback":
+                title = input + " Average Feedback Trend";
             default:
                 title = input + " Trend";
                 break;
@@ -166,6 +168,8 @@ public class createGraph extends JFrame {
                 case "Vehicles Per Minute": //cars entering per minute graph
                     singleG.add(garage.get(i).getTime(),garage.get(i).getVehiclesPerMinute());
                     break;
+                case "Average Feedback":
+                    singleG.add(garage.get(i).getTime(),garage.get(i).getAverageFeedback());
             }
 
 //            singleG.add(130,75);

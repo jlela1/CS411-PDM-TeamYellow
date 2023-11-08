@@ -63,7 +63,7 @@ class Reg extends JFrame implements ActionListener {
         newPanel = new JPanel(new BorderLayout());
 
 
-        JPanel headingPanel = PDMPanels.createHeader("PDM Registration");
+        JPanel headingPanel = PDMPanels.GeneralHeader("PDM Registration");
 
 
         JLabel welcomeLabel = new JLabel("Parking Made Easy");
@@ -145,7 +145,7 @@ class Reg extends JFrame implements ActionListener {
 
 
         // Create and add the footer using PageLayout
-        JPanel footerPanel = PDMPanels.createFooter();
+        JPanel footerPanel = PDMPanels.GeneralFooter();
         add(footerPanel, BorderLayout.SOUTH);
 
 

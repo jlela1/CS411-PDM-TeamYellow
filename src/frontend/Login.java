@@ -47,7 +47,7 @@ public class Login extends JFrame implements ActionListener {
 
         newPanel = new JPanel(new BorderLayout());
 
-        JPanel headingPanel = PDMPanels.createHeader("PDM Login");
+        JPanel headingPanel = PDMPanels.GeneralHeader("PDM Login");
 
         JLabel welcomeLabel = new JLabel("Parking Made Easy");
         welcomeLabel.setForeground(Color.DARK_GRAY);
@@ -86,7 +86,7 @@ public class Login extends JFrame implements ActionListener {
         b2.addActionListener(this);
 
         // Create and add the footer using PageLayout
-        JPanel footerPanel = PDMPanels.createFooter();
+        JPanel footerPanel = PDMPanels.GeneralFooter();
         add(footerPanel, BorderLayout.SOUTH);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);

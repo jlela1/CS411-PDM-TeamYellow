@@ -43,7 +43,7 @@ public class GarageSimulation {
                 MilitaryTimeConverter converter = new MilitaryTimeConverter();
 
                 for (Garage garage : garages) {
-                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation, garage.getGarageID(), garage.getNumVehiclesEnteringPerMin());
+                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation, garage.getGarageID(), garage.getNumVehiclesEnteringPerMin(), garage.getAverageFeedback());
                     // ...
                 }
 
@@ -156,8 +156,10 @@ public class GarageSimulation {
                         }
 
                         //compile and store feedback
-                        double averageFeedbackRating = totalFeedbackRatingCount / numOfCarsParkingThisTick;
-                        garages.get(i).setAverageFeedback(averageFeedbackRating);
+                        if (numOfCarsParkingThisTick > 0) {
+                            double averageFeedbackRating = totalFeedbackRatingCount / numOfCarsParkingThisTick;
+                            garages.get(i).setAverageFeedback(averageFeedbackRating);
+                        }
                     }
 
                     // Add new vehicles looking for parking
