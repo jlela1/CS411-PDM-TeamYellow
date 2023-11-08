@@ -25,7 +25,7 @@ public class createGraph extends JFrame {
         return dataset;
     }
 
-    public static LocalDate convertStringToLocalDate(String dateString) {
+    public static LocalDate convertStringToLocalDate(String dateString) { // changes long_date to Local Date type
         // Remove single quotes if present
         dateString = dateString.replaceAll("'", "");
 
@@ -44,7 +44,7 @@ public class createGraph extends JFrame {
         }
     }
 
-    public static LocalDate isDateBetween(LocalDate date1, LocalDate date2, LocalDate indexDate) {
+    public static LocalDate isDateBetween(LocalDate date1, LocalDate date2, LocalDate indexDate) { // checks if date is between range
         if (date1 == null || date2 == null || indexDate == null) {
             return null; // Return null if any of the input values is null
         }

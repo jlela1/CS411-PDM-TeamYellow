@@ -15,6 +15,7 @@ public class trendsGarage {
     private int day;
     private String clock_time;
     private String long_date;
+    private int vehicles_per_minute;
 
     /**
      * Create new parking structure
@@ -165,6 +166,16 @@ public class trendsGarage {
     public int getGarageID() {return garageID;}
 
     public void setGarageID(int newGarageID) {garageID = newGarageID;}
+
+    // Getter for vehicles_per_minute
+    public int getVehiclesPerMinute() {
+        return vehicles_per_minute;
+    }
+
+    // Setter for vehicles_per_minute
+    public void setVehiclesPerMinute(int vehicles_per_minute) {
+        this.vehicles_per_minute = vehicles_per_minute;
+    }
     @Override
     public String toString() {
         return "ParkingStructure [" +

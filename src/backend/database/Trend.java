@@ -30,7 +30,7 @@ public class Trend {
         return input.replace(",", "");
     }
 
-    public void setGarage(Trend stats, int time, int garage1Occupancy, int garage1Capacity, String Clock_time, String name, String long_date, String notification, int garageID){
+    public void setGarage(Trend stats, int time, int garage1Occupancy, int garage1Capacity, String Clock_time, String name, String long_date, String notification, int garageID, int vehiclesEnteringPerMinute){
 
         // initialize trending object to output stats from garages for SQL
         stats = new Trend();
@@ -48,7 +48,7 @@ public class Trend {
         Old random month and day functionality */
 
         // Start of SQL stuff. Set variables to pass into trend.txt and SQL DB
-            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + garageID + "," + "'" + removeCommasFromString(notification) + "'" + "," + "'" + Clock_time + "'" + "," + "'" + dtf.format(now) +"'" + "," + dtf2.format(now) + "," + "'" + long_date +"'" ); // output line
+            line = (random_num + "," + time + ",'" + name + "'" +"," + garage1Occupancy + "," + garage1Capacity + "," + garageID + "," + "'" + removeCommasFromString(notification) + "'" + "," + "'" + Clock_time + "'" + "," + "'" + dtf.format(now) +"'" + "," + dtf2.format(now) + "," + "'" + long_date +"'" + "," + vehiclesEnteringPerMinute ); // output line
 
         stats.setString(line);
 
@@ -130,7 +130,8 @@ public class Trend {
                     sql2.append("Clock_time,");
                     sql2.append("month_,");
                     sql2.append("day,");
-                    sql2.append("long_date)");
+                    sql2.append("long_date,");
+                    sql2.append(("vehicles_per_minute)"));
                     sql2.append("VALUES(");
                     sql2.append(line);
                     int result = line.lastIndexOf(",");

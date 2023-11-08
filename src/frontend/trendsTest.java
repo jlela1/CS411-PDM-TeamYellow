@@ -30,13 +30,14 @@ public class trendsTest {
         Vector<String> months = new Vector<>();
         Vector<Integer> days = new Vector<>();
         Vector<String> long_dates = new Vector<>();
+        Vector<Integer> vehicles_per_minute = new Vector<>();
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
-                if (data.length == 11) {
+                if (data.length == 12) {
 
                     simulationNumbers.add(Integer.parseInt(data[0]));
                     times.add(Integer.parseInt(data[1]));
@@ -49,6 +50,7 @@ public class trendsTest {
                     months.add(data[8]);
                     days.add(Integer.parseInt(data[9]));
                     long_dates.add(data[10]);
+                    vehicles_per_minute.add(Integer.parseInt(data[11]));
                 } else {
                     System.err.println("Skipping invalid line: " + line);
                 }
@@ -71,6 +73,7 @@ public class trendsTest {
             System.out.println("Month: " + months.get(i));
             System.out.println("Day: " + days.get(i));
             System.out.println("long_date: " + long_dates.get(i));
+            System.out.println("vehicles per minute: " + vehicles_per_minute.get(i));
             System.out.println();
         }
     }
@@ -178,7 +181,7 @@ public class trendsTest {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] data = line.split(",");
-                if (data.length == 11) {
+                if (data.length == 12) {
 
                     switch(Integer.parseInt(data[5]))
                     {
@@ -228,6 +231,7 @@ public class trendsTest {
         pb.setMonth(data[8]);
         pb.setDay(Integer.parseInt(data[9]));
         pb.setLong_date(data[10]);
+        pb.setVehiclesPerMinute(Integer.parseInt(data[11]));
         return pb;
     }
 
