@@ -149,9 +149,13 @@ public class UserProfileGUI extends JFrame {
         mainPanel.add(bottomPanel, BorderLayout.SOUTH);
         bottomPanel.setPreferredSize(new Dimension(2000, 50));
 
+        // Create button to open an edit profile GUI instance
+        JButton editProfileButton = new JButton("Edit Profile");
+        bottomPanel.add(editProfileButton, BorderLayout.CENTER);
+
         // Create button to return to user dashboard and add it to the bottom of the page
         JButton dashboardButton = new JButton("User Dashboard");
-        bottomPanel.add(dashboardButton, BorderLayout.CENTER);
+        bottomPanel.add(dashboardButton, BorderLayout.SOUTH);
 
         // Update user's schedule information when dayComboBox selection is changed
         dayComboBox.addActionListener (new ActionListener () {
@@ -181,11 +185,23 @@ public class UserProfileGUI extends JFrame {
             }
         });
 
+        // Cleanup and open new editProfile when edit profile button is pressed
+        editProfileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeAll();
+                dispose();
+                editProfileGUI editProfile = new editProfileGUI();
+                editProfile.setVisible(true);
+            }
+        });
+
         // Cleanup and open new UserDashboard when dashboard button is pressed
         dashboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 removeAll();
+                dispose();
                 UserDashboard newDashboard = new UserDashboard();
                 newDashboard.setVisible(true);
             }

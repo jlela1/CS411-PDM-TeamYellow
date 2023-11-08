@@ -3,6 +3,7 @@ package frontend;
 import backend.database.Garage;
 import backend.database.Schedule;
 import backend.database.userProfile;
+import frontend.UserDashboard;
 //import backend.database.parkingStructure;
 //import javafx.application.Platform;
 //import javafx.scene.Scene;
@@ -20,12 +21,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class editProfileGUI extends JFrame{
+public class createProfileGUI extends JFrame{
 
 
-    public editProfileGUI() {
+    public createProfileGUI() {
         // Frame setup
-        setTitle("Edit Profile");
+        setTitle("Create Profile");
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximize the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -38,7 +39,7 @@ public class editProfileGUI extends JFrame{
         headerPanel.setLayout(new BorderLayout());
 
 
-        JPanel header = PDMPanels.createUserHeader("Edit Profile");
+        JPanel header = PDMPanels.createUserHeader("Create Profile");
         add(header, BorderLayout.NORTH);
 
         // Content Panel
@@ -65,7 +66,7 @@ public class editProfileGUI extends JFrame{
         namePanel.add(lastNameText);
 
         JLabel permitLabel = new JLabel("Permit:");
-       permitLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        permitLabel.setFont(new Font("Roboto",Font.ITALIC,16));
         permitPanel.add(permitLabel);
 
        /* JTextField permitText = new JTextField(20);
@@ -92,7 +93,7 @@ public class editProfileGUI extends JFrame{
 
         String[] options ={"Commuter", "Resident", "Faculty"};
         JComboBox<String> comboBox = new JComboBox<>(options);
-       comboBox.setPreferredSize(new Dimension(250,50));
+        comboBox.setPreferredSize(new Dimension(250,50));
         comboBox.setFont(new Font("Roboto",Font.PLAIN,16));
         rolePanel.add(comboBox);
 
@@ -108,15 +109,10 @@ public class editProfileGUI extends JFrame{
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String firstName = firstNameText.getText();
-                String lastName = lastNameText.getText();
-                String permitType = (String) permitBox.getSelectedItem();
-                String roleType = (String) comboBox.getSelectedItem();
                 removeAll();
-                UserProfileGUI userProfileGUI = new UserProfileGUI(new userProfile("12345", firstName, lastName, permitType, "0", "0", roleType, new Schedule(), new ArrayList<Integer>()));
-                userProfileGUI.setVisible(true);
-                userProfileGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                userProfileGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                dispose();
+                UserDashboard userDashboard = new UserDashboard();
+                userDashboard.setVisible(true);
             }
         });
 
@@ -124,15 +120,15 @@ public class editProfileGUI extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 removeAll();
-                UserProfileGUI userProfileGUI = new UserProfileGUI(new userProfile("12345", "Carson", "Parker", "Fall Semester", "0", "0", "Commuter", new Schedule(), new ArrayList<Integer>()));
-                userProfileGUI.setVisible(true);
-                userProfileGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                userProfileGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                dispose();
+                UserDashboard userDashboard = new UserDashboard();
+                userDashboard.setVisible(true);
             }
         });
+
         //contentPanel.setLayout(new GridLayout(4,1));
-       SpringLayout layout = new SpringLayout();
-       contentPanel.setLayout(layout);
+        SpringLayout layout = new SpringLayout();
+        contentPanel.setLayout(layout);
 
         contentPanel.add(namePanel);
         contentPanel.add(permitPanel);
@@ -159,12 +155,5 @@ public class editProfileGUI extends JFrame{
 
 
     }
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            editProfileGUI editProfile = new editProfileGUI();
-            editProfile.setVisible(true);
-        });
-    }
+
 }
-
-

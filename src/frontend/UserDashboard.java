@@ -10,6 +10,7 @@ import backend.database.Schedule;
 import backend.database.userProfile;
 import frontend.SimulationUserInputGUI;
 import frontend.UserProfileGUI;
+import frontend.createProfileGUI;
 
 public class UserDashboard extends JFrame{
     public UserDashboard() {
@@ -74,12 +75,22 @@ public class UserDashboard extends JFrame{
         userProfileButton.setPreferredSize(new Dimension(250, 50));
         userProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Create createProfile Button
+        JButton createProfileButton = new JButton("Create Profile");
+        createProfileButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        createProfileButton.setForeground(Color.BLACK);
+        createProfileButton.setBackground(new Color(222, 50, 50, 255));
+        createProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        createProfileButton.setFocusPainted(false);
+        createProfileButton.setPreferredSize(new Dimension(250, 50));
+        createProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         recommendationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Create an instance of googleMapsGUI and make it visible
-                googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
-                GoogleMapsGUI.setVisible(true);
+//                googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
+//                GoogleMapsGUI.setVisible(true);
             }
         });
 
@@ -89,6 +100,7 @@ public class UserDashboard extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 // Creating a test user on userProfileGUI creation. A real user will need to be retrieved.
                 removeAll();
+                dispose();
                 UserProfileGUI userProfileGUI = new UserProfileGUI(new userProfile("12345", "Carson", "Parker", "Fall Semester", "0", "0", "Commuter", new Schedule(), new ArrayList<Integer>()));
                 userProfileGUI.setVisible(true);
                 userProfileGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -96,8 +108,20 @@ public class UserDashboard extends JFrame{
             }
         });
 
+        createProfileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeAll();
+                dispose();
+                createProfileGUI createProfile = new createProfileGUI();
+                createProfile.setVisible(true);
+            }
+        });
+
+
         contentPanel.add(recommendationButton);
         contentPanel.add(userProfileButton);
+        contentPanel.add(createProfileButton);
 
         //Create a PDM footer
         JPanel footer = PDMPanels.createFooter();
