@@ -176,7 +176,7 @@ public class GarageSimulation {
                     simulationGUI.updateSimLabels(garages, time, notificiation);
 
                     try {
-                        Thread.sleep(50);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

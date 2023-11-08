@@ -56,7 +56,7 @@ public class createGraph extends JFrame {
         //System.out.println("Not within range" + "\n"); line that would output if date was out of range
         return null;
     }
-    public createGraph(String input, int numGar, LocalDate date1, LocalDate date2) {
+    public createGraph(String input, int numGar, LocalDate date1, LocalDate date2, String graphType) {
         super("PDM Trends"); // Graph title
 
         // Clear existing data by initializing a new ArrayList
@@ -67,7 +67,7 @@ public class createGraph extends JFrame {
 
         // Ensure that the garages ArrayList is cleared for cases where isDateBetween returns null
         if (date1 != null && date2 != null) {
-            ArrayList<ArrayList<trendsGarage>> clearedGarages = new ArrayList<>();
+            ArrayList<ArrayList<trendsGarage>> clearedGarages = new ArrayList<>(); //new arraylist for only datapoints within data range
             for (int i = 0; i < garages.size(); i++) {
                 ArrayList<trendsGarage> garageData = garages.get(i); // Get data for a specific garage
                 if (!garageData.isEmpty()) {
@@ -79,12 +79,12 @@ public class createGraph extends JFrame {
                     }
                 }
             }
-            garages = clearedGarages;
+            garages = clearedGarages; //update old array to reflect cleaned data
         }
         XYDataset dataset;
         // Now, the garages list should only contain data that falls within the specified date range.
         if (!garages.isEmpty()){
-         dataset = createDataset(input, garages.get(0)); // Initialize as a base case
+         dataset = createDataset(input, garages.get(0), graphType); // Initialize as a base case
                                  }
         else{
             // Handle the case when garages is empty (e.g., create an empty dataset or display a message)
@@ -105,24 +105,40 @@ public class createGraph extends JFrame {
 
         switch (inputGarageID) {
             case 0:
-                dataset = createDataset(input, garages.get(0));
+                dataset = createDataset(input, garages.get(0), graphType);
                 break;
             case 1:
-                dataset = createDataset(input, garages.get(1));
+                dataset = createDataset(input, garages.get(1), graphType);
                 break;
             case 2:
-                dataset = createDataset(input, garages.get(2));
+                dataset = createDataset(input, garages.get(2), graphType);
                 break;
             case 3:
-                dataset = createDataset(input, garages.get(3));
+                dataset = createDataset(input, garages.get(3), graphType);
                 break;
             case 4:
-                dataset = createDataset(input, garages.get(4));
+                dataset = createDataset(input, garages.get(4), graphType);
+                break;
+        }
+
+        String title;
+        switch(graphType) {
+            case "Occupancy":
+                title = input + " Occupancy Trend";
+                break;
+            case "Availability":
+                title = input + " Availability Trend";
+                break;
+            case "Vehicles Per Minute":
+                title = input + " Vehicles Per Minute Trend";
+                break;
+            default:
+                title = input + " Trend";
                 break;
         }
 
         JFreeChart xyChart = ChartFactory.createXYLineChart(
-                "PDM Trends",
+                title,
                 "Time",
                 "Used Capc.",
                 dataset,
@@ -134,12 +150,24 @@ public class createGraph extends JFrame {
     }
 
 
-    private XYDataset createDataset(String input, ArrayList<trendsGarage> garages) {
+    private XYDataset createDataset(String input, ArrayList<trendsGarage> garage, String graphType) {
         final XYSeries singleG = new XYSeries(input);
-        for(int i=0; i < garages.size(); i++){
+        for(int i=0; i < garage.size(); i++){
             //TO:DO Rewrite this method to be able to use database data
 
-            singleG.add(garages.get(i).getTime(),garages.get(i).getCurrent_capacity());
+            switch(graphType) {
+                case "Occupancy": //occupancy graph
+                    singleG.add(garage.get(i).getTime(),garage.get(i).getCurrent_capacity());
+                    break; //availability graph
+                case "Availability":
+                    int availability = garage.get(i).getTotal_capacity() - garage.get(i).getCurrent_capacity();
+                    singleG.add(garage.get(i).getTime(),availability);
+                    break;
+                case "Vehicles Per Minute": //cars entering per minute graph
+                    singleG.add(garage.get(i).getTime(),garage.get(i).getVehiclesPerMinute());
+                    break;
+            }
+
 //            singleG.add(130,75);
 //            singleG.add(200,1);
 //            singleG.add(230,69);
@@ -154,7 +182,7 @@ public class createGraph extends JFrame {
     public static void main(String[] args) throws Exception {
 
         SwingUtilities.invokeAndWait(() -> {
-            createGraph example = new createGraph("Constant Center South", 4, null, null);
+            createGraph example = new createGraph("Constant Center South", 4, null, null, "Occupancy");
             example.setSize(800, 400);
             example.setLocationRelativeTo(null);
             example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
