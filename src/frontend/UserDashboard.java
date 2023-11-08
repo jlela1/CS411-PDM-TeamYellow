@@ -75,20 +75,11 @@ public class UserDashboard extends JFrame{
         userProfileButton.setPreferredSize(new Dimension(250, 50));
         userProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Create createProfile Button
-        JButton createProfileButton = new JButton("Create Profile");
-        createProfileButton.setFont(new Font("Roboto", Font.BOLD, 16));
-        createProfileButton.setForeground(Color.BLACK);
-        createProfileButton.setBackground(new Color(185, 50, 222, 255));
-        createProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
-        createProfileButton.setFocusPainted(false);
-        createProfileButton.setPreferredSize(new Dimension(250, 50));
-        createProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton logOutB= new JButton("Logout");
         logOutB.setFont(new Font("Roboto", Font.BOLD, 16));
         logOutB.setForeground(Color.BLACK);
-        logOutB.setBackground(new Color(241, 49, 49, 163));
+        logOutB.setBackground(new Color(204, 11, 91, 255));
         logOutB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         logOutB.setFocusPainted(false);
         logOutB.setPreferredSize(new Dimension(250, 50));
@@ -119,15 +110,6 @@ public class UserDashboard extends JFrame{
             }
         });
 
-        createProfileButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeAll();
-                dispose();
-                createProfileGUI createProfile = new createProfileGUI();
-                createProfile.setVisible(true);
-            }
-        });
 
         logOutB.addActionListener(new ActionListener() {
             @Override
@@ -142,7 +124,6 @@ public class UserDashboard extends JFrame{
 
         contentPanel.add(recommendationButton);
         contentPanel.add(userProfileButton);
-        contentPanel.add(createProfileButton);
         contentPanel.add(logOutB);
 
         //Create a PDM footer
