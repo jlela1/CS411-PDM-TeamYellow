@@ -131,8 +131,8 @@ public class trendsGUI extends JFrame implements ActionListener {
 
 
         // calls createGraph and adds it
-
-        trendsGraph = new createGraph(garageName, numGar, datePickerStart.getDate(), datePickerEnd.getDate());
+        graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
+        trendsGraph = new createGraph(garageName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(), graphType);
         graphPanel = new JPanel();
 
         gbc.gridy = 4;
@@ -188,7 +188,7 @@ public class trendsGUI extends JFrame implements ActionListener {
             graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
             String garageNewName = (String) userSelectionGarage.getSelectedItem();
 
-            trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate());
+            trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(), graphType);
             date1 = datePickerStart.getDate();
             date2 = datePickerEnd.getDate();
             graphPanel.add(trendsGraph.getContentPane());
