@@ -17,6 +17,8 @@ public class trendsGarage {
     private String long_date;
     private int vehicles_per_minute;
 
+    private double averageFeedback;
+
     /**
      * Create new parking structure
      */
@@ -175,6 +177,13 @@ public class trendsGarage {
     // Setter for vehicles_per_minute
     public void setVehiclesPerMinute(int vehicles_per_minute) {
         this.vehicles_per_minute = vehicles_per_minute;
+    }
+
+    public double getAverageFeedback() {
+        return averageFeedback;
+    }
+    public void setAverageFeedback(double averageFeedback) {
+        this.averageFeedback = averageFeedback;
     }
     @Override
     public String toString() {
