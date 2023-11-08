@@ -1,51 +1,60 @@
 package frontend;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 public class FeedbackSubmissionGUI {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Feedback Submission");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setLayout(new BorderLayout());
+
+        // Create a background panel with the image
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon("resources/color.png");
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
 
         // Title
-        JLabel titleLabel = new JLabel("YOUR FEEDBACK");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        JLabel titleLabel = new JLabel("Feedback Submission");
+        titleLabel.setFont(new Font("Roboto", Font.BOLD, 32));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        frame.add(titleLabel, BorderLayout.NORTH);
+
+        // Main panel for the content
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setOpaque(false);
 
         // Center Panel
         JPanel centerPanel = new JPanel();
-        centerPanel.setLayout(new GridLayout(11, 1, 5, 5));
-        centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        centerPanel.setLayout(new GridLayout(7, 1, 10, 10));
+        centerPanel.setOpaque(false);
 
         // Rating descriptions
-        Map<Integer, String> ratingDescriptions = new HashMap<>();
-        ratingDescriptions.put(1, "Poor");
-        ratingDescriptions.put(2, "Semi Okay");
-        ratingDescriptions.put(3, "Okay");
-        ratingDescriptions.put(4, "Pretty Good");
-        ratingDescriptions.put(5, "Excellent");
+        String[] ratingDescriptions = {
+                "Poor", "Semi Okay", "Okay", "Pretty Good", "Excellent"
+        };
 
         // Rating
         JPanel ratingPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel ratingLabel = new JLabel("Rating (1-5):");
-        JComboBox<Integer> ratingComboBox = new JComboBox<>(new Integer[]{1, 2, 3, 4, 5});
+        ratingPanel.setOpaque(false);
+        JLabel ratingLabel = new JLabel("Rating:");
+        JComboBox<String> ratingComboBox = new JComboBox<>(ratingDescriptions);
+        ratingComboBox.setSelectedIndex(2); // Default selection
 
         // Description for the selected rating
-        JLabel ratingDescriptionLabel = new JLabel("Rating Description: " + ratingDescriptions.get(1));
+        JLabel ratingDescriptionLabel = new JLabel("Rating Description: " + ratingDescriptions[2]);
 
         ratingComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int rating = (int) ratingComboBox.getSelectedItem();
-                String ratingDescription = ratingDescriptions.get(rating);
-                ratingDescriptionLabel.setText("Rating Description: " + ratingDescription);
+                int index = ratingComboBox.getSelectedIndex();
+                ratingDescriptionLabel.setText("Rating Description: " + ratingDescriptions[index]);
             }
         });
 
@@ -54,7 +63,7 @@ public class FeedbackSubmissionGUI {
         centerPanel.add(ratingPanel);
         centerPanel.add(ratingDescriptionLabel);
 
-        // Questions and input fields
+        // Questions and radio buttons (Yes/No)
         String[] questions = {
                 "Were you able to find the location you were looking for?",
                 "Did you park your car at our recommended location?",
@@ -62,32 +71,47 @@ public class FeedbackSubmissionGUI {
                 "Would you recommend this app to others"
         };
 
-        Map<String, JTextField> answerFields = new HashMap<>();
-
         for (String question : questions) {
             JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
             JLabel questionLabel = new JLabel(question);
-            JTextField answerField = new JTextField(40);
-            answerFields.put(question, answerField);
+            JRadioButton yesButton = new JRadioButton("Yes");
+            JRadioButton noButton = new JRadioButton("No");
+            ButtonGroup buttonGroup = new ButtonGroup();
+            buttonGroup.add(yesButton);
+            buttonGroup.add(noButton);
             questionPanel.add(questionLabel);
-            questionPanel.add(answerField);
+            questionPanel.add(yesButton);
+            questionPanel.add(noButton);
             centerPanel.add(questionPanel);
         }
 
         // Submit button
         JPanel submitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        submitPanel.setOpaque(false);
         JButton submitButton = new JButton("Send Feedback");
+
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Process and store the feedback data here
                 for (String question : questions) {
-                    String answer = answerFields.get(question).getText();
-                    System.out.println(question + ": " + answer);
+                    System.out.print(question + ": ");
+                    Component[] components = centerPanel.getComponents();
+                    for (Component component : components) {
+                        if (component instanceof JPanel) {
+                            JPanel questionPanel = (JPanel) component;
+                            if (questionPanel.getComponentCount() == 3) {
+                                JLabel label = (JLabel) questionPanel.getComponent(0);
+                                JRadioButton yesButton = (JRadioButton) questionPanel.getComponent(1);
+                                JRadioButton noButton = (JRadioButton) questionPanel.getComponent(2);
+                                String answer = (yesButton.isSelected()) ? "Yes" : "No";
+                                System.out.println(answer);
+                            }
+                        }
+                    }
                 }
-                int rating = (int) ratingComboBox.getSelectedItem();
-                String ratingDescription = ratingDescriptions.get(rating);
-                System.out.println("Rating: " + rating + " (" + ratingDescription + ")");
+                int index = ratingComboBox.getSelectedIndex();
+                System.out.println("Rating: " + (index + 1) + " (" + ratingDescriptions[index] + ")");
                 JOptionPane.showMessageDialog(frame, "Feedback submitted!");
             }
         });
@@ -96,7 +120,16 @@ public class FeedbackSubmissionGUI {
         centerPanel.add(submitPanel);
 
         JScrollPane scrollPane = new JScrollPane(centerPanel);
-        frame.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setOpaque(false);
+
+        // Add components to the main panel
+        mainPanel.add(titleLabel, BorderLayout.NORTH);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+
+        // Add the background panel to the frame
+        backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(mainPanel, BorderLayout.CENTER);
+        frame.add(backgroundPanel);
 
         frame.setVisible(true);
     }

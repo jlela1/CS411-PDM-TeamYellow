@@ -35,7 +35,7 @@ public class createProfileGUI extends JFrame{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon("resources/mobilebackground.jpg"); // Specify the correct path to your image
+                ImageIcon backgroundImage = new ImageIcon("resources/color.png");
                 g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
@@ -47,22 +47,42 @@ public class createProfileGUI extends JFrame{
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new BorderLayout());
         backgroundPanel.add(headerPanel, BorderLayout.NORTH);
+        //headerPanel.setBackground(new Color(113, 100, 217, 242));
+        //headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
-        JPanel header = PDMPanels.createUserHeader("Create Profile");
-        headerPanel.add(header, BorderLayout.NORTH);
+        JLabel headingLabel = new JLabel("Create Profile");
+        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        headingLabel.setForeground(Color.DARK_GRAY);
+        headingLabel.setBackground(Color.lightGray);
+        headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headerPanel.add(headingLabel, BorderLayout.NORTH);
+
 
         // Content Panel
         JPanel contentPanel = new JPanel();
         contentPanel.setOpaque(false);
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+
+        //JPanel mainPanel = new JPanel();
+        //mainPanel.setOpaque(false);
+        //mainPanel.setLayout(new GridLayout(4, 1));
+        //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(false);
+        contentPanel.add(namePanel);
+
         JPanel permitPanel = new JPanel();
         permitPanel.setOpaque(false);
+        contentPanel.add(permitPanel);
+
         JPanel rolePanel = new JPanel();
         rolePanel.setOpaque(false);
+        contentPanel.add(rolePanel);
+
         JPanel savePanel = new JPanel();
         savePanel.setOpaque(false);
+        contentPanel.add(savePanel);
 
 
         JLabel nameLabel = new JLabel("Name: ");
@@ -146,11 +166,11 @@ public class createProfileGUI extends JFrame{
         });
 
         //contentPanel.setLayout(new GridLayout(10,1));
-        contentPanel.setLayout(new GridLayout(5, 1));
-        SpringLayout layout = new SpringLayout();
+       // contentPanel.setLayout(new GridLayout(5, 1));
+       // SpringLayout layout = new SpringLayout();
         //contentPanel.setLayout(layout);
 
-
+/*
         layout.putConstraint(SpringLayout.EAST, namePanel, 80, SpringLayout.EAST, savePanel);
         layout.putConstraint(SpringLayout.EAST, permitPanel, 65, SpringLayout.EAST, savePanel);
         layout.putConstraint(SpringLayout.EAST, rolePanel, 65, SpringLayout.EAST, savePanel);
@@ -163,13 +183,11 @@ public class createProfileGUI extends JFrame{
         contentPanel.add(permitPanel);
         contentPanel.add(rolePanel);
         contentPanel.add(savePanel);
+*/
+        backgroundPanel.add(contentPanel, BorderLayout.SOUTH);
 
-        backgroundPanel.add(contentPanel);
-
-        //layout.putConstraint(SpringLayout.WEST, namePanel, 10, SpringLayout.WEST, permitPanel);
-        setSize(400,500);
-        setContentPane(backgroundPanel);
-        setVisible(true);
+       setContentPane(backgroundPanel);
+       setVisible(true);
 
     }
 
