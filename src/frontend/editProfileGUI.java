@@ -35,21 +35,23 @@ public class editProfileGUI extends JFrame{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon("resources/mobilebackground.jpg"); // Specify the correct path to your image
+                ImageIcon backgroundImage = new ImageIcon("resources/color.png");
                 g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
 
-
-        // Header Panel
+        //Header Panel
         JPanel headerPanel = new JPanel();
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new BorderLayout());
         backgroundPanel.add(headerPanel, BorderLayout.NORTH);
 
-
-        JPanel header = PDMPanels.createUserHeader("Edit Profile");
-        headerPanel.add(header, BorderLayout.NORTH);
+        JLabel headingLabel = new JLabel("Edit Profile");
+        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        headingLabel.setForeground(Color.DARK_GRAY);
+        headingLabel.setBackground(Color.lightGray);
+        headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headerPanel.add(headingLabel, BorderLayout.NORTH);
 
         // Content Panel
         JPanel contentPanel = new JPanel();
@@ -151,7 +153,7 @@ public class editProfileGUI extends JFrame{
             }
         });
         //contentPanel.setLayout(new GridLayout(4,1));
-        contentPanel.setLayout(new GridLayout(5, 1));
+        //contentPanel.setLayout(new GridLayout(5, 1));
         SpringLayout layout = new SpringLayout();
 
         layout.putConstraint(SpringLayout.EAST, namePanel, 80, SpringLayout.EAST, savePanel);
@@ -170,7 +172,7 @@ public class editProfileGUI extends JFrame{
         //layout.putConstraint(SpringLayout.WEST, namePanel, 10, SpringLayout.WEST, permitPanel);
         backgroundPanel.add(contentPanel);
 
-        setSize(400,500);
+        //setSize(400,500);
         setContentPane(backgroundPanel);
         setVisible(true);
 
