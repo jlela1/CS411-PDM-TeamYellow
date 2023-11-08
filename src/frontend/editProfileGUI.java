@@ -41,28 +41,46 @@ public class editProfileGUI extends JFrame{
         };
 
         //Header Panel
-        JPanel headerPanel = new JPanel();
-        headerPanel.setOpaque(false);
-        headerPanel.setLayout(new BorderLayout());
-        backgroundPanel.add(headerPanel, BorderLayout.NORTH);
+        //JPanel headerPanel = new JPanel();
+        //headerPanel.setOpaque(false);
+        //headerPanel.setLayout(new BorderLayout());
+        ///backgroundPanel.add(headerPanel, BorderLayout.NORTH);
 
-        JLabel headingLabel = new JLabel("Edit Profile");
+
+
+        // Content Panel
+        JPanel contentPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(30, 30, 30, 30);
+        contentPanel.setOpaque(false);
+
+        JLabel headingLabel = new JLabel("                                      Edit Profile");
         headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
         headingLabel.setForeground(Color.DARK_GRAY);
         headingLabel.setBackground(Color.lightGray);
         headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        headerPanel.add(headingLabel, BorderLayout.NORTH);
+        //headerPanel.add(headingLabel, BorderLayout.NORTH);
 
-        // Content Panel
-        JPanel contentPanel = new JPanel();
-        contentPanel.setOpaque(false);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        contentPanel.add(headingLabel,gbc);
 
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(false);
+
         JPanel permitPanel = new JPanel();
         permitPanel.setOpaque(false);
+
         JPanel rolePanel = new JPanel();
         rolePanel.setOpaque(false);
+
+        JPanel vehiclePanel = new JPanel();
+        vehiclePanel.setOpaque(false);
+
         JPanel savePanel = new JPanel();
         savePanel.setOpaque(false);
 
@@ -116,6 +134,37 @@ public class editProfileGUI extends JFrame{
         comboBox.setFont(new Font("Roboto",Font.PLAIN,16));
         rolePanel.add(comboBox);
 
+        JLabel vmLabel = new JLabel("Vehicle Make: ");
+        vmLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vmLabel.setForeground(Color.white);
+        vehiclePanel.add(vmLabel);
+
+        JTextField vmText = new JTextField(9);
+        vmText.setPreferredSize(new Dimension(50,50));
+        vmText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vmText);
+
+        JLabel vmoLabel = new JLabel("Vehicle Model: ");
+        vmoLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vmoLabel.setForeground(Color.white);
+        vehiclePanel.add(vmoLabel);
+
+        JTextField vmoText = new JTextField(9);
+        vmoText.setPreferredSize(new Dimension(50,50));
+        vmoText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vmoText);
+
+        JLabel vyLabel = new JLabel("Vehicle Year: ");
+        vyLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vyLabel.setForeground(Color.white);
+        vehiclePanel.add(vyLabel);
+
+        JTextField vyText = new JTextField(9);
+        vyText.setPreferredSize(new Dimension(50,50));
+        vyText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vyText);
+
+
         JButton saveButton = new JButton("Save");
         saveButton.setBounds(15, 80, 80, 25);
         saveButton.setBackground(Color.lightGray);
@@ -132,6 +181,9 @@ public class editProfileGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String firstName = firstNameText.getText();
                 String lastName = lastNameText.getText();
+                String Vm = vmText.getText();
+                String Vmo = vmoText.getText();
+                String Vy = vyText.getText();
                 String permitType = (String) permitBox.getSelectedItem();
                 String roleType = (String) comboBox.getSelectedItem();
                 removeAll();
@@ -164,10 +216,29 @@ public class editProfileGUI extends JFrame{
         layout.putConstraint(SpringLayout.NORTH, rolePanel, 120, SpringLayout.NORTH, permitPanel);
         layout.putConstraint(SpringLayout.NORTH, permitPanel, 120, SpringLayout.NORTH, namePanel);
 
-        contentPanel.add(namePanel);
-        contentPanel.add(permitPanel);
-        contentPanel.add(rolePanel);
-        contentPanel.add(savePanel);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        contentPanel.add(headingLabel,gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        contentPanel.add(namePanel,gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        contentPanel.add(permitPanel,gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        contentPanel.add(rolePanel,gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        contentPanel.add(vehiclePanel,gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        contentPanel.add(savePanel,gbc);
 
         //layout.putConstraint(SpringLayout.WEST, namePanel, 10, SpringLayout.WEST, permitPanel);
         backgroundPanel.add(contentPanel);
