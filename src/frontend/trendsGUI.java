@@ -29,7 +29,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
     private int numGar;
 
-    String garageTypeSelector[] = {"Occupancy","Availability","Vehicles Per Minute"};
+    String garageTypeSelector[] = {"Occupancy","Availability","Vehicles Per Minute","Average Feedback"};
     static JComboBox garageTypeSelectionComboBox;
     createGraph trendsGraph;
 
