@@ -1,4 +1,6 @@
 package frontend;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -88,54 +90,54 @@ public class trendsTest {
         String user = "sa";
         String password = "admin";
 
-        try {
-            try (Connection connection = DriverManager.getConnection(connectioString, user, password)) {
-                System.out.println("Connection Established");
-                String sql = "SELECT * FROM TrendData"; // This is the query
-                /* Example queries and what they do:
-                 * Select* From -> shows entire table
-                 * Select* From Where 'column_name' = value or 'string_value' -> this returns a specific subset based on what
-                 * you specified. EX: Select* From TrendData Where 'garage_id' = 'G1' -> returns only values for Garage 1
-                 *
-                 * More help:https://www.w3schools.com/sql/sql_select.asp
-                 */
+        try (Connection connection = DriverManager.getConnection(connectioString, user, password)) {
+            System.out.println("Connection Established");
 
-                try (Statement stmt2 = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                     ResultSet rs = stmt2.executeQuery(sql)) {
+            // SQL query to select all rows from the TrendData table
+            String selectQuery = "SELECT * FROM TrendData";
 
-                    // Create Vectors to store the data from each column of the table
-                    Vector<String> sim_data = new Vector<>();
-                    Vector<String> time_data = new Vector<>();
-                    Vector<String> gar_data = new Vector<>();
-                    Vector<String> cap_data = new Vector<>();
-                    Vector<String> cur_data = new Vector<>();
-                    Vector<String> not_data = new Vector<>();
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(selectQuery);
 
-                    trendsGarage garages;
-                    garages = new trendsGarage();
-                    while (rs.next()) {
-                        sim_data.add(rs.getString("simulation_number"));
-                        time_data.add(rs.getString("time_"));
-                        gar_data.add(rs.getString("garage_id"));
-                        cap_data.add(rs.getString("capacity"));
-                        cur_data.add(rs.getString("current_"));
-                        not_data.add(rs.getString("notification"));
-                    }
+            // Create a FileWriter to write the results to a text file
+            FileWriter fileWriter = new FileWriter("src/query.txt");
 
-//                    for (int i = 0; i < sim_data.size(); i++) {
-//                        System.out.println("Sim # " + sim_data.get(i) + ", Time: " + time_data.get(i) + ", Garage: " + gar_data.get(i) +
-//                                ", Capacity: " + cap_data.get(i) + ", Current: " + cur_data.get(i) + ", Notification: " + not_data.get(i) + "\n");
-//                    }
-                }
+            // Process the query results and write them to the file
+            while (resultSet.next()) {
+                int simulation_number = resultSet.getInt(1);
+                int time_ = resultSet.getInt(2);
+                String garage_id = resultSet.getString(3);
+                int capacity = resultSet.getInt(4);
+                int current_ = resultSet.getInt(5);
+                int graphGarageID = resultSet.getInt(11);
+                String notification = resultSet.getString(6);
+                String Clock_time = resultSet.getString(7);
+                int month_ = resultSet.getInt(8);
+                int day = resultSet.getInt(9);
+                String long_date = resultSet.getString(10);
+                int vehicles_per_minute = resultSet.getInt(12);
+                double newColumn = resultSet.getDouble(13); // Add a new column (adjust data type as needed)
+
+                String line = simulation_number + "," + time_ + ",'" + garage_id + "'," +
+                        capacity + "," + current_ + "," + graphGarageID + ",': " + notification + "','" +
+                        Clock_time + "'," + month_ + "," + day + ",'" + long_date + "'," + vehicles_per_minute + "," + newColumn;
+
+                fileWriter.write(line + "\n");
             }
-        } catch (SQLException e) {
-            System.out.println("Error connecting to the db");
+
+            fileWriter.close(); // Close the FileWriter
+
+            System.out.println("SELECT query results written to query.txt.");
+
+        } catch (SQLException | IOException e) {
+            System.out.println("Error connecting to the database or writing to the file.");
             e.printStackTrace();
         }
     }
 
     public static void readAndStoreToGraph(ArrayList<ArrayList<trendsGarage>> p, int numGar) {
-        String fileName = "src/trend.txt";
+        SQLQuery();
+        String fileName = "src/query.txt";
 
         ArrayList<trendsGarage> garage1 = new ArrayList<>();
         ArrayList<trendsGarage> garage2 = new ArrayList<>();
