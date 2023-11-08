@@ -82,6 +82,9 @@ public class GarageSimulation {
 
                     for (vehicle vehicle : garages.get(i).parkingVehicleList) { //for each vehicle in garages's specific vehicle list
 
+                        int numOfCarsParkingThisTick = 0; //track number of cars parking this tick for average feedback calculation
+                        int totalFeedbackRatingCount = 0; //total feedback from all cars parking this tick for average feedback calculation
+
                         if (!vehicle.getParked()) { //if the vehicle is not parked
 
                             vehicle.setParking_in(vehicle.getParking_in() - 1); //subtract 1 minute from park waiting time
@@ -93,6 +96,10 @@ public class GarageSimulation {
                                 if (tempNotification != "") {
                                     notificiation = "Notification: " + tempNotification;
                                 }
+
+                                //update feedback for vehicles parking this minute
+                                numOfCarsParkingThisTick++;
+                                totalFeedbackRatingCount += vehicle.getFeedbackRating();
 
                                 //update gui with notifications
                                 simulationGUI.updateSimLabels(garages, time, notificiation);
@@ -148,6 +155,9 @@ public class GarageSimulation {
 
                         }
 
+                        //compile and store feedback
+                        double averageFeedbackRating = totalFeedbackRatingCount / numOfCarsParkingThisTick;
+                        garages.get(i).setAverageFeedback(averageFeedbackRating);
                     }
 
                     // Add new vehicles looking for parking
@@ -213,6 +223,12 @@ public class GarageSimulation {
         }
         //if all garages full, return without doing anything
         if (fullCounter >= garages.size()) {
+
+            //feedback section
+            int randomFeedbackInt = ThreadLocalRandom.current().nextInt(0, 2); //random feedback value from 0-1
+            vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback of garages are all full
+
+
             return "All Garages Are Full or Closed! You cannot park at this time.";
         }
 
@@ -239,14 +255,29 @@ public class GarageSimulation {
                     if((currentPreset == 3) && (garages.get(prefGarage).getName().equals("49th Street Stadium") || garages.get(prefGarage).getName().equals("43rd & Elkhorn Ave")) && (vehicleToAssign.getFootballAuthorized())) {
                         vehicleToAssign.setParked(true);
                         vehicleToAssign.setGarageIndex(prefGarage);
+
+                        //feedback for getting preferred garage
+                        int randomFeedbackInt = ThreadLocalRandom.current().nextInt(4, 6); //random feedback value from 4-5
+                        vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                         return "Vehicle Assigned to Preferred Garage";
                     } else if((currentPreset == 3) && (!(garages.get(prefGarage).getName().equals("49th Street Stadium") || garages.get(prefGarage).getName().equals("43rd & Elkhorn Ave")))) {
                         vehicleToAssign.setParked(true);
                         vehicleToAssign.setGarageIndex(prefGarage);
+
+                        //feedback for getting preferred garage
+                        int randomFeedbackInt = ThreadLocalRandom.current().nextInt(4, 6); //random feedback value from 4-5
+                        vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                         return "Vehicle Assigned to Preferred Garage";
                     } else {
                         vehicleToAssign.setParked(true);
                         vehicleToAssign.setGarageIndex(prefGarage);
+
+                        //feedback for getting preferred garage
+                        int randomFeedbackInt = ThreadLocalRandom.current().nextInt(4, 6); //random feedback value from 4-5
+                        vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                         return "Vehicle Assigned to Preferred Garage";
                     }
 
@@ -284,14 +315,29 @@ public class GarageSimulation {
                                 //assign vehicle to random garage
                                 vehicleToAssign.setParked(true);
                                 vehicleToAssign.setGarageIndex(randomGarageInt);
+
+                                //feedback for getting random non preferred garage
+                                int randomFeedbackInt = ThreadLocalRandom.current().nextInt(2, 4); //random feedback value from 4-5
+                                vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                                 successfullyAssigned = true;
                             } else if((currentPreset == 3) && (!(garages.get(randomGarageInt).getName().equals("49th Street Stadium") || garages.get(randomGarageInt).getName().equals("43rd & Elkhorn Ave")))) {
                                 vehicleToAssign.setParked(true);
                                 vehicleToAssign.setGarageIndex(randomGarageInt);
+
+                                //feedback for getting random non preferred garage
+                                int randomFeedbackInt = ThreadLocalRandom.current().nextInt(2, 4); //random feedback value from 4-5
+                                vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                                 successfullyAssigned = true;
                             } else {
                                 vehicleToAssign.setParked(true);
                                 vehicleToAssign.setGarageIndex(randomGarageInt);
+
+                                //feedback for getting random non preferred garage
+                                int randomFeedbackInt = ThreadLocalRandom.current().nextInt(2, 4); //random feedback value from 4-5
+                                vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                                 successfullyAssigned = true;
                             }
 
@@ -341,14 +387,29 @@ public class GarageSimulation {
                             //assign vehicle to random garage
                             vehicleToAssign.setParked(true);
                             vehicleToAssign.setGarageIndex(randomGarageInt);
+
+                            //feedback for getting random non preferred garage
+                            int randomFeedbackInt = ThreadLocalRandom.current().nextInt(2, 4); //random feedback value from 4-5
+                            vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                             successfullyAssigned = true;
                         } else if((currentPreset == 3) && (!(garages.get(randomGarageInt).getName().equals("49th Street Stadium") || garages.get(randomGarageInt).getName().equals("43rd & Elkhorn Ave")))) {
                             vehicleToAssign.setParked(true);
                             vehicleToAssign.setGarageIndex(randomGarageInt);
+
+                            //feedback for getting random non preferred garage
+                            int randomFeedbackInt = ThreadLocalRandom.current().nextInt(2, 4); //random feedback value from 4-5
+                            vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                             successfullyAssigned = true;
                         } else {
                             vehicleToAssign.setParked(true);
                             vehicleToAssign.setGarageIndex(randomGarageInt);
+
+                            //feedback for getting random non preferred garage
+                            int randomFeedbackInt = ThreadLocalRandom.current().nextInt(2, 4); //random feedback value from 4-5
+                            vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                             successfullyAssigned = true;
                         }
 
@@ -365,14 +426,29 @@ public class GarageSimulation {
             if((currentPreset == 3) && (garages.get(prefGarage).getName().equals("49th Street Stadium") || garages.get(prefGarage).getName().equals("43rd & Elkhorn Ave")) && (vehicleToAssign.getFootballAuthorized())) {
                 vehicleToAssign.setParked(true);
                 vehicleToAssign.setGarageIndex(prefGarage);
+
+                //feedback
+                int randomFeedbackInt = ThreadLocalRandom.current().nextInt(4, 6); //random feedback value from 4-5
+                vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                 return "Vehicle Assigned to Preferred Garage";
             } else if((currentPreset == 3) && (!(garages.get(prefGarage).getName().equals("49th Street Stadium") || garages.get(prefGarage).getName().equals("43rd & Elkhorn Ave")))) {
                 vehicleToAssign.setParked(true);
                 vehicleToAssign.setGarageIndex(prefGarage);
+
+                //feedback
+                int randomFeedbackInt = ThreadLocalRandom.current().nextInt(4, 6); //random feedback value from 4-5
+                vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                 return "Vehicle Assigned to Preferred Garage";
             } else {
                 vehicleToAssign.setParked(true);
                 vehicleToAssign.setGarageIndex(prefGarage);
+
+                //feedback
+                int randomFeedbackInt = ThreadLocalRandom.current().nextInt(4, 6); //random feedback value from 4-5
+                vehicleToAssign.setFeedbackRating(randomFeedbackInt); //set feedback
+
                 return "Vehicle Assigned to Preferred Garage";
             }
 
