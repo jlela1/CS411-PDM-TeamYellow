@@ -43,46 +43,75 @@ public class createProfileGUI extends JFrame{
 
 
         // Header Panel
-        JPanel headerPanel = new JPanel();
-        headerPanel.setOpaque(false);
-        headerPanel.setLayout(new BorderLayout());
-        backgroundPanel.add(headerPanel, BorderLayout.NORTH);
+       // JPanel headerPanel = new JPanel();
+       // headerPanel.setOpaque(false);
+        //headerPanel.setLayout(new BorderLayout());
+        //backgroundPanel.add(headerPanel, BorderLayout.NORTH);
         //headerPanel.setBackground(new Color(113, 100, 217, 242));
         //headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
-        JLabel headingLabel = new JLabel("Create Profile");
-        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
-        headingLabel.setForeground(Color.DARK_GRAY);
-        headingLabel.setBackground(Color.lightGray);
-        headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        headerPanel.add(headingLabel, BorderLayout.NORTH);
-
 
         // Content Panel
-        JPanel contentPanel = new JPanel();
-        contentPanel.setOpaque(false);
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.X_AXIS));
+        JPanel contentPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(30, 30, 30, 30);
 
         //JPanel mainPanel = new JPanel();
         //mainPanel.setOpaque(false);
         //mainPanel.setLayout(new GridLayout(4, 1));
         //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 
+        contentPanel.setOpaque(false);
+
+
+        JLabel headingLabel = new JLabel("                                    Create Profile");
+        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        headingLabel.setForeground(Color.DARK_GRAY);
+        headingLabel.setBackground(Color.lightGray);
+        headingLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        headingLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+       // headerPanel.add(headingLabel, BorderLayout.NORTH);
+
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        contentPanel.add(headingLabel,gbc);
+
         JPanel namePanel = new JPanel();
         namePanel.setOpaque(false);
-        contentPanel.add(namePanel);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        contentPanel.add(namePanel,gbc);
+
 
         JPanel permitPanel = new JPanel();
         permitPanel.setOpaque(false);
-        contentPanel.add(permitPanel);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        contentPanel.add(permitPanel,gbc);
 
         JPanel rolePanel = new JPanel();
         rolePanel.setOpaque(false);
-        contentPanel.add(rolePanel);
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        contentPanel.add(rolePanel,gbc);
+
+        JPanel vehiclePanel = new JPanel();
+        vehiclePanel.setOpaque(false);
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        contentPanel.add(vehiclePanel,gbc);
 
         JPanel savePanel = new JPanel();
         savePanel.setOpaque(false);
-        contentPanel.add(savePanel);
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        contentPanel.add(savePanel,gbc);
 
 
         JLabel nameLabel = new JLabel("Name: ");
@@ -133,6 +162,37 @@ public class createProfileGUI extends JFrame{
         comboBox.setPreferredSize(new Dimension(250,50));
         comboBox.setFont(new Font("Roboto",Font.PLAIN,16));
         rolePanel.add(comboBox);
+
+        JLabel vmLabel = new JLabel("Vehicle Make: ");
+        vmLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vmLabel.setForeground(Color.white);
+        vehiclePanel.add(vmLabel);
+
+        JTextField vmText = new JTextField(9);
+        vmText.setPreferredSize(new Dimension(50,50));
+        vmText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vmText);
+
+        JLabel vmoLabel = new JLabel("Vehicle Model: ");
+        vmoLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vmoLabel.setForeground(Color.white);
+        vehiclePanel.add(vmoLabel);
+
+        JTextField vmoText = new JTextField(9);
+        vmoText.setPreferredSize(new Dimension(50,50));
+        vmoText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vmoText);
+
+        JLabel vyLabel = new JLabel("Vehicle Year: ");
+        vyLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vyLabel.setForeground(Color.white);
+        vehiclePanel.add(vyLabel);
+
+        JTextField vyText = new JTextField(9);
+        vyText.setPreferredSize(new Dimension(50,50));
+        vyText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vyText);
+        
 
         JButton saveButton = new JButton("Save");
         saveButton.setBounds(15, 80, 80, 25);
