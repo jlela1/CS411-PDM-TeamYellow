@@ -148,7 +148,7 @@ public class Login extends JFrame implements ActionListener {
 
     private boolean authenticateUser(String username, String password) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src\\backend\\database\\user_data.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("src/backend/database/user_data.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
