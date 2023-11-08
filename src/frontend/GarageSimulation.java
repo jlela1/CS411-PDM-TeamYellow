@@ -43,7 +43,7 @@ public class GarageSimulation {
                 MilitaryTimeConverter converter = new MilitaryTimeConverter();
 
                 for (Garage garage : garages) {
-                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation, garage.getGarageID());
+                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation, garage.getGarageID(), garage.getNumVehiclesEnteringPerMin());
                     // ...
                 }
 
