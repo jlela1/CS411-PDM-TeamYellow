@@ -60,6 +60,17 @@ public class AdminHomePage extends JFrame{
         createSimulationButton.setPreferredSize(new Dimension(250, 50));
         createSimulationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JButton logOutB= new JButton("Logout");
+        logOutB.setFont(new Font("Roboto", Font.BOLD, 16));
+        logOutB.setForeground(Color.BLACK);
+        logOutB.setBackground(new Color(241, 49, 49, 163));
+        logOutB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        logOutB.setFocusPainted(false);
+        logOutB.setPreferredSize(new Dimension(250, 50));
+        logOutB.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
+
         createSimulationButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,7 +80,17 @@ public class AdminHomePage extends JFrame{
             }
         });
 
+        logOutB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Login log = new Login();
+                log.setVisible(true);
+            }
+        });
+
         contentPanel.add(createSimulationButton);
+        contentPanel.add(logOutB);
 
 
         //Create a PDM footer

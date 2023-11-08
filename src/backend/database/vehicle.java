@@ -9,8 +9,9 @@ public class vehicle {
 	private int parking_out;
 	private int garageIndex;
 	private boolean parked;
-
 	private boolean footballAuthorized;
+
+	private int feedbackRating;
 	
 	// default constructor
 	public vehicle() {
@@ -67,13 +68,19 @@ public class vehicle {
 	public void setparking_out(int theParking_out) {
 		parking_out = theParking_out;;
 	}
-
 	public void setGarageIndex(int theGarageIndex) {
 		garageIndex = theGarageIndex;
 	}
 
 	public void setParked(boolean theParked) {
 		parked = theParked;
+	}
+
+	public int getFeedbackRating() {
+		return feedbackRating;
+	}
+	public void setFeedbackRating(int feedbackRating) {
+		this.feedbackRating = feedbackRating;
 	}
 
 	/** @return total parking time of the vehicle in the garage
