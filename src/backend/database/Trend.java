@@ -131,7 +131,8 @@ public class Trend {
                     sql2.append("month_,");
                     sql2.append("day,");
                     sql2.append("long_date,");
-                    sql2.append(("vehicles_per_minute)"));
+                    sql2.append(("vehicles_per_minute,"));
+                    sql2.append("average_feedback)");
                     sql2.append("VALUES(");
                     sql2.append(line);
                     int result = line.lastIndexOf(",");
