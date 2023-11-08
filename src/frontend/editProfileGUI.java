@@ -29,29 +29,45 @@ public class editProfileGUI extends JFrame{
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximize the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+        //setLayout(new BorderLayout());
+
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon("resources/mobilebackground.jpg"); // Specify the correct path to your image
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
 
 
         // Header Panel
         JPanel headerPanel = new JPanel();
         headerPanel.setOpaque(false);
         headerPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(headerPanel, BorderLayout.NORTH);
 
 
         JPanel header = PDMPanels.createUserHeader("Edit Profile");
-        add(header, BorderLayout.NORTH);
+        headerPanel.add(header, BorderLayout.NORTH);
 
         // Content Panel
         JPanel contentPanel = new JPanel();
+        contentPanel.setOpaque(false);
 
         JPanel namePanel = new JPanel();
+        namePanel.setOpaque(false);
         JPanel permitPanel = new JPanel();
+        permitPanel.setOpaque(false);
         JPanel rolePanel = new JPanel();
+        rolePanel.setOpaque(false);
         JPanel savePanel = new JPanel();
+        savePanel.setOpaque(false);
 
 
         JLabel nameLabel = new JLabel("Name: ");
-        nameLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        nameLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        nameLabel.setForeground(Color.white);
         namePanel.add(nameLabel);
 
         JTextField firstNameText = new JTextField(9);
@@ -65,7 +81,8 @@ public class editProfileGUI extends JFrame{
         namePanel.add(lastNameText);
 
         JLabel permitLabel = new JLabel("Permit:");
-       permitLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+       permitLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        permitLabel.setForeground(Color.white);
         permitPanel.add(permitLabel);
 
        /* JTextField permitText = new JTextField(20);
@@ -78,7 +95,8 @@ public class editProfileGUI extends JFrame{
         permitPanel.add(permitBox);
 
         JLabel roleLabel = new JLabel("Role:");
-        roleLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        roleLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        roleLabel.setForeground(Color.white);
         rolePanel.add(roleLabel);
 
       /*  JMenuBar menuBar = new JMenuBar();
@@ -97,11 +115,13 @@ public class editProfileGUI extends JFrame{
         rolePanel.add(comboBox);
 
         JButton saveButton = new JButton("Save");
-        saveButton.setBounds(10, 80, 80, 25);
+        saveButton.setBounds(15, 80, 80, 25);
+        saveButton.setBackground(Color.lightGray);
         savePanel.add(saveButton);
 
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.setBounds(100, 80, 80, 25);
+        cancelButton.setBounds(15, 80, 80, 25);
+        cancelButton.setBackground(Color.lightGray);
         savePanel.add(cancelButton);
 
         this.setVisible(true);
@@ -131,14 +151,8 @@ public class editProfileGUI extends JFrame{
             }
         });
         //contentPanel.setLayout(new GridLayout(4,1));
-       SpringLayout layout = new SpringLayout();
-       contentPanel.setLayout(layout);
-
-        contentPanel.add(namePanel);
-        contentPanel.add(permitPanel);
-        contentPanel.add(rolePanel);
-        contentPanel.add(savePanel);
-
+        contentPanel.setLayout(new GridLayout(5, 1));
+        SpringLayout layout = new SpringLayout();
 
         layout.putConstraint(SpringLayout.EAST, namePanel, 80, SpringLayout.EAST, savePanel);
         layout.putConstraint(SpringLayout.EAST, permitPanel, 65, SpringLayout.EAST, savePanel);
@@ -148,10 +162,16 @@ public class editProfileGUI extends JFrame{
         layout.putConstraint(SpringLayout.NORTH, rolePanel, 120, SpringLayout.NORTH, permitPanel);
         layout.putConstraint(SpringLayout.NORTH, permitPanel, 120, SpringLayout.NORTH, namePanel);
 
-        //layout.putConstraint(SpringLayout.WEST, namePanel, 10, SpringLayout.WEST, permitPanel);
+        contentPanel.add(namePanel);
+        contentPanel.add(permitPanel);
+        contentPanel.add(rolePanel);
+        contentPanel.add(savePanel);
 
-        add(contentPanel);
+        //layout.putConstraint(SpringLayout.WEST, namePanel, 10, SpringLayout.WEST, permitPanel);
+        backgroundPanel.add(contentPanel);
+
         setSize(400,500);
+        setContentPane(backgroundPanel);
         setVisible(true);
 
 
