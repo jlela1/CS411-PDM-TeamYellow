@@ -60,7 +60,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
         subPanelBox.setLayout(new BoxLayout(subPanelBox,BoxLayout.Y_AXIS));
         //user selection for garage via text entry
-        JLabel userSelectTextPrompt = new JLabel("Please type in which garage you wish you view the trends of: ",JLabel.CENTER);
+        JLabel userSelectTextPrompt = new JLabel("Please select which garage you wish you view the trends of: ",JLabel.CENTER);
         subPanelGrid.add(userSelectTextPrompt);
 
 
@@ -90,14 +90,15 @@ public class trendsGUI extends JFrame implements ActionListener {
         datePickerEnd = new DatePicker();
         subPanelGrid.add(datePickerEnd);
         //ComboBox for graphType
-        JLabel userGraphTypePrompt = new JLabel("Please select which data you wish to view: ");
+        JLabel userGraphTypePrompt = new JLabel("Please select what kind of data you wish to view: ");
         subPanelGrid.add(userGraphTypePrompt);
         subPanelGrid.add(garageTypeSelectionComboBox);
         //Button to create graph
-        getGraph = new JButton("Generate Trends Graph");
+        getGraph = new JButton("Generate Graph");
         getGraph.addActionListener(this);
         subPanelBox.add(subPanelGrid);
         subPanelBox.add(getGraph);
+
 
 
         // calls createGraph and adds it
@@ -111,6 +112,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         home = new JButton("Home");
         home.addActionListener(this);
         subPanelBox.add(home);
+
         //Footer
         JPanel trendsFooter = PDMPanels.createFooter();
         this.add(trendsFooter,BorderLayout.SOUTH);
