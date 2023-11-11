@@ -62,15 +62,13 @@ public class trendsGUI extends JFrame implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(30,30,30,30);
 
-        //subPanel
-        subPanelBox = new JPanel();
-        subPanelGrid = new JPanel();
 
-        subPanelBox.setLayout(new BoxLayout(subPanelBox,BoxLayout.Y_AXIS));
+
+
         //user selection for garage via text entry
         JLabel userSelectTextPrompt = new JLabel("Please select which garage you wish you view the trends of: ",JLabel.CENTER);
         userSelectTextPrompt.setFont(new Font("Monospaced", Font.BOLD, 16));
-        subPanelGrid.add(userSelectTextPrompt);
+        trendsGComponents.add(userSelectTextPrompt);
 
 
         // Initialize the garageSelectorComboBox
@@ -83,26 +81,26 @@ public class trendsGUI extends JFrame implements ActionListener {
             userSelectionGarage.addItem(garage.getName());
         }
 
-        subPanelGrid.add(userSelectionGarage);
+        trendsGComponents.add(userSelectionGarage);
         //Date picker
         datePickerStart = new DatePicker();
         JLabel userSelectionDate1 = new JLabel("Please select the beginning date: ");
-        subPanelGrid.add(userSelectionDate1);
-        subPanelGrid.add(datePickerStart);
+        trendsGComponents.add(userSelectionDate1);
+        trendsGComponents.add(datePickerStart);
         JLabel userSelectionDate2 = new JLabel("Please select the ending date: ");
-        subPanelGrid.add(userSelectionDate2);
+        trendsGComponents.add(userSelectionDate2);
         datePickerEnd = new DatePicker();
-        subPanelGrid.add(datePickerEnd);
+        trendsGComponents.add(datePickerEnd);
         //ComboBox for graphType
         JLabel userGraphTypePrompt = new JLabel("Please select what kind of data you wish to view: ");
-        subPanelGrid.add(userGraphTypePrompt);
-        subPanelGrid.add(garageTypeSelectionComboBox);
+        trendsGComponents.add(userGraphTypePrompt);
+        trendsGComponents.add(garageTypeSelectionComboBox);
         //Button to create graph
         getGraph = new JButton("Generate Graph");
         getGraph.setPreferredSize(new Dimension(800, 50));
         getGraph.addActionListener(this);
-        subPanelBox.add(subPanelGrid);
-        subPanelBox.add(getGraph);
+
+        trendsGComponents.add(getGraph);
 
 
 
@@ -111,19 +109,19 @@ public class trendsGUI extends JFrame implements ActionListener {
         trendsGraph = new createGraph(garageName, numGar, datePickerStart.getDate(), datePickerEnd.getDate());
         graphPanel = new JPanel();
 
-        graphPanel.add(trendsGraph.getContentPane());
-        subPanelBox.add(graphPanel);
+        trendsGComponents.add(trendsGraph.getContentPane());
+
         //home button
         home = new JButton("Home");
         home.setPreferredSize(new Dimension(800, 50));
 
         home.addActionListener(this);
-        subPanelBox.add(home);
+        trendsGComponents.add(home);
 
         //Footer
         JPanel trendsFooter = PDMPanels.createFooter();
         this.add(trendsFooter,BorderLayout.SOUTH);
-        this.add(subPanelBox,BorderLayout.CENTER);
+        this.add(trendsGComponents,BorderLayout.CENTER);
 
 
 
