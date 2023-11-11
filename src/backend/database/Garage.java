@@ -13,6 +13,8 @@ public class Garage {
     private int avgParkingDuration;
     private int avgTimeToPark;
 
+    private double averageFeedback;
+
     private boolean isClosed;
 
     public List<vehicle> parkingVehicleList;
@@ -37,6 +39,7 @@ public class Garage {
         this.variableNumVehPerMin = new ArrayList<numVehEnteringRate>();
         this.isClosed = false;
         this.closeGarageList = new ArrayList<closeGarage>();
+        this.averageFeedback = 0.0;
     }
 
     public String getName() {
@@ -66,5 +69,12 @@ public class Garage {
     public int getGarageID() {return garageID;}
 
     public void setGarageID(int newGarageID) {garageID = newGarageID;}
+
+    public double getAverageFeedback() {
+        return averageFeedback;
+    }
+    public void setAverageFeedback(double averageFeedback) {
+        this.averageFeedback = averageFeedback;
+    }
 
 }

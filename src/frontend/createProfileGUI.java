@@ -30,29 +30,93 @@ public class createProfileGUI extends JFrame{
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximize the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon("resources/color.png");
+                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+
 
 
         // Header Panel
-        JPanel headerPanel = new JPanel();
-        headerPanel.setOpaque(false);
-        headerPanel.setLayout(new BorderLayout());
+       // JPanel headerPanel = new JPanel();
+       // headerPanel.setOpaque(false);
+        //headerPanel.setLayout(new BorderLayout());
+        //backgroundPanel.add(headerPanel, BorderLayout.NORTH);
+        //headerPanel.setBackground(new Color(113, 100, 217, 242));
+        //headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
-
-        JPanel header = PDMPanels.createUserHeader("Create Profile");
-        add(header, BorderLayout.NORTH);
 
         // Content Panel
-        JPanel contentPanel = new JPanel();
+        JPanel contentPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(30, 30, 30, 30);
+
+        //JPanel mainPanel = new JPanel();
+        //mainPanel.setOpaque(false);
+        //mainPanel.setLayout(new GridLayout(4, 1));
+        //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+
+        contentPanel.setOpaque(false);
+
+
+        JLabel headingLabel = new JLabel("                                    Create Profile");
+        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        headingLabel.setForeground(Color.DARK_GRAY);
+        headingLabel.setBackground(Color.lightGray);
+        headingLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        headingLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
+       // headerPanel.add(headingLabel, BorderLayout.NORTH);
+
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        contentPanel.add(headingLabel,gbc);
 
         JPanel namePanel = new JPanel();
+        namePanel.setOpaque(false);
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        contentPanel.add(namePanel,gbc);
+
+
         JPanel permitPanel = new JPanel();
+        permitPanel.setOpaque(false);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        contentPanel.add(permitPanel,gbc);
+
         JPanel rolePanel = new JPanel();
+        rolePanel.setOpaque(false);
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        contentPanel.add(rolePanel,gbc);
+
+        JPanel vehiclePanel = new JPanel();
+        vehiclePanel.setOpaque(false);
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        contentPanel.add(vehiclePanel,gbc);
+
         JPanel savePanel = new JPanel();
+        savePanel.setOpaque(false);
+        gbc.gridx = 1;
+        gbc.gridy = 6;
+        contentPanel.add(savePanel,gbc);
 
 
         JLabel nameLabel = new JLabel("Name: ");
-        nameLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        nameLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        nameLabel.setForeground(Color.white);
         namePanel.add(nameLabel);
 
         JTextField firstNameText = new JTextField(9);
@@ -66,7 +130,8 @@ public class createProfileGUI extends JFrame{
         namePanel.add(lastNameText);
 
         JLabel permitLabel = new JLabel("Permit:");
-        permitLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        permitLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        permitLabel.setForeground(Color.white);
         permitPanel.add(permitLabel);
 
        /* JTextField permitText = new JTextField(20);
@@ -79,7 +144,8 @@ public class createProfileGUI extends JFrame{
         permitPanel.add(permitBox);
 
         JLabel roleLabel = new JLabel("Role:");
-        roleLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        roleLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        roleLabel.setForeground(Color.white);
         rolePanel.add(roleLabel);
 
       /*  JMenuBar menuBar = new JMenuBar();
@@ -97,12 +163,45 @@ public class createProfileGUI extends JFrame{
         comboBox.setFont(new Font("Roboto",Font.PLAIN,16));
         rolePanel.add(comboBox);
 
+        JLabel vmLabel = new JLabel("Vehicle Make: ");
+        vmLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vmLabel.setForeground(Color.white);
+        vehiclePanel.add(vmLabel);
+
+        JTextField vmText = new JTextField(9);
+        vmText.setPreferredSize(new Dimension(50,50));
+        vmText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vmText);
+
+        JLabel vmoLabel = new JLabel("Vehicle Model: ");
+        vmoLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vmoLabel.setForeground(Color.white);
+        vehiclePanel.add(vmoLabel);
+
+        JTextField vmoText = new JTextField(9);
+        vmoText.setPreferredSize(new Dimension(50,50));
+        vmoText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vmoText);
+
+        JLabel vyLabel = new JLabel("Vehicle Year: ");
+        vyLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vyLabel.setForeground(Color.white);
+        vehiclePanel.add(vyLabel);
+
+        JTextField vyText = new JTextField(9);
+        vyText.setPreferredSize(new Dimension(50,50));
+        vyText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vehiclePanel.add(vyText);
+        
+
         JButton saveButton = new JButton("Save");
-        saveButton.setBounds(10, 80, 80, 25);
+        saveButton.setBounds(15, 80, 80, 25);
+        saveButton.setBackground(Color.lightGray);
         savePanel.add(saveButton);
 
         JButton cancelButton = new JButton("Cancel");
-        cancelButton.setBounds(100, 80, 80, 25);
+        cancelButton.setBounds(15, 80, 80, 25);
+        cancelButton.setBackground(Color.lightGray);
         savePanel.add(cancelButton);
 
         this.setVisible(true);
@@ -126,16 +225,12 @@ public class createProfileGUI extends JFrame{
             }
         });
 
-        //contentPanel.setLayout(new GridLayout(4,1));
-        SpringLayout layout = new SpringLayout();
-        contentPanel.setLayout(layout);
+        //contentPanel.setLayout(new GridLayout(10,1));
+       // contentPanel.setLayout(new GridLayout(5, 1));
+       // SpringLayout layout = new SpringLayout();
+        //contentPanel.setLayout(layout);
 
-        contentPanel.add(namePanel);
-        contentPanel.add(permitPanel);
-        contentPanel.add(rolePanel);
-        contentPanel.add(savePanel);
-
-
+/*
         layout.putConstraint(SpringLayout.EAST, namePanel, 80, SpringLayout.EAST, savePanel);
         layout.putConstraint(SpringLayout.EAST, permitPanel, 65, SpringLayout.EAST, savePanel);
         layout.putConstraint(SpringLayout.EAST, rolePanel, 65, SpringLayout.EAST, savePanel);
@@ -144,16 +239,22 @@ public class createProfileGUI extends JFrame{
         layout.putConstraint(SpringLayout.NORTH, rolePanel, 120, SpringLayout.NORTH, permitPanel);
         layout.putConstraint(SpringLayout.NORTH, permitPanel, 120, SpringLayout.NORTH, namePanel);
 
-        //layout.putConstraint(SpringLayout.WEST, namePanel, 10, SpringLayout.WEST, permitPanel);
+        contentPanel.add(namePanel);
+        contentPanel.add(permitPanel);
+        contentPanel.add(rolePanel);
+        contentPanel.add(savePanel);
+*/
+        backgroundPanel.add(contentPanel, BorderLayout.SOUTH);
 
-        add(contentPanel);
-        setSize(400,500);
-        setVisible(true);
-
-
-
-
+       setContentPane(backgroundPanel);
+       setVisible(true);
 
     }
 
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            createProfileGUI profileGUI = new createProfileGUI();
+            profileGUI.setVisible(true);
+        });
+    }
 }

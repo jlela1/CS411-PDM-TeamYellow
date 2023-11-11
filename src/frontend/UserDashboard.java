@@ -59,7 +59,7 @@ public class UserDashboard extends JFrame{
         JButton recommendationButton = new JButton("Recommendation");
         recommendationButton.setFont(new Font("Roboto", Font.BOLD, 16));
         recommendationButton.setForeground(Color.BLACK);
-        recommendationButton.setBackground(new Color(222, 50, 50, 255));
+        recommendationButton.setBackground(new Color(98, 145, 141, 250));
         recommendationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         recommendationButton.setFocusPainted(false);
         recommendationButton.setPreferredSize(new Dimension(250, 50));
@@ -69,21 +69,23 @@ public class UserDashboard extends JFrame{
         JButton userProfileButton = new JButton("User Profile");
         userProfileButton.setFont(new Font("Roboto", Font.BOLD, 16));
         userProfileButton.setForeground(Color.BLACK);
-        userProfileButton.setBackground(new Color(222, 50, 50, 255));
+        userProfileButton.setBackground(new Color(50, 119, 222, 255));
         userProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         userProfileButton.setFocusPainted(false);
         userProfileButton.setPreferredSize(new Dimension(250, 50));
         userProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Create createProfile Button
-        JButton createProfileButton = new JButton("Create Profile");
-        createProfileButton.setFont(new Font("Roboto", Font.BOLD, 16));
-        createProfileButton.setForeground(Color.BLACK);
-        createProfileButton.setBackground(new Color(222, 50, 50, 255));
-        createProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
-        createProfileButton.setFocusPainted(false);
-        createProfileButton.setPreferredSize(new Dimension(250, 50));
-        createProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton logOutB= new JButton("Logout");
+        logOutB.setFont(new Font("Roboto", Font.BOLD, 16));
+        logOutB.setForeground(Color.BLACK);
+        logOutB.setBackground(new Color(204, 11, 91, 255));
+        logOutB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        logOutB.setFocusPainted(false);
+        logOutB.setPreferredSize(new Dimension(250, 50));
+        logOutB.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+
 
         recommendationButton.addActionListener(new ActionListener() {
             @Override
@@ -108,20 +110,21 @@ public class UserDashboard extends JFrame{
             }
         });
 
-        createProfileButton.addActionListener(new ActionListener() {
+
+        logOutB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeAll();
                 dispose();
-                createProfileGUI createProfile = new createProfileGUI();
-                createProfile.setVisible(true);
+                Login log = new Login();
+                log.setVisible(true);
             }
         });
 
 
+
         contentPanel.add(recommendationButton);
         contentPanel.add(userProfileButton);
-        contentPanel.add(createProfileButton);
+        contentPanel.add(logOutB);
 
         //Create a PDM footer
         JPanel footer = PDMPanels.createFooter();
