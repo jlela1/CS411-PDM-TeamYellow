@@ -123,8 +123,8 @@ public class trendsGUI extends JFrame implements ActionListener {
 
         getGraph.addActionListener(this);
         gbc.gridy= 1;
-        gbc.gridx= 1;
-        gbc.gridwidth =5;
+        gbc.gridx= 0;
+        gbc.gridwidth =8;
         gbc.fill = GridBagConstraints.BOTH;
         trendsGComponents.add(getGraph,gbc);
 
@@ -136,11 +136,11 @@ public class trendsGUI extends JFrame implements ActionListener {
         graphPanel = new JPanel();
 
         gbc.gridy = 4;
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.weighty =1.0;
         gbc.weightx=1.0;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.gridwidth =5;
+        gbc.gridwidth =8;
 
         trendsGComponents.add(trendsGraph.getContentPane(),gbc);
 
@@ -153,7 +153,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         //add home button to gridbag
 
         gbc.gridy = 5;
-        gbc.gridx = 1;
+        gbc.gridx = 0;
         gbc.weighty =0.0;
         gbc.weightx=0.0;
 
