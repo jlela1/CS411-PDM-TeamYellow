@@ -142,7 +142,7 @@ public class Trend {
                     } else {
                         sql2.append(")");
                     }
-                    System.out.println(sql2.toString());
+                    //System.out.println(sql2.toString());
 
                     Statement stmt2 = connection.createStatement();
                     stmt2.executeUpdate(sql2.toString());

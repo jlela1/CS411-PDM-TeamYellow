@@ -211,6 +211,8 @@ public class trendsTest {
                             counter5++;
                             break;
                     }
+                    //int finalcount = counter1+counter2+counter3+counter4+counter5;
+                    //System.out.println("Total lines read: " + finalcount);
 
                 } else {
                     System.err.println("Skipping invalid line: " + line);
@@ -220,7 +222,6 @@ public class trendsTest {
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + fileName);
         }
-
     }
 
     public static trendsGarage addNewParkStruct(String[] data) {

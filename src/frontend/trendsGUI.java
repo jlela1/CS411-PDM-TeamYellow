@@ -140,9 +140,10 @@ public class trendsGUI extends JFrame implements ActionListener {
             graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
             String garageNewName = (String) userSelectionGarage.getSelectedItem();
 
-            trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(), graphType);
             date1 = datePickerStart.getDate();
             date2 = datePickerEnd.getDate();
+            trendsGraph = new createGraph(garageNewName, numGar, date1, date2, graphType);
+
             //System.out.println(datePickerEnd.getDate() + "\n" + datePickerStart.getDate());
             graphPanel.add(trendsGraph.getContentPane());
 
