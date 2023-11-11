@@ -49,55 +49,85 @@ public class trendsGUI extends JFrame implements ActionListener {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setLayout(new BorderLayout());
         //Header
-        JPanel trendsHeader = PDMPanels.createHeader("PDM Trends Dashboard");
+        JPanel trendsHeader = PDMPanels.createHeader("Welcome to the PDM Trends Dashboard");
+        trendsHeader.setFont(new Font("Monospaced",Font.BOLD,32));
         this.add(trendsHeader, BorderLayout.NORTH);
 
-        //User selection
 
-        //subPanel
-        subPanelBox = new JPanel();
-        subPanelGrid = new JPanel();
+        //convert to GridBadLayout()
+        JPanel trendsGComponents = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-        subPanelBox.setLayout(new BoxLayout(subPanelBox,BoxLayout.Y_AXIS));
-        //user selection for garage via text entry
-        JLabel userSelectTextPrompt = new JLabel("Please type in which garage you wish you view the trends of: ",JLabel.CENTER);
-        subPanelGrid.add(userSelectTextPrompt);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+
+        gbc.insets = new Insets(0,0,0,0);
+
+
+
+
+        //user selection for garage via dropdown
+        JLabel userSelectTextPrompt = new JLabel("Please select which garage you wish you view the trends of: ",JLabel.CENTER);
+        userSelectTextPrompt.setFont(new Font("Monospaced", Font.BOLD, 12));
+        //add user select to gridbag
+
+        trendsGComponents.add(userSelectTextPrompt,gbc);
 
 
         // Initialize the garageSelectorComboBox
         userSelectionGarage = new JComboBox<String>();
 
-        //userSelectionGarage.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
+
 
         // Add items to the combo box
         for (Garage garage : garages) {
             userSelectionGarage.addItem(garage.getName());
         }
+        // add combobox to gridbag
+        gbc.gridy= 0;
+        gbc.gridx= 1;
 
-        subPanelGrid.add(userSelectionGarage);
-        /* user garage selection via dropdown
-        JComboBox<ArrayList> dropdownUserSelect = new JComboBox<>();
-        ArrayList<Garage> g = ; note the ArrayList<Garage> that generates the list of garages is declared private with no getter or setter in other classes
-        */
-
-        //Date picker
+        trendsGComponents.add(userSelectionGarage,gbc);
+        //Date picker for start date
         datePickerStart = new DatePicker();
         JLabel userSelectionDate1 = new JLabel("Please select the beginning date: ");
-        subPanelGrid.add(userSelectionDate1);
-        subPanelGrid.add(datePickerStart);
+        userSelectionDate1.setFont(new Font("Monospaced", Font.BOLD, 12));
+        gbc.gridy= 0;
+        gbc.gridx= 2;
+        gbc.insets = new Insets(0,0,0,0);
+        trendsGComponents.add(userSelectionDate1,gbc);
+        gbc.gridy= 0;
+        gbc.gridx= 3;
+        gbc.insets = new Insets(0,0,0,0);
+        trendsGComponents.add(datePickerStart,gbc);
+        //Date picker for end date
         JLabel userSelectionDate2 = new JLabel("Please select the ending date: ");
-        subPanelGrid.add(userSelectionDate2);
+        gbc.gridy= 0;
+        gbc.gridx= 4;
+        gbc.insets = new Insets(0,0,0,0);
+        userSelectionDate2.setFont(new Font("Monospaced", Font.BOLD, 12));
+        trendsGComponents.add(userSelectionDate2,gbc);
         datePickerEnd = new DatePicker();
-        subPanelGrid.add(datePickerEnd);
+        gbc.gridy= 0;
+        gbc.gridx= 5;
+        gbc.insets = new Insets(0,0,0,0);
+        trendsGComponents.add(datePickerEnd,gbc);
         //ComboBox for graphType
-        JLabel userGraphTypePrompt = new JLabel("Please select which data you wish to view: ");
-        subPanelGrid.add(userGraphTypePrompt);
-        subPanelGrid.add(garageTypeSelectionComboBox);
+        JLabel userGraphTypePrompt = new JLabel("Please select what kind of data you wish to view: ");
+        userGraphTypePrompt.setFont(new Font("Monospaced", Font.BOLD, 12));
+        trendsGComponents.add(userGraphTypePrompt);
+        trendsGComponents.add(garageTypeSelectionComboBox);
         //Button to create graph
-        getGraph = new JButton("Generate Trends Graph");
+        getGraph = new JButton("Generate Graph");
+        getGraph.setFont(new Font("Monospaced", Font.BOLD, 12));
+
         getGraph.addActionListener(this);
-        subPanelBox.add(subPanelGrid);
-        subPanelBox.add(getGraph);
+        gbc.gridy= 1;
+        gbc.gridx= 0;
+        gbc.gridwidth =8;
+        gbc.fill = GridBagConstraints.BOTH;
+        trendsGComponents.add(getGraph,gbc);
+
 
 
         // calls createGraph and adds it
@@ -105,16 +135,34 @@ public class trendsGUI extends JFrame implements ActionListener {
         trendsGraph = new createGraph(garageName, numGar, datePickerStart.getDate(), datePickerEnd.getDate());
         graphPanel = new JPanel();
 
-        graphPanel.add(trendsGraph.getContentPane());
-        subPanelBox.add(graphPanel);
+        gbc.gridy = 4;
+        gbc.gridx = 0;
+        gbc.weighty =1.0;
+        gbc.weightx=1.0;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.gridwidth =8;
+
+        trendsGComponents.add(trendsGraph.getContentPane(),gbc);
+
         //home button
+
         home = new JButton("Home");
+        home.setPreferredSize(new Dimension(800, 50));
+
         home.addActionListener(this);
-        subPanelBox.add(home);
+        //add home button to gridbag
+
+        gbc.gridy = 5;
+        gbc.gridx = 0;
+        gbc.weighty =0.0;
+        gbc.weightx=0.0;
+
+        trendsGComponents.add(home, gbc);
+
         //Footer
         JPanel trendsFooter = PDMPanels.createFooter();
         this.add(trendsFooter,BorderLayout.SOUTH);
-        this.add(subPanelBox,BorderLayout.CENTER);
+        this.add(trendsGComponents,BorderLayout.CENTER);
 
 
 
@@ -143,7 +191,6 @@ public class trendsGUI extends JFrame implements ActionListener {
             trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate());
             date1 = datePickerStart.getDate();
             date2 = datePickerEnd.getDate();
-            //System.out.println(datePickerEnd.getDate() + "\n" + datePickerStart.getDate());
             graphPanel.add(trendsGraph.getContentPane());
 
             this.revalidate();
