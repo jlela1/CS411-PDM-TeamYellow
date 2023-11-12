@@ -48,6 +48,30 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     //Footer
     JPanel businessFeedbackFooter = PDMPanels.createFooter();
     this.add(businessFeedbackFooter,BorderLayout.SOUTH);
+    //gridbag center panel
+    JPanel businessFeedBackGComponents = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+    //set the start of the girdbag
+    gbc.gridy= 0;
+    gbc. gridx =0;
+    //text prompt
+    JLabel userSelectionPrompt = new JLabel("Please select which garage you wish to view the feedback of: ");
+    userSelectionPrompt.setFont(new Font("Monospaced",Font.BOLD,12));
+    businessFeedBackGComponents.add(userSelectionPrompt,gbc);
+    //combobox for garage selection
+    userSelectionGarage = new JComboBox<String>();
+    // Add items to the combo box
+    for (Garage garage : garages) {
+        userSelectionGarage.addItem(garage.getName());
+    }
+    gbc.gridy=0;
+    gbc.gridx=1;
+    businessFeedBackGComponents.add(userSelectionGarage,gbc);
+
+
+
+    this.add(businessFeedBackGComponents,BorderLayout.CENTER);
+
 
 
 
