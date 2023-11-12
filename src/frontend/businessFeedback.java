@@ -99,6 +99,16 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     getGraph.setFont(new Font("Monospaced",Font.BOLD,12));
     businessFeedBackGComponents.add(getGraph,gbc);
     //add graph
+    feedbackGraph = new createGraph(garageName, numGar, datePickerStart.getDate(),datePickerEnd.getDate(),graphType);
+    graphPanel = new JPanel();
+    graphPanel.add(feedbackGraph.getContentPane());
+    gbc.gridy = 3;
+    gbc.gridx =0;
+    gbc.weightx =1.0;
+    gbc.weighty =1.0;
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.gridwidth=6;
+    businessFeedBackGComponents.add(graphPanel,gbc);
 
     //home button
 
