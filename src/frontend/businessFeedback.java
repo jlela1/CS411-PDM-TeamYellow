@@ -36,11 +36,18 @@ public class businessFeedback extends JFrame implements  ActionListener{
 
 public businessFeedback(String garageName, int numGarages, ArrayList<Garage> garages)
 {
+    //Jframe frame setup
     numGar = numGarages;
     graphType = garageFeedback;
     this.setTitle("Business Feedback Page");
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setLayout(new BorderLayout());
+    //Header
+    JPanel businessFeedbackHeader = PDMPanels.createHeader("Welcome to View Parker Feedback Page");
+    this.add(businessFeedbackHeader,BorderLayout.NORTH);
+    //Footer
+    JPanel businessFeedbackFooter = PDMPanels.createFooter();
+    this.add(businessFeedbackFooter,BorderLayout.SOUTH);
 
 
 

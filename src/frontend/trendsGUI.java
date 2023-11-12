@@ -25,7 +25,7 @@ public class trendsGUI extends JFrame implements ActionListener {
     private JComboBox userSelectionGarage;
     private LocalDate date1, date2 ;
     private DatePicker datePickerStart, datePickerEnd;
-    private JPanel subPanelGrid, subPanelBox, graphPanel;
+    private JPanel graphPanel;
 
     private int numGar;
 
@@ -61,7 +61,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         gbc.gridx = 0;
         gbc.gridy = 0;
 
-        gbc.insets = new Insets(0,0,0,0);
+        gbc.insets = new Insets(0,5,0,0);
 
 
 
@@ -163,6 +163,12 @@ public class trendsGUI extends JFrame implements ActionListener {
         JPanel trendsFooter = PDMPanels.createFooter();
         this.add(trendsFooter,BorderLayout.SOUTH);
         this.add(trendsGComponents,BorderLayout.CENTER);
+        //button color
+        home.setBackground(Color.CYAN);
+        home.setOpaque(true);
+        getGraph.setBackground(Color.CYAN);
+        getGraph.setOpaque(true);
+
 
 
 
