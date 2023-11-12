@@ -111,6 +111,10 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     businessFeedBackGComponents.add(graphPanel,gbc);
 
     //home button
+    gbc.gridx =0;
+    gbc.gridy = 4;
+    home = new JButton("Home");
+    businessFeedBackGComponents.add(home,gbc);
 
 
 
