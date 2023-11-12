@@ -143,7 +143,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridwidth =8;
 
-        trendsGComponents.add(trendsGraph.getContentPane(),gbc);
+        trendsGComponents.add(graphPanel,gbc);
 
         //home button
 
