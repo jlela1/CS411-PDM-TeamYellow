@@ -64,8 +64,8 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     for (Garage garage : garages) {
         userSelectionGarage.addItem(garage.getName());
     }
-    gbc.gridy=0;
-    gbc.gridx=1;
+    gbc.gridy=1;
+    gbc.gridx=0;
     businessFeedBackGComponents.add(userSelectionGarage,gbc);
 
     //datepickers
@@ -79,18 +79,25 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     startDate.setFont(new Font("Monospaced",Font.BOLD,12));
     endDate.setFont(new Font("Monospaced",Font.BOLD,12));
     businessFeedBackGComponents.add(startDate,gbc);
-    gbc.gridy = 0;
-    gbc.gridx =3;
+    gbc.gridy = 1;
+    gbc.gridx =2;
     businessFeedBackGComponents.add(datePickerStart,gbc);
     gbc.gridy = 0;
     gbc.gridx =4;
     businessFeedBackGComponents.add(endDate,gbc);
-    gbc.gridy = 0;
-    gbc.gridx =5;
+    gbc.gridy = 1;
+    gbc.gridx =4;
     businessFeedBackGComponents.add(datePickerEnd,gbc);
 
     //get graph button
-
+    gbc.gridy=2;
+    gbc.gridx=0;
+    gbc.weightx=1.0;
+    gbc.gridwidth = 6;
+    gbc.fill = GridBagConstraints.BOTH;
+    getGraph = new JButton("Click to create Graph");
+    getGraph.setFont(new Font("Monospaced",Font.BOLD,12));
+    businessFeedBackGComponents.add(getGraph,gbc);
     //add graph
 
     //home button
