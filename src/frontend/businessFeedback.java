@@ -68,6 +68,36 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     gbc.gridx=1;
     businessFeedBackGComponents.add(userSelectionGarage,gbc);
 
+    //datepickers
+    gbc.gridy=0;
+    gbc.gridx=2;
+
+    datePickerStart = new DatePicker();
+    datePickerEnd = new DatePicker();
+    JLabel startDate = new JLabel("Please select the start date: ");
+    JLabel endDate = new JLabel("Please select the end date: ");
+    startDate.setFont(new Font("Monospaced",Font.BOLD,12));
+    endDate.setFont(new Font("Monospaced",Font.BOLD,12));
+    businessFeedBackGComponents.add(startDate,gbc);
+    gbc.gridy = 0;
+    gbc.gridx =3;
+    businessFeedBackGComponents.add(datePickerStart,gbc);
+    gbc.gridy = 0;
+    gbc.gridx =4;
+    businessFeedBackGComponents.add(endDate,gbc);
+    gbc.gridy = 0;
+    gbc.gridx =5;
+    businessFeedBackGComponents.add(datePickerEnd,gbc);
+
+    //get graph button
+
+    //add graph
+
+    //home button
+
+
+
+
 
 
     this.add(businessFeedBackGComponents,BorderLayout.CENTER);
