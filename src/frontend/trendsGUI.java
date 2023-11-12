@@ -119,6 +119,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         trendsGComponents.add(garageTypeSelectionComboBox);
         //Button to create graph
         getGraph = new JButton("Generate Graph");
+        getGraph.addActionListener(this);
         getGraph.setFont(new Font("Monospaced", Font.BOLD, 12));
 
         getGraph.addActionListener(this);

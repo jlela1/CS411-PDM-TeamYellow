@@ -123,6 +123,10 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
 
     this.add(businessFeedBackGComponents,BorderLayout.CENTER);
 
+    //adding actionListener
+    getGraph.addActionListener(this);
+    home.addActionListener(this);
+
 
 
 
