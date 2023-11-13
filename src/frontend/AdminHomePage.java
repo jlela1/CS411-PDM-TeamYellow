@@ -37,7 +37,7 @@ public class AdminHomePage extends JFrame{
 
         JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Dashboard!");
         welcomeLabel.setForeground(Color.white);
-        welcomeLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+        welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headerPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
         headerPanel.add(welcomeLabel, BorderLayout.SOUTH);
@@ -52,7 +52,7 @@ public class AdminHomePage extends JFrame{
         //contentPanel.setBackground(Color.WHITE);
 
         JButton createSimulationButton = new JButton("Create Simulation");
-        createSimulationButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        createSimulationButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         createSimulationButton.setForeground(Color.BLACK);
         createSimulationButton.setBackground(new Color(23, 11, 204, 163));
         createSimulationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
@@ -61,7 +61,7 @@ public class AdminHomePage extends JFrame{
         createSimulationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton logOutB= new JButton("Logout");
-        logOutB.setFont(new Font("Roboto", Font.BOLD, 16));
+        logOutB.setFont(new Font("Monospaced", Font.BOLD, 16));
         logOutB.setForeground(Color.BLACK);
         logOutB.setBackground(new Color(241, 49, 49, 163));
         logOutB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));

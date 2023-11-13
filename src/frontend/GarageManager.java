@@ -38,14 +38,14 @@ public class GarageManager {
         nameField = new JTextField(15);
         nameField.setBackground(Color.LIGHT_GRAY);
         JLabel nameLabel = new JLabel("Garage Name:");
-        nameLabel.setFont(new Font("Roboto", Font.BOLD, 18));
-        nameField.setFont(new Font("Roboto", Font.PLAIN, 16));
+        nameLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        nameField.setFont(new Font("Monospaced", Font.PLAIN, 16));
 
         capacityField = new JTextField(15);
         capacityField.setBackground(Color.LIGHT_GRAY);
         JLabel capacityLabel = new JLabel("Max Capacity:");
-        capacityLabel.setFont(new Font("Roboto", Font.BOLD, 18));
-        capacityField.setFont(new Font("Roboto", Font.PLAIN, 16));
+        capacityLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        capacityField.setFont(new Font("Monospaced", Font.PLAIN, 16));
 
         inputPanel.add(nameLabel);
         inputPanel.add(nameField);
@@ -56,15 +56,15 @@ public class GarageManager {
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 250 ));
 
         JButton saveButton = new JButton("Save");
-        saveButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+        saveButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
         saveButton.setBackground(Color.YELLOW);
 
         JButton deleteButton = new JButton("Delete");
-        deleteButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+        deleteButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
         deleteButton.setBackground(Color.red);
 
         JButton viewButton = new JButton("View Garages");
-        viewButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+        viewButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
         viewButton.setBackground(Color.PINK);
 
         buttonPanel.add(saveButton);
@@ -72,7 +72,7 @@ public class GarageManager {
         buttonPanel.add(viewButton);
 
         doneButton = new JButton("Done");
-        doneButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+        doneButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
         doneButton.setBackground(Color.green);
         buttonPanel.add(doneButton); // Add the Done button
 
@@ -83,7 +83,7 @@ public class GarageManager {
 
         garageListModel = new DefaultListModel<>();
         garageList = new JList<>(garageListModel);
-        garageList.setFont(new Font("Roboto", Font.BOLD, 16));
+        garageList.setFont(new Font("Monospaced", Font.BOLD, 16));
         garageList.setForeground(Color.BLACK);
         garageList.setBackground(Color.LIGHT_GRAY);
 
@@ -170,7 +170,7 @@ public class GarageManager {
         JPanel headingPanel = PDMPanels.createHeader("Saved Garages for Simulation");
 
         JList<String> viewGarageList = new JList<>(garageListModel);
-        viewGarageList.setFont(new Font("Roboto", Font.PLAIN, 16));
+        viewGarageList.setFont(new Font("Monospaced", Font.PLAIN, 16));
         JScrollPane scrollPane = new JScrollPane(viewGarageList);
 
         garageListFrame.add(scrollPane, BorderLayout.CENTER);

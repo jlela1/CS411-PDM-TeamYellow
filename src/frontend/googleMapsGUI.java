@@ -60,7 +60,7 @@ public class googleMapsGUI extends JFrame {
         recommendedGarageField.setEditable(false);
         recommendedGarageField.setText(recommendedGarage); // Set the actual value
         JLabel recommendedGarageLabel = new JLabel("Desired Garage:");
-        recommendedGarageLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        recommendedGarageLabel.setFont(new Font("Monospaced",Font.ITALIC,16));
         contentPanel.add(recommendedGarageLabel);
 //        contentPanel.add(recommendedGarageField);
 
@@ -86,7 +86,7 @@ public class googleMapsGUI extends JFrame {
         timeOfArrivalField.setEditable(false);
         timeOfArrivalField.setText(timeOfArrival); // Set the actual value
         JLabel timeOfArrivalLabel = new JLabel("Time of Arrival:");
-        timeOfArrivalLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        timeOfArrivalLabel.setFont(new Font("Monospaced",Font.ITALIC,16));
         contentPanel.add(timeOfArrivalLabel);
         contentPanel.add(timeOfArrivalField);
 
@@ -96,7 +96,7 @@ public class googleMapsGUI extends JFrame {
         estimatedOccupancyField.setEditable(false);
         estimatedOccupancyField.setText(estimatedOccupancy); //Set the actual value
         JLabel estimatedOccupancyLabel = new JLabel("Estimated Occupancy on Time of Arrival:");
-        estimatedOccupancyLabel.setFont(new Font("Roboto",Font.ITALIC,16));
+        estimatedOccupancyLabel.setFont(new Font("Monospaced",Font.ITALIC,16));
         contentPanel.add(estimatedOccupancyLabel);
         contentPanel.add(estimatedOccupancyField);
 
@@ -104,7 +104,7 @@ public class googleMapsGUI extends JFrame {
 
         //Home Button
         homeButton =  new JButton("Home");
-        homeButton.setFont(new Font("Roboto", Font.BOLD, 18));
+        homeButton.setFont(new Font("Monospaced", Font.BOLD, 18));
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,7 +120,7 @@ public class googleMapsGUI extends JFrame {
         contentPanel.add(homeButton, BorderLayout.SOUTH);
 
         JButton getDirectionsButton = new JButton("Get Directions");
-        getDirectionsButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        getDirectionsButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         getDirectionsButton.setForeground(Color.BLACK);
         getDirectionsButton.setBackground(new Color(23, 11, 204, 163));
         getDirectionsButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));

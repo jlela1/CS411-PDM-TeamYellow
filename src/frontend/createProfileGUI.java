@@ -68,8 +68,8 @@ public class createProfileGUI extends JFrame{
         contentPanel.setOpaque(false);
 
 
-        JLabel headingLabel = new JLabel("                                    Create Profile");
-        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        JLabel headingLabel = new JLabel("             Create Profile");
+        headingLabel.setFont(new Font("Monospaced", Font.BOLD, 32));
         headingLabel.setForeground(Color.DARK_GRAY);
         headingLabel.setBackground(Color.lightGray);
         headingLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -115,22 +115,22 @@ public class createProfileGUI extends JFrame{
 
 
         JLabel nameLabel = new JLabel("Name: ");
-        nameLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        nameLabel.setFont(new Font("Monospaced",Font.BOLD,16));
         nameLabel.setForeground(Color.white);
         namePanel.add(nameLabel);
 
         JTextField firstNameText = new JTextField(9);
         firstNameText.setPreferredSize(new Dimension(50,50));
-        firstNameText.setFont(new Font("Roboto",Font.PLAIN,16));
+        firstNameText.setFont(new Font("Monospaced",Font.PLAIN,16));
         namePanel.add(firstNameText);
 
         JTextField lastNameText = new JTextField(9);
         lastNameText.setPreferredSize(new Dimension(50,50));
-        lastNameText.setFont(new Font("Roboto",Font.PLAIN,16));
+        lastNameText.setFont(new Font("Monospaced",Font.PLAIN,16));
         namePanel.add(lastNameText);
 
         JLabel permitLabel = new JLabel("Permit:");
-        permitLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        permitLabel.setFont(new Font("Monospaced",Font.BOLD,16));
         permitLabel.setForeground(Color.white);
         permitPanel.add(permitLabel);
 
@@ -140,11 +140,11 @@ public class createProfileGUI extends JFrame{
         String[] semesterOptions ={"Fall 2023", "Spring 2024", "Fall 2024"};
         JComboBox<String> permitBox = new JComboBox<>(semesterOptions);
         permitBox.setPreferredSize(new Dimension(250,50));
-        permitBox.setFont(new Font("Roboto",Font.PLAIN,16));
+        permitBox.setFont(new Font("Monospaced",Font.PLAIN,16));
         permitPanel.add(permitBox);
 
         JLabel roleLabel = new JLabel("Role:");
-        roleLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        roleLabel.setFont(new Font("Monospaced",Font.BOLD,16));
         roleLabel.setForeground(Color.white);
         rolePanel.add(roleLabel);
 
@@ -160,48 +160,50 @@ public class createProfileGUI extends JFrame{
         String[] options ={"Commuter", "Resident", "Faculty"};
         JComboBox<String> comboBox = new JComboBox<>(options);
         comboBox.setPreferredSize(new Dimension(250,50));
-        comboBox.setFont(new Font("Roboto",Font.PLAIN,16));
+        comboBox.setFont(new Font("Monospaced",Font.PLAIN,16));
         rolePanel.add(comboBox);
 
         JLabel vmLabel = new JLabel("Vehicle Make: ");
-        vmLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vmLabel.setFont(new Font("Monospaced",Font.BOLD,16));
         vmLabel.setForeground(Color.white);
         vehiclePanel.add(vmLabel);
 
         JTextField vmText = new JTextField(9);
         vmText.setPreferredSize(new Dimension(50,50));
-        vmText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vmText.setFont(new Font("Monospaced",Font.PLAIN,16));
         vehiclePanel.add(vmText);
 
         JLabel vmoLabel = new JLabel("Vehicle Model: ");
-        vmoLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vmoLabel.setFont(new Font("Monospaced",Font.BOLD,16));
         vmoLabel.setForeground(Color.white);
         vehiclePanel.add(vmoLabel);
 
         JTextField vmoText = new JTextField(9);
         vmoText.setPreferredSize(new Dimension(50,50));
-        vmoText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vmoText.setFont(new Font("Monospaced",Font.PLAIN,16));
         vehiclePanel.add(vmoText);
 
         JLabel vyLabel = new JLabel("Vehicle Year: ");
-        vyLabel.setFont(new Font("Roboto",Font.BOLD,16));
+        vyLabel.setFont(new Font("Monospaced",Font.BOLD,16));
         vyLabel.setForeground(Color.white);
         vehiclePanel.add(vyLabel);
 
         JTextField vyText = new JTextField(9);
         vyText.setPreferredSize(new Dimension(50,50));
-        vyText.setFont(new Font("Roboto",Font.PLAIN,16));
+        vyText.setFont(new Font("Monospaced",Font.PLAIN,16));
         vehiclePanel.add(vyText);
         
 
         JButton saveButton = new JButton("Save");
         saveButton.setBounds(15, 80, 80, 25);
-        saveButton.setBackground(Color.lightGray);
+        //saveButton.setBackground(Color.lightGray);
+        PDMPanels.styleButton(saveButton);
         savePanel.add(saveButton);
 
         JButton cancelButton = new JButton("Cancel");
         cancelButton.setBounds(15, 80, 80, 25);
-        cancelButton.setBackground(Color.lightGray);
+        //cancelButton.setBackground(Color.lightGray);
+        PDMPanels.styleButton(cancelButton);
         savePanel.add(cancelButton);
 
         this.setVisible(true);

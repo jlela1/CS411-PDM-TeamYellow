@@ -10,7 +10,7 @@ public class PDMPanels {
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
         JLabel headingLabel = new JLabel(title);
-        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        headingLabel.setFont(new Font("Monospaced", Font.BOLD, 32));
         headingLabel.setForeground(Color.DARK_GRAY);
         headingLabel.setBackground(Color.lightGray);
         headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -24,7 +24,7 @@ public class PDMPanels {
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
         JLabel headingLabel = new JLabel(title);
-        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        headingLabel.setFont(new Font("Monospaced", Font.BOLD, 32));
         headingLabel.setForeground(Color.DARK_GRAY);
         headingLabel.setBackground(Color.lightGray);
         headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -40,7 +40,7 @@ public class PDMPanels {
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
 
         JLabel headingLabel = new JLabel(title);
-        headingLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        headingLabel.setFont(new Font("Monospaced", Font.BOLD, 32));
         headingLabel.setForeground(Color.DARK_GRAY);
         headingLabel.setBackground(Color.lightGray);
         headingLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -52,7 +52,7 @@ public class PDMPanels {
 
     public static JPanel createFooter() {
         JLabel footerLabel = new JLabel("Parking Demand Management (PDM)");
-        footerLabel.setFont(new Font("Roboto", Font.ITALIC, 16));
+        footerLabel.setFont(new Font("Monospaced", Font.ITALIC, 16));
         footerLabel.setForeground(Color.black);
         footerLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -65,7 +65,7 @@ public class PDMPanels {
 
     public static JPanel createUserFooter() {
         JLabel footerLabel = new JLabel("Parking Demand Management (PDM)");
-        footerLabel.setFont(new Font("Roboto", Font.ITALIC, 16));
+        footerLabel.setFont(new Font("Monospaced", Font.ITALIC, 16));
         footerLabel.setForeground(Color.black);
         footerLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -78,7 +78,7 @@ public class PDMPanels {
 
     public static JPanel GeneralFooter() {
         JLabel footerLabel = new JLabel("Parking Demand Management (PDM)");
-        footerLabel.setFont(new Font("Roboto", Font.ITALIC, 16));
+        footerLabel.setFont(new Font("Monospaced", Font.ITALIC, 16));
         footerLabel.setForeground(Color.black);
         footerLabel.setHorizontalAlignment(JLabel.CENTER);
 
@@ -90,7 +90,7 @@ public class PDMPanels {
     }
 
     public static void styleButton(JButton button) {
-        button.setFont(new Font("Roboto", Font.BOLD, 15));
+        button.setFont(new Font("Monospaced", Font.BOLD, 14));
         button.setBackground(new Color(98, 139, 145, 250));
         button.setForeground(Color.BLACK);
     }

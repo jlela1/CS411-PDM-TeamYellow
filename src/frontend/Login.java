@@ -23,7 +23,7 @@ public class Login extends JFrame implements ActionListener {
     public Login() {
         // Page Title Label
         pageLabel = new JLabel("PDM Login");
-        pageLabel.setFont(new Font("Roboto", Font.BOLD, 24));
+        pageLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
 
         ImageIcon userIcon = new ImageIcon("resources/user.png");
         Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -40,10 +40,10 @@ public class Login extends JFrame implements ActionListener {
         setPlaceholder(textField2, "Password");
 
         b1 = new JButton("Submit");
-        b1.setFont(new Font("Roboto", Font.BOLD, 16));
+        b1.setFont(new Font("Monospaced", Font.BOLD, 16));
 
         b2 = new JButton("Register");
-        b2.setFont(new Font("Roboto", Font.BOLD, 16));
+        b2.setFont(new Font("Monospaced", Font.BOLD, 16));
 
         newPanel = new JPanel(new BorderLayout());
 
@@ -52,7 +52,7 @@ public class Login extends JFrame implements ActionListener {
         JLabel welcomeLabel = new JLabel("Parking Made Easy");
         welcomeLabel.setForeground(Color.DARK_GRAY);
         welcomeLabel.setBackground(Color.lightGray);
-        welcomeLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+        welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headingPanel.add(Box.createRigidArea(new Dimension(0, 20)));
         headingPanel.add(welcomeLabel);
