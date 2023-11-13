@@ -271,10 +271,16 @@ public class trendsGUI extends JFrame implements ActionListener {
         garage4.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 3)); //change number of vehicles entering per minute at 960 min (4pm) to 3
         garage4.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
 
+        Garage garage5 = new Garage("All Garages", 745);
+        garage4.setGarageID(3);
+        garage4.setAvgParkingDuration(180);
+        garage4.setNumVehiclesEnteringPerMin(1);
+        garage4.setAvgTimeToPark(10);
         garages.add(0, garage1);
         garages.add(1, garage2);
         garages.add(2, garage3);
         garages.add(3, garage4);
+        garages.add(4,garage5);
 
         trendsGUI trendsGUI = new trendsGUI("43rd & Elkhorn Ave", 4, garages);
     }
