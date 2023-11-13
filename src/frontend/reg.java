@@ -181,7 +181,7 @@ class Reg extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == registerButton) { // Submit button clicked for registration
-           /* String username = textField1.getText();
+            String username = textField1.getText();
             String password = new String(textField2.getPassword());
 
 
@@ -219,13 +219,13 @@ class Reg extends JFrame implements ActionListener {
             this.dispose(); // Close the registration window
             Login login = new Login(); // Open the login window
             login.setVisible(true);
-        } */
-            removeAll();
+        }
+           /* removeAll();
             dispose();
             createProfileGUI createProfile = new createProfileGUI();
-            createProfile.setVisible(true); //Points to create Profile -Bryan
+            createProfile.setVisible(true); //Points to create Profile -Bryan*/
         }
-    }
+
 
 
     public static void main(String[] args) {

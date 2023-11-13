@@ -130,8 +130,8 @@ public class Login extends JFrame implements ActionListener {
                     AdminHomePage adminHomePage = new AdminHomePage();
                     adminHomePage.setVisible(true);
                 } else if (userValue.toLowerCase().contains("user")) {
-                    UserDashboard userDashboard = new UserDashboard();
-                    userDashboard.setVisible(true);
+                    createProfileGUI createProfile = new createProfileGUI();
+                    createProfile.setVisible(true);
                 } else {
                     // Handle other user roles or scenarios
                     // You can add more checks or create different dashboards for different roles.
