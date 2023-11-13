@@ -39,7 +39,7 @@ public class SimulationUserInputGUI extends JFrame {
         JLabel simulationLabel = new JLabel("Garage Simulation Settings");
         simulationLabel.setForeground(Color.DARK_GRAY);
         simulationLabel.setBackground(Color.lightGray);
-        simulationLabel.setFont(new Font("Roboto", Font.BOLD, 24));
+        simulationLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
         simulationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headingPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         headingPanel.add(simulationLabel);
@@ -222,7 +222,7 @@ public class SimulationUserInputGUI extends JFrame {
         JLabel label = new JLabel(text);
 
         // Increase font size
-        Font labelFont = new Font("Roboto", Font.BOLD, 18);
+        Font labelFont = new Font("Monospaced", Font.BOLD, 18);
         label.setFont(labelFont);
 
         // Add padding and background color

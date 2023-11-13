@@ -43,7 +43,7 @@ public class SimulationGUI extends JFrame {
         JLabel simulationLabel = new JLabel("Garage Simulation");
         simulationLabel.setForeground(Color.DARK_GRAY);
         simulationLabel.setBackground(Color.lightGray);
-        simulationLabel.setFont(new Font("Roboto", Font.BOLD, 24));
+        simulationLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
         simulationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headingPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         headingPanel.add(simulationLabel);
@@ -72,7 +72,7 @@ public class SimulationGUI extends JFrame {
 
         // Create notification label
         notificationLabel = new JLabel("Notification:", SwingConstants.CENTER);
-        Font labelFont = new Font("Roboto", Font.BOLD, 18);
+        Font labelFont = new Font("Monospaced", Font.BOLD, 18);
         notificationLabel.setFont(labelFont);
         notificationLabel.setOpaque(true);
         notificationLabel.setBackground(Color.LIGHT_GRAY);
@@ -342,7 +342,7 @@ public class SimulationGUI extends JFrame {
 
         seeTrendsButton = new JButton("See Trends");
         seeTrendsButton.setPreferredSize(new Dimension(1500, 50));
-        seeTrendsButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        seeTrendsButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         garagesPanel.add(seeTrendsButton, BorderLayout.SOUTH);
 
         // Repaint the frame to update the changes
@@ -423,7 +423,7 @@ public class SimulationGUI extends JFrame {
         JLabel label = new JLabel(text);
 
         // Increase font size
-        Font labelFont = new Font("Roboto", Font.BOLD, 18);
+        Font labelFont = new Font("Monospaced", Font.BOLD, 18);
         label.setFont(labelFont);
 
         // Add padding and background color

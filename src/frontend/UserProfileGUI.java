@@ -53,7 +53,7 @@ public class UserProfileGUI extends JFrame {
         simulationLabel.setOpaque(false);
         simulationLabel.setForeground(Color.DARK_GRAY);
         simulationLabel.setBackground(Color.lightGray);
-        simulationLabel.setFont(new Font("Roboto", Font.BOLD, 32));
+        simulationLabel.setFont(new Font("Monospaced", Font.BOLD, 32));
         simulationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headingPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         headingPanel.add(simulationLabel);
@@ -63,26 +63,26 @@ public class UserProfileGUI extends JFrame {
         String userName = user.getUserFirstName() + " " + user.getUserLastName();
         JLabel nameLabel = createLabel(userName);
         nameLabel.setOpaque(false);
-        nameLabel.setFont(new Font("Roboto", Font.ITALIC, 28));
+        nameLabel.setFont(new Font("Monospaced", Font.ITALIC, 28));
         nameLabel.setForeground(Color.darkGray);
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
         nameLabel.setVerticalAlignment(JLabel.TOP);
         JLabel userRoleLabel = createLabel("Role: " + user.getUserRole());
         userRoleLabel.setOpaque(false);
-        userRoleLabel.setFont(new Font("Roboto", Font.ITALIC, 28));
+        userRoleLabel.setFont(new Font("Monospaced", Font.ITALIC, 28));
         userRoleLabel.setForeground(Color.darkGray);
         userRoleLabel.setHorizontalAlignment(JLabel.CENTER);
         userRoleLabel.setVerticalAlignment(JLabel.CENTER);
         JLabel permitTypeLabel = createLabel("Permit Type: " + user.getPermitType());
         permitTypeLabel.setOpaque(false);
-        permitTypeLabel.setFont(new Font("Roboto", Font.ITALIC, 28));
+        permitTypeLabel.setFont(new Font("Monospaced", Font.ITALIC, 28));
         permitTypeLabel.setForeground(Color.darkGray);
         permitTypeLabel.setHorizontalAlignment(JLabel.CENTER);
         permitTypeLabel.setVerticalAlignment(JLabel.BOTTOM);
 
         JLabel scheduleLabel = createLabel("Change Schedule:");
         scheduleLabel.setOpaque(false);
-        scheduleLabel.setFont(new Font("Roboto", Font.BOLD, 22));
+        scheduleLabel.setFont(new Font("Monospaced", Font.BOLD, 22));
 
         // Create an array of strings containing days of the week and populate the dayComboBox with each entry.
         String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
@@ -141,7 +141,9 @@ public class UserProfileGUI extends JFrame {
 
         // Create labels for combo boxes
         JLabel dayComboBoxLabel = new JLabel("Day:");
+        dayComboBoxLabel.setFont(new Font("Monospaced", Font.PLAIN, 22));
         JLabel timeComboBoxLabel = new JLabel("Class Start Time:");
+        timeComboBoxLabel.setFont(new Font("Monospaced", Font.PLAIN, 22));
 
         // Create a middle panel element containing the schedule label and day/time selection combo boxes
         JPanel middlePanel = new JPanel();
@@ -374,7 +376,7 @@ public class UserProfileGUI extends JFrame {
         JLabel label = new JLabel(text);
 
         // Increase font size
-        Font labelFont = new Font("Roboto", Font.BOLD, 32);
+        Font labelFont = new Font("Monospaced", Font.BOLD, 32);
         label.setFont(labelFont);
 
         // Add padding and background color

@@ -41,9 +41,9 @@ public class UserDashboard extends JFrame{
         JPanel header = PDMPanels.createUserHeader("PDM User Dashboard");
         headerPanel.add(header, BorderLayout.NORTH);
 
-        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Dashboard!");
+        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management User Dashboard!");
         welcomeLabel.setForeground(Color.white);
-        welcomeLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+        welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headerPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
         headerPanel.add(welcomeLabel, BorderLayout.SOUTH);
@@ -57,7 +57,7 @@ public class UserDashboard extends JFrame{
         backgroundPanel.add(contentPanel, BorderLayout.CENTER);
 
         JButton recommendationButton = new JButton("Recommendation");
-        recommendationButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        recommendationButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         recommendationButton.setForeground(Color.BLACK);
         recommendationButton.setBackground(new Color(98, 145, 141, 250));
         recommendationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
@@ -67,7 +67,7 @@ public class UserDashboard extends JFrame{
 
         // Create UserProfile Button
         JButton userProfileButton = new JButton("User Profile");
-        userProfileButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        userProfileButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         userProfileButton.setForeground(Color.BLACK);
         userProfileButton.setBackground(new Color(50, 119, 222, 255));
         userProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
@@ -77,7 +77,7 @@ public class UserDashboard extends JFrame{
 
 
         JButton logOutB= new JButton("Logout");
-        logOutB.setFont(new Font("Roboto", Font.BOLD, 16));
+        logOutB.setFont(new Font("Monospaced", Font.BOLD, 16));
         logOutB.setForeground(Color.BLACK);
         logOutB.setBackground(new Color(204, 11, 91, 255));
         logOutB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));

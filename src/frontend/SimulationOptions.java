@@ -37,7 +37,7 @@ public class SimulationOptions extends JFrame {
 
         //Custom Sim Button
         JButton CustomSimulationButton = new JButton("Custom Simulation");
-        CustomSimulationButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        CustomSimulationButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         CustomSimulationButton.setForeground(Color.BLACK);
         CustomSimulationButton.setBackground(new Color(98, 139, 145, 250));
         CustomSimulationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
@@ -48,8 +48,8 @@ public class SimulationOptions extends JFrame {
 
 
         //simulation preset title
-        JLabel simTitle = new JLabel("        Simulation Presets");
-        simTitle.setFont(new Font("Roboto", Font.PLAIN, 20));
+        JLabel simTitle = new JLabel("Simulation Presets");
+        simTitle.setFont(new Font("Monospaced", Font.ITALIC, 20));
         simTitle.setBorder(BorderFactory.createLineBorder(Color.WHITE, 0));
         simTitle.setSize(250, 50);
         simTitle.setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -58,7 +58,7 @@ public class SimulationOptions extends JFrame {
 
         //Normal Day Button
         JButton NormalDayButton = new JButton("Normal Day at ODU");
-        NormalDayButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        NormalDayButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         NormalDayButton.setForeground(Color.BLACK);
         NormalDayButton.setBackground(new Color(98, 139, 145, 250));
         NormalDayButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
@@ -69,7 +69,7 @@ public class SimulationOptions extends JFrame {
 
         //Fire in Elkhorn Garage
         JButton ElkFireButton = new JButton("Fire in Elkhorn Garage");
-        ElkFireButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        ElkFireButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         ElkFireButton.setForeground(Color.BLACK);
         ElkFireButton.setBackground(new Color(98, 139, 145, 250));
         ElkFireButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
@@ -80,7 +80,7 @@ public class SimulationOptions extends JFrame {
 
         //Football Game Button
         JButton FootballButton = new JButton("Football Game");
-        FootballButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        FootballButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         FootballButton.setForeground(Color.BLACK);
         FootballButton.setBackground(new Color(98, 139, 145, 250));
         FootballButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
@@ -90,7 +90,7 @@ public class SimulationOptions extends JFrame {
 
 
         JButton HomeButton = new JButton("Home");
-        HomeButton.setFont(new Font("Roboto", Font.BOLD, 16));
+        HomeButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         HomeButton.setForeground(Color.BLACK);
         HomeButton.setBackground(new Color(114, 145, 98, 250));
         HomeButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));

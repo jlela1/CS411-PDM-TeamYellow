@@ -69,7 +69,7 @@ class Reg extends JFrame implements ActionListener {
         JLabel welcomeLabel = new JLabel("Parking Made Easy");
         welcomeLabel.setForeground(Color.DARK_GRAY);
         welcomeLabel.setBackground(Color.lightGray);
-        welcomeLabel.setFont(new Font("Roboto", Font.BOLD, 18));
+        welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headingPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
         headingPanel.add(welcomeLabel);
