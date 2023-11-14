@@ -226,7 +226,8 @@ public class UserProfileGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 removeAll();
                 dispose();
-                editProfileGUI editProfile = new editProfileGUI();
+                editProfileGUI editProfile = new editProfileGUI(user);
+
                 editProfile.setVisible(true);
             }
         });
