@@ -17,7 +17,7 @@ public class vehicleRateGUI {
     private JList<String> rateList;
     private JButton doneButton;
     private JComboBox<String> garageSelectorComboBox;
-    public vehicleRateGUI(ArrayList<Garage> garages) {
+    public vehicleRateGUI(ArrayList<Garage> garages, int presetType) {
 
         mainFrame = new JFrame("Adjust Vehicle Rate");
         mainFrame.setLayout(new BorderLayout());
@@ -108,6 +108,8 @@ public class vehicleRateGUI {
         JScrollPane scrollPane = new JScrollPane(rateList);
         listPanel.add(scrollPane, BorderLayout.CENTER);
 
+        updateGarageList(garages.get(0));
+
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -185,10 +187,8 @@ public class vehicleRateGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //spawn new simUserInput with garages
-                SimulationUserInputGUI simulation = new SimulationUserInputGUI(garages);
+                SimulationUserInputGUI simulation = new SimulationUserInputGUI(garages, presetType);
                 simulation.setVisible(true);
-
-                System.out.println(garages.size());
             }
         });
         garageSelectorComboBox.addActionListener(new ActionListener() {
@@ -315,7 +315,7 @@ public class vehicleRateGUI {
         garages.add(2, garage3);
         garages.add(3, garage4);
 
-        vehicleRateGUI newGUI = new vehicleRateGUI(garages);
+        vehicleRateGUI newGUI = new vehicleRateGUI(garages, 1);
 
     }
 

@@ -17,8 +17,9 @@ public class GarageManager {
     private ArrayList<Garage> garages;
     private JButton doneButton;
 
-    public GarageManager() {
-        garages = new ArrayList<>();
+    public GarageManager(ArrayList<Garage> garagesList, int presetType) {
+
+        this.garages = garagesList;
 
         mainFrame = new JFrame("Garage Manager");
         mainFrame.setLayout(new BorderLayout());
@@ -90,6 +91,8 @@ public class GarageManager {
         JScrollPane scrollPane = new JScrollPane(garageList);
         listPanel.add(scrollPane, BorderLayout.CENTER);
 
+        updateGarageList();
+
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -133,7 +136,7 @@ public class GarageManager {
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vehicleRateGUI newRateGUI = new vehicleRateGUI(garages);
+                vehicleRateGUI newRateGUI = new vehicleRateGUI(garages, presetType);
 
             }
         });

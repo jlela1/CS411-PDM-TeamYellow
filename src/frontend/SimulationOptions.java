@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.database.Garage;
 import backend.database.Presets.Fire;
 import backend.database.Presets.Football;
 import backend.database.Presets.NormalDay;
@@ -9,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Insets;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class SimulationOptions extends JFrame {
 
@@ -140,7 +143,10 @@ public class SimulationOptions extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 dispose();
-                GarageManager simulationStart = new GarageManager();
+
+                ArrayList<Garage> newGarageList = new ArrayList<>();
+
+                GarageManager simulationStart = new GarageManager(newGarageList, 0);
             }
         });
 

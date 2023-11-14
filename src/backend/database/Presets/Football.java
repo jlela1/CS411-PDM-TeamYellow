@@ -3,6 +3,7 @@ import backend.database.Garage;
 import backend.database.MilitaryTimeConverter;
 import backend.database.numVehEnteringRate;
 import backend.database.trendsGarage;
+import frontend.GarageManager;
 import frontend.SimulationGUI;
 
 import java.awt.*;
@@ -74,10 +75,8 @@ public class Football {
         garages.add(3, garage4);
 
         // Create an instance of SimulationGUI
-        SimulationGUI simulationGUI = new SimulationGUI(garages, time, new BorderLayout(), 3);
+        GarageManager simulationStart = new GarageManager(garages, 3);
 
-        // Make the SimulationGUI visible
-        simulationGUI.setVisible(true);
     }
 
 }

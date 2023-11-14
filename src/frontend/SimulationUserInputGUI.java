@@ -25,7 +25,7 @@ public class SimulationUserInputGUI extends JFrame {
 
     private JComboBox<String> garageSelectorComboBox;
 
-    public SimulationUserInputGUI(ArrayList<Garage> garages) {
+    public SimulationUserInputGUI(ArrayList<Garage> garages, int presetType) {
 
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Set JFrame to full-screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -198,7 +198,7 @@ public class SimulationUserInputGUI extends JFrame {
                 getContentPane().remove(simulationDurationLabel);
 
                 // Create an instance of SimulationGUI
-                SimulationGUI simulationGUI = new SimulationGUI(garages, Integer.parseInt(durationValue.getText()), new BorderLayout(), 0);
+                SimulationGUI simulationGUI = new SimulationGUI(garages, Integer.parseInt(durationValue.getText()), new BorderLayout(), presetType);
 
                 // Make the SimulationGUI visible
                 simulationGUI.setVisible(true);
