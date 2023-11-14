@@ -175,7 +175,8 @@ public class SimulationOptions extends JFrame {
         HomeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                AdminHomePage adminHomePage = new AdminHomePage();
+                adminHomePage.setVisible(true);
             }
         });
     }
