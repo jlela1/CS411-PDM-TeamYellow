@@ -133,10 +133,8 @@ public class GarageManager {
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //spawn new simUserInput with garages
-                SimulationUserInputGUI simulation = new SimulationUserInputGUI(garages);
-                simulation.setVisible(true);
-                System.out.println(garages.size());
+                vehicleRateGUI newRateGUI = new vehicleRateGUI(garages);
+
             }
         });
 

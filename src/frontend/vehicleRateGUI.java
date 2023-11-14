@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.database.Garage;
+import backend.database.numVehEnteringRate;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,15 +11,13 @@ import java.util.ArrayList;
 
 public class vehicleRateGUI {
     private JFrame mainFrame;
-    private JTextField nameField;
-    private JTextField capacityField;
-    private DefaultListModel<String> garageListModel;
-    private JList<String> garageList;
-    private ArrayList<Garage> garages;
+    private JTextField timeField;
+    private JTextField rateField;
+    private DefaultListModel<String> rateListModel;
+    private JList<String> rateList;
     private JButton doneButton;
     private JComboBox<String> garageSelectorComboBox;
-    public vehicleRateGUI() {
-        garages = new ArrayList<>();
+    public vehicleRateGUI(ArrayList<Garage> garages) {
 
         mainFrame = new JFrame("Adjust Vehicle Rate");
         mainFrame.setLayout(new BorderLayout());
@@ -51,24 +50,24 @@ public class vehicleRateGUI {
         // Add combo box to the top of the center panel
 
 
-        nameField = new JTextField(15);
-        nameField.setBackground(Color.LIGHT_GRAY);
+        timeField = new JTextField(15);
+        timeField.setBackground(Color.LIGHT_GRAY);
         JLabel nameLabel = new JLabel("Time in Minutes:");
         nameLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
-        nameField.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        timeField.setFont(new Font("Monospaced", Font.PLAIN, 16));
 
-        capacityField = new JTextField(15);
-        capacityField.setBackground(Color.LIGHT_GRAY);
+        rateField = new JTextField(15);
+        rateField.setBackground(Color.LIGHT_GRAY);
         JLabel capacityLabel = new JLabel("New Vehicle Rate:");
         capacityLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
-        capacityField.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        rateField.setFont(new Font("Monospaced", Font.PLAIN, 16));
 
         inputPanel.add(selectorLabel);
         inputPanel.add(garageSelectorComboBox);
         inputPanel.add(nameLabel);
-        inputPanel.add(nameField);
+        inputPanel.add(timeField);
         inputPanel.add(capacityLabel);
-        inputPanel.add(capacityField);
+        inputPanel.add(rateField);
 
 
         JPanel buttonPanel = new JPanel();
@@ -100,43 +99,66 @@ public class vehicleRateGUI {
         listPanel.setPreferredSize(new Dimension(350, 100));
 
 
-        garageListModel = new DefaultListModel<>();
-        garageList = new JList<>(garageListModel);
-        garageList.setFont(new Font("Monospaced", Font.BOLD, 16));
-        garageList.setForeground(Color.BLACK);
-        garageList.setBackground(Color.LIGHT_GRAY);
+        rateListModel = new DefaultListModel<>();
+        rateList = new JList<>(rateListModel);
+        rateList.setFont(new Font("Monospaced", Font.BOLD, 16));
+        rateList.setForeground(Color.BLACK);
+        rateList.setBackground(Color.LIGHT_GRAY);
 
-        JScrollPane scrollPane = new JScrollPane(garageList);
+        JScrollPane scrollPane = new JScrollPane(rateList);
         listPanel.add(scrollPane, BorderLayout.CENTER);
 
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = nameField.getText().trim();
-                String capacityText = capacityField.getText().trim();
 
-                if (name.isEmpty() || capacityText.isEmpty()) {
+                String selectedGarageString = (String) garageSelectorComboBox.getSelectedItem(); //get garage currently selected
+                int selectedGarageIndex = -1;
+
+                for(Garage garage : garages) {
+                    if(selectedGarageString.equals(garage.getName())) {
+                        selectedGarageIndex = garage.getGarageID();
+                    }
+                }
+
+                String timeText = timeField.getText().trim();
+                String rateText = rateField.getText().trim();
+
+                if (timeText.isEmpty() || rateText.isEmpty()) {
                     JOptionPane.showMessageDialog(mainFrame, "Please fill in both Time and Rate.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                int capacity = Integer.parseInt(capacityText);
-                Garage garage = new Garage(name, capacity);
-                garages.add(garage);
-                garages.get(garages.size() - 1).setGarageID(garages.size() - 1); //set garageID based on location in garages array to call instead of calling name
-                updateGarageList();
-                nameField.setText("");
-                capacityField.setText("");
+                int time = Integer.parseInt(timeText);
+                int rate = Integer.parseInt(rateText);
+                numVehEnteringRate newRate = new numVehEnteringRate(time, rate); //create new rate object
+
+                //store new rate
+                garages.get(selectedGarageIndex).variableNumVehPerMin.add(newRate);
+
+                updateGarageList(garages.get(selectedGarageIndex));
+                timeField.setText("");
+                rateField.setText("");
             }
         });
 
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int selectedIndex = garageList.getSelectedIndex();
+                int selectedIndex = rateList.getSelectedIndex(); //get item currently selected in the list
+
+                String selectedGarageString = (String) garageSelectorComboBox.getSelectedItem(); //get current selected garage
+                int selectedGarageIndex = -1;
+
+                for(Garage garage : garages) {
+                    if(selectedGarageString.equals(garage.getName())) {
+                        selectedGarageIndex = garage.getGarageID();
+                    }
+                }
+
                 if (selectedIndex >= 0) {
                     garages.remove(selectedIndex);
-                    updateGarageList();
+                    updateGarageList(garages.get(selectedGarageIndex));
                 }
             }
         });
@@ -144,7 +166,17 @@ public class vehicleRateGUI {
         viewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showGarageList();
+
+                String selectedGarageString = (String) garageSelectorComboBox.getSelectedItem(); //get currently selected garage
+                int selectedGarageIndex = -1;
+
+                for(Garage garage : garages) {
+                    if(selectedGarageString.equals(garage.getName())) {
+                        selectedGarageIndex = garage.getGarageID();
+                    }
+                }
+
+                showRateList(garages.get(selectedGarageIndex));
             }
         });
 
@@ -162,8 +194,16 @@ public class vehicleRateGUI {
         garageSelectorComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //spawn new simUserInput with garages
-               String selectedValue = (String) garageSelectorComboBox.getSelectedItem();
+                String selectedGarageString = (String) garageSelectorComboBox.getSelectedItem(); //get currently selected garage
+                int selectedGarageIndex = -1;
+
+                for(Garage garage : garages) {
+                    if(selectedGarageString.equals(garage.getName())) {
+                        selectedGarageIndex = garage.getGarageID();
+                    }
+                }
+
+                updateGarageList(garages.get(selectedGarageIndex));
             }
         });
 
@@ -181,33 +221,103 @@ public class vehicleRateGUI {
         mainFrame.setLocationRelativeTo(null);
     }
 
-    private void updateGarageList() {
+    private void updateGarageList(Garage garage) {
 
-        garageListModel.clear();
-        for (Garage garage : garages) {
-            garageListModel.addElement("Name: " + garage.getName() + ", Max Capacity: " + garage.getMaxCapacity());
+        rateListModel.clear();
+        for(int i = 0; i < garage.variableNumVehPerMin.size(); i++) {
+            rateListModel.addElement("Time: " + garage.variableNumVehPerMin.get(i).getTime() + ", Rate: " + garage.variableNumVehPerMin.get(i).getRate());
         }
+
+
     }
 
-    private void showGarageList() {
-        updateGarageList();
+    private void showRateList(Garage garage) {
+        updateGarageList(garage);
 
-        JFrame garageListFrame = new JFrame("Garage List");
-        garageListFrame.setLayout(new BorderLayout());
-        garageListFrame.setPreferredSize(new Dimension(500, 400));
+        JFrame rateListFrame = new JFrame("Rate List");
+        rateListFrame.setLayout(new BorderLayout());
+        rateListFrame.setPreferredSize(new Dimension(500, 400));
 
-        JPanel headingPanel = PDMPanels.createHeader("Saved Garages for Simulation");
+        JPanel headingPanel = PDMPanels.createHeader("Saved Rates for Simulation");
 
-        JList<String> viewGarageList = new JList<>(garageListModel);
+        JList<String> viewGarageList = new JList<>(rateListModel);
         viewGarageList.setFont(new Font("Monospaced", Font.PLAIN, 16));
         JScrollPane scrollPane = new JScrollPane(viewGarageList);
 
-        garageListFrame.add(scrollPane, BorderLayout.CENTER);
+        rateListFrame.add(scrollPane, BorderLayout.CENTER);
 
-        garageListFrame.add(headingPanel, BorderLayout.NORTH);
-        garageListFrame.pack();
-        garageListFrame.setVisible(true);
-        garageListFrame.setLocationRelativeTo(null);
+        rateListFrame.add(headingPanel, BorderLayout.NORTH);
+        rateListFrame.pack();
+        rateListFrame.setVisible(true);
+        rateListFrame.setLocationRelativeTo(null);
     }
+
+    public static void main(String[] args) {
+
+        //test data
+
+        ArrayList<Garage> garages = new ArrayList<Garage>();
+
+        Garage garage1 = new Garage("43rd & Elkhorn Ave", 655);
+        garage1.setGarageID(0);
+        garage1.setAvgParkingDuration(180);
+        garage1.setNumVehiclesEnteringPerMin(1); //starts at 1 car per min at 7am
+        garage1.setAvgTimeToPark(10);
+        //set variable vehicles per minute
+        garage1.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 5));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage1.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 7)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage1.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 5)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage1.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 3)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage1.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 2)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage1.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
+
+        Garage garage2 = new Garage("Constant Center South", 1535);
+        garage2.setGarageID(1);
+        garage2.setAvgParkingDuration(180);
+        garage2.setNumVehiclesEnteringPerMin(1);
+        garage2.setAvgTimeToPark(10);
+        //set variable vehicles per minute
+        garage2.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 5));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage2.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 7)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage2.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 5)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage2.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 3)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage2.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 2)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage2.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
+
+        Garage garage3 = new Garage("Constant Center North", 1045);
+        garage3.setGarageID(2);
+        garage3.setAvgParkingDuration(180);
+        garage3.setNumVehiclesEnteringPerMin(1);
+        garage3.setAvgTimeToPark(10);
+        //set variable vehicles per minute
+        garage3.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 5));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage3.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 7)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage3.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 5)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage3.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 3)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage3.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 2)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage3.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
+
+        Garage garage4 = new Garage("49th Street Stadium", 745);
+        garage4.setGarageID(3);
+        garage4.setAvgParkingDuration(180);
+        garage4.setNumVehiclesEnteringPerMin(1);
+        garage4.setAvgTimeToPark(10);
+        //set variable vehicles per minute
+        garage4.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 5));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage4.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 7)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage4.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 5)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage4.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 3)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage4.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 2)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage4.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
+
+        garages.add(0, garage1);
+        garages.add(1, garage2);
+        garages.add(2, garage3);
+        garages.add(3, garage4);
+
+        vehicleRateGUI newGUI = new vehicleRateGUI(garages);
+
+    }
+
 
 }
