@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import frontend.SimulationUserInputGUI;
+import backend.database.Garage;
 
 public class AdminHomePage extends JFrame{
     public AdminHomePage() {
@@ -54,16 +57,25 @@ public class AdminHomePage extends JFrame{
         JButton createSimulationButton = new JButton("Create Simulation");
         createSimulationButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         createSimulationButton.setForeground(Color.BLACK);
-        createSimulationButton.setBackground(new Color(23, 11, 204, 163));
+        createSimulationButton.setBackground(new Color(23, 11, 204, 255));
         createSimulationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         createSimulationButton.setFocusPainted(false);
         createSimulationButton.setPreferredSize(new Dimension(250, 50));
         createSimulationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JButton businessFeedbackButton = new JButton("See Feedback");
+        businessFeedbackButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+        businessFeedbackButton.setForeground(Color.BLACK);
+        businessFeedbackButton.setBackground(new Color(93, 231, 14, 255));
+        businessFeedbackButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        businessFeedbackButton.setFocusPainted(false);
+        businessFeedbackButton.setPreferredSize(new Dimension(250, 50));
+        businessFeedbackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JButton logOutB= new JButton("Logout");
         logOutB.setFont(new Font("Monospaced", Font.BOLD, 16));
         logOutB.setForeground(Color.BLACK);
-        logOutB.setBackground(new Color(241, 49, 49, 163));
+        logOutB.setBackground(new Color(241, 49, 49, 255));
         logOutB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         logOutB.setFocusPainted(false);
         logOutB.setPreferredSize(new Dimension(250, 50));
@@ -80,6 +92,16 @@ public class AdminHomePage extends JFrame{
             }
         });
 
+        businessFeedbackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ArrayList<Garage> garages = new ArrayList<>();
+                businessFeedback BusinessFeedback = new businessFeedback("43rd & Elkhorn Ave", 4, garages );
+                BusinessFeedback.setVisible(true);
+            }
+        });
+
         logOutB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,6 +113,7 @@ public class AdminHomePage extends JFrame{
 
         contentPanel.add(createSimulationButton);
         contentPanel.add(logOutB);
+        contentPanel.add(businessFeedbackButton);
 
 
         //Create a PDM footer
