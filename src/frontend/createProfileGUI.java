@@ -22,7 +22,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class createProfileGUI extends JFrame{
-
+    private JTextField firstNameText;
+    private JTextField lastNameText;
+    private JComboBox<String> permitBox;
+    private JComboBox<String> roleBox;
+    private JTextField vmText;
+    private JTextField vmoText;
+    private JTextField vyText;
 
     public createProfileGUI() {
         // Frame setup
@@ -31,14 +37,15 @@ public class createProfileGUI extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel backgroundPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon("resources/color.png");
-                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
-            }
-        };
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
+        JPanel headerPanel = PDMPanels.createUserHeader("PDM - Please Create An Account");
+        headerPanel.setPreferredSize(new Dimension(250,60));
+        mainPanel.add(headerPanel, BorderLayout.NORTH);
+
+        JPanel footerPanel = PDMPanels.createUserFooter();
+        mainPanel.add(footerPanel, BorderLayout.SOUTH);
+
 
 
 
@@ -54,159 +61,104 @@ public class createProfileGUI extends JFrame{
         // Content Panel
         JPanel contentPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+        //contentPanel.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 250));
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(30, 30, 30, 30);
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.WEST;
 
-        //JPanel mainPanel = new JPanel();
-        //mainPanel.setOpaque(false);
-        //mainPanel.setLayout(new GridLayout(4, 1));
-        //mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 
         contentPanel.setOpaque(false);
 
+        //first name
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        contentPanel.add(new JLabel("Your First Name:"), gbc);
 
-        JLabel headingLabel = new JLabel("             Create Profile");
-        headingLabel.setFont(new Font("Monospaced", Font.BOLD, 32));
-        headingLabel.setForeground(Color.DARK_GRAY);
-        headingLabel.setBackground(Color.lightGray);
-        headingLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-        headingLabel.setAlignmentY(JLabel.CENTER_ALIGNMENT);
-       // headerPanel.add(headingLabel, BorderLayout.NORTH);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        firstNameText = new JTextField(15);
+        firstNameText.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        contentPanel.add(firstNameText, gbc);
 
+        //Last Name
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        contentPanel.add(new JLabel("Your Last Name:"), gbc);
 
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        lastNameText = new JTextField(15);
+        lastNameText.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        contentPanel.add(lastNameText, gbc);
+
+        //Role?
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        contentPanel.add(new JLabel("User Category:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        contentPanel.add(headingLabel,gbc);
+        String[] roleOptions = {"Commuter", "Resident", "Faculty"};
+        roleBox = new JComboBox<>(roleOptions);
+        roleBox.setFont(new Font("Monospaced", Font.BOLD, 16));
+        contentPanel.add(roleBox, gbc);
 
-        JPanel namePanel = new JPanel();
-        namePanel.setOpaque(false);
+        //Parking Pass
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        contentPanel.add(new JLabel("Parking Pass Type:"), gbc);
+
         gbc.gridx = 1;
         gbc.gridy = 2;
-        contentPanel.add(namePanel,gbc);
+        String[] permitOptions = {"Fall 2023", "Spring 2024", "Fall 2024"};
+        permitBox = new JComboBox<>(permitOptions);
+        permitBox.setFont(new Font("Monospaced", Font.BOLD, 16));
+        contentPanel.add(permitBox, gbc);
 
+        //Vehicle make
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        contentPanel.add(new JLabel("Vehicle Make:"), gbc);
 
-        JPanel permitPanel = new JPanel();
-        permitPanel.setOpaque(false);
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        contentPanel.add(permitPanel,gbc);
-
-        JPanel rolePanel = new JPanel();
-        rolePanel.setOpaque(false);
         gbc.gridx = 1;
         gbc.gridy = 4;
-        contentPanel.add(rolePanel,gbc);
-
-        JPanel vehiclePanel = new JPanel();
-        vehiclePanel.setOpaque(false);
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        contentPanel.add(vehiclePanel,gbc);
-
-        JPanel savePanel = new JPanel();
-        savePanel.setOpaque(false);
-        gbc.gridx = 1;
-        gbc.gridy = 6;
-        contentPanel.add(savePanel,gbc);
-
-
-        JLabel nameLabel = new JLabel("Name: ");
-        nameLabel.setFont(new Font("Monospaced",Font.BOLD,16));
-        nameLabel.setForeground(Color.white);
-        namePanel.add(nameLabel);
-
-        JTextField firstNameText = new JTextField(9);
-        firstNameText.setPreferredSize(new Dimension(50,50));
-        firstNameText.setFont(new Font("Monospaced",Font.PLAIN,16));
-        namePanel.add(firstNameText);
-
-        JTextField lastNameText = new JTextField(9);
-        lastNameText.setPreferredSize(new Dimension(50,50));
-        lastNameText.setFont(new Font("Monospaced",Font.PLAIN,16));
-        namePanel.add(lastNameText);
-
-        JLabel permitLabel = new JLabel("Permit:");
-        permitLabel.setFont(new Font("Monospaced",Font.BOLD,16));
-        permitLabel.setForeground(Color.white);
-        permitPanel.add(permitLabel);
-
-       /* JTextField permitText = new JTextField(20);
-        permitText.setPreferredSize(new Dimension(250,50));
-       permitPanel.add(permitText); */
-        String[] semesterOptions ={"Fall 2023", "Spring 2024", "Fall 2024"};
-        JComboBox<String> permitBox = new JComboBox<>(semesterOptions);
-        permitBox.setPreferredSize(new Dimension(250,50));
-        permitBox.setFont(new Font("Monospaced",Font.PLAIN,16));
-        permitPanel.add(permitBox);
-
-        JLabel roleLabel = new JLabel("Role:");
-        roleLabel.setFont(new Font("Monospaced",Font.BOLD,16));
-        roleLabel.setForeground(Color.white);
-        rolePanel.add(roleLabel);
-
-      /*  JMenuBar menuBar = new JMenuBar();
-        menuBar.setBounds(100,-50,165,25);
-        JMenu menu = new JMenu("Permit Type");
-        JMenuItem menuItem1 = new JMenuItem("Commuter");
-
-        menu.add(menuItem1);
-        menuBar.add(menu);
-        contentPanel.add(menuBar);*/
-
-        String[] options ={"Commuter", "Resident", "Faculty"};
-        JComboBox<String> comboBox = new JComboBox<>(options);
-        comboBox.setPreferredSize(new Dimension(250,50));
-        comboBox.setFont(new Font("Monospaced",Font.PLAIN,16));
-        rolePanel.add(comboBox);
-
-        JLabel vmLabel = new JLabel("Vehicle Make: ");
-        vmLabel.setFont(new Font("Monospaced",Font.BOLD,16));
-        vmLabel.setForeground(Color.white);
-        vehiclePanel.add(vmLabel);
-
-        JTextField vmText = new JTextField(9);
-        vmText.setPreferredSize(new Dimension(50,50));
+        vmText = new JTextField(15);
         vmText.setFont(new Font("Monospaced",Font.PLAIN,16));
-        vehiclePanel.add(vmText);
+        contentPanel.add(vmText, gbc);
 
-        JLabel vmoLabel = new JLabel("Vehicle Model: ");
-        vmoLabel.setFont(new Font("Monospaced",Font.BOLD,16));
-        vmoLabel.setForeground(Color.white);
-        vehiclePanel.add(vmoLabel);
+        //Vehicle Model
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        contentPanel.add(new JLabel("Vehicle Model:"), gbc);
 
-        JTextField vmoText = new JTextField(9);
-        vmoText.setPreferredSize(new Dimension(50,50));
+        gbc.gridx = 3;
+        gbc.gridy = 4;
+        vmoText = new JTextField(15);
         vmoText.setFont(new Font("Monospaced",Font.PLAIN,16));
-        vehiclePanel.add(vmoText);
+        contentPanel.add(vmoText, gbc);
 
-        JLabel vyLabel = new JLabel("Vehicle Year: ");
-        vyLabel.setFont(new Font("Monospaced",Font.BOLD,16));
-        vyLabel.setForeground(Color.white);
-        vehiclePanel.add(vyLabel);
+        //Vehicle Year
+        gbc.gridx = 4;
+        gbc.gridy = 4;
+        contentPanel.add(new JLabel("Vehicle Year:"), gbc);
 
-        JTextField vyText = new JTextField(9);
-        vyText.setPreferredSize(new Dimension(50,50));
+        gbc.gridx = 5;
+        gbc.gridy = 4;
+        vyText = new JTextField(6);
         vyText.setFont(new Font("Monospaced",Font.PLAIN,16));
-        vehiclePanel.add(vyText);
-        
+        contentPanel.add(vyText, gbc);
 
-        JButton saveButton = new JButton("Save");
+
+
+        gbc.gridx = 2;
+        gbc.gridy = 5;
+        JButton saveButton = new JButton("Create An Account");
         saveButton.setBounds(15, 80, 80, 25);
         //saveButton.setBackground(Color.lightGray);
         PDMPanels.styleButton(saveButton);
-        savePanel.add(saveButton);
 
-        JButton cancelButton = new JButton("Cancel");
-        cancelButton.setBounds(15, 80, 80, 25);
-        //cancelButton.setBackground(Color.lightGray);
-        PDMPanels.styleButton(cancelButton);
-        savePanel.add(cancelButton);
 
-        this.setVisible(true);
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -216,7 +168,13 @@ public class createProfileGUI extends JFrame{
                 userDashboard.setVisible(true);
             }
         });
+        contentPanel.add(saveButton, gbc);
 
+        gbc.gridx = 2;
+        gbc.gridy = 6;
+        JButton cancelButton = new JButton("Cancel");
+        //cancelButton.setBounds(20, 80, 40, 40);
+        PDMPanels.styleButton(cancelButton);
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -227,30 +185,11 @@ public class createProfileGUI extends JFrame{
             }
         });
 
-        //contentPanel.setLayout(new GridLayout(10,1));
-       // contentPanel.setLayout(new GridLayout(5, 1));
-       // SpringLayout layout = new SpringLayout();
-        //contentPanel.setLayout(layout);
+        contentPanel.add(cancelButton, gbc);
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
 
-/*
-        layout.putConstraint(SpringLayout.EAST, namePanel, 80, SpringLayout.EAST, savePanel);
-        layout.putConstraint(SpringLayout.EAST, permitPanel, 65, SpringLayout.EAST, savePanel);
-        layout.putConstraint(SpringLayout.EAST, rolePanel, 65, SpringLayout.EAST, savePanel);
-        layout.putConstraint(SpringLayout.WEST, savePanel, 120, SpringLayout.WEST, this);
-        layout.putConstraint(SpringLayout.NORTH, savePanel, 120, SpringLayout.NORTH, rolePanel);
-        layout.putConstraint(SpringLayout.NORTH, rolePanel, 120, SpringLayout.NORTH, permitPanel);
-        layout.putConstraint(SpringLayout.NORTH, permitPanel, 120, SpringLayout.NORTH, namePanel);
-
-        contentPanel.add(namePanel);
-        contentPanel.add(permitPanel);
-        contentPanel.add(rolePanel);
-        contentPanel.add(savePanel);
-*/
-        backgroundPanel.add(contentPanel, BorderLayout.SOUTH);
-
-       setContentPane(backgroundPanel);
+       setContentPane(mainPanel);
        setVisible(true);
-
     }
 
     public static void main(String[] args) {

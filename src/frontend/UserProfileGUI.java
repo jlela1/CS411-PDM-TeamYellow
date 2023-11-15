@@ -33,7 +33,7 @@ public class UserProfileGUI extends JFrame {
         setLocationRelativeTo(null);
 
         //setLayout(new BorderLayout());
-
+        /*
         JPanel backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -42,12 +42,21 @@ public class UserProfileGUI extends JFrame {
                 g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
+        */
+
+        // Create a main panel element to contain the non-header and footer elements of the page.
+        JPanel mainPanel = new JPanel();
+        mainPanel.setOpaque(false);
+        mainPanel.setBackground(new Color(0, 0, 0, 0));
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.setPreferredSize(new Dimension(2000, 600));
+        add(mainPanel, BorderLayout.CENTER);
 
         // Create header panel
         JPanel headingPanel = PDMPanels.createUserHeader("PDM");
         headingPanel.setOpaque(false);
         headingPanel.setLayout(new BorderLayout());
-        backgroundPanel.add(headingPanel, BorderLayout.NORTH);
+        mainPanel.add(headingPanel, BorderLayout.NORTH);
 
         JLabel simulationLabel = new JLabel("User Profile");
         simulationLabel.setOpaque(false);
@@ -115,13 +124,6 @@ public class UserProfileGUI extends JFrame {
         startTimeMinuteComboBox.setSelectedItem(mondayTimeValues[1]);
         amPMComboBox.setSelectedItem(mondayTimeValues[2]);
 
-        // Create a main panel element to contain the non-header and footer elements of the page.
-        JPanel mainPanel = new JPanel();
-        mainPanel.setOpaque(false);
-        mainPanel.setBackground(new Color(0, 0, 0, 0));
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.setPreferredSize(new Dimension(2000, 600));
-        backgroundPanel.add(mainPanel, BorderLayout.CENTER);
 
         // Create a top panel element containing the user's name, role, and permit type labels.
         JPanel topPanel = new JPanel();
@@ -248,9 +250,9 @@ public class UserProfileGUI extends JFrame {
         //JPanel footer = PDMPanels.createFooter();
        // footer.setOpaque(false);
 
-        backgroundPanel.add(mainPanel, BorderLayout.CENTER);
+        add(mainPanel, BorderLayout.CENTER);
 
-        setContentPane(backgroundPanel);
+        setContentPane(mainPanel);
         setVisible(true);
 
     }

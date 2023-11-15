@@ -38,17 +38,18 @@ public class editProfileGUI extends JFrame{
 
         // Content Panel
         JPanel contentPanel = new JPanel(new GridBagLayout());
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(180, 70, 150, 50));
+        //contentPanel.setBorder(BorderFactory.createEmptyBorder(180, 70, 150, 50));
+
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(8, 5, 8, 5);
+        gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
 
         //first name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        contentPanel.add(new JLabel("Your First Name: "), gbc);
+        contentPanel.add(new JLabel("Your First Name:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -70,7 +71,7 @@ public class editProfileGUI extends JFrame{
         //Role?
         gbc.gridx = 0;
         gbc.gridy = 1;
-        contentPanel.add(new JLabel("User Category: "), gbc);
+        contentPanel.add(new JLabel("User Category:"), gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -136,8 +137,8 @@ public class editProfileGUI extends JFrame{
 
         gbc.gridx = 2;
         gbc.gridy = 5;
-        JButton saveButton = new JButton("Save Your Changes");
-        //saveButton.setBounds(20, 80,30 , 40);
+        JButton saveButton = new JButton("Save Changes");
+        saveButton.setBounds(15, 80, 80, 25);
         PDMPanels.styleButton(saveButton);
         saveButton.addActionListener(new ActionListener() {
             @Override
@@ -160,11 +161,12 @@ public class editProfileGUI extends JFrame{
         });
         contentPanel.add(saveButton, gbc);
 
-        gbc.gridx = 3;
-        gbc.gridy = 5;
+        gbc.gridx = 2;
+        gbc.gridy = 6;
         JButton cancelButton = new JButton("Cancel");
-        //cancelButton.setBounds(20, 80, 40, 40);
+        //cancelButton.setBounds(15, 80, 80, 25);
         PDMPanels.styleButton(cancelButton);
+
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
