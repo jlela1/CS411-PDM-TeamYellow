@@ -25,7 +25,7 @@ public class businessFeedback extends JFrame implements  ActionListener{
 
     private int numGar;
 
-    static String garageFeedback = "Feedback";
+    static String garageFeedback = "Average Feedback";
     createGraph feedbackGraph;
 
 
@@ -53,10 +53,12 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     GridBagConstraints gbc = new GridBagConstraints();
     //set the start of the girdbag
     gbc.gridy= 0;
-    gbc. gridx =0;
+    gbc.gridx =1;
+    gbc.insets = new Insets(0,500,0,0);
+
     //text prompt
-    JLabel userSelectionPrompt = new JLabel("Please select which garage you wish to view the feedback of: ");
-    userSelectionPrompt.setFont(new Font("Monospaced",Font.BOLD,12));
+    JLabel userSelectionPrompt = new JLabel("Please select which garage.  ");
+    userSelectionPrompt.setFont(new Font("Monospaced",Font.BOLD,16));
     businessFeedBackGComponents.add(userSelectionPrompt,gbc);
     //combobox for garage selection
     userSelectionGarage = new JComboBox<String>();
@@ -65,43 +67,51 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
         userSelectionGarage.addItem(garage.getName());
     }
     gbc.gridy=1;
-    gbc.gridx=0;
+    gbc.gridx=1;
     businessFeedBackGComponents.add(userSelectionGarage,gbc);
 
     //datepickers
-    gbc.gridy=0;
-    gbc.gridx=2;
+
 
     datePickerStart = new DatePicker();
     datePickerEnd = new DatePicker();
-    JLabel startDate = new JLabel("Please select the start date: ");
-    JLabel endDate = new JLabel("Please select the end date: ");
-    startDate.setFont(new Font("Monospaced",Font.BOLD,12));
-    endDate.setFont(new Font("Monospaced",Font.BOLD,12));
+    JLabel startDate = new JLabel("Please select the start date. ");
+    JLabel endDate = new JLabel("Please select the end date. ");
+    startDate.setFont(new Font("Monospaced",Font.BOLD,16));
+    endDate.setFont(new Font("Monospaced",Font.BOLD,16));
+    gbc.gridy=0;
+    gbc.gridx=2;
+    gbc.insets= new Insets(0,10,0,10);
     businessFeedBackGComponents.add(startDate,gbc);
     gbc.gridy = 1;
     gbc.gridx =2;
+
     businessFeedBackGComponents.add(datePickerStart,gbc);
     gbc.gridy = 0;
-    gbc.gridx =4;
+    gbc.gridx = 3;
+    gbc.insets= new Insets(0,10,0,0);
+
     businessFeedBackGComponents.add(endDate,gbc);
+
     gbc.gridy = 1;
-    gbc.gridx =4;
+    gbc.gridx =3;
+    gbc.insets= new Insets(0,0,0,0);
+
     businessFeedBackGComponents.add(datePickerEnd,gbc);
 
     //get graph button
     gbc.gridy=2;
-    gbc.gridx=0;
-    gbc.weightx=1.0;
-    gbc.gridwidth = 6;
+    gbc.gridx=2;
+    gbc.weightx=0.0;
+    gbc.gridwidth = 1;
     gbc.fill = GridBagConstraints.BOTH;
-    getGraph = new JButton("Click to create Graph");
-    getGraph.setFont(new Font("Monospaced",Font.BOLD,12));
+    getGraph = new JButton("Click Here to Create the Graph");
+    getGraph.setFont(new Font("Monospaced",Font.BOLD,16));
     businessFeedBackGComponents.add(getGraph,gbc);
     //add graph
     feedbackGraph = new createGraph(garageName, numGar, datePickerStart.getDate(),datePickerEnd.getDate(),graphType);
     graphPanel = new JPanel();
-    graphPanel.add(feedbackGraph.getContentPane());
+
     gbc.gridy = 3;
     gbc.gridx =0;
     gbc.weightx =1.0;
@@ -111,11 +121,19 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     businessFeedBackGComponents.add(graphPanel,gbc);
 
     //home button
-    gbc.gridx =0;
+    gbc.gridx =2;
     gbc.gridy = 4;
-    home = new JButton("Home");
-    businessFeedBackGComponents.add(home,gbc);
+    gbc.weightx =0.0;
+    gbc.weighty =0.0;
+    gbc.gridwidth=1;
 
+    home = new JButton("Home");
+    home.setFont(new Font("Monospaced",Font.BOLD,16));
+    businessFeedBackGComponents.add(home,gbc);
+    home.setBackground(Color.CYAN);
+    home.setOpaque(true);
+    getGraph.setBackground(Color.CYAN);
+    getGraph.setOpaque(true);
 
 
 
@@ -242,11 +260,19 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
         garage4.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 3)); //change number of vehicles entering per minute at 960 min (4pm) to 3
         garage4.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
 
+        Garage garage5 = new Garage("All Garages", 745);
+        garage5.variableNumVehPerMin.add(0, new numVehEnteringRate(480, 3));//change number of vehicles entering per minute at 480 min (8am) to 3
+        garage5.variableNumVehPerMin.add(1, new numVehEnteringRate(600, 5)); //change number of vehicles entering per minute at 600 min (10am) to 5
+        garage5.variableNumVehPerMin.add(2, new numVehEnteringRate(720, 7)); //change number of vehicles entering per minute at 600 min (12pm) to 8
+        garage5.variableNumVehPerMin.add(3, new numVehEnteringRate(840, 5)); //change number of vehicles entering per minute at 840 min (2pm) to 5
+        garage5.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 3)); //change number of vehicles entering per minute at 960 min (4pm) to 3
+        garage5.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
         garages.add(0, garage1);
         garages.add(1, garage2);
         garages.add(2, garage3);
         garages.add(3, garage4);
+        garages.add(4,garage5);
 
-        businessFeedback businessFeedback = new businessFeedback("43rd & Elkhorn Ave", 4, garages);
+        businessFeedback businessFeedback = new businessFeedback("43rd & Elkhorn Ave", 5, garages);
     }
 }
