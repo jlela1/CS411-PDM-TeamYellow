@@ -27,22 +27,42 @@ public class editProfileGUI extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 35.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
 
-        JPanel headerPanel = PDMPanels.createUserHeader("PDM - Edit Your Profile");
-        headerPanel.setPreferredSize(new Dimension(250,60));
-        add(headerPanel, BorderLayout.NORTH);
+        setContentPane(backgroundPanel);
+        backgroundPanel.setLayout(new BorderLayout());
+
+        JPanel headerPanel = new JPanel();
+        headerPanel.setOpaque(false);
+        headerPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(headerPanel, BorderLayout.NORTH);
+
+        JPanel header = PDMPanels.createUserHeader("PDM - Edit Your Profile");
+        //header.setOpaque(false);
+        //headerPanel.setPreferredSize(new Dimension(250,60));
+        headerPanel.add(header, BorderLayout.NORTH);
 
         JPanel footerPanel = PDMPanels.createUserFooter();
-        add(footerPanel, BorderLayout.SOUTH);
+        footerPanel.setOpaque(false);
+        backgroundPanel.add(footerPanel, BorderLayout.SOUTH);
 
 
         // Content Panel
         JPanel contentPanel = new JPanel(new GridBagLayout());
+        contentPanel.setOpaque(false);
+        backgroundPanel.add(contentPanel, BorderLayout.CENTER);
         //contentPanel.setBorder(BorderFactory.createEmptyBorder(180, 70, 150, 50));
 
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 2, 10, 2);
         gbc.anchor = GridBagConstraints.WEST;
 
 
@@ -75,7 +95,7 @@ public class editProfileGUI extends JFrame{
 
         gbc.gridx = 1;
         gbc.gridy = 1;
-        String[] roleOptions = {"Commuter", "Resident", "Faculty"};
+        String[] roleOptions = {"Commuter", "Resident", "Faculty", "Visitor"};
         roleBox = new JComboBox<>(roleOptions);
         roleBox.setFont(new Font("Monospaced", Font.BOLD, 16));
         contentPanel.add(roleBox, gbc);
