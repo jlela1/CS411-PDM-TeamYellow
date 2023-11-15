@@ -132,6 +132,22 @@ public class googleMapsGUI extends JFrame {
         getDirectionsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(getDirectionsButton);
 
+        JButton getRecommendationButton = new JButton("Get Recommendations");
+        getRecommendationButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+        getRecommendationButton.setForeground(Color.BLACK);
+        getRecommendationButton.setBackground(new Color(23, 11, 204, 163));
+        getRecommendationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        getRecommendationButton.setFocusPainted(false);
+        getRecommendationButton.setPreferredSize(new Dimension(250, 50));
+        getRecommendationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(getRecommendationButton);
+
+        getRecommendationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
 
 
         getDirectionsButton.addActionListener(new ActionListener() {
