@@ -17,28 +17,28 @@ public class recommendationAlgorithm {
         int closestGarageNum = 0;
         switch(closestGarage)
         {
-            case "garage1":
+            case "43rd & Elkhorn Ave":
                 closestGarageNum = 0;
                 if ((garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() * 0.9) >= garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                    recommendedGarage = "garage1";
+                    recommendedGarage = "'43rd & Elkhorn Ave'";
                 }
                 break;
-            case "garage2":
+            case "Constant Center South":
                 closestGarageNum = 1;
                 if ((garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() * 0.9) >= garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                    recommendedGarage = "garage1";
+                    recommendedGarage = "'Constant Center South'";
                 }
                 break;
-            case "garage3":
+            case "Constant Center North":
                 closestGarageNum = 2;
                 if ((garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() * 0.9) >= garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                    recommendedGarage = "garage1";
+                    recommendedGarage = "'Constant Center North'";
                 }
                 break;
-            case "garage4":
+            case "49th Street Stadium":
                 closestGarageNum = 3;
                 if ((garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() * 0.9) >= garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                    recommendedGarage = "garage1";
+                    recommendedGarage = "'49th Street Stadium'";
                 }
                 break;
             case "garage5":
@@ -66,16 +66,16 @@ public class recommendationAlgorithm {
             if (newGarNum > -1) {
                 switch (newGarNum) {
                     case 0:
-                        recommendedGarage = "garage1";
+                        recommendedGarage = "'43rd & Elkhorn Ave'";
                         break;
                     case 1:
-                        recommendedGarage = "garage2";
+                        recommendedGarage = "'Constant Center South'";
                         break;
                     case 2:
-                        recommendedGarage = "garage3";
+                        recommendedGarage = "'Constant Center North'";
                         break;
                     case 3:
-                        recommendedGarage = "garage4";
+                        recommendedGarage = "'49th Street Stadium'";
                         break;
                     case 4:
                         recommendedGarage = "garage5";
@@ -89,28 +89,28 @@ public class recommendationAlgorithm {
         if (recommendedGarage == "") { //is the recommendation still empty
             switch(closestGarage)
             {
-                case "garage1":
+                case "43rd & Elkhorn Ave":
                     closestGarageNum = 0;
                     if (garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() > garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                        recommendedGarage = "garage1";
+                        recommendedGarage = "'43rd & Elkhorn Ave'";
                     }
                     break;
-                case "garage2":
+                case "Constant Center South":
                     closestGarageNum = 1;
                     if (garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() >= garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                        recommendedGarage = "garage1";
+                        recommendedGarage = "'Constant Center South'";
                     }
                     break;
-                case "garage3":
+                case "Constant Center North":
                     closestGarageNum = 2;
                     if (garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() >= garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                        recommendedGarage = "garage1";
+                        recommendedGarage = "'Constant Center North'";
                     }
                     break;
-                case "garage4":
+                case "49th Street Stadium":
                     closestGarageNum = 3;
                     if (garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() >= garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                        recommendedGarage = "garage1";
+                        recommendedGarage = "'49th Street Stadium'";
                     }
                     break;
                 case "garage5":
@@ -138,16 +138,16 @@ public class recommendationAlgorithm {
             if (newGarNum > -1) {
                 switch (newGarNum) {
                     case 0:
-                        recommendedGarage = "garage1";
+                        recommendedGarage = "'43rd & Elkhorn Ave'";
                         break;
                     case 1:
-                        recommendedGarage = "garage2";
+                        recommendedGarage = "'Constant Center South'";
                         break;
                     case 2:
-                        recommendedGarage = "garage3";
+                        recommendedGarage = "'Constant Center North'";
                         break;
                     case 3:
-                        recommendedGarage = "garage4";
+                        recommendedGarage = "'49th Street Stadium'";
                         break;
                     case 4:
                         recommendedGarage = "garage5";
