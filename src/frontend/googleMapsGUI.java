@@ -1,6 +1,8 @@
 package frontend;
 
-import backend.database.Garage;
+import backend.database.*;
+import backend.database.timeOfArrival;
+
 import backend.database.trendsGarage;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -9,10 +11,10 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.web.WebView;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -82,9 +84,10 @@ public class googleMapsGUI extends JFrame {
 
         // Time of Arrival
         timeOfArrivalField = new JTextField(15);
+        setPlaceholder(timeOfArrivalField, "12:45PM");
         timeOfArrivalField.setBorder(BorderFactory.createLineBorder(Color.green, 4));
-        timeOfArrivalField.setEditable(false);
-        timeOfArrivalField.setText(timeOfArrival); // Set the actual value
+        timeOfArrivalField.setEditable(true);
+        // Set the actual value
         JLabel timeOfArrivalLabel = new JLabel("Time of Arrival:");
         timeOfArrivalLabel.setFont(new Font("Monospaced",Font.ITALIC,16));
         contentPanel.add(timeOfArrivalLabel);
@@ -129,21 +132,29 @@ public class googleMapsGUI extends JFrame {
         getDirectionsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(getDirectionsButton);
 
+
+
         getDirectionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 String selectedGarage = (String) userSelectionGarage.getSelectedItem();
 
+
                 System.out.println("get directions for: " + selectedGarage);
 
                 int selectedGarageNumID = -1;
+                String timeOfArrivalID = "";
+                String arrivalTime = timeOfArrivalField.getText();
 
                 for (int i = 0; i < garages.size(); i++) {
                     if (selectedGarage.equals(garages.get(i).get(0).getGarage_name())) {
                         selectedGarageNumID = i;
                     }
+
                 }
+                timeOfArrival newArrival = new timeOfArrival(arrivalTime);
+                System.out.println("Time of arrival: " + arrivalTime);
 
                 switch (selectedGarageNumID) {
                     case 0:
@@ -188,11 +199,33 @@ public class googleMapsGUI extends JFrame {
         });
 
     }
+    private void setPlaceholder(JTextComponent component, String placeholder) {
+        component.setForeground(Color.GRAY);
+        component.setText(placeholder);
+        component.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (component.getForeground() == Color.GRAY) {
+                    component.setText("");
+                    component.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (component.getText().trim().isEmpty()) {
+                    component.setText(placeholder);
+                    component.setForeground(Color.GRAY);
+                }
+            }
+        });
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             googleMapsGUI page1 = new googleMapsGUI();
             page1.setVisible(true);
+
         });
     }
 }
