@@ -24,7 +24,7 @@ public class UserDashboard extends JFrame{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon ("resources/backgroundsim.jpg");
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 14.png");
                 g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
             }
         };
