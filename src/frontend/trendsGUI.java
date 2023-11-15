@@ -282,7 +282,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         garages.add(3, garage4);
         garages.add(4,garage5);
 
-        trendsGUI trendsGUI = new trendsGUI("43rd & Elkhorn Ave", 4, garages);
+        trendsGUI trendsGUI = new trendsGUI("43rd & Elkhorn Ave", 5, garages);
     }
 
 
