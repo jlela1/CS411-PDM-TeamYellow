@@ -11,6 +11,7 @@ import backend.database.userProfile;
 import frontend.SimulationUserInputGUI;
 import frontend.UserProfileGUI;
 import frontend.createProfileGUI;
+import frontend.FeedbackSubmissionGUI;
 
 public class UserDashboard extends JFrame{
     public UserDashboard() {
@@ -75,6 +76,14 @@ public class UserDashboard extends JFrame{
         userProfileButton.setPreferredSize(new Dimension(250, 50));
         userProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JButton feedbackButton = new JButton("Feedback");
+        feedbackButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+        feedbackButton.setForeground(Color.BLACK);
+        feedbackButton.setBackground(new Color(255, 193, 7, 255)); // Choose your preferred color
+        feedbackButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        feedbackButton.setFocusPainted(false);
+        feedbackButton.setPreferredSize(new Dimension(250, 50));
+        feedbackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton logOutB= new JButton("Logout");
         logOutB.setFont(new Font("Monospaced", Font.BOLD, 16));
@@ -91,8 +100,8 @@ public class UserDashboard extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Create an instance of googleMapsGUI and make it visible
-                googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
-                GoogleMapsGUI.setVisible(true);
+//                googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
+//                GoogleMapsGUI.setVisible(true);
             }
         });
 
@@ -110,6 +119,14 @@ public class UserDashboard extends JFrame{
             }
         });
 
+        feedbackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create an instance of FeedbackSubmissionGUI and make it visible
+                FeedbackSubmissionGUI feedbackSubmissionGUI = new FeedbackSubmissionGUI();
+                feedbackSubmissionGUI.setVisible(true);
+            }
+        });
 
         logOutB.addActionListener(new ActionListener() {
             @Override
@@ -124,6 +141,7 @@ public class UserDashboard extends JFrame{
 
         contentPanel.add(recommendationButton);
         contentPanel.add(userProfileButton);
+        contentPanel.add(feedbackButton);
         contentPanel.add(logOutB);
 
         //Create a PDM footer
