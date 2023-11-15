@@ -1,6 +1,7 @@
 package frontend;
 import javax.swing.*;
 
+
 import backend.database.Garage;
 import backend.database.numVehEnteringRate;
 import com.github.lgooddatepicker.components.DatePicker;
@@ -37,27 +38,44 @@ public class businessFeedback extends JFrame implements  ActionListener{
 public businessFeedback(String garageName, int numGarages, ArrayList<Garage> garages)
 {
     //Jframe frame setup
+
+
+    JPanel backgroundPanel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            ImageIcon backgroundImage = new ImageIcon ("resources/Background 11.png");
+            g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+        }
+    };
+    this.add(backgroundPanel,BorderLayout.CENTER);
+
     numGar = numGarages;
     graphType = garageFeedback;
     this.setTitle("Business Feedback Page");
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setLayout(new BorderLayout());
+    this.add(backgroundPanel,BorderLayout.CENTER);
     //Header
     JPanel businessFeedbackHeader = PDMPanels.createHeader("Welcome to View Parker Feedback Page");
+    businessFeedbackHeader.setOpaque(true);
     this.add(businessFeedbackHeader,BorderLayout.NORTH);
     //Footer
     JPanel businessFeedbackFooter = PDMPanels.createFooter();
+    businessFeedbackFooter.setOpaque(true);
     this.add(businessFeedbackFooter,BorderLayout.SOUTH);
     //gridbag center panel
     JPanel businessFeedBackGComponents = new JPanel(new GridBagLayout());
+    businessFeedBackGComponents.setOpaque(false);
     GridBagConstraints gbc = new GridBagConstraints();
     //set the start of the girdbag
     gbc.gridy= 0;
     gbc.gridx =1;
-    gbc.insets = new Insets(0,500,0,0);
+    gbc.insets = new Insets(0,100,0,0);
 
     //text prompt
     JLabel userSelectionPrompt = new JLabel("Please select which garage.  ");
+    userSelectionPrompt.setOpaque(false);
     userSelectionPrompt.setFont(new Font("Monospaced",Font.BOLD,16));
     businessFeedBackGComponents.add(userSelectionPrompt,gbc);
     //combobox for garage selection
@@ -69,15 +87,23 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     userSelectionGarage.addItem("All Garages");
     gbc.gridy=1;
     gbc.gridx=1;
+    userSelectionGarage.setOpaque(false);
     businessFeedBackGComponents.add(userSelectionGarage,gbc);
+
+
+
 
     //datepickers
 
 
     datePickerStart = new DatePicker();
+    datePickerStart.setOpaque(false);
     datePickerEnd = new DatePicker();
+    datePickerEnd.setOpaque(false);
     JLabel startDate = new JLabel("Please select the start date. ");
+    startDate.setOpaque(false);
     JLabel endDate = new JLabel("Please select the end date. ");
+    endDate.setOpaque(false);
     startDate.setFont(new Font("Monospaced",Font.BOLD,16));
     endDate.setFont(new Font("Monospaced",Font.BOLD,16));
     gbc.gridy=0;
@@ -107,11 +133,14 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     gbc.gridwidth = 1;
     gbc.fill = GridBagConstraints.BOTH;
     getGraph = new JButton("Click Here to Create the Graph");
+    getGraph.setOpaque(false);
     getGraph.setFont(new Font("Monospaced",Font.BOLD,16));
     businessFeedBackGComponents.add(getGraph,gbc);
     //add graph
     feedbackGraph = new createGraph(garageName, numGar, datePickerStart.getDate(),datePickerEnd.getDate(),graphType);
     graphPanel = new JPanel();
+    graphPanel.setOpaque(false);
+
 
     gbc.gridy = 3;
     gbc.gridx =0;
@@ -136,11 +165,16 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     getGraph.setBackground(Color.CYAN);
     getGraph.setOpaque(true);
 
+    businessFeedBackGComponents.setOpaque(false);
 
 
 
 
-    this.add(businessFeedBackGComponents,BorderLayout.CENTER);
+
+
+   backgroundPanel.add(businessFeedBackGComponents);
+
+
 
     //adding actionListener
     getGraph.addActionListener(this);
@@ -182,6 +216,8 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
             date1 = datePickerStart.getDate();
             date2 = datePickerEnd.getDate();
             graphPanel.add(feedbackGraph.getContentPane());
+
+
 
             this.revalidate();
             this.repaint();

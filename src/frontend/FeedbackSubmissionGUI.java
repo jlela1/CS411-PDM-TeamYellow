@@ -5,11 +5,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FeedbackSubmissionGUI {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Feedback Submission");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+public class FeedbackSubmissionGUI extends JFrame{
+    public FeedbackSubmissionGUI() {
+        setTitle("Feedback Submission");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         // Create a background panel with the image
         JPanel backgroundPanel = new JPanel() {
@@ -68,7 +68,7 @@ public class FeedbackSubmissionGUI {
                 "Were you able to find the location you were looking for?",
                 "Did you park your car at our recommended location?",
                 "Are you happy with your experience today?",
-                "Would you recommend this app to others"
+                "Would you recommend this app to others?"
         };
 
         for (String question : questions) {
@@ -112,7 +112,7 @@ public class FeedbackSubmissionGUI {
                 }
                 int index = ratingComboBox.getSelectedIndex();
                 System.out.println("Rating: " + (index + 1) + " (" + ratingDescriptions[index] + ")");
-                JOptionPane.showMessageDialog(frame, "Feedback submitted!");
+
             }
         });
         submitPanel.add(submitButton);
@@ -129,8 +129,8 @@ public class FeedbackSubmissionGUI {
         // Add the background panel to the frame
         backgroundPanel.setLayout(new BorderLayout());
         backgroundPanel.add(mainPanel, BorderLayout.CENTER);
-        frame.add(backgroundPanel);
+        add(backgroundPanel);
 
-        frame.setVisible(true);
+        setVisible(true);
     }
 }

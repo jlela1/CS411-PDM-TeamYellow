@@ -227,7 +227,13 @@ public class trendsTest {
     public static trendsGarage addNewParkStruct(String[] data) {
         trendsGarage pb = new trendsGarage();
         pb.setSimulationNumber(Integer.parseInt(data[0]));
-        pb.setTime(Integer.parseInt(data[1]));
+
+        //set time to 24hr time
+        int hours = Integer.parseInt(data[1]) / 60;
+        int minutes = Integer.parseInt(data[1]) % 60;
+        int time24hrs = (hours * 100) + minutes;
+        pb.setTime(time24hrs);
+
         pb.setGarage_name(data[2]);
         pb.setCurrent_capacity(Integer.parseInt(data[3]));
         pb.setTotal_capacity(Integer.parseInt(data[4]));
