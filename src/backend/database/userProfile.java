@@ -10,11 +10,15 @@ public class userProfile {
     private String parkingCost;
     private String parkingMeter;
     private String userRole;
+    private String vehicleMake;
+    private String vehicleModel;
+    private String vehicleYear;
     private Schedule schedule;
     private ArrayList<Integer> dailyStartTimes;
 
     // Constructor
-    public userProfile(String vehicleId, String userFirstName, String userLastName, String permitType, String parkingCost, String parkingMeter, String userRole, Schedule schedule, ArrayList<Integer> dailyStartTimes) {
+    public userProfile(String vehicleId, String userFirstName, String userLastName, String permitType, String parkingCost, String parkingMeter,
+                       String userRole, String vehicleMake, String vehicleModel, String vehicleYear, Schedule schedule, ArrayList<Integer> dailyStartTimes) {
         this.vehicleId = vehicleId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -22,6 +26,9 @@ public class userProfile {
         this.parkingCost = parkingCost;
         this.parkingMeter = parkingMeter;
         this.userRole = userRole;
+        this.vehicleMake = vehicleMake;
+        this.vehicleModel = vehicleModel;
+        this.vehicleYear = vehicleYear;
         this.dailyStartTimes = new ArrayList<Integer>(7);
 
         // Set each daily start time to 7AM by default
@@ -93,6 +100,18 @@ public class userProfile {
     public void setUserRole(String userRole) {
         this.userRole = userRole;
     }
+
+    // Getter and Setter methods for vehicleMake
+    public String getVehicleMake() { return vehicleMake; }
+    public void setVehicleMake(String vehicleMake) { this.vehicleMake = vehicleMake; }
+
+    // Getter and Setter methods for vehicleModel
+    public String getVehicleModel() { return vehicleModel; }
+    public void setVehicleModel(String vehicleModel) { this.vehicleModel = vehicleModel; }
+
+    // Getter and Setter methods for vehicleYear
+    public String getVehicleYear() { return vehicleYear; }
+    public void setVehicleYear(String vehicleYear) { this.vehicleYear = vehicleYear; }
     public void setSchedule(Schedule schedule){
         this.schedule = schedule;
     }

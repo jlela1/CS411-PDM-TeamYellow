@@ -103,7 +103,8 @@ public class UserDashboard extends JFrame{
                 // Creating a test user on userProfileGUI creation. A real user will need to be retrieved.
                 removeAll();
                 dispose();
-                UserProfileGUI userProfileGUI = new UserProfileGUI(new userProfile("12345", "Carson", "Parker", "Fall Semester", "0", "0", "Commuter", new Schedule(), new ArrayList<Integer>()));
+                UserProfileGUI userProfileGUI = new UserProfileGUI(new userProfile("12345", "Carson", "Parker", "Fall Semester",
+                        "0", "0", "Commuter", "Toyota", "Camry", "2018", new Schedule(), new ArrayList<Integer>()));
                 userProfileGUI.setVisible(true);
                 userProfileGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 userProfileGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
