@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Login extends JFrame implements ActionListener {
-    JButton b1, b2;
+    JButton b1, b2, b3;
     JPanel newPanel;
     JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, pageLabel;
     final JTextField textField1;
@@ -25,9 +25,11 @@ public class Login extends JFrame implements ActionListener {
         pageLabel = new JLabel("PDM Login");
         pageLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
 
+
         ImageIcon userIcon = new ImageIcon("resources/user.png");
         Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
+
 
         textField1 = new JTextField(20);
         setPlaceholder(textField1, "Username");
@@ -45,9 +47,13 @@ public class Login extends JFrame implements ActionListener {
         b2 = new JButton("Register");
         b2.setFont(new Font("Monospaced", Font.BOLD, 16));
 
+        b3 = new JButton("Continue as Guest");
+        b3.setFont(new Font("Monospaced", Font.BOLD, 16));
+
         newPanel = new JPanel(new BorderLayout());
 
         JPanel headingPanel = PDMPanels.GeneralHeader("PDM Login");
+
 
         JLabel welcomeLabel = new JLabel("Parking Made Easy");
         welcomeLabel.setForeground(Color.DARK_GRAY);
@@ -71,9 +77,12 @@ public class Login extends JFrame implements ActionListener {
         componentsPanel.add(userPanel);
         componentsPanel.add(passPanel);
 
+
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(b1);
         buttonPanel.add(b2);
+        buttonPanel.add(b3);
 
         componentsPanel.add(buttonPanel);
 
@@ -84,6 +93,7 @@ public class Login extends JFrame implements ActionListener {
 
         b1.addActionListener(this);
         b2.addActionListener(this);
+        b3.addActionListener(this);
 
         // Create and add the footer using PageLayout
         JPanel footerPanel = PDMPanels.GeneralFooter();
@@ -93,7 +103,9 @@ public class Login extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setTitle("PDM Login");
+
     }
+
 
     private void setPlaceholder(JTextComponent component, String placeholder) {
         component.setForeground(Color.GRAY);
@@ -139,10 +151,17 @@ public class Login extends JFrame implements ActionListener {
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password. Please try again.", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
+
+
         } else if (ae.getSource() == b2) {
             this.dispose();
             Reg registration = new Reg();
             registration.setVisible(true);
+        }
+        else if (ae.getSource()==b3) {
+            this.dispose();
+            GuestDashboard guest = new GuestDashboard();
+                    guest.setVisible(true);
         }
     }
 
