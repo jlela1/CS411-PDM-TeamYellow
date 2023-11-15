@@ -1,6 +1,6 @@
 package frontend;
 import javax.swing.*;
-import javax.swing.plaf.BorderUIResource;
+
 
 import backend.database.Garage;
 import backend.database.numVehEnteringRate;
