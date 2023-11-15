@@ -21,7 +21,7 @@ public class AdminHomePage extends JFrame{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon ("resources/backgroundsim.jpg");
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 11.png");
                 g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
             }
         };
@@ -57,7 +57,7 @@ public class AdminHomePage extends JFrame{
         JButton createSimulationButton = new JButton("Create Simulation");
         createSimulationButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         createSimulationButton.setForeground(Color.BLACK);
-        createSimulationButton.setBackground(new Color(23, 11, 204, 255));
+        createSimulationButton.setBackground(new Color(50, 119, 222, 255));
         createSimulationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         createSimulationButton.setFocusPainted(false);
         createSimulationButton.setPreferredSize(new Dimension(250, 50));
@@ -66,7 +66,7 @@ public class AdminHomePage extends JFrame{
         JButton businessFeedbackButton = new JButton("See Feedback");
         businessFeedbackButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         businessFeedbackButton.setForeground(Color.BLACK);
-        businessFeedbackButton.setBackground(new Color(93, 231, 14, 255));
+        businessFeedbackButton.setBackground(new Color(114, 145, 98, 250));
         businessFeedbackButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         businessFeedbackButton.setFocusPainted(false);
         businessFeedbackButton.setPreferredSize(new Dimension(250, 50));
@@ -75,7 +75,7 @@ public class AdminHomePage extends JFrame{
         JButton logOutB= new JButton("Logout");
         logOutB.setFont(new Font("Monospaced", Font.BOLD, 16));
         logOutB.setForeground(Color.BLACK);
-        logOutB.setBackground(new Color(241, 49, 49, 255));
+        logOutB.setBackground(new Color(204, 11, 91, 255));
         logOutB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         logOutB.setFocusPainted(false);
         logOutB.setPreferredSize(new Dimension(250, 50));
@@ -112,8 +112,8 @@ public class AdminHomePage extends JFrame{
         });
 
         contentPanel.add(createSimulationButton);
-        contentPanel.add(logOutB);
         contentPanel.add(businessFeedbackButton);
+        contentPanel.add(logOutB);
 
 
         //Create a PDM footer
