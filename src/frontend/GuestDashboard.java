@@ -80,6 +80,18 @@ public class GuestDashboard extends JFrame{
             }
         });
 
+
+        IMapButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                googleMapsGUI map = new googleMapsGUI();
+                map.setVisible(true);
+            }
+        });
+
+
+
         contentPanel.add(IMapButton);
         contentPanel.add(logOutB);
 
