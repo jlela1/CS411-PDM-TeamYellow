@@ -43,6 +43,16 @@ public class trendsGUI extends JFrame implements ActionListener {
         graphType = "default";
         garageTypeSelectionComboBox = new JComboBox(garageTypeSelector);
 
+        //background
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 11.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
+
 
         //Create the frame title and layout
         this.setTitle("PDM Trends Dashboard");
@@ -68,6 +78,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
         //user selection for garage via dropdown
         JLabel userSelectTextPrompt = new JLabel("Please select which garage.  ",JLabel.CENTER);
+        userSelectTextPrompt.setOpaque(false);
         userSelectTextPrompt.setFont(new Font("Monospaced", Font.BOLD, 16));
         //add user select to gridbag
 
@@ -76,6 +87,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
         // Initialize the garageSelectorComboBox
         userSelectionGarage = new JComboBox<String>();
+        userSelectionGarage.setOpaque(false);
 
 
 
@@ -92,7 +104,9 @@ public class trendsGUI extends JFrame implements ActionListener {
         trendsGComponents.add(userSelectionGarage,gbc);
         //Date picker for start date
         datePickerStart = new DatePicker();
+        datePickerStart.setOpaque(false);
         JLabel userSelectionDate1 = new JLabel("Please select the beginning date.  ");
+        userSelectionDate1.setOpaque(false);
         userSelectionDate1.setFont(new Font("Monospaced", Font.BOLD, 16));
         gbc.gridy= 0;
         gbc.gridx= 2;
@@ -104,12 +118,14 @@ public class trendsGUI extends JFrame implements ActionListener {
         trendsGComponents.add(datePickerStart,gbc);
         //Date picker for end date
         JLabel userSelectionDate2 = new JLabel("Please select the ending date. ");
+        userSelectionDate2.setOpaque(false);
         gbc.gridy= 0;
         gbc.gridx= 4;
         gbc.insets = new Insets(0,0,0,0);
         userSelectionDate2.setFont(new Font("Monospaced", Font.BOLD, 16));
         trendsGComponents.add(userSelectionDate2,gbc);
         datePickerEnd = new DatePicker();
+        datePickerEnd.setOpaque(false);
         gbc.gridy= 1;
         gbc.gridx= 4;
         gbc.insets = new Insets(0,0,0,0);
@@ -131,7 +147,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         getGraph.addActionListener(this);
         gbc.gridy= 3;
         gbc.gridx= 2;
-        gbc.gridwidth =4;
+        gbc.gridwidth =3;
         gbc.fill = GridBagConstraints.BOTH;
         trendsGComponents.add(getGraph,gbc);
 
@@ -141,6 +157,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
         trendsGraph = new createGraph(garageName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(),graphType);
         graphPanel = new JPanel();
+        graphPanel.setOpaque(false);
 
         gbc.gridy = 4;
         gbc.gridx = 0;
@@ -150,6 +167,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         gbc.gridwidth =8;
 
         trendsGComponents.add(graphPanel,gbc);
+        trendsGComponents.setOpaque(false);
 
         //home button
 
@@ -165,14 +183,14 @@ public class trendsGUI extends JFrame implements ActionListener {
         gbc.weighty =0.0;
         gbc.weightx=0.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth =4;
+        gbc.gridwidth =3;
 
         trendsGComponents.add(home, gbc);
 
         //Footer
         JPanel trendsFooter = PDMPanels.createFooter();
         this.add(trendsFooter,BorderLayout.SOUTH);
-        this.add(trendsGComponents,BorderLayout.CENTER);
+        backgroundPanel.add(trendsGComponents,BorderLayout.CENTER);
         //button color
         home.setBackground(Color.CYAN);
         home.setOpaque(true);
@@ -181,7 +199,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
 
 
-
+        this.add(backgroundPanel,BorderLayout.CENTER);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
