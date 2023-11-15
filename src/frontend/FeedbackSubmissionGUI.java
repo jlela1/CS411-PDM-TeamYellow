@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FeedbackSubmissionGUI extends JFrame {
+
     public FeedbackSubmissionGUI() {
         setTitle("Feedback Submission");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,6 +87,20 @@ public class FeedbackSubmissionGUI extends JFrame {
         // Submit button
         JPanel submitPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         submitPanel.setOpaque(false);
+
+        // Return to Dashboard button
+        JButton returnButton = new JButton("Return to Dashboard");
+        returnButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        returnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current frame
+                new UserDashboard().setVisible(true); // Open the UserDashboard
+            }
+        });
+
+        submitPanel.add(returnButton); // Add the return button
+
         JButton submitButton = new JButton("Send Feedback");
         submitButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
 
@@ -116,6 +131,7 @@ public class FeedbackSubmissionGUI extends JFrame {
                 JOptionPane.showMessageDialog(FeedbackSubmissionGUI.this, "Feedback submitted");
             }
         });
+
         submitPanel.add(submitButton);
         centerPanel.add(submitPanel);
 
@@ -145,7 +161,7 @@ public class FeedbackSubmissionGUI extends JFrame {
             setLayout(new FlowLayout(FlowLayout.CENTER));
             starLabels = new ArrayList<>();
 
-            for (int i = 1; i <= 5; i++) {
+            for (int i = 1;  i<= 5; i++) {
                 JLabel starLabel = createStarLabel(i);
                 add(starLabel);
                 starLabels.add(starLabel);
