@@ -101,29 +101,35 @@ public class createGraph extends JFrame {
 
 
 
-    String title;
+        String title;
+        String yAxis;
         switch (graphType) {
             case "Occupancy":
                 title = input + " Occupancy Trend";
+                yAxis = "Occupancy";
                 break;
             case "Availability":
                 title = input + " Availability Trend";
+                yAxis = "Availability";
                 break;
             case "Vehicles Per Minute":
                 title = input + " Vehicles Per Minute Trend";
+                yAxis = "Vehicles Per Minute";
                 break;
             case "Average Feedback":
                 title = input + " Average Feedback Trend";
+                yAxis = "Average Feedback (0-5)";
                 break;
             default:
                 title = input + " Trend";
+                yAxis = "Trend";
                 break;
         }
 
         JFreeChart xyChart = ChartFactory.createXYLineChart(
                 title,
-                "Time",
-                "Used Capc.",
+                "Time (24 Hour Clock)",
+                yAxis,
                 dataset,
                 PlotOrientation.VERTICAL,
                 true, true, false
