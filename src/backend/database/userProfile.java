@@ -1,6 +1,8 @@
 package backend.database;
 import backend.database.Schedule;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class userProfile {
     private String vehicleId;
@@ -13,12 +15,13 @@ public class userProfile {
     private String vehicleMake;
     private String vehicleModel;
     private String vehicleYear;
+    private ArrayList<String> savedClasses;
     private Schedule schedule;
     private ArrayList<Integer> dailyStartTimes;
 
     // Constructor
     public userProfile(String vehicleId, String userFirstName, String userLastName, String permitType, String parkingCost, String parkingMeter,
-                       String userRole, String vehicleMake, String vehicleModel, String vehicleYear, Schedule schedule, ArrayList<Integer> dailyStartTimes) {
+                       String userRole, String vehicleMake, String vehicleModel, String vehicleYear, List<String> savedClasses, Schedule schedule, ArrayList<Integer> dailyStartTimes) {
         this.vehicleId = vehicleId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -29,6 +32,7 @@ public class userProfile {
         this.vehicleMake = vehicleMake;
         this.vehicleModel = vehicleModel;
         this.vehicleYear = vehicleYear;
+        this.savedClasses = new ArrayList<String>();
         this.dailyStartTimes = new ArrayList<Integer>(7);
 
         // Set each daily start time to 7AM by default
@@ -112,6 +116,20 @@ public class userProfile {
     // Getter and Setter methods for vehicleYear
     public String getVehicleYear() { return vehicleYear; }
     public void setVehicleYear(String vehicleYear) { this.vehicleYear = vehicleYear; }
+    public ArrayList<String> getSavedClasses() { return savedClasses; }
+    public void addSavedClass(String classToSave) { savedClasses.add(classToSave); }
+    public void removeSavedClass(String classToRemove) {
+
+        Iterator<String> iterator = savedClasses.iterator();
+
+        while (iterator.hasNext()) {
+            String currentString = iterator.next();
+            if (currentString.equals(classToRemove)) {
+                iterator.remove();
+            }
+        }
+
+    }
     public void setSchedule(Schedule schedule){
         this.schedule = schedule;
     }
