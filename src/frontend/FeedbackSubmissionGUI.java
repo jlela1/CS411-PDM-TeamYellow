@@ -1,5 +1,7 @@
 package frontend;
 
+import backend.database.userProfile;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -93,6 +95,40 @@ public class FeedbackSubmissionGUI extends JFrame{
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //SQL push stuff
+                String[] questions = {
+                        "Were you able to find the location you were looking for?",
+                        "Did you park your car at our recommended location?",
+                        "Are you happy with your experience today?",
+                        "Would you recommend this app to others?"
+                };
+
+                String[] answers = new String[questions.length];
+                // Retrieve answers from the buttons
+                int i = 0;
+                for (Component component : centerPanel.getComponents()) {
+                    if (component instanceof JPanel) {
+                        JPanel questionPanel = (JPanel) component;
+                        if (questionPanel.getComponentCount() == 3) {
+                            JRadioButton yesButton = (JRadioButton) questionPanel.getComponent(1);
+                            answers[i] = (yesButton.isSelected()) ? "Yes" : "No";
+                            i++;
+                        }
+                    }
+                }
+
+                // Retrieve rating information
+                int ratingIndex = ratingComboBox.getSelectedIndex();
+                String ratingDescription = ratingDescriptions[ratingIndex];
+                int ratingValue = ratingIndex + 1;
+
+                // Get the vehicleId from wherever it's available in your application
+                userProfile latestuser = userProfile.getLatestUserProfile();
+                String vehicleId = latestuser.getVehicleId(); // Replace this with the actual vehicleId
+                // Now call the insertFeedback method with the retrieved values
+                userProfile.updateFeedback(answers[0], answers[1], answers[2], answers[3], ratingValue, vehicleId);
+// end of SQL Stuff
+
                 // Process and store the feedback data here
                 for (String question : questions) {
                     System.out.print(question + ": ");

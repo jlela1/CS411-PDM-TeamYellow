@@ -263,9 +263,19 @@ public class createProfileGUI extends JFrame{
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String roleType = null;
+                //evaluates which checkbox is selected
+                if (facultyCheckbox.isSelected()) {
+                    roleType = "Faculty";
+                } else if (residentCheckbox.isSelected()) {
+                    roleType = "Resident";
+                } else if (commuterCheckbox.isSelected()) {
+                    roleType = "Commuter";
+                }
                 checkIfNameFieldsChanged(firstNameText, lastNameText, firstNameTextWasChanged, lastNameTextWasChanged);
-
+                userProfile user = new userProfile(licensePlateText.getText(),firstNameText.getText(),lastNameText.getText(),"Spring 2024","1.00","Meter123", roleType, vmText.getText(), vmoText.getText(),vyText.getText(), new Schedule(),new ArrayList<>());
+                userProfile.insertUserProfile(user);
+                userProfile.insertDefaultDailyStartTimes(user.getVehicleId());
                 removeAll();
                 dispose();
                 UserDashboard userDashboard = new UserDashboard();

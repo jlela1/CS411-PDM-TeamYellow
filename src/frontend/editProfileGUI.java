@@ -243,7 +243,15 @@ public class editProfileGUI extends JFrame{
                 //userProfile.setVehicleMake(vmText.getText());
                 //userProfile.setVehicleModel(vmoText.getText());
                 //userProfile.setVehicleYear(vyText.getText());
-
+                userProfile latest_user = backend.database.userProfile.getLatestUserProfile();
+                latest_user.setUserFirstName(userProfile.getUserFirstName());
+                latest_user.setUserLastName(userProfile.getUserLastName());
+                latest_user.setUserRole(userProfile.getUserRole());
+                latest_user.setPermitType(userProfile.getPermitType());
+                latest_user.setVehicleMake(userProfile.getVehicleMake());
+                latest_user.setVehicleModel(userProfile.getVehicleModel());
+                latest_user.setVehicleYear(userProfile.getVehicleYear());
+                latest_user.updateProfileInDatabase(latest_user);
                 dispose();
                 UserProfileGUI userProfileGUI = new UserProfileGUI(userProfile);
                 userProfileGUI.setVisible(true);

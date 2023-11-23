@@ -226,9 +226,14 @@ public class UserProfileGUI extends JFrame {
         editProfileButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Get the latest user profile from the database
+                userProfile latestUser = userProfile.getLatestUserProfile();
+                if(latestUser == null ){
+                    latestUser = user;
+                }
                 removeAll();
                 dispose();
-                editProfileGUI editProfile = new editProfileGUI(user);
+                editProfileGUI editProfile = new editProfileGUI(latestUser);
 
                 editProfile.setVisible(true);
             }
@@ -259,28 +264,41 @@ public class UserProfileGUI extends JFrame {
 
     // Takes a user profile and 4 strings representing the changed day and time. Updates the given user's schedule members to reflect the selection.
     private void updateUserSchedule(userProfile user) {
+        // Get the latest user profile from the database
+        userProfile latestUser = userProfile.getLatestUserProfile();
 
-        String day = (String) dayComboBox.getSelectedItem();
+        // Check if latestUser is not null before proceeding
+        if (latestUser != null) {
+            userProfile latestUserCopy = latestUser.clone(); // Create a copy of the latest user
 
-        int dayIndex = switch (day) {
-            case "Monday" -> 0;
-            case "Tuesday" -> 1;
-            case "Wednesday" -> 2;
-            case "Thursday" -> 3;
-            case "Friday" -> 4;
-            case "Saturday" -> 5;
-            case "Sunday" -> 6;
-            default -> 0;
-        };
+            String day = (String) dayComboBox.getSelectedItem();
 
-        String hour = (String) startTimeHourComboBox.getSelectedItem();
-        String minute = (String) startTimeMinuteComboBox.getSelectedItem();
-        String amPM = (String) amPMComboBox.getSelectedItem();
-        String timeStr = hour + "-" + minute + "-" + amPM;
-        int minuteTime = timeStringToMinutes(timeStr);
+            int dayIndex = switch (day) {
+                case "Monday" -> 0;
+                case "Tuesday" -> 1;
+                case "Wednesday" -> 2;
+                case "Thursday" -> 3;
+                case "Friday" -> 4;
+                case "Saturday" -> 5;
+                case "Sunday" -> 6;
+                default -> 0;
+            };
 
-        user.setDailyStartTime(dayIndex, minuteTime);
+            String hour = (String) startTimeHourComboBox.getSelectedItem();
+            String minute = (String) startTimeMinuteComboBox.getSelectedItem();
+            String amPM = (String) amPMComboBox.getSelectedItem();
+            String timeStr = hour + "-" + minute + "-" + amPM;
+            int minuteTime = timeStringToMinutes(timeStr);
 
+            // Set the daily start time only for the selected day
+            latestUser.setDailyStartTime(dayIndex, minuteTime);
+
+            // Get the day of the week as a string
+            String selectedDayOfWeek = userProfile.getDayOfWeekFromIndex(dayIndex);
+
+            // Insert or update the schedule for the selected day
+            userProfile.insertOrUpdateDailyStartTimes(latestUser.getVehicleId(), latestUser.getDailyStartTimes(), selectedDayOfWeek);
+        }
     }
 
     // Updates the time combo boxes to reflect the time saved in the user's profile when the day combo box is changed
