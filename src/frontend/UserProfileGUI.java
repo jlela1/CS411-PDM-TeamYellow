@@ -244,7 +244,7 @@ public class UserProfileGUI extends JFrame {
                 }
                 removeAll();
                 dispose();
-                editProfileGUI editProfile = new editProfileGUI(latestUser);
+                editProfileGUI editProfile = new editProfileGUI(latestUser); //gets latest user
 
                 editProfile.setVisible(true);
             }
