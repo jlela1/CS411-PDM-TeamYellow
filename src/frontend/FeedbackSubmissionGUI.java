@@ -132,8 +132,8 @@ public class FeedbackSubmissionGUI extends JFrame {
                 }
 
                 // Retrieve rating information
-                int ratingIndex = ratingComboBox.getSelectedIndex();
-                String ratingDescription = ratingDescriptions[ratingIndex];
+                int ratingIndex = starRatingPanel.getSelectedRating();
+                //String ratingDescription = ratingDescriptions[ratingIndex];
                 int ratingValue = ratingIndex + 1;
 
                 // Get the vehicleId from wherever it's available in your application

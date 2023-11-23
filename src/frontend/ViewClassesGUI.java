@@ -73,6 +73,9 @@ public class ViewClassesGUI extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     classRemoveButton.setVisible(false);
                     userProfile.removeSavedClass(savedClass);
+                    //calling SQL function
+                    userProfile latestUser = backend.database.userProfile.getLatestUserProfile();
+                    latestUser.parseClassString(savedClass,latestUser);
                     classLabel.setText("Removed");
                 }
             });

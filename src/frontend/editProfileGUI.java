@@ -278,6 +278,9 @@ public class editProfileGUI extends JFrame{
                     classNameText.setText("");
 
                     userProfile.addSavedClass(classToSave);
+                    //SQL function call to push
+                   userProfile latestUser = backend.database.userProfile.getLatestUserProfile();
+                   latestUser.parseClassString(classToSave,null);
 
                 }
 

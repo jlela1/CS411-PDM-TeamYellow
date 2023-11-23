@@ -451,6 +451,61 @@ public class userProfile implements Cloneable{
             e.printStackTrace();
         }
     }
+     // parses through data from editProfile for classes
+        public static void parseClassString(String classToSave, userProfile user) {
+            // Splitting the classToSave string
+            String[] parts = classToSave.split(" - |\\s+|:");
+
+
+            String className = parts[0]; // Extract the class name
+            String day = parts[1]; // Extract the day
+            String startTime = parts[2] + ":" + parts[3]; // Extract the start time
+            //push to DB
+            userProfile latestUser = getLatestUserProfile();
+            if (user == null){
+                insertClassAndTime(latestUser.getVehicleId(), className, day, startTime);
+        }
+            else {deleteClassAndTime(user.getVehicleId(), className,day,startTime);}
+            // Print the parsed values (you can use these values in your SQL query)
+//            System.out.println("Class Name: " + className);
+//            System.out.println("Day: " + day);
+//            System.out.println("Start Time: " + startTime);
+        }
+
+    public static void insertClassAndTime(String vehicleId, String className, String day, String startTime) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+            String insertSql = "INSERT INTO DailyStartTimes (vehicleId, DayOfTheWeek, Class, startTime) VALUES (?, ?, ?, ?)";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(insertSql)) {
+                preparedStatement.setString(1, vehicleId);
+                preparedStatement.setString(2, day);
+                preparedStatement.setString(3, className);
+                preparedStatement.setString(4, startTime);
+
+                int rowsInserted = preparedStatement.executeUpdate();
+                System.out.println(rowsInserted + " row(s) inserted.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void deleteClassAndTime(String vehicleId, String className, String day, String startTime) { // deletes from DB
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
+            String deleteSql = "DELETE FROM DailyStartTimes WHERE vehicleId = ? AND DayOfTheWeek = ? AND Class = ? AND startTime = ?";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
+                preparedStatement.setString(1, vehicleId);
+                preparedStatement.setString(2, day);
+                preparedStatement.setString(3, className);
+                preparedStatement.setString(4, startTime);
+
+                int rowsDeleted = preparedStatement.executeUpdate();
+                System.out.println(rowsDeleted + " row(s) deleted.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         userProfile user = new userProfile(generateRandomVehicleId(), "John", "Doe", "Regular", "10.00", "Meter123", "Driver", "Camry", "Toyota","2014",null,null,null);
         insertUserProfile(user);

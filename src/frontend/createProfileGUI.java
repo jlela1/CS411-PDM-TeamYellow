@@ -283,9 +283,10 @@ public class createProfileGUI extends JFrame{
                     roleType = "Commuter";
                 }
                 checkIfNameFieldsChanged(firstNameText, lastNameText, firstNameTextWasChanged, lastNameTextWasChanged);
-                userProfile user = new userProfile(licensePlateText.getText(),firstNameText.getText(),lastNameText.getText(),"Spring 2024","1.00","Meter123", roleType, vmText.getText(), vmoText.getText(),vyText.getText(), new Schedule(),new ArrayList<>());
+                userProfile user = new userProfile(licensePlateText.getText(),firstNameText.getText(),lastNameText.getText(),"Spring 2024","1.00","Meter123", roleType, vmText.getText(), vmoText.getText(),vyText.getText(),new ArrayList<>(), new Schedule(),new ArrayList<>());
                 userProfile.insertUserProfile(user);
-                userProfile.insertDefaultDailyStartTimes(user.getVehicleId());
+                //deprecated since we switched to classes
+                //userProfile.insertDefaultDailyStartTimes(user.getVehicleId());
                 removeAll();
                 dispose();
                 UserDashboard userDashboard = new UserDashboard();
