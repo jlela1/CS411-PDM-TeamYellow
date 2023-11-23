@@ -22,9 +22,13 @@ public class businessFeedback extends JFrame implements  ActionListener{
     private JComboBox userSelectionGarage;
     private LocalDate date1, date2 ;
     private DatePicker datePickerStart, datePickerEnd;
-    private JPanel graphPanel;
+    private JPanel graphPanel, tablePanel;
+    private  JScrollPane scrollTable;
+    private JTable feedbackDisplay;
+    private String columnNames[] = {"User","Garage","Satisfaction Level", "Comments"};
 
     private int numGar;
+    private Object[][] feedbackData = {{"hard coded","Rando","3.7","I like cats"}};
 
     static String garageFeedback = "Average Feedback";
     createGraph feedbackGraph;
@@ -90,6 +94,22 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     userSelectionGarage.setOpaque(false);
     businessFeedBackGComponents.add(userSelectionGarage,gbc);
 
+    //table
+
+
+
+
+     feedbackDisplay= new JTable(feedbackData,columnNames)
+     {
+         public boolean editCellAt(int row, int column, java.util.EventObject e)
+         {
+             return false;
+         }
+     };
+
+
+
+
 
 
 
@@ -136,6 +156,8 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     getGraph.setOpaque(false);
     getGraph.setFont(new Font("Monospaced",Font.BOLD,16));
     businessFeedBackGComponents.add(getGraph,gbc);
+    //add feedback reports button
+
     //add graph
     feedbackGraph = new createGraph(garageName, numGar, datePickerStart.getDate(),datePickerEnd.getDate(),graphType);
     graphPanel = new JPanel();
@@ -165,6 +187,17 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     getGraph.setBackground(Color.CYAN);
     getGraph.setOpaque(true);
 
+    gbc.gridy = 3;
+    gbc.gridx =7;
+    gbc.weightx =1.0;
+    gbc.weighty =1.0;
+    gbc.fill = GridBagConstraints.BOTH;
+    tablePanel = new JPanel();
+
+     scrollTable= new JScrollPane(feedbackDisplay);
+     tablePanel.add(scrollTable);
+
+    businessFeedBackGComponents.add(tablePanel,gbc);
     businessFeedBackGComponents.setOpaque(false);
 
 
@@ -205,9 +238,27 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
             if (graphPanel != null) {
                 graphPanel.remove(feedbackGraph.getContentPane());
             }
+            if (tablePanel != null) {
+                tablePanel.remove(scrollTable);
+            }
+
 
             this.revalidate();
             this.repaint();
+            //JTable
+            feedbackData = new Object[][]{
+                    {"Test_user", "Elkhorne", "3.3", "I like pizza"}
+            };
+            feedbackDisplay= new JTable(feedbackData,columnNames)
+            {
+                public boolean editCellAt(int row, int column, java.util.EventObject e)
+                {
+                    return false;
+                }
+            };
+            scrollTable = new JScrollPane(feedbackDisplay);
+            tablePanel.add(scrollTable);
+
 
             graphType = garageFeedback;
             String garageNewName = (String) userSelectionGarage.getSelectedItem();
@@ -215,6 +266,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
             feedbackGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(),graphType);
             date1 = datePickerStart.getDate();
             date2 = datePickerEnd.getDate();
+
             graphPanel.add(feedbackGraph.getContentPane());
 
 
@@ -244,7 +296,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     public static void main(String[] args)
     {
         ArrayList<Garage> garages = new ArrayList<Garage>();
-
+/*
         Garage garage1 = new Garage("43rd & Elkhorn Ave", 655);
         garage1.setGarageID(0);
         garage1.setAvgParkingDuration(180);
@@ -301,6 +353,8 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
         garages.add(1, garage2);
         garages.add(2, garage3);
         garages.add(3, garage4);
+
+         */
 
 
         businessFeedback businessFeedback = new businessFeedback("43rd & Elkhorn Ave", 4, garages);

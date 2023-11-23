@@ -100,8 +100,8 @@ public class UserDashboard extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Create an instance of googleMapsGUI and make it visible
-                googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
-                GoogleMapsGUI.setVisible(true);
+//                googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
+//                GoogleMapsGUI.setVisible(true);
             }
         });
 
@@ -113,7 +113,7 @@ public class UserDashboard extends JFrame{
                 removeAll();
                 dispose();
                 UserProfileGUI userProfileGUI = new UserProfileGUI(new userProfile("12345", "Carson", "Parker", "Fall Semester",
-                        "0", "0", "Commuter", "Toyota", "Camry", "2018", new Schedule(), new ArrayList<Integer>()));
+                        "0", "0", "Commuter", "Toyota", "Camry", "2018", new ArrayList<String>(), new Schedule(), new ArrayList<Integer>()));
                 userProfileGUI.setVisible(true);
                 userProfileGUI.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 userProfileGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

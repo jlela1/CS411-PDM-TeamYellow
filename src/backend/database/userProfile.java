@@ -1,6 +1,8 @@
 package backend.database;
 import backend.database.Schedule;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -25,13 +27,14 @@ public class userProfile implements Cloneable{
     private String vehicleMake;
     private String vehicleModel;
     private String vehicleYear;
+    private ArrayList<String> savedClasses;
     private static final String DB_URL = "jdbc:sqlserver://10.20.30.1;Database=Trends;encrypt=true;trustServerCertificate=true";
     private static final String USER = "sa";
     private static final String PASSWORD = "admin";
 
     // Constructor
     public userProfile(String vehicleId, String userFirstName, String userLastName, String permitType, String parkingCost, String parkingMeter,
-                       String userRole, String vehicleMake, String vehicleModel, String vehicleYear, Schedule schedule, ArrayList<Integer> dailyStartTimes) {
+                       String userRole, String vehicleMake, String vehicleModel, String vehicleYear, List<String> savedClasses, Schedule schedule, ArrayList<Integer> dailyStartTimes) {
         this.vehicleId = vehicleId;
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
@@ -39,14 +42,12 @@ public class userProfile implements Cloneable{
         this.parkingCost = parkingCost;
         this.parkingMeter = parkingMeter;
         this.userRole = userRole;
-        this.dailyStartTimes = new ArrayList<Integer>(7);
         this.clockStartTime = clockStartTime;
         this.vehicleMake = vehicleMake;
         this.vehicleModel = vehicleModel;
         this.vehicleYear = vehicleYear;
-
-
-
+        this.savedClasses = new ArrayList<String>();
+        this.dailyStartTimes = new ArrayList<Integer>(7);
         // Set each daily start time to 7AM by default
         for (int i = 0; i < 7; i++) {
             this.dailyStartTimes.add(420);
@@ -125,18 +126,40 @@ public class userProfile implements Cloneable{
         this.userRole = userRole;
     }
 
-    public void setSchedule(Schedule schedule) {
+    // Getter and Setter methods for vehicleMake
+    public String getVehicleMake() { return vehicleMake; }
+    public void setVehicleMake(String vehicleMake) { this.vehicleMake = vehicleMake; }
+
+    // Getter and Setter methods for vehicleModel
+    public String getVehicleModel() { return vehicleModel; }
+    public void setVehicleModel(String vehicleModel) { this.vehicleModel = vehicleModel; }
+
+    // Getter and Setter methods for vehicleYear
+    public String getVehicleYear() { return vehicleYear; }
+    public void setVehicleYear(String vehicleYear) { this.vehicleYear = vehicleYear; }
+    public ArrayList<String> getSavedClasses() { return savedClasses; }
+    public void addSavedClass(String classToSave) { savedClasses.add(classToSave); }
+    public void removeSavedClass(String classToRemove) {
+
+        Iterator<String> iterator = savedClasses.iterator();
+
+        while (iterator.hasNext()) {
+            String currentString = iterator.next();
+            if (currentString.equals(classToRemove)) {
+                iterator.remove();
+            }
+        }
+
+    }
+    public void setSchedule(Schedule schedule){
         this.schedule = schedule;
     }
-
-    public Schedule getSchedule() {
+    public Schedule getSchedule(){
         return this.schedule;
     }
 
     // Takes a day index 0-6 (Monday == 0, Tuesday == 1, etc.) and sets its value equal to the time parameter
-    public void setDailyStartTime(int dayToSet, int time) {
-        this.dailyStartTimes.set(dayToSet, time);
-    }
+    public void setDailyStartTime(int dayToSet, int time) { this.dailyStartTimes.set(dayToSet, time); }
 
     // Takes a day index 0-6 (Monday == 0, Tuesday == 1, etc.) and returns the start time associated with that day.
     public int getDailyStartTime(int dayToGet) {
@@ -153,32 +176,7 @@ public class userProfile implements Cloneable{
     public void setClockStartTime(String clockStartTime) {
         this.clockStartTime = clockStartTime;
     }
-    // Getter and Setter methods for vehicleMake
-    public String getVehicleMake() {
-        return vehicleMake;
-    }
 
-    public void setVehicleMake(String vehicleMake) {
-        this.vehicleMake = vehicleMake;
-    }
-
-    // Getter and Setter methods for vehicleModel
-    public String getVehicleModel() {
-        return vehicleModel;
-    }
-
-    public void setVehicleModel(String vehicleModel) {
-        this.vehicleModel = vehicleModel;
-    }
-
-    // Getter and Setter methods for vehicleYear
-    public String getVehicleYear() {
-        return vehicleYear;
-    }
-
-    public void setVehicleYear(String vehicleYear) {
-        this.vehicleYear = vehicleYear;
-    }
     // You can also add any additional methods or functionality here as needed
     public static void insertUserProfile(userProfile user) {
         try (Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD)) {
@@ -208,7 +206,7 @@ public class userProfile implements Cloneable{
         // Check if the vehicleId already exists in the UserProfile table
         if (!vehicleIdExists(vehicleId)) {
             // If not, insert the user profile first
-            userProfile user = new userProfile(vehicleId, "John", "Doe", "Regular", "10.00", "Meter123", "Driver", "Toyota", "Camry", "2014",null, null);
+            userProfile user = new userProfile(vehicleId, "John", "Doe", "Regular", "10.00", "Meter123", "Driver", "Toyota", "Camry", "2014",null,null, null);
             insertUserProfile(user);
         }
 
@@ -390,6 +388,7 @@ public class userProfile implements Cloneable{
                                 resultSet.getString("vehicleModel"),   // dailyStartTimes - you may need to fetch this from the database too
                                 resultSet.getString("vehicleYear"),
                                 null,
+                                null,
                                 null
 
 
@@ -453,7 +452,7 @@ public class userProfile implements Cloneable{
         }
     }
     public static void main(String[] args) {
-        userProfile user = new userProfile(generateRandomVehicleId(), "John", "Doe", "Regular", "10.00", "Meter123", "Driver", "Camry", "Toyota","2014",null,null);
+        userProfile user = new userProfile(generateRandomVehicleId(), "John", "Doe", "Regular", "10.00", "Meter123", "Driver", "Camry", "Toyota","2014",null,null,null);
         insertUserProfile(user);
 
         // Call insertDefaultDailyStartTimes to insert default values

@@ -33,61 +33,65 @@ public class UserProfileGUI extends JFrame {
         setLocationRelativeTo(null);
 
         //setLayout(new BorderLayout());
-        /*
+
         JPanel backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon("resources/color.png");
-                g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 32.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
             }
         };
-        */
+        setContentPane(backgroundPanel);
+        backgroundPanel.setLayout(new BorderLayout());
 
         // Create a main panel element to contain the non-header and footer elements of the page.
-        JPanel mainPanel = new JPanel();
-        mainPanel.setOpaque(false);
-        mainPanel.setBackground(new Color(0, 0, 0, 0));
-        mainPanel.setLayout(new BorderLayout());
-        mainPanel.setPreferredSize(new Dimension(2000, 600));
-        add(mainPanel, BorderLayout.CENTER);
+        JPanel headerPanel = PDMPanels.createUserHeader("PDM - User Profile");
+        //headerPanel.setOpaque(false);
+        //headerPanel.setLayout(new BorderLayout());
 
-        // Create header panel
-        JPanel headingPanel = PDMPanels.createUserHeader("PDM");
-        headingPanel.setOpaque(false);
-        headingPanel.setLayout(new BorderLayout());
-        mainPanel.add(headingPanel, BorderLayout.NORTH);
+        //header.setOpaque(false);
+        headerPanel.setPreferredSize(new Dimension(250,60));
+        backgroundPanel.add(headerPanel, BorderLayout.NORTH);
 
-        JLabel simulationLabel = new JLabel("User Profile");
+
+        //JPanel footerPanel = PDMPanels.createUserFooter();
+        //footerPanel.setOpaque(false);
+        //backgroundPanel.add(footerPanel, BorderLayout.SOUTH);
+
+        /*
+        JLabel simulationLabel = new JLabel("Your Account");
         simulationLabel.setOpaque(false);
         simulationLabel.setForeground(Color.DARK_GRAY);
         simulationLabel.setBackground(Color.lightGray);
         simulationLabel.setFont(new Font("Monospaced", Font.BOLD, 32));
         simulationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        headingPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        headingPanel.add(simulationLabel);
+        headerPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        headerPanel.add(simulationLabel);
 
+        */
 
-
-        String userName = user.getUserFirstName() + " " + user.getUserLastName();
-        JLabel nameLabel = createLabel(userName);
+        //String userName = user.getUserFirstName() + " " + user.getUserLastName();
+        JLabel nameLabel = createLabel("Your Name: " + user.getUserFirstName() + "   Your Last Name: " + user.getUserLastName());
         nameLabel.setOpaque(false);
         nameLabel.setFont(new Font("Monospaced", Font.ITALIC, 28));
         nameLabel.setForeground(Color.darkGray);
         nameLabel.setHorizontalAlignment(JLabel.CENTER);
         nameLabel.setVerticalAlignment(JLabel.TOP);
-        JLabel userRoleLabel = createLabel("Role: " + user.getUserRole());
+        JLabel userRoleLabel = createLabel("Parking Pass Type: " + user.getUserRole());
         userRoleLabel.setOpaque(false);
         userRoleLabel.setFont(new Font("Monospaced", Font.ITALIC, 28));
         userRoleLabel.setForeground(Color.darkGray);
         userRoleLabel.setHorizontalAlignment(JLabel.CENTER);
         userRoleLabel.setVerticalAlignment(JLabel.CENTER);
-        JLabel permitTypeLabel = createLabel("Permit Type: " + user.getPermitType());
-        permitTypeLabel.setOpaque(false);
-        permitTypeLabel.setFont(new Font("Monospaced", Font.ITALIC, 28));
-        permitTypeLabel.setForeground(Color.darkGray);
-        permitTypeLabel.setHorizontalAlignment(JLabel.CENTER);
-        permitTypeLabel.setVerticalAlignment(JLabel.BOTTOM);
+        //JLabel permitTypeLabel = createLabel("Permit Type: " + user.getPermitType());
+        //permitTypeLabel.setOpaque(false);
+        //permitTypeLabel.setFont(new Font("Monospaced", Font.ITALIC, 28));
+        //permitTypeLabel.setForeground(Color.darkGray);
+        //permitTypeLabel.setHorizontalAlignment(JLabel.CENTER);
+        //permitTypeLabel.setVerticalAlignment(JLabel.BOTTOM);
+
+        /*
 
         JLabel scheduleLabel = createLabel("Change Schedule:");
         scheduleLabel.setOpaque(false);
@@ -123,24 +127,26 @@ public class UserProfileGUI extends JFrame {
         startTimeHourComboBox.setSelectedItem(mondayTimeValues[0]);
         startTimeMinuteComboBox.setSelectedItem(mondayTimeValues[1]);
         amPMComboBox.setSelectedItem(mondayTimeValues[2]);
-
+*/
 
         // Create a top panel element containing the user's name, role, and permit type labels.
-        JPanel topPanel = new JPanel();
+        JPanel topPanel = new JPanel(new GridBagLayout());
         topPanel.setOpaque(false);
-        topPanel.setBackground(new Color(0, 0, 0, 0));
+        //topPanel.setBackground(new Color(0, 0, 0, 0));
         GridBagConstraints topPanelGBC = new GridBagConstraints();
-        topPanel.setLayout(new GridBagLayout());
-        mainPanel.add(topPanel, BorderLayout.NORTH);
+        backgroundPanel.add(topPanel, BorderLayout.CENTER);
+        //topPanel.setLayout(new GridBagLayout());
+
         topPanel.setPreferredSize(new Dimension(1800, 300));
         topPanelGBC.gridx = 0;
         topPanelGBC.gridy = 0;
         topPanel.add(nameLabel, topPanelGBC);
-        topPanelGBC.gridy = 1;
-        topPanel.add(permitTypeLabel, topPanelGBC);
+        //topPanelGBC.gridy = 1;
+        //topPanel.add(permitTypeLabel, topPanelGBC);
         topPanelGBC.gridy = 2;
         topPanel.add(userRoleLabel, topPanelGBC);
-
+        backgroundPanel.add(topPanel, BorderLayout.CENTER);
+        /*
         // Create labels for combo boxes
         JLabel dayComboBoxLabel = new JLabel("Day:");
         dayComboBoxLabel.setFont(new Font("Monospaced", Font.PLAIN, 22));
@@ -176,12 +182,12 @@ public class UserProfileGUI extends JFrame {
         middlePanelGBC.gridx = 0;
         middlePanelGBC.gridy = 6;
         middlePanel.add(amPMComboBox, middlePanelGBC);
-
+        */
         // Create a bottom panel element containing the dashboard button
         JPanel bottomPanel = new JPanel();
         bottomPanel.setOpaque(false);
         //bottomPanel.setBackground(new Color(113, 100, 217, 242));
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+        backgroundPanel.add(bottomPanel, BorderLayout.SOUTH);
         bottomPanel.setPreferredSize(new Dimension(200, 70));
 
         // Create button to open an edit profile GUI instance
@@ -194,6 +200,9 @@ public class UserProfileGUI extends JFrame {
         dashboardButton.setBackground(Color.PINK);
         bottomPanel.add(dashboardButton, BorderLayout.SOUTH);
 
+
+
+        /*
         // Update user's schedule information when dayComboBox selection is changed
         dayComboBox.addActionListener (new ActionListener () {
             public void actionPerformed(ActionEvent e) {
@@ -221,6 +230,8 @@ public class UserProfileGUI extends JFrame {
                 updateUserSchedule(user);
             }
         });
+        */
+
 
         // Cleanup and open new editProfile when edit profile button is pressed
         editProfileButton.addActionListener(new ActionListener() {
@@ -251,17 +262,11 @@ public class UserProfileGUI extends JFrame {
         });
 
 
-        //Create a PDM footer
-        //JPanel footer = PDMPanels.createFooter();
-       // footer.setOpaque(false);
 
-        add(mainPanel, BorderLayout.CENTER);
-
-        setContentPane(mainPanel);
         setVisible(true);
 
     }
-
+    /*
     // Takes a user profile and 4 strings representing the changed day and time. Updates the given user's schedule members to reflect the selection.
     private void updateUserSchedule(userProfile user) {
         // Get the latest user profile from the database
@@ -391,6 +396,8 @@ public class UserProfileGUI extends JFrame {
         return returnArray;
 
     }
+    */
+
 
     private JLabel createLabel(String text) {
 

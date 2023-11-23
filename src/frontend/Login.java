@@ -25,6 +25,18 @@ public class Login extends JFrame implements ActionListener {
         pageLabel = new JLabel("PDM Login");
         pageLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
 
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 20.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
+
+        setContentPane(backgroundPanel);
+        backgroundPanel.setLayout(new BorderLayout());
+
 
         ImageIcon userIcon = new ImageIcon("resources/user.png");
         Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -51,8 +63,11 @@ public class Login extends JFrame implements ActionListener {
         b3.setFont(new Font("Monospaced", Font.BOLD, 16));
 
         newPanel = new JPanel(new BorderLayout());
+        newPanel.setOpaque(false);
 
         JPanel headingPanel = PDMPanels.GeneralHeader("PDM Login");
+        headingPanel.setOpaque(false);
+        backgroundPanel.add(headingPanel, BorderLayout.NORTH);
 
 
         JLabel welcomeLabel = new JLabel("Parking Made Easy");
@@ -65,21 +80,32 @@ public class Login extends JFrame implements ActionListener {
 
         JPanel componentsPanel = new JPanel();
         componentsPanel.setLayout(new GridLayout(7, 1, 5, 5));
+        componentsPanel.setOpaque(false);
+        backgroundPanel.add(componentsPanel, BorderLayout.CENTER);
+
+
+        JLabel enterLabel = new JLabel("                                           Please enter your username and password");
+        enterLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        enterLabel.setForeground(Color.black);
+        enterLabel.setBackground(Color.lightGray);
+        //enterLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        componentsPanel.add(enterLabel);
 
         JPanel userPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        userPanel.setOpaque(false);
         userPanel.add(userImageLabel);
         userPanel.add(textField1);
 
         JPanel passPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        passPanel.setOpaque(false);
         passPanel.add(passImageLabel);
         passPanel.add(textField2);
 
         componentsPanel.add(userPanel);
         componentsPanel.add(passPanel);
 
-
-
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setOpaque(false);
         buttonPanel.add(b1);
         buttonPanel.add(b2);
         buttonPanel.add(b3);
@@ -97,7 +123,8 @@ public class Login extends JFrame implements ActionListener {
 
         // Create and add the footer using PageLayout
         JPanel footerPanel = PDMPanels.GeneralFooter();
-        add(footerPanel, BorderLayout.SOUTH);
+        footerPanel.setOpaque(false);
+        backgroundPanel.add(footerPanel, BorderLayout.SOUTH);
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -161,7 +188,7 @@ public class Login extends JFrame implements ActionListener {
         else if (ae.getSource()==b3) {
             this.dispose();
             GuestDashboard guest = new GuestDashboard();
-                    guest.setVisible(true);
+            guest.setVisible(true);
         }
     }
 

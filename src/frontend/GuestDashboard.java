@@ -53,7 +53,7 @@ public class GuestDashboard extends JFrame{
         contentPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 230));
         backgroundPanel.add(contentPanel, BorderLayout.CENTER);
 
-        JButton IMapButton = new JButton("Interactive Map");
+        JButton IMapButton = new JButton("Parking Map");
         IMapButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         IMapButton.setForeground(Color.BLACK);
         IMapButton.setBackground(new Color(98, 145, 141, 250));

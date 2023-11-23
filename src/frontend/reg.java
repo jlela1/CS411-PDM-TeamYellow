@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import backend.database.Schedule;
 import backend.database.userProfile;
-import frontend.Login;
+
 
 class Reg extends JFrame implements ActionListener {
 
@@ -28,6 +28,19 @@ class Reg extends JFrame implements ActionListener {
     public Reg() {
         setTitle("PDM Registration");
 
+
+
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 15.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
+
+        setContentPane(backgroundPanel);
+        backgroundPanel.setLayout(new BorderLayout());
 
         // Username
         ImageIcon userIcon = new ImageIcon("resources/user.png");
@@ -61,9 +74,12 @@ class Reg extends JFrame implements ActionListener {
 
         // New Panel
         newPanel = new JPanel(new BorderLayout());
+        newPanel.setOpaque(false);
 
 
         JPanel headingPanel = PDMPanels.GeneralHeader("PDM Registration");
+        headingPanel.setOpaque(false);
+        backgroundPanel.add(headingPanel);
 
 
         JLabel welcomeLabel = new JLabel("Parking Made Easy");
@@ -72,11 +88,13 @@ class Reg extends JFrame implements ActionListener {
         welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         headingPanel.add(Box.createRigidArea(new Dimension(0, 20))); // Add spacing
-        headingPanel.add(welcomeLabel);
+        headingPanel.add(welcomeLabel, BorderLayout.NORTH);
 
 
         JPanel componentsPanel = new JPanel(new GridBagLayout());
+        componentsPanel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
+        backgroundPanel.add(componentsPanel, BorderLayout.CENTER);
 
 
         gbc.gridx = 0;
@@ -128,6 +146,7 @@ class Reg extends JFrame implements ActionListener {
 
 
         JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setOpaque(false);
         buttonsPanel.add(registerButton);
         buttonsPanel.add(backButton);
         componentsPanel.add(buttonsPanel, gbc);
@@ -146,7 +165,7 @@ class Reg extends JFrame implements ActionListener {
 
         // Create and add the footer using PageLayout
         JPanel footerPanel = PDMPanels.GeneralFooter();
-        add(footerPanel, BorderLayout.SOUTH);
+        backgroundPanel.add(footerPanel, BorderLayout.SOUTH);
 
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -224,7 +243,7 @@ class Reg extends JFrame implements ActionListener {
             dispose();
             createProfileGUI createProfile = new createProfileGUI();
             createProfile.setVisible(true); //Points to create Profile -Bryan*/
-        }
+    }
 
 
 

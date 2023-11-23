@@ -69,8 +69,8 @@ public class createProfileGUI extends JFrame{
 
 
         // Header Panel
-       // JPanel headerPanel = new JPanel();
-       // headerPanel.setOpaque(false);
+        // JPanel headerPanel = new JPanel();
+        // headerPanel.setOpaque(false);
         //headerPanel.setLayout(new BorderLayout());
         //backgroundPanel.add(headerPanel, BorderLayout.NORTH);
         //headerPanel.setBackground(new Color(113, 100, 217, 242));
@@ -92,7 +92,9 @@ public class createProfileGUI extends JFrame{
         //first name
         gbc.gridx = 0;
         gbc.gridy = 0;
-        contentPanel.add(new JLabel("First Name:"), gbc);
+        JLabel firstNameLabel = new JLabel("First Name:");
+        firstNameLabel.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        contentPanel.add(firstNameLabel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -123,14 +125,16 @@ public class createProfileGUI extends JFrame{
         //Last Name
         gbc.gridx = 2;
         gbc.gridy = 0;
-        contentPanel.add(new JLabel("Last Name:"), gbc);
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        lastNameLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
+        contentPanel.add(lastNameLabel, gbc);
 
         gbc.gridx = 3;
         gbc.gridy = 0;
         lastNameText = new JTextField("Last", 15);
         // Set initial text color to gray, text will be removed and color set to black when text box selected.
         lastNameText.setForeground(new Color(150, 150, 150));
-        lastNameText.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        lastNameText.setFont(new Font("Monospaced", Font.BOLD, 16));
         contentPanel.add(lastNameText, gbc);
 
         // When the user clicks the lastName box, remove the tip text and set color to black.
@@ -210,34 +214,40 @@ public class createProfileGUI extends JFrame{
         //Vehicle make
         gbc.gridx = 0;
         gbc.gridy = 4;
-        contentPanel.add(new JLabel("Vehicle Make:"), gbc);
+        JLabel vehicleMakeLabel = new JLabel("Vehicle Make:");
+        vehicleMakeLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
+        contentPanel.add(vehicleMakeLabel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 4;
         vmText = new JTextField(15);
-        vmText.setFont(new Font("Monospaced",Font.PLAIN,16));
+        vmText.setFont(new Font("Monospaced",Font.BOLD,16));
         contentPanel.add(vmText, gbc);
 
         //Vehicle Model
         gbc.gridx = 2;
         gbc.gridy = 4;
-        contentPanel.add(new JLabel("Vehicle Model:"), gbc);
+        JLabel vehicleModelLabel = new JLabel("Vehicle Model:");
+        vehicleModelLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
+        contentPanel.add(vehicleModelLabel, gbc);
 
         gbc.gridx = 3;
         gbc.gridy = 4;
         vmoText = new JTextField(15);
-        vmoText.setFont(new Font("Monospaced",Font.PLAIN,16));
+        vmoText.setFont(new Font("Monospaced",Font.BOLD,16));
         contentPanel.add(vmoText, gbc);
 
         //Vehicle Year
         gbc.gridx = 4;
         gbc.gridy = 4;
-        contentPanel.add(new JLabel("Vehicle Year:"), gbc);
+        JLabel vehicleYearLabel = new JLabel("Vehicle Year:");
+        vehicleYearLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
+        contentPanel.add(vehicleYearLabel, gbc);
 
         gbc.gridx = 5;
         gbc.gridy = 4;
         vyText = new JTextField(6);
-        vyText.setFont(new Font("Monospaced",Font.PLAIN,16));
+        vyText.setFont(new Font("Monospaced",Font.BOLD,16));
         contentPanel.add(vyText, gbc);
 
         gbc.gridx = 6;
@@ -305,8 +315,8 @@ public class createProfileGUI extends JFrame{
         contentPanel.add(cancelButton, gbc);
         mainPanel.add(contentPanel, BorderLayout.CENTER);
 
-       setContentPane(mainPanel);
-       setVisible(true);
+        setContentPane(mainPanel);
+        setVisible(true);
 
         // Set focus on a non-input element initially so that text boxes do not auto select.
         Runnable setInitialFocusRun = new Runnable() {
