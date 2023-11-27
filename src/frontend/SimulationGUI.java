@@ -21,6 +21,17 @@ public class SimulationGUI extends JFrame {
     private JProgressBar garage4OccupancyBar;
     private JLabel garage5CapacityLabel;
     private JProgressBar garage5OccupancyBar;
+
+    private JLabel garage6CapacityLabel;
+    private JProgressBar garage6OccupancyBar;
+    private JLabel garage7CapacityLabel;
+    private JProgressBar garage7OccupancyBar;
+    private JLabel garage8CapacityLabel;
+    private JProgressBar garage8OccupancyBar;
+    private JLabel garage9CapacityLabel;
+    private JProgressBar garage9OccupancyBar;
+    private JLabel garage10CapacityLabel;
+    private JProgressBar garage10OccupancyBar;
     private JButton seeTrendsButton;
     private JLabel notificationLabel;
 
@@ -82,7 +93,7 @@ public class SimulationGUI extends JFrame {
 
         // Create garages panel
         JPanel garagesPanel = new JPanel();
-        garagesPanel.setPreferredSize(new Dimension(1800, 500));
+        garagesPanel.setPreferredSize(new Dimension(1800, 900));
         garagesPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         centerPanel.add(timePanel, BorderLayout.NORTH);
@@ -335,6 +346,626 @@ public class SimulationGUI extends JFrame {
                 garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
                 garage5Panel.add(garage5OccupancyBar, BorderLayout.EAST);
                 garagesPanel.add(garage5Panel, BorderLayout.CENTER);
+
+                break;
+
+            case 6:
+
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
+
+                garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
+
+                garage3Panel = new JPanel();
+                garage3OccupancyBar = new JProgressBar();
+                garage3OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setStringPainted(true);
+                garage3Panel.setPreferredSize(new Dimension(300, 300));
+                garage3ImageLabel = new JLabel();
+                garage3ImageLabel.setIcon(garageImage);
+                garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3CapacityLabel = createLabel(garages.get(2).getName());
+                garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
+                garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
+                garage3Panel.add(garage3OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage3Panel, BorderLayout.CENTER);
+
+                garage4Panel = new JPanel();
+                garage4OccupancyBar = new JProgressBar();
+                garage4OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setStringPainted(true);
+                garage4Panel.setPreferredSize(new Dimension(300, 300));
+                garage4ImageLabel = new JLabel();
+                garage4ImageLabel.setIcon(garageImage);
+                garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4CapacityLabel = createLabel(garages.get(3).getName());
+                garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
+                garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
+                garage4Panel.add(garage4OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage4Panel, BorderLayout.CENTER);
+
+                garage5Panel = new JPanel();
+                garage5OccupancyBar = new JProgressBar();
+                garage5OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setStringPainted(true);
+                garage5Panel.setPreferredSize(new Dimension(300, 300));
+                garage5ImageLabel = new JLabel();
+                garage5ImageLabel.setIcon(garageImage);
+                garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5CapacityLabel = createLabel(garages.get(4).getName());
+                garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
+                garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
+                garage5Panel.add(garage5OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage5Panel, BorderLayout.CENTER);
+
+                JPanel garage6Panel = new JPanel();
+                garage6OccupancyBar = new JProgressBar();
+                garage6OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setStringPainted(true);
+                garage6Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage6ImageLabel = new JLabel();
+                garage6ImageLabel.setIcon(garageImage);
+                garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6CapacityLabel = createLabel(garages.get(5).getName());
+                garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
+                garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
+                garage6Panel.add(garage6OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage6Panel, BorderLayout.CENTER);
+
+                break;
+
+            case 7:
+
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
+
+                garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
+
+                garage3Panel = new JPanel();
+                garage3OccupancyBar = new JProgressBar();
+                garage3OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setStringPainted(true);
+                garage3Panel.setPreferredSize(new Dimension(300, 300));
+                garage3ImageLabel = new JLabel();
+                garage3ImageLabel.setIcon(garageImage);
+                garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3CapacityLabel = createLabel(garages.get(2).getName());
+                garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
+                garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
+                garage3Panel.add(garage3OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage3Panel, BorderLayout.CENTER);
+
+                garage4Panel = new JPanel();
+                garage4OccupancyBar = new JProgressBar();
+                garage4OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setStringPainted(true);
+                garage4Panel.setPreferredSize(new Dimension(300, 300));
+                garage4ImageLabel = new JLabel();
+                garage4ImageLabel.setIcon(garageImage);
+                garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4CapacityLabel = createLabel(garages.get(3).getName());
+                garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
+                garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
+                garage4Panel.add(garage4OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage4Panel, BorderLayout.CENTER);
+
+                garage5Panel = new JPanel();
+                garage5OccupancyBar = new JProgressBar();
+                garage5OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setStringPainted(true);
+                garage5Panel.setPreferredSize(new Dimension(300, 300));
+                garage5ImageLabel = new JLabel();
+                garage5ImageLabel.setIcon(garageImage);
+                garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5CapacityLabel = createLabel(garages.get(4).getName());
+                garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
+                garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
+                garage5Panel.add(garage5OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage5Panel, BorderLayout.CENTER);
+
+                garage6Panel = new JPanel();
+                garage6OccupancyBar = new JProgressBar();
+                garage6OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setStringPainted(true);
+                garage6Panel.setPreferredSize(new Dimension(300, 300));
+                garage6ImageLabel = new JLabel();
+                garage6ImageLabel.setIcon(garageImage);
+                garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6CapacityLabel = createLabel(garages.get(5).getName());
+                garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
+                garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
+                garage6Panel.add(garage6OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage6Panel, BorderLayout.CENTER);
+
+                JPanel garage7Panel = new JPanel();
+                garage7OccupancyBar = new JProgressBar();
+                garage7OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage7OccupancyBar.setString(garages.get(6).getOccupancy() + "/" + garages.get(6).getMaxCapacity());
+                garage7OccupancyBar.setStringPainted(true);
+                garage7Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage7ImageLabel = new JLabel();
+                garage7ImageLabel.setIcon(garageImage);
+                garage7ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage7CapacityLabel = createLabel(garages.get(6).getName());
+                garage7Panel.add(garage7CapacityLabel, BorderLayout.NORTH);
+                garage7Panel.add(garage7ImageLabel, BorderLayout.CENTER);
+                garage7Panel.add(garage7OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage7Panel, BorderLayout.CENTER);
+
+                break;
+
+            case 8:
+
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
+
+                garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
+
+                garage3Panel = new JPanel();
+                garage3OccupancyBar = new JProgressBar();
+                garage3OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setStringPainted(true);
+                garage3Panel.setPreferredSize(new Dimension(300, 300));
+                garage3ImageLabel = new JLabel();
+                garage3ImageLabel.setIcon(garageImage);
+                garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3CapacityLabel = createLabel(garages.get(2).getName());
+                garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
+                garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
+                garage3Panel.add(garage3OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage3Panel, BorderLayout.CENTER);
+
+                garage4Panel = new JPanel();
+                garage4OccupancyBar = new JProgressBar();
+                garage4OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setStringPainted(true);
+                garage4Panel.setPreferredSize(new Dimension(300, 300));
+                garage4ImageLabel = new JLabel();
+                garage4ImageLabel.setIcon(garageImage);
+                garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4CapacityLabel = createLabel(garages.get(3).getName());
+                garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
+                garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
+                garage4Panel.add(garage4OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage4Panel, BorderLayout.CENTER);
+
+                garage5Panel = new JPanel();
+                garage5OccupancyBar = new JProgressBar();
+                garage5OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setStringPainted(true);
+                garage5Panel.setPreferredSize(new Dimension(300, 300));
+                garage5ImageLabel = new JLabel();
+                garage5ImageLabel.setIcon(garageImage);
+                garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5CapacityLabel = createLabel(garages.get(4).getName());
+                garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
+                garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
+                garage5Panel.add(garage5OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage5Panel, BorderLayout.CENTER);
+
+                garage6Panel = new JPanel();
+                garage6OccupancyBar = new JProgressBar();
+                garage6OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setStringPainted(true);
+                garage6Panel.setPreferredSize(new Dimension(300, 300));
+                garage6ImageLabel = new JLabel();
+                garage6ImageLabel.setIcon(garageImage);
+                garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6CapacityLabel = createLabel(garages.get(5).getName());
+                garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
+                garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
+                garage6Panel.add(garage6OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage6Panel, BorderLayout.CENTER);
+
+                garage7Panel = new JPanel();
+                garage7OccupancyBar = new JProgressBar();
+                garage7OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage7OccupancyBar.setString(garages.get(6).getOccupancy() + "/" + garages.get(6).getMaxCapacity());
+                garage7OccupancyBar.setStringPainted(true);
+                garage7Panel.setPreferredSize(new Dimension(300, 300));
+                garage7ImageLabel = new JLabel();
+                garage7ImageLabel.setIcon(garageImage);
+                garage7ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage7CapacityLabel = createLabel(garages.get(6).getName());
+                garage7Panel.add(garage7CapacityLabel, BorderLayout.NORTH);
+                garage7Panel.add(garage7ImageLabel, BorderLayout.CENTER);
+                garage7Panel.add(garage7OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage7Panel, BorderLayout.CENTER);
+
+                JPanel garage8Panel = new JPanel();
+                garage8OccupancyBar = new JProgressBar();
+                garage8OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage8OccupancyBar.setString(garages.get(7).getOccupancy() + "/" + garages.get(7).getMaxCapacity());
+                garage8OccupancyBar.setStringPainted(true);
+                garage8Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage8ImageLabel = new JLabel();
+                garage8ImageLabel.setIcon(garageImage);
+                garage8ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage8CapacityLabel = createLabel(garages.get(7).getName());
+                garage8Panel.add(garage8CapacityLabel, BorderLayout.NORTH);
+                garage8Panel.add(garage8ImageLabel, BorderLayout.CENTER);
+                garage8Panel.add(garage8OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage8Panel, BorderLayout.CENTER);
+
+                break;
+
+            case 9:
+
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
+
+                garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
+
+                garage3Panel = new JPanel();
+                garage3OccupancyBar = new JProgressBar();
+                garage3OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setStringPainted(true);
+                garage3Panel.setPreferredSize(new Dimension(300, 300));
+                garage3ImageLabel = new JLabel();
+                garage3ImageLabel.setIcon(garageImage);
+                garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3CapacityLabel = createLabel(garages.get(2).getName());
+                garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
+                garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
+                garage3Panel.add(garage3OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage3Panel, BorderLayout.CENTER);
+
+                garage4Panel = new JPanel();
+                garage4OccupancyBar = new JProgressBar();
+                garage4OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setStringPainted(true);
+                garage4Panel.setPreferredSize(new Dimension(300, 300));
+                garage4ImageLabel = new JLabel();
+                garage4ImageLabel.setIcon(garageImage);
+                garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4CapacityLabel = createLabel(garages.get(3).getName());
+                garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
+                garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
+                garage4Panel.add(garage4OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage4Panel, BorderLayout.CENTER);
+
+                garage5Panel = new JPanel();
+                garage5OccupancyBar = new JProgressBar();
+                garage5OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setStringPainted(true);
+                garage5Panel.setPreferredSize(new Dimension(300, 300));
+                garage5ImageLabel = new JLabel();
+                garage5ImageLabel.setIcon(garageImage);
+                garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5CapacityLabel = createLabel(garages.get(4).getName());
+                garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
+                garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
+                garage5Panel.add(garage5OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage5Panel, BorderLayout.CENTER);
+
+                garage6Panel = new JPanel();
+                garage6OccupancyBar = new JProgressBar();
+                garage6OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setStringPainted(true);
+                garage6Panel.setPreferredSize(new Dimension(300, 300));
+                garage6ImageLabel = new JLabel();
+                garage6ImageLabel.setIcon(garageImage);
+                garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6CapacityLabel = createLabel(garages.get(5).getName());
+                garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
+                garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
+                garage6Panel.add(garage6OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage6Panel, BorderLayout.CENTER);
+
+                garage7Panel = new JPanel();
+                garage7OccupancyBar = new JProgressBar();
+                garage7OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage7OccupancyBar.setString(garages.get(6).getOccupancy() + "/" + garages.get(6).getMaxCapacity());
+                garage7OccupancyBar.setStringPainted(true);
+                garage7Panel.setPreferredSize(new Dimension(300, 300));
+                garage7ImageLabel = new JLabel();
+                garage7ImageLabel.setIcon(garageImage);
+                garage7ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage7CapacityLabel = createLabel(garages.get(6).getName());
+                garage7Panel.add(garage7CapacityLabel, BorderLayout.NORTH);
+                garage7Panel.add(garage7ImageLabel, BorderLayout.CENTER);
+                garage7Panel.add(garage7OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage7Panel, BorderLayout.CENTER);
+
+                garage8Panel = new JPanel();
+                garage8OccupancyBar = new JProgressBar();
+                garage8OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage8OccupancyBar.setString(garages.get(7).getOccupancy() + "/" + garages.get(7).getMaxCapacity());
+                garage8OccupancyBar.setStringPainted(true);
+                garage8Panel.setPreferredSize(new Dimension(300, 300));
+                garage8ImageLabel = new JLabel();
+                garage8ImageLabel.setIcon(garageImage);
+                garage8ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage8CapacityLabel = createLabel(garages.get(7).getName());
+                garage8Panel.add(garage8CapacityLabel, BorderLayout.NORTH);
+                garage8Panel.add(garage8ImageLabel, BorderLayout.CENTER);
+                garage8Panel.add(garage8OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage8Panel, BorderLayout.CENTER);
+
+                JPanel garage9Panel = new JPanel();
+                garage9OccupancyBar = new JProgressBar();
+                garage9OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage9OccupancyBar.setString(garages.get(8).getOccupancy() + "/" + garages.get(8).getMaxCapacity());
+                garage9OccupancyBar.setStringPainted(true);
+                garage9Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage9ImageLabel = new JLabel();
+                garage9ImageLabel.setIcon(garageImage);
+                garage9ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage9CapacityLabel = createLabel(garages.get(8).getName());
+                garage9Panel.add(garage9CapacityLabel, BorderLayout.NORTH);
+                garage9Panel.add(garage9ImageLabel, BorderLayout.CENTER);
+                garage9Panel.add(garage9OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage9Panel, BorderLayout.CENTER);
+
+                break;
+
+            case 10:
+
+                garage1Panel = new JPanel();
+                garage1OccupancyBar = new JProgressBar();
+                garage1OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setStringPainted(true);
+                garage1Panel.setPreferredSize(new Dimension(300, 300));
+                garage1ImageLabel = new JLabel();
+                garage1ImageLabel.setIcon(garageImage);
+                garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1CapacityLabel = createLabel(garages.get(0).getName());
+                garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
+                garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
+                garage1Panel.add(garage1OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage1Panel, BorderLayout.CENTER);
+
+                garage2Panel = new JPanel();
+                garage2OccupancyBar = new JProgressBar();
+                garage2OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setStringPainted(true);
+                garage2Panel.setPreferredSize(new Dimension(300, 300));
+                garage2ImageLabel = new JLabel();
+                garage2ImageLabel.setIcon(garageImage);
+                garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2CapacityLabel = createLabel(garages.get(1).getName());
+                garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
+                garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
+                garage2Panel.add(garage2OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage2Panel, BorderLayout.CENTER);
+
+                garage3Panel = new JPanel();
+                garage3OccupancyBar = new JProgressBar();
+                garage3OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setStringPainted(true);
+                garage3Panel.setPreferredSize(new Dimension(300, 300));
+                garage3ImageLabel = new JLabel();
+                garage3ImageLabel.setIcon(garageImage);
+                garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3CapacityLabel = createLabel(garages.get(2).getName());
+                garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
+                garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
+                garage3Panel.add(garage3OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage3Panel, BorderLayout.CENTER);
+
+                garage4Panel = new JPanel();
+                garage4OccupancyBar = new JProgressBar();
+                garage4OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setStringPainted(true);
+                garage4Panel.setPreferredSize(new Dimension(300, 300));
+                garage4ImageLabel = new JLabel();
+                garage4ImageLabel.setIcon(garageImage);
+                garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4CapacityLabel = createLabel(garages.get(3).getName());
+                garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
+                garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
+                garage4Panel.add(garage4OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage4Panel, BorderLayout.CENTER);
+
+                garage5Panel = new JPanel();
+                garage5OccupancyBar = new JProgressBar();
+                garage5OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setStringPainted(true);
+                garage5Panel.setPreferredSize(new Dimension(300, 300));
+                garage5ImageLabel = new JLabel();
+                garage5ImageLabel.setIcon(garageImage);
+                garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5CapacityLabel = createLabel(garages.get(4).getName());
+                garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
+                garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
+                garage5Panel.add(garage5OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage5Panel, BorderLayout.CENTER);
+
+                garage6Panel = new JPanel();
+                garage6OccupancyBar = new JProgressBar();
+                garage6OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setStringPainted(true);
+                garage6Panel.setPreferredSize(new Dimension(300, 300));
+                garage6ImageLabel = new JLabel();
+                garage6ImageLabel.setIcon(garageImage);
+                garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6CapacityLabel = createLabel(garages.get(5).getName());
+                garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
+                garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
+                garage6Panel.add(garage6OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage6Panel, BorderLayout.CENTER);
+
+                garage7Panel = new JPanel();
+                garage7OccupancyBar = new JProgressBar();
+                garage7OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage7OccupancyBar.setString(garages.get(6).getOccupancy() + "/" + garages.get(6).getMaxCapacity());
+                garage7OccupancyBar.setStringPainted(true);
+                garage7Panel.setPreferredSize(new Dimension(300, 300));
+                garage7ImageLabel = new JLabel();
+                garage7ImageLabel.setIcon(garageImage);
+                garage7ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage7CapacityLabel = createLabel(garages.get(6).getName());
+                garage7Panel.add(garage7CapacityLabel, BorderLayout.NORTH);
+                garage7Panel.add(garage7ImageLabel, BorderLayout.CENTER);
+                garage7Panel.add(garage7OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage7Panel, BorderLayout.CENTER);
+
+                garage8Panel = new JPanel();
+                garage8OccupancyBar = new JProgressBar();
+                garage8OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage8OccupancyBar.setString(garages.get(7).getOccupancy() + "/" + garages.get(7).getMaxCapacity());
+                garage8OccupancyBar.setStringPainted(true);
+                garage8Panel.setPreferredSize(new Dimension(300, 300));
+                garage8ImageLabel = new JLabel();
+                garage8ImageLabel.setIcon(garageImage);
+                garage8ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage8CapacityLabel = createLabel(garages.get(7).getName());
+                garage8Panel.add(garage8CapacityLabel, BorderLayout.NORTH);
+                garage8Panel.add(garage8ImageLabel, BorderLayout.CENTER);
+                garage8Panel.add(garage8OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage8Panel, BorderLayout.CENTER);
+
+                garage9Panel = new JPanel();
+                garage9OccupancyBar = new JProgressBar();
+                garage9OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage9OccupancyBar.setString(garages.get(8).getOccupancy() + "/" + garages.get(8).getMaxCapacity());
+                garage9OccupancyBar.setStringPainted(true);
+                garage9Panel.setPreferredSize(new Dimension(300, 300));
+                garage9ImageLabel = new JLabel();
+                garage9ImageLabel.setIcon(garageImage);
+                garage9ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage9CapacityLabel = createLabel(garages.get(8).getName());
+                garage9Panel.add(garage9CapacityLabel, BorderLayout.NORTH);
+                garage9Panel.add(garage9ImageLabel, BorderLayout.CENTER);
+                garage9Panel.add(garage9OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage9Panel, BorderLayout.CENTER);
+
+                JPanel garage10Panel = new JPanel();
+                garage10OccupancyBar = new JProgressBar();
+                garage10OccupancyBar.setPreferredSize(new Dimension(250, 50));
+                garage10OccupancyBar.setString(garages.get(9).getOccupancy() + "/" + garages.get(9).getMaxCapacity());
+                garage10OccupancyBar.setStringPainted(true);
+                garage10Panel.setPreferredSize(new Dimension(300, 300));
+                JLabel garage10ImageLabel = new JLabel();
+                garage10ImageLabel.setIcon(garageImage);
+                garage10ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage10CapacityLabel = createLabel(garages.get(9).getName());
+                garage10Panel.add(garage10CapacityLabel, BorderLayout.NORTH);
+                garage10Panel.add(garage10ImageLabel, BorderLayout.CENTER);
+                garage10Panel.add(garage10OccupancyBar, BorderLayout.EAST);
+                garagesPanel.add(garage10Panel, BorderLayout.CENTER);
 
                 break;
 
