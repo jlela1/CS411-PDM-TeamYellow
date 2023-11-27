@@ -33,6 +33,8 @@ public class SimulationGUI extends JFrame {
     private JLabel garage10CapacityLabel;
     private JProgressBar garage10OccupancyBar;
     private JButton seeTrendsButton;
+    private JButton pauseButton;
+    private JButton nextMinuteButton;
     private JLabel notificationLabel;
 
     private ArrayList<Garage> garages;
@@ -976,6 +978,16 @@ public class SimulationGUI extends JFrame {
         seeTrendsButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         garagesPanel.add(seeTrendsButton, BorderLayout.SOUTH);
 
+        pauseButton = new JButton("Pause");
+        pauseButton.setPreferredSize(new Dimension(750, 50));
+        pauseButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+        garagesPanel.add(pauseButton, BorderLayout.SOUTH);
+
+        nextMinuteButton = new JButton("Next Minute");
+        nextMinuteButton.setPreferredSize(new Dimension(750, 50));
+        nextMinuteButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+        garagesPanel.add(nextMinuteButton, BorderLayout.SOUTH);
+
         // Repaint the frame to update the changes
         getContentPane().validate();
         getContentPane().repaint();
@@ -987,6 +999,24 @@ public class SimulationGUI extends JFrame {
                     dispose();
                     trendsGUI trendsPage = new trendsGUI(garages.get(0).getName(), garages.size(), garages);
                     trendsPage.setVisible(true);
+                });
+            }
+        });
+
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(() -> {
+
+                });
+            }
+        });
+
+        nextMinuteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(() -> {
+
                 });
             }
         });
