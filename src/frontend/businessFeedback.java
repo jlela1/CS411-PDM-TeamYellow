@@ -196,6 +196,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
 
      scrollTable= new JScrollPane(feedbackDisplay);
      tablePanel.add(scrollTable);
+     tablePanel.setVisible(false);
 
     businessFeedBackGComponents.add(tablePanel,gbc);
     businessFeedBackGComponents.setOpaque(false);
@@ -241,6 +242,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
             if (tablePanel != null) {
                 tablePanel.remove(scrollTable);
             }
+            tablePanel.setVisible(true);
 
 
             this.revalidate();
@@ -248,7 +250,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
             //JTable
             feedbackData = new Object[][]{
                     {"Test_user", "Elkhorne", "3.3", "I like pizza"}
-            };
+            }; // replace with DB query
             feedbackDisplay= new JTable(feedbackData,columnNames)
             {
                 public boolean editCellAt(int row, int column, java.util.EventObject e)
