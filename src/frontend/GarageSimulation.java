@@ -15,6 +15,8 @@ public class GarageSimulation {
 
     private ArrayList<Garage> garages;
     private int currentPreset;
+    private int time = 0;
+    private boolean isPaused = false;
     public GarageSimulation(SimulationGUI simulationGUI, ArrayList<Garage> garageList, int simulationDuration, int timeValue, int presetType) {
 
         //preset type: 0 = none, 1 = normalday, 2 = fire in elkhorn, 3 = football
@@ -25,7 +27,9 @@ public class GarageSimulation {
 
         Thread simulationThread = new Thread(() -> {
 
-            int time = timeValue;
+            time = timeValue;
+            // Compare with time to determine if nextMinute button press occurred
+            int previousTime = 1;
             int endTime = time + simulationDuration;
             String notificiation = "Notification: ";
 
@@ -36,162 +40,173 @@ public class GarageSimulation {
 
             while (time < endTime) {
 
-                time += 1;
+                // Returns true if the simulation is unpaused or the next minute button has been pressed
+                boolean stepTime = (!isPaused) || (time > previousTime);
+                if (stepTime) {
 
-                // SQL function call NEEDS TO BE FIXED
-                // call func to get current military time
-                MilitaryTimeConverter converter = new MilitaryTimeConverter();
-
-                for (Garage garage : garages) {
-                    stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation, garage.getGarageID(), garage.getNumVehiclesEnteringPerMin(), garage.getAverageFeedback());
-                    // ...
-                }
-
-                // end of SQL stuff
-
-                //for each garage
-                for (int i = 0; i < garages.size(); i++) { //for each garage, execute vehicle algorithms
-
-                    //update num vehicles parking per minute
-                    for (int j = 0; j < garages.get(i).variableNumVehPerMin.size(); j++) { //iterate over number of vehicle rate changes in stored arrayList
-                        if (garages.get(i).variableNumVehPerMin.get(j).getTime() == time) { //if the time set in one of the arrayList values is equal to the current time (time to change vehicle rates)
-                            garages.get(i).setNumVehiclesEnteringPerMin(garages.get(i).variableNumVehPerMin.get(j).getRate()); //set current num of vehicle rate to specified one stored in array
-                        }
+                    // Time increments outside of the loop if next minute button was pressed
+                    // Only increment here if the simulation is unpaused
+                    if (!isPaused) {
+                        time += 1;
                     }
 
-                    //update garage closed/open
-                    for (int j = 0; j < garages.get(i).closeGarageList.size(); j++) { //iterate over number of changes in closing/opening
-                        if (garages.get(i).closeGarageList.get(j).getTime() == time) { //if the time set in one of the arrayList values is equal to the current time (time to change garage closed status)
-                            garages.get(i).setIsClosed(garages.get(i).closeGarageList.get(j).getClosed());
+                    // SQL function call NEEDS TO BE FIXED
+                    // call func to get current military time
+                    MilitaryTimeConverter converter = new MilitaryTimeConverter();
 
-                            //send emergency notification
-                            if(garages.get(i).closeGarageList.get(j).getClosed() == true) {
-                                notificiation = "Notification: " + garages.get(i).getName() + " is now closed!";
-                            } else {
-                                notificiation = "Notification: " + garages.get(i).getName() + " is now open!";
+                    for (Garage garage : garages) {
+                        stats.setGarage(stats, time, garage.getOccupancy(), garage.getMaxCapacity(), convertMinutesToAMPM(time), garage.getName(), converter.getMilitaryTime(), notificiation, garage.getGarageID(), garage.getNumVehiclesEnteringPerMin(), garage.getAverageFeedback());
+                        // ...
+                    }
+
+                    // end of SQL stuff
+
+                    //for each garage
+                    for (int i = 0; i < garages.size(); i++) { //for each garage, execute vehicle algorithms
+
+                        //update num vehicles parking per minute
+                        for (int j = 0; j < garages.get(i).variableNumVehPerMin.size(); j++) { //iterate over number of vehicle rate changes in stored arrayList
+                            if (garages.get(i).variableNumVehPerMin.get(j).getTime() == time) { //if the time set in one of the arrayList values is equal to the current time (time to change vehicle rates)
+                                garages.get(i).setNumVehiclesEnteringPerMin(garages.get(i).variableNumVehPerMin.get(j).getRate()); //set current num of vehicle rate to specified one stored in array
                             }
-                            //push new notification to GUI
-                            simulationGUI.updateSimLabels(garages, time, notificiation);
-
                         }
-                    }
 
+                        //update garage closed/open
+                        for (int j = 0; j < garages.get(i).closeGarageList.size(); j++) { //iterate over number of changes in closing/opening
+                            if (garages.get(i).closeGarageList.get(j).getTime() == time) { //if the time set in one of the arrayList values is equal to the current time (time to change garage closed status)
+                                garages.get(i).setIsClosed(garages.get(i).closeGarageList.get(j).getClosed());
 
-
-                    int numVehiclesParking = garages.get(i).getNumVehiclesEnteringPerMin(); //get num of cars entering specific garage this minute
-
-                    for (vehicle vehicle : garages.get(i).parkingVehicleList) { //for each vehicle in garages's specific vehicle list
-
-                        int numOfCarsParkingThisTick = 0; //track number of cars parking this tick for average feedback calculation
-                        int totalFeedbackRatingCount = 0; //total feedback from all cars parking this tick for average feedback calculation
-
-                        if (!vehicle.getParked()) { //if the vehicle is not parked
-
-                            vehicle.setParking_in(vehicle.getParking_in() - 1); //subtract 1 minute from park waiting time
-
-                            // Time to park!
-                            if (vehicle.getParking_in() <= 0) { //if wait to park equal to 0: waiting ended
-
-                                String tempNotification = assignGarage(vehicle, garages, i); //assign vehicle to garage, output string if full
-                                if (tempNotification != "") {
-                                    notificiation = "Notification: " + tempNotification;
+                                //send emergency notification
+                                if (garages.get(i).closeGarageList.get(j).getClosed() == true) {
+                                    notificiation = "Notification: " + garages.get(i).getName() + " is now closed!";
+                                } else {
+                                    notificiation = "Notification: " + garages.get(i).getName() + " is now open!";
                                 }
-
-                                //update feedback for vehicles parking this minute
-                                numOfCarsParkingThisTick++;
-                                totalFeedbackRatingCount += vehicle.getFeedbackRating();
-
-                                //update gui with notifications
+                                //push new notification to GUI
                                 simulationGUI.updateSimLabels(garages, time, notificiation);
 
+                            }
+                        }
 
-                                //update counters
-                                if (vehicle.getGarageIndex() == 0) { //check if assigned to garage 0
-                                    garages.get(0).setOccupancy(garages.get(0).getOccupancy() + 1); //add one to occupancy
 
-                                } else if (vehicle.getGarageIndex() == 1) { //check if assigned to garage 1 and garage 1 not full
-                                    garages.get(1).setOccupancy(garages.get(1).getOccupancy() + 1); //add one to occupancy
+                        int numVehiclesParking = garages.get(i).getNumVehiclesEnteringPerMin(); //get num of cars entering specific garage this minute
 
-                                } else if (vehicle.getGarageIndex() == 2) { //check if assigned to garage 2 and garage 2 not full
-                                    garages.get(2).setOccupancy(garages.get(2).getOccupancy() + 1); //add one to occupancy
+                        for (vehicle vehicle : garages.get(i).parkingVehicleList) { //for each vehicle in garages's specific vehicle list
+
+                            int numOfCarsParkingThisTick = 0; //track number of cars parking this tick for average feedback calculation
+                            int totalFeedbackRatingCount = 0; //total feedback from all cars parking this tick for average feedback calculation
+
+                            if (!vehicle.getParked()) { //if the vehicle is not parked
+
+                                vehicle.setParking_in(vehicle.getParking_in() - 1); //subtract 1 minute from park waiting time
+
+                                // Time to park!
+                                if (vehicle.getParking_in() <= 0) { //if wait to park equal to 0: waiting ended
+
+                                    String tempNotification = assignGarage(vehicle, garages, i); //assign vehicle to garage, output string if full
+                                    if (tempNotification != "") {
+                                        notificiation = "Notification: " + tempNotification;
+                                    }
+
+                                    //update feedback for vehicles parking this minute
+                                    numOfCarsParkingThisTick++;
+                                    totalFeedbackRatingCount += vehicle.getFeedbackRating();
+
+                                    //update gui with notifications
+                                    simulationGUI.updateSimLabels(garages, time, notificiation);
+
+
+                                    //update counters
+                                    if (vehicle.getGarageIndex() == 0) { //check if assigned to garage 0
+                                        garages.get(0).setOccupancy(garages.get(0).getOccupancy() + 1); //add one to occupancy
+
+                                    } else if (vehicle.getGarageIndex() == 1) { //check if assigned to garage 1 and garage 1 not full
+                                        garages.get(1).setOccupancy(garages.get(1).getOccupancy() + 1); //add one to occupancy
+
+                                    } else if (vehicle.getGarageIndex() == 2) { //check if assigned to garage 2 and garage 2 not full
+                                        garages.get(2).setOccupancy(garages.get(2).getOccupancy() + 1); //add one to occupancy
+
+                                    }
+                                    if (vehicle.getGarageIndex() == 3) { //check if assigned to garage 3 and garage 3 not full
+                                        garages.get(3).setOccupancy(garages.get(3).getOccupancy() + 1); //add one to occupancy
+
+                                    }
+                                    if (vehicle.getGarageIndex() == 4) { //check if assigned to garage 4 and garage 4 not full
+                                        garages.get(4).setOccupancy(garages.get(4).getOccupancy() + 1); //add one to occupancy
+
+                                    }
+                                }
+
+                            } else {
+
+                                vehicle.setparking_out(vehicle.getparking_out() - 1); //decrement time parked by 1 minute
+
+                                // Vehicle exits garage
+                                if ((vehicle.getparking_out() <= 0) && (!(garages.get(vehicle.getGarageIndex()).getIsClosed()))) { //if the time parked has decreased to 0 and the garage is not closed:
+
+                                    if ((vehicle.getGarageIndex() == 0) && (garages.get(0)).getOccupancy() > 0) { //is vehicle in garage 0
+                                        garages.get(0).setOccupancy(garages.get(0).getOccupancy() - 1); //decrement garage 0
+
+                                    } else if ((vehicle.getGarageIndex() == 1) && (garages.get(1)).getOccupancy() > 0) { //is vehicle in garage 1
+                                        garages.get(1).setOccupancy(garages.get(1).getOccupancy() - 1); //decrement garage 1
+
+                                    } else if ((vehicle.getGarageIndex() == 2) && (garages.get(2)).getOccupancy() > 0) { //is vehicle in garage 2
+                                        garages.get(2).setOccupancy(garages.get(2).getOccupancy() - 1); //decrement garage 2
+
+                                    } else if ((vehicle.getGarageIndex() == 3) && (garages.get(3)).getOccupancy() > 0) { //is vehicle in garage 3
+                                        garages.get(3).setOccupancy(garages.get(3).getOccupancy() - 1); //decrement garage 3
+
+                                    } else if ((vehicle.getGarageIndex() == 4) && (garages.get(4)).getOccupancy() > 0) { //is vehicle in garage 4
+                                        garages.get(4).setOccupancy(garages.get(4).getOccupancy() - 1); //decrement garage 4
+                                    }
+
+                                    garages.get(i).parkingVehicleList.remove(vehicle);
 
                                 }
-                                if (vehicle.getGarageIndex() == 3) { //check if assigned to garage 3 and garage 3 not full
-                                    garages.get(3).setOccupancy(garages.get(3).getOccupancy() + 1); //add one to occupancy
 
-                                }
-                                if (vehicle.getGarageIndex() == 4) { //check if assigned to garage 4 and garage 4 not full
-                                    garages.get(4).setOccupancy(garages.get(4).getOccupancy() + 1); //add one to occupancy
-
-                                }
                             }
 
-                        } else {
+                            //compile and store feedback
+                            if (numOfCarsParkingThisTick > 0) {
+                                double averageFeedbackRating = totalFeedbackRatingCount / numOfCarsParkingThisTick;
+                                garages.get(i).setAverageFeedback(averageFeedbackRating);
+                            }
+                        }
 
-                            vehicle.setparking_out(vehicle.getparking_out() - 1); //decrement time parked by 1 minute
+                        // Add new vehicles looking for parking
+                        for (int j = 0; j < numVehiclesParking; j++) {
 
-                            // Vehicle exits garage
-                            if ((vehicle.getparking_out() <= 0) && (!(garages.get(vehicle.getGarageIndex()).getIsClosed()))) { //if the time parked has decreased to 0 and the garage is not closed:
+                            vehicle newVehicle = new vehicle();
 
-                                if ((vehicle.getGarageIndex() == 0) && (garages.get(0)).getOccupancy() > 0) { //is vehicle in garage 0
-                                    garages.get(0).setOccupancy(garages.get(0).getOccupancy() - 1); //decrement garage 0
+                            Random random = new Random();
+                            int timeToParkOffset = random.nextInt(11) - 5;
+                            int timeToPark = Math.max(garages.get(i).getAvgTimeToPark() + timeToParkOffset, 0);
 
-                                } else if ((vehicle.getGarageIndex() == 1) && (garages.get(1)).getOccupancy() > 0) { //is vehicle in garage 1
-                                    garages.get(1).setOccupancy(garages.get(1).getOccupancy() - 1); //decrement garage 1
+                            int timeParkedOffset = random.nextInt(11) - 5;
+                            int timeParked = Math.max(garages.get(i).getAvgParkingDuration() + timeParkedOffset, 0);
 
-                                } else if ((vehicle.getGarageIndex() == 2) && (garages.get(2)).getOccupancy() > 0) { //is vehicle in garage 2
-                                    garages.get(2).setOccupancy(garages.get(2).getOccupancy() - 1); //decrement garage 2
+                            newVehicle.setParking_in(timeToPark);
+                            newVehicle.setparking_out(timeParked);
 
-                                } else if ((vehicle.getGarageIndex() == 3) && (garages.get(3)).getOccupancy() > 0) { //is vehicle in garage 3
-                                    garages.get(3).setOccupancy(garages.get(3).getOccupancy() - 1); //decrement garage 3
-
-                                } else if ((vehicle.getGarageIndex() == 4) && (garages.get(4)).getOccupancy() > 0) { //is vehicle in garage 4
-                                    garages.get(4).setOccupancy(garages.get(4).getOccupancy() - 1); //decrement garage 4
-                                }
-
-                                garages.get(i).parkingVehicleList.remove(vehicle);
-
+                            //set if vehicle is football authorized based on originated garage
+                            if (garages.get(i).getName().equals("49th Street Stadium") || garages.get(i).getName().equals("43rd & Elkhorn Ave")) {
+                                newVehicle.setFootballAuthorized(true);
                             }
 
+                            garages.get(i).parkingVehicleList.add(newVehicle);
                         }
 
-                        //compile and store feedback
-                        if (numOfCarsParkingThisTick > 0) {
-                            double averageFeedbackRating = totalFeedbackRatingCount / numOfCarsParkingThisTick;
-                            garages.get(i).setAverageFeedback(averageFeedbackRating);
-                        }
-                    }
+                        simulationGUI.updateSimLabels(garages, time, notificiation);
 
-                    // Add new vehicles looking for parking
-                    for (int j = 0; j < numVehiclesParking; j++) {
-
-                        vehicle newVehicle = new vehicle();
-
-                        Random random = new Random();
-                        int timeToParkOffset = random.nextInt(11) - 5;
-                        int timeToPark = Math.max(garages.get(i).getAvgTimeToPark() + timeToParkOffset, 0);
-
-                        int timeParkedOffset = random.nextInt(11) - 5;
-                        int timeParked = Math.max(garages.get(i).getAvgParkingDuration() + timeParkedOffset, 0);
-
-                        newVehicle.setParking_in(timeToPark);
-                        newVehicle.setparking_out(timeParked);
-
-                        //set if vehicle is football authorized based on originated garage
-                        if (garages.get(i).getName().equals("49th Street Stadium") || garages.get(i).getName().equals("43rd & Elkhorn Ave")) {
-                            newVehicle.setFootballAuthorized(true);
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
 
-                        garages.get(i).parkingVehicleList.add(newVehicle);
                     }
 
-                    simulationGUI.updateSimLabels(garages, time, notificiation);
-
-                    try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    previousTime = time;
 
                 }
 
@@ -203,6 +218,28 @@ public class GarageSimulation {
 
         simulationThread.start();
 
+    }
+
+    // Method to pause the simulation
+    public void pauseSimulation() {
+        isPaused = true;
+    }
+
+    // Method to resume the simulation
+    public void unpauseSimulation() {
+        synchronized (this) {
+            isPaused = false;
+        }
+    }
+
+    public boolean getPaused() {
+        return isPaused;
+    }
+
+    public void nextMinute() {
+        if (getPaused()) {
+            time += 1;
+        }
     }
 
     private String assignGarage(vehicle vehicleToAssign, ArrayList<Garage> garages, int prefGarage) {
@@ -289,7 +326,7 @@ public class GarageSimulation {
                     int randomGarageInt = 0;
                     while (successfullyAssigned == false) {
 
-                        //generate random int based on how many garages (1-5)
+                        //generate random int based on how many garages (1-10)
                         randomGarageInt = 0;
                         switch (garages.size())
                         {
@@ -306,6 +343,21 @@ public class GarageSimulation {
                                 randomGarageInt = ThreadLocalRandom.current().nextInt(0, 4);
                                 break;
                             case 5:
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                break;
+                            case 6:
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                break;
+                            case 7:
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                break;
+                            case 8:
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                break;
+                            case 9:
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                break;
+                            case 10:
                                 randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
                                 break;
                         }
@@ -377,6 +429,21 @@ public class GarageSimulation {
                             break;
                         case 5:
                             randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                            break;
+                        case 6:
+                            randomGarageInt = ThreadLocalRandom.current().nextInt(0, 6);
+                            break;
+                        case 7:
+                            randomGarageInt = ThreadLocalRandom.current().nextInt(0, 7);
+                            break;
+                        case 8:
+                            randomGarageInt = ThreadLocalRandom.current().nextInt(0, 8);
+                            break;
+                        case 9:
+                            randomGarageInt = ThreadLocalRandom.current().nextInt(0, 9);
+                            break;
+                        case 10:
+                            randomGarageInt = ThreadLocalRandom.current().nextInt(0, 10);
                             break;
                     }
 

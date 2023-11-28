@@ -1003,11 +1003,17 @@ public class SimulationGUI extends JFrame {
             }
         });
 
+        GarageSimulation garageSimulation = new GarageSimulation(this, garages, simulationDuration, time, presetType);
+
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SwingUtilities.invokeLater(() -> {
-
+                    if (garageSimulation.getPaused()) {
+                        garageSimulation.unpauseSimulation();
+                    } else {
+                        garageSimulation.pauseSimulation();
+                    }
                 });
             }
         });
@@ -1016,12 +1022,10 @@ public class SimulationGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SwingUtilities.invokeLater(() -> {
-
+                    garageSimulation.nextMinute();
                 });
             }
         });
-
-        GarageSimulation garageSimulation = new GarageSimulation(this, garages, simulationDuration, time, presetType);
 
     }
 
