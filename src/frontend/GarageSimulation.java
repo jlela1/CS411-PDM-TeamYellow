@@ -117,24 +117,12 @@ public class GarageSimulation {
 
 
                                     //update counters
-                                    if (vehicle.getGarageIndex() == 0) { //check if assigned to garage 0
-                                        garages.get(0).setOccupancy(garages.get(0).getOccupancy() + 1); //add one to occupancy
-
-                                    } else if (vehicle.getGarageIndex() == 1) { //check if assigned to garage 1 and garage 1 not full
-                                        garages.get(1).setOccupancy(garages.get(1).getOccupancy() + 1); //add one to occupancy
-
-                                    } else if (vehicle.getGarageIndex() == 2) { //check if assigned to garage 2 and garage 2 not full
-                                        garages.get(2).setOccupancy(garages.get(2).getOccupancy() + 1); //add one to occupancy
-
+                                    for (int k = 0; k < garages.size(); k++) {
+                                        if (vehicle.getGarageIndex() == k) {
+                                            garages.get(k).setOccupancy(garages.get(k).getOccupancy() + 1);
+                                        }
                                     }
-                                    if (vehicle.getGarageIndex() == 3) { //check if assigned to garage 3 and garage 3 not full
-                                        garages.get(3).setOccupancy(garages.get(3).getOccupancy() + 1); //add one to occupancy
 
-                                    }
-                                    if (vehicle.getGarageIndex() == 4) { //check if assigned to garage 4 and garage 4 not full
-                                        garages.get(4).setOccupancy(garages.get(4).getOccupancy() + 1); //add one to occupancy
-
-                                    }
                                 }
 
                             } else {
@@ -144,20 +132,10 @@ public class GarageSimulation {
                                 // Vehicle exits garage
                                 if ((vehicle.getparking_out() <= 0) && (!(garages.get(vehicle.getGarageIndex()).getIsClosed()))) { //if the time parked has decreased to 0 and the garage is not closed:
 
-                                    if ((vehicle.getGarageIndex() == 0) && (garages.get(0)).getOccupancy() > 0) { //is vehicle in garage 0
-                                        garages.get(0).setOccupancy(garages.get(0).getOccupancy() - 1); //decrement garage 0
-
-                                    } else if ((vehicle.getGarageIndex() == 1) && (garages.get(1)).getOccupancy() > 0) { //is vehicle in garage 1
-                                        garages.get(1).setOccupancy(garages.get(1).getOccupancy() - 1); //decrement garage 1
-
-                                    } else if ((vehicle.getGarageIndex() == 2) && (garages.get(2)).getOccupancy() > 0) { //is vehicle in garage 2
-                                        garages.get(2).setOccupancy(garages.get(2).getOccupancy() - 1); //decrement garage 2
-
-                                    } else if ((vehicle.getGarageIndex() == 3) && (garages.get(3)).getOccupancy() > 0) { //is vehicle in garage 3
-                                        garages.get(3).setOccupancy(garages.get(3).getOccupancy() - 1); //decrement garage 3
-
-                                    } else if ((vehicle.getGarageIndex() == 4) && (garages.get(4)).getOccupancy() > 0) { //is vehicle in garage 4
-                                        garages.get(4).setOccupancy(garages.get(4).getOccupancy() - 1); //decrement garage 4
+                                    for (int k = 0; k < garages.size(); k++) {
+                                        if ((vehicle.getGarageIndex() == k) && (garages.get(k).getOccupancy() > 0)) {
+                                            garages.get(k).setOccupancy(garages.get(k).getOccupancy() - 1);
+                                        }
                                     }
 
                                     garages.get(i).parkingVehicleList.remove(vehicle);
@@ -346,19 +324,19 @@ public class GarageSimulation {
                                 randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
                                 break;
                             case 6:
-                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 6);
                                 break;
                             case 7:
-                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 7);
                                 break;
                             case 8:
-                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 8);
                                 break;
                             case 9:
-                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 9);
                                 break;
                             case 10:
-                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 5);
+                                randomGarageInt = ThreadLocalRandom.current().nextInt(0, 10);
                                 break;
                         }
 
