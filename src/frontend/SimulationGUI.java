@@ -1080,6 +1080,96 @@ public class SimulationGUI extends JFrame {
                 garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
                 garage5OccupancyBar.setValue(getOccupancyPercentage(garages.get(4)));
                 break;
+            case 6:
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setValue(getOccupancyPercentage(garages.get(2)));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setValue(getOccupancyPercentage(garages.get(3)));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setValue(getOccupancyPercentage(garages.get(4)));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setValue(getOccupancyPercentage(garages.get(5)));
+                break;
+            case 7:
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setValue(getOccupancyPercentage(garages.get(2)));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setValue(getOccupancyPercentage(garages.get(3)));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setValue(getOccupancyPercentage(garages.get(4)));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setValue(getOccupancyPercentage(garages.get(5)));
+                garage7OccupancyBar.setString(garages.get(6).getOccupancy() + "/" + garages.get(6).getMaxCapacity());
+                garage7OccupancyBar.setValue(getOccupancyPercentage(garages.get(6)));
+                break;
+            case 8:
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setValue(getOccupancyPercentage(garages.get(2)));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setValue(getOccupancyPercentage(garages.get(3)));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setValue(getOccupancyPercentage(garages.get(4)));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setValue(getOccupancyPercentage(garages.get(5)));
+                garage7OccupancyBar.setString(garages.get(6).getOccupancy() + "/" + garages.get(6).getMaxCapacity());
+                garage7OccupancyBar.setValue(getOccupancyPercentage(garages.get(6)));
+                garage8OccupancyBar.setString(garages.get(7).getOccupancy() + "/" + garages.get(7).getMaxCapacity());
+                garage8OccupancyBar.setValue(getOccupancyPercentage(garages.get(7)));
+                break;
+            case 9:
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setValue(getOccupancyPercentage(garages.get(2)));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setValue(getOccupancyPercentage(garages.get(3)));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setValue(getOccupancyPercentage(garages.get(4)));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setValue(getOccupancyPercentage(garages.get(5)));
+                garage7OccupancyBar.setString(garages.get(6).getOccupancy() + "/" + garages.get(6).getMaxCapacity());
+                garage7OccupancyBar.setValue(getOccupancyPercentage(garages.get(6)));
+                garage8OccupancyBar.setString(garages.get(7).getOccupancy() + "/" + garages.get(7).getMaxCapacity());
+                garage8OccupancyBar.setValue(getOccupancyPercentage(garages.get(7)));
+                garage9OccupancyBar.setString(garages.get(8).getOccupancy() + "/" + garages.get(8).getMaxCapacity());
+                garage9OccupancyBar.setValue(getOccupancyPercentage(garages.get(8)));
+                break;
+            case 10:
+                garage1OccupancyBar.setString(garages.get(0).getOccupancy() + "/" + garages.get(0).getMaxCapacity());
+                garage1OccupancyBar.setValue(getOccupancyPercentage(garages.get(0)));
+                garage2OccupancyBar.setString(garages.get(1).getOccupancy() + "/" + garages.get(1).getMaxCapacity());
+                garage2OccupancyBar.setValue(getOccupancyPercentage(garages.get(1)));
+                garage3OccupancyBar.setString(garages.get(2).getOccupancy() + "/" + garages.get(2).getMaxCapacity());
+                garage3OccupancyBar.setValue(getOccupancyPercentage(garages.get(2)));
+                garage4OccupancyBar.setString(garages.get(3).getOccupancy() + "/" + garages.get(3).getMaxCapacity());
+                garage4OccupancyBar.setValue(getOccupancyPercentage(garages.get(3)));
+                garage5OccupancyBar.setString(garages.get(4).getOccupancy() + "/" + garages.get(4).getMaxCapacity());
+                garage5OccupancyBar.setValue(getOccupancyPercentage(garages.get(4)));
+                garage6OccupancyBar.setString(garages.get(5).getOccupancy() + "/" + garages.get(5).getMaxCapacity());
+                garage6OccupancyBar.setValue(getOccupancyPercentage(garages.get(5)));
+                garage7OccupancyBar.setString(garages.get(6).getOccupancy() + "/" + garages.get(6).getMaxCapacity());
+                garage7OccupancyBar.setValue(getOccupancyPercentage(garages.get(6)));
+                garage8OccupancyBar.setString(garages.get(7).getOccupancy() + "/" + garages.get(7).getMaxCapacity());
+                garage8OccupancyBar.setValue(getOccupancyPercentage(garages.get(7)));
+                garage9OccupancyBar.setString(garages.get(8).getOccupancy() + "/" + garages.get(8).getMaxCapacity());
+                garage9OccupancyBar.setValue(getOccupancyPercentage(garages.get(8)));
+                garage10OccupancyBar.setString(garages.get(9).getOccupancy() + "/" + garages.get(9).getMaxCapacity());
+                garage10OccupancyBar.setValue(getOccupancyPercentage(garages.get(9)));
+                break;
         }
     }
 
