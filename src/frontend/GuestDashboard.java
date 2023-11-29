@@ -62,6 +62,15 @@ public class GuestDashboard extends JFrame{
         IMapButton.setPreferredSize(new Dimension(250, 50));
         IMapButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JButton BugButton = new JButton("Report Bug");
+        BugButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+        BugButton.setForeground(Color.BLACK);
+        BugButton.setBackground(new Color(113, 50, 222, 255)); // Choose your preferred color
+        BugButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        BugButton.setFocusPainted(false);
+        BugButton.setPreferredSize(new Dimension(250, 50));
+        BugButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JButton logOutB= new JButton("Logout");
         logOutB.setFont(new Font("Monospaced", Font.BOLD, 16));
         logOutB.setForeground(Color.BLACK);
@@ -80,6 +89,14 @@ public class GuestDashboard extends JFrame{
             }
         });
 
+        BugButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Create an instance of BugReportingGUI and make it visible
+                BugReportingGUI Bug = new BugReportingGUI();
+                Bug.setVisible(true);
+            }
+        });
 
         IMapButton.addActionListener(new ActionListener() {
             @Override
@@ -93,6 +110,7 @@ public class GuestDashboard extends JFrame{
 
 
         contentPanel.add(IMapButton);
+        contentPanel.add(BugButton);
         contentPanel.add(logOutB);
 
         //Create a PDM footer
