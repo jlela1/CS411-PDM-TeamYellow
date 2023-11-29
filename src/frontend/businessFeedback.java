@@ -1,13 +1,17 @@
 package frontend;
+
 import javax.swing.*;
 
 
 import backend.database.Garage;
+import backend.database.UserQuery;
 import backend.database.numVehEnteringRate;
+
 import com.github.lgooddatepicker.components.DatePicker;
 import frontend.createGraph;
 import frontend.GarageManager;
 import java.awt.*;
+import java.sql.Date;
 
 
 
@@ -15,8 +19,12 @@ import java.time.*;
 import java.util.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class businessFeedback extends JFrame implements  ActionListener{
+    UserQuery feedbackDB = new UserQuery();
+
+
     private JButton getGraph, home;
     private String garageName, graphType;
     private JComboBox userSelectionGarage;
@@ -25,13 +33,15 @@ public class businessFeedback extends JFrame implements  ActionListener{
     private JPanel graphPanel, tablePanel;
     private  JScrollPane scrollTable;
     private JTable feedbackDisplay;
-    private String columnNames[] = {"User","Garage","Satisfaction Level", "Comments"};
+    private String columnNames[] = {"First Name","Last Name", "Rating", "Comments"};
 
     private int numGar;
-    private Object[][] feedbackData = {{"hard coded","Rando","3.7","I like cats"}};
+    private Object[][] feedbackData = {{"null","null","null","null"}};
 
     static String garageFeedback = "Average Feedback";
     createGraph feedbackGraph;
+
+    createPieChart feedbackChart;
 
 
 
@@ -42,6 +52,7 @@ public class businessFeedback extends JFrame implements  ActionListener{
 public businessFeedback(String garageName, int numGarages, ArrayList<Garage> garages)
 {
     //Jframe frame setup
+
 
 
     JPanel backgroundPanel = new JPanel() {
@@ -56,6 +67,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
 
     numGar = numGarages;
     graphType = garageFeedback;
+    feedbackChart = new createPieChart();
     this.setTitle("Business Feedback Page");
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setLayout(new BorderLayout());
@@ -160,7 +172,9 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
 
     //add graph
     feedbackGraph = new createGraph(garageName, numGar, datePickerStart.getDate(),datePickerEnd.getDate(),graphType);
+
     graphPanel = new JPanel();
+
     graphPanel.setOpaque(false);
 
 
@@ -237,20 +251,50 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
         if(e.getSource()==getGraph)
         {
             if (graphPanel != null) {
-                graphPanel.remove(feedbackGraph.getContentPane());
+                graphPanel.remove(feedbackChart.getContentPane());
             }
             if (tablePanel != null) {
                 tablePanel.remove(scrollTable);
             }
             tablePanel.setVisible(true);
+            date1 = datePickerStart.getDate();
+            date2 = datePickerEnd.getDate();
+            Date startDate =Date.valueOf(date1);
+            Date endDate =Date.valueOf(date2);
+
 
 
             this.revalidate();
             this.repaint();
+
             //JTable
-            feedbackData = new Object[][]{
-                    {"Test_user", "Elkhorne", "3.3", "I like pizza"}
-            }; // replace with DB query
+            feedbackData = new Object[][]
+                    {
+                            {"","","",""}
+                    };
+
+
+
+
+
+
+
+for(int i =0; i <feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).size();i++) {
+    feedbackData = new Object[][]{
+
+            {
+                    String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserFirstName()),
+                    String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserLastName()),
+
+                    String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRating()),
+                    String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getHappy())
+            }
+
+    };
+}
+
+
+
             feedbackDisplay= new JTable(feedbackData,columnNames)
             {
                 public boolean editCellAt(int row, int column, java.util.EventObject e)
@@ -266,10 +310,9 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
             String garageNewName = (String) userSelectionGarage.getSelectedItem();
 
             feedbackGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(),graphType);
-            date1 = datePickerStart.getDate();
-            date2 = datePickerEnd.getDate();
 
-            graphPanel.add(feedbackGraph.getContentPane());
+
+            graphPanel.add(feedbackChart.getContentPane());
 
 
 
@@ -298,7 +341,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     public static void main(String[] args)
     {
         ArrayList<Garage> garages = new ArrayList<Garage>();
-/*
+
         Garage garage1 = new Garage("43rd & Elkhorn Ave", 655);
         garage1.setGarageID(0);
         garage1.setAvgParkingDuration(180);
@@ -356,7 +399,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
         garages.add(2, garage3);
         garages.add(3, garage4);
 
-         */
+
 
 
         businessFeedback businessFeedback = new businessFeedback("43rd & Elkhorn Ave", 4, garages);
