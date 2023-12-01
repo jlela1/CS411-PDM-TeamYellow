@@ -64,10 +64,14 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
         }
     };
     this.add(backgroundPanel,BorderLayout.CENTER);
+    date1 =java.time.LocalDate.now();
+    date2 = java.time.LocalDate.now();
+    Date startD =Date.valueOf(date1);
+    Date endD =Date.valueOf(date2);
 
     numGar = numGarages;
     graphType = garageFeedback;
-    feedbackChart = new createPieChart();
+    feedbackChart = new createPieChart(startD,endD,garageName);
     this.setTitle("Business Feedback Page");
     this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     this.setLayout(new BorderLayout());
@@ -309,7 +313,7 @@ for(int i =0; i <feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate,
             graphType = garageFeedback;
             String garageNewName = (String) userSelectionGarage.getSelectedItem();
 
-            feedbackGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(),graphType);
+           feedbackChart = new createPieChart(startDate,endDate,userSelectionGarage.getSelectedItem().toString());
 
 
             graphPanel.add(feedbackChart.getContentPane());

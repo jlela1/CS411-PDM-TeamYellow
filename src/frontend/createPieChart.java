@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import backend.database.UserQuery;
+import java.sql.Date;
 
 import java.util.*;
 
@@ -25,28 +26,57 @@ import org.jfree.data.general.PieDataset;
 public class createPieChart extends JFrame
 {
     UserQuery feedBack = new UserQuery();
+    int star1, star2, star3, star4, star5 = 0;
 
 
-    private PieDataset createDataset() {
+    private PieDataset createDataset(Date dateStart, Date dateEnd, String garageNam) {
     DefaultPieDataset dataset = new DefaultPieDataset();
-    dataset.setValue("0-1",100);
-        dataset.setValue("1-2",100);
-        dataset.setValue("2-3",100);
-        dataset.setValue("3-4",100);
-        dataset.setValue("4-5",100);
+        feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam);
+        for(int i = 0; i <feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).size(); ++i)
+        {
+            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=1)
+            {
+                star1++;
+            }
+            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() >1 && feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=2)
+            {
+                star2++;
+            }
+            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() >2 && feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=3)
+            {
+                star3++;
+            }
+            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() >3 && feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=4)
+            {
+                star4++;
+            }
+            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() > 4 && feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=5)
+            {
+                star5++;
+            }
+        }
+    dataset.setValue("0-1",star1);
+        dataset.setValue("1-2",star2);
+        dataset.setValue("2-3",star3);
+        dataset.setValue("3-4",star4);
+        dataset.setValue("4-5",star5);
 
 
     return dataset;
 }
 
-   public createPieChart(/*String garageName, Date dateStart, Date dateEnd*/) {
+   public createPieChart(Date dateStart, Date dateEnd, String garageNam) {
        super("Feedback");
-       PieDataset pieData = createDataset();
-       //UserQuery.retrieveWithinDateRangeAndGarage(/*dateStart,dateEnd,garageName*/);
+       PieDataset pieData = createDataset(dateStart,dateEnd,garageNam);
+
+
+
+
+
 
 
        JFreeChart chart = ChartFactory.createPieChart(
-               "Test",
+               garageNam,
                pieData,
                true,
                true,
@@ -65,8 +95,10 @@ public class createPieChart extends JFrame
 
     public static void main(String[] args) throws Exception {
         SwingUtilities.invokeAndWait(() ->{
-            List emptyList = new ArrayList<>();
-            createPieChart example = new createPieChart();
+            Date dateST, dateET;
+            dateST = Date.valueOf(java.time.LocalDate.now());
+            dateET = Date.valueOf(java.time.LocalDate.now());
+                      createPieChart example = new createPieChart(dateST,dateET,"Test");
             example.setSize(800,400);
             example.setLocationRelativeTo(null);
             example.setVisible(true);
