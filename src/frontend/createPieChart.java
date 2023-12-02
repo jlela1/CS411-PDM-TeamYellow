@@ -26,7 +26,7 @@ import org.jfree.data.general.PieDataset;
 public class createPieChart extends JFrame
 {
     UserQuery feedBack = new UserQuery();
-    int star1, star2, star3, star4, star5 = 0;
+    int star1, star2, star3, star4, star5, star0= 0;
 
 
     private PieDataset createDataset(Date dateStart, Date dateEnd, String garageNam) {
@@ -34,32 +34,38 @@ public class createPieChart extends JFrame
         feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam);
         for(int i = 0; i <feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).size(); ++i)
         {
-            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=1)
+           if(feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating()==0)
+           {
+               ++star0;
+           }
+            if(feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating()==1)
             {
-                star1++;
+                ++star1;
             }
-            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() >1 && feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=2)
+            if(feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating()==2)
             {
-                star2++;
+                ++star2;
             }
-            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() >2 && feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=3)
+            if(feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating()==3)
             {
-                star3++;
+                ++star3;
             }
-            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() >3 && feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=4)
+            if(feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating()==4)
             {
-                star4++;
+                ++star4;
             }
-            if( feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() > 4 && feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating() <=5)
-            {
-                star5++;
+            if(feedBack.retrieveWithinDateRangeAndGarage(dateStart, dateEnd, garageNam).get(i).getRating()==5) {
+                ++star5;
             }
+
         }
-    dataset.setValue("0-1",star1);
-        dataset.setValue("1-2",star2);
-        dataset.setValue("2-3",star3);
-        dataset.setValue("3-4",star4);
-        dataset.setValue("4-5",star5);
+        dataset.setValue("0",star0);
+        dataset.setValue("1",star1);
+        dataset.setValue("2",star2);
+        dataset.setValue("3",star3);
+        dataset.setValue("4",star4);
+        dataset.setValue("5",star5);
+
 
 
     return dataset;
