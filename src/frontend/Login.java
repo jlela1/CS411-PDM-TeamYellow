@@ -17,6 +17,10 @@ public class Login extends JFrame implements ActionListener {
     JButton b1, b2, b3;
     JPanel newPanel;
     JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, pageLabel;
+
+    final JLabel uLabel;
+    final JLabel pLabel;
+
     final JTextField textField1;
     final JPasswordField textField2;
 
@@ -29,7 +33,7 @@ public class Login extends JFrame implements ActionListener {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon ("resources/Background 20.png");
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 1.png");
                 g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
             }
         };
@@ -38,6 +42,10 @@ public class Login extends JFrame implements ActionListener {
         backgroundPanel.setLayout(new BorderLayout());
 
 
+        uLabel = new JLabel();
+        uLabel.setText("Username");
+        uLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
+
         ImageIcon userIcon = new ImageIcon("resources/user.png");
         Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
@@ -45,6 +53,10 @@ public class Login extends JFrame implements ActionListener {
 
         textField1 = new JTextField(20);
         setPlaceholder(textField1, "Username");
+
+        pLabel  = new JLabel();
+        pLabel.setText("Password");
+        pLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
 
         ImageIcon passIcon = new ImageIcon("resources/password1.png");
         Image passImage = passIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
@@ -93,11 +105,13 @@ public class Login extends JFrame implements ActionListener {
 
         JPanel userPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         userPanel.setOpaque(false);
+        userPanel.add(uLabel);
         userPanel.add(userImageLabel);
         userPanel.add(textField1);
 
         JPanel passPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         passPanel.setOpaque(false);
+        passPanel.add(pLabel);
         passPanel.add(passImageLabel);
         passPanel.add(textField2);
 

@@ -21,6 +21,11 @@ class Reg extends JFrame implements ActionListener {
     JButton registerButton, backButton;
     JPanel newPanel;
     JLabel pdmLabel, madeEasyLabel, userLabel, passLabel, confirmPassLabel, logoLabel;
+
+    final JLabel uLabel;
+    final JLabel pLabel;
+    final JLabel cLabel;
+
     final JTextField textField1;
     final JPasswordField textField2, textField3;
 
@@ -34,7 +39,7 @@ class Reg extends JFrame implements ActionListener {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon ("resources/Background 15.png");
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 5.png");
                 g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
             }
         };
@@ -42,12 +47,19 @@ class Reg extends JFrame implements ActionListener {
         setContentPane(backgroundPanel);
         backgroundPanel.setLayout(new BorderLayout());
 
+        uLabel = new JLabel();
+        uLabel.setText("Username");
+        uLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
+
         // Username
         ImageIcon userIcon = new ImageIcon("resources/user.png");
         Image userImage = userIcon.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         JLabel userImageLabel = new JLabel(new ImageIcon(userImage));
         textField1 = new JTextField(20);
 
+        pLabel  = new JLabel();
+        pLabel.setText("Password");
+        pLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
 
         // Password
         ImageIcon passIcon = new ImageIcon("resources/password1.png");
@@ -55,6 +67,9 @@ class Reg extends JFrame implements ActionListener {
         JLabel passImageLabel = new JLabel(new ImageIcon(passImage));
         textField2 = new JPasswordField(20);
 
+        cLabel = new JLabel();
+        cLabel.setText("Confirm Password");
+        cLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
 
         // Confirm Password
         ImageIcon confirmPassIcon = new ImageIcon("resources/confirmed.png");
@@ -108,40 +123,49 @@ class Reg extends JFrame implements ActionListener {
         setPlaceholder(textField2, "Password");
         setPlaceholder(textField3, "Confirm Password");
 
-
         gbc.gridx = 0;
+        gbc.gridy = 1;
+        componentsPanel.add(uLabel, gbc);
+
+        gbc.gridx = 1;
         gbc.gridy = 1;
         componentsPanel.add(userImageLabel, gbc);
 
 
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.gridy = 1;
         componentsPanel.add(textField1, gbc);
 
-
         gbc.gridx = 0;
+        gbc.gridy = 2;
+        componentsPanel.add(pLabel, gbc);
+
+        gbc.gridx = 1;
         gbc.gridy = 2;
         componentsPanel.add(passImageLabel, gbc);
 
 
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.gridy = 2;
         componentsPanel.add(textField2, gbc);
 
-
         gbc.gridx = 0;
+        gbc.gridy = 3;
+        componentsPanel.add(cLabel, gbc);
+
+        gbc.gridx = 1;
         gbc.gridy = 3;
         componentsPanel.add(confirmPassImageLabel, gbc);
 
 
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.gridy = 3;
         componentsPanel.add(textField3, gbc);
 
 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
 
@@ -166,6 +190,7 @@ class Reg extends JFrame implements ActionListener {
         // Create and add the footer using PageLayout
         JPanel footerPanel = PDMPanels.GeneralFooter();
         backgroundPanel.add(footerPanel, BorderLayout.SOUTH);
+        footerPanel.setOpaque(false);
 
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
