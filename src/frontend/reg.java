@@ -190,6 +190,7 @@ class Reg extends JFrame implements ActionListener {
         // Create and add the footer using PageLayout
         JPanel footerPanel = PDMPanels.GeneralFooter();
         backgroundPanel.add(footerPanel, BorderLayout.SOUTH);
+        footerPanel.setOpaque(false);
 
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
