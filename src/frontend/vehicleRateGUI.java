@@ -24,6 +24,19 @@ public class vehicleRateGUI {
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setPreferredSize(new Dimension(1500, 1000));
+        mainFrame.getContentPane().setBackground(new Color(255, 255, 255));
+
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 11.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
+
+        backgroundPanel.setLayout(new BorderLayout());
+        mainFrame.setContentPane(backgroundPanel);
 
 
         // Create a header panel
@@ -31,6 +44,7 @@ public class vehicleRateGUI {
 
 
         JPanel inputPanel = new JPanel();
+        inputPanel.setOpaque(false);
         inputPanel.setLayout(new GridLayout(5, 1, 10, 10));
         inputPanel.setBorder(BorderFactory.createEmptyBorder(100, 150, 100, 150));
 
@@ -71,7 +85,8 @@ public class vehicleRateGUI {
 
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 250 ));
+        buttonPanel.setOpaque(false);
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 70 ));
 
         JButton saveButton = new JButton("Save");
         saveButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
@@ -95,6 +110,7 @@ public class vehicleRateGUI {
         buttonPanel.add(doneButton); // Add the Done button
 
         JPanel listPanel = new JPanel();
+        listPanel.setOpaque(false);
         listPanel.setLayout(new BorderLayout());
         listPanel.setPreferredSize(new Dimension(350, 100));
 
@@ -106,6 +122,7 @@ public class vehicleRateGUI {
         rateList.setBackground(Color.LIGHT_GRAY);
 
         JScrollPane scrollPane = new JScrollPane(rateList);
+        scrollPane.setOpaque(false);
         listPanel.add(scrollPane, BorderLayout.CENTER);
 
         updateGarageList(garages.get(0));

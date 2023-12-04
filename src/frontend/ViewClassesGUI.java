@@ -22,7 +22,15 @@ public class ViewClassesGUI extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximize the frame
         setLayout(new BorderLayout());
 
-        JPanel backgroundPanel = new JPanel();
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 20.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
+
 
         setContentPane(backgroundPanel);
         backgroundPanel.setLayout(new BorderLayout());
