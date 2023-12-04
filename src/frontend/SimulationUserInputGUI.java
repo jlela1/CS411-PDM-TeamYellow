@@ -37,13 +37,13 @@ public class SimulationUserInputGUI extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon ("resources/Background 10.png");
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 9.png");
                 g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
             }
         };
 
-        setContentPane(backgroundPanel);
         backgroundPanel.setLayout(new BorderLayout());
+        add(backgroundPanel);
 
         // Create header panel
         JPanel headingPanel = PDMPanels.createHeader("PDM");
@@ -53,16 +53,19 @@ public class SimulationUserInputGUI extends JFrame {
         simulationLabel.setBackground(Color.lightGray);
         simulationLabel.setFont(new Font("Monospaced", Font.BOLD, 24));
         simulationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        headingPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+        headingPanel.add(Box.createRigidArea(new Dimension(0, 7)));
         headingPanel.add(simulationLabel);
 
         JPanel footerPanel = PDMPanels.createFooter();
-        add(footerPanel, BorderLayout.SOUTH);
+        //footerPanel.setOpaque(false);
+        backgroundPanel.add(headingPanel, BorderLayout.NORTH);
+        backgroundPanel.add(footerPanel, BorderLayout.SOUTH);
 
         // topPanel contains selectGarageLabel, garageSelectorComboBox, and slidersPanel.
         JPanel topPanel = new JPanel();
+        topPanel.setOpaque(false);
         topPanel.add(Box.createRigidArea(new Dimension(getWidth(), getHeight())));
-        add(topPanel, BorderLayout.CENTER);
+        backgroundPanel.add(topPanel, BorderLayout.CENTER);
         topPanel.setPreferredSize(new Dimension(2000, 1000));
 
         JLabel selectGarageLabel = createLabel("Select Garage:");
@@ -71,7 +74,6 @@ public class SimulationUserInputGUI extends JFrame {
         selectGarageLabel.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
         topPanel.add(selectGarageLabel, BorderLayout.NORTH);
-        topPanel.setOpaque(false);
 
         // Initialize the garageSelectorComboBox
         garageSelectorComboBox = new JComboBox<String>();
@@ -87,13 +89,13 @@ public class SimulationUserInputGUI extends JFrame {
         // Add combo box to the top of the center panel
         topPanel.add(garageSelectorComboBox, BorderLayout.NORTH);
 
-        backgroundPanel.add(topPanel, BorderLayout.NORTH);
+        //backgroundPanel.add(topPanel, BorderLayout.NORTH);
 
         JPanel slidersPanel = new JPanel();
         slidersPanel.setOpaque(false);
 
         topPanel.add(slidersPanel, BorderLayout.NORTH);
-        slidersPanel.setPreferredSize(new Dimension(2000, 200));
+        slidersPanel.setPreferredSize(new Dimension(2000, 380));
 
         slidersPanel.setLayout(new GridBagLayout());
 
@@ -107,8 +109,11 @@ public class SimulationUserInputGUI extends JFrame {
         parkTimeValue = createLabelGBC("1", gbc);
 
         JLabel vehiclesEnteringPerMinuteLabel = new JLabel("Vehicles Entering per Minute:");
+        vehiclesEnteringPerMinuteLabel.setFont(new Font("Monospaced", Font.BOLD, 18 ));
         JLabel averageTimeToParkLabel = new JLabel("Average Time to Park (minutes):");
+        averageTimeToParkLabel.setFont(new Font("Monospaced", Font.BOLD, 18 ));
         JLabel averageTimeParkedLabel = new JLabel("Average Time Parked (minutes):");
+        averageTimeParkedLabel.setFont(new Font("Monospaced", Font.BOLD, 18 ));
 
         gbc.gridx = -1;
         gbc.gridy = 0;
@@ -139,12 +144,14 @@ public class SimulationUserInputGUI extends JFrame {
         slidersPanel.add(parkTimeValue, gbc);
 
         saveGarageButton = createButton("Save Garage", gbc);
+        saveGarageButton.setBackground(Color.green);
 
         gbc.gridx = 0;
         gbc.gridy = 11;
         slidersPanel.add(saveGarageButton, gbc);
 
         JLabel simulationDurationLabel = new JLabel("Simulation Duration (minutes):");
+        simulationDurationLabel.setFont(new Font("Monospaced", Font.BOLD, 18 ));
 
         gbc.gridx = 0;
         gbc.gridy = 12;
@@ -152,6 +159,7 @@ public class SimulationUserInputGUI extends JFrame {
 
         durationSlider = createSlider(1, 720, 1, gbc);
         durationValue = createLabelGBC("1", gbc);
+        //durationValue.setBackground(Color.lightGray);
 
         gbc.gridx = 0;
         gbc.gridy = 13;
@@ -162,6 +170,7 @@ public class SimulationUserInputGUI extends JFrame {
         slidersPanel.add(durationValue, gbc);
 
         startSimulationButton = createButton("Start Simulation", gbc);
+        startSimulationButton.setBackground(Color.ORANGE);
 
         gbc.gridx = 0;
         gbc.gridy = 14;
