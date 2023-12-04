@@ -33,6 +33,18 @@ public class SimulationUserInputGUI extends JFrame {
 
         setLayout(new BorderLayout());
 
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 10.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
+
+        setContentPane(backgroundPanel);
+        backgroundPanel.setLayout(new BorderLayout());
+
         // Create header panel
         JPanel headingPanel = PDMPanels.createHeader("PDM");
         add(headingPanel, BorderLayout.NORTH);
@@ -54,13 +66,16 @@ public class SimulationUserInputGUI extends JFrame {
         topPanel.setPreferredSize(new Dimension(2000, 1000));
 
         JLabel selectGarageLabel = createLabel("Select Garage:");
+        selectGarageLabel.setOpaque(false);
 
         selectGarageLabel.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
         topPanel.add(selectGarageLabel, BorderLayout.NORTH);
+        topPanel.setOpaque(false);
 
         // Initialize the garageSelectorComboBox
         garageSelectorComboBox = new JComboBox<String>();
+        garageSelectorComboBox.setOpaque(false);
 
         garageSelectorComboBox.setBorder(BorderFactory.createEmptyBorder(75, 0, 0, 0));
 
@@ -72,7 +87,10 @@ public class SimulationUserInputGUI extends JFrame {
         // Add combo box to the top of the center panel
         topPanel.add(garageSelectorComboBox, BorderLayout.NORTH);
 
+        backgroundPanel.add(topPanel, BorderLayout.NORTH);
+
         JPanel slidersPanel = new JPanel();
+        slidersPanel.setOpaque(false);
 
         topPanel.add(slidersPanel, BorderLayout.NORTH);
         slidersPanel.setPreferredSize(new Dimension(2000, 200));
@@ -153,6 +171,12 @@ public class SimulationUserInputGUI extends JFrame {
         addSliderChangeListener(timeToParkSlider, timeToParkValue);
         addSliderChangeListener(parkTimeSlider, parkTimeValue);
         addSliderChangeListener(durationSlider, durationValue);
+
+        vehiclesSlider.setOpaque(false);
+        timeToParkSlider.setOpaque(false);
+        parkTimeSlider.setOpaque(false);
+        durationSlider.setOpaque(false);
+
 
         saveGarageButton.addActionListener(new ActionListener() {
             @Override
