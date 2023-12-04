@@ -55,6 +55,7 @@ public class vehicleRateGUI {
         JLabel selectorLabel = new JLabel("Garage:");
         selectorLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         garageSelectorComboBox.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        garageSelectorComboBox.setOpaque(false);
 
         // Add items to the combo box
         for (Garage garage : garages) {
