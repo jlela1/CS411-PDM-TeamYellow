@@ -50,6 +50,18 @@ public class SimulationGUI extends JFrame {
 
         setLayout(new BorderLayout());
 
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 1.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
+
+        setContentPane(backgroundPanel);
+        backgroundPanel.setLayout(new BorderLayout());
+
         // Create header panel
         JPanel headingPanel = PDMPanels.createHeader("PDM");
         add(headingPanel, BorderLayout.NORTH);
@@ -61,6 +73,8 @@ public class SimulationGUI extends JFrame {
         headingPanel.add(Box.createRigidArea(new Dimension(0, 10)));
         headingPanel.add(simulationLabel);
 
+        backgroundPanel.add(headingPanel, BorderLayout.NORTH);
+
         JPanel footerPanel = PDMPanels.createFooter();
         add(footerPanel, BorderLayout.SOUTH);
 
@@ -70,6 +84,8 @@ public class SimulationGUI extends JFrame {
         add(centerPanel, BorderLayout.CENTER);
         centerPanel.setPreferredSize(new Dimension(2000, 1000));
 
+        centerPanel.setOpaque(false);
+
         // Create a panel for the time label to be placed at the top of the center panel
         JPanel timePanel = new JPanel();
         timePanel.setPreferredSize(new Dimension(1500, 50));
@@ -77,11 +93,14 @@ public class SimulationGUI extends JFrame {
         // Create time label
         int time = 420;
         timeLabel = createLabel("Time: " + convertMinutesToAMPM(time));
+        timeLabel.setOpaque(false);
         timePanel.add(timeLabel, BorderLayout.CENTER);
+        timePanel.setOpaque(false);
 
         // Create a panel for the notification label to be placed under the time label in the center panel
         JPanel notificationPanel = new JPanel();
         notificationPanel.setPreferredSize(new Dimension(1500, 100));
+        notificationPanel.setOpaque(false);
 
         // Create notification label
         notificationLabel = new JLabel("Notification:", SwingConstants.CENTER);
@@ -93,16 +112,19 @@ public class SimulationGUI extends JFrame {
         notificationLabel.setPreferredSize(new Dimension(1000, 50));
         notificationPanel.add(notificationLabel, BorderLayout.CENTER);
 
+
         // Create garages panel
         JPanel garagesPanel = new JPanel();
         garagesPanel.setPreferredSize(new Dimension(1800, 900));
         garagesPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+        garagesPanel.setOpaque(false);
 
         centerPanel.add(timePanel, BorderLayout.NORTH);
         centerPanel.add(notificationPanel, BorderLayout.CENTER);
         centerPanel.add(garagesPanel, BorderLayout.SOUTH);
 
         ImageIcon garageImage = new ImageIcon("resources/garage_clipart.png");
+
 
         switch (garages.size()) //create labels based on num of garages (up to 5)
         {
@@ -117,6 +139,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -136,6 +159,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -151,6 +175,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -170,6 +195,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -185,6 +211,7 @@ public class SimulationGUI extends JFrame {
                 garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -200,6 +227,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage3ImageLabel = new JLabel();
                 garage3ImageLabel.setIcon(garageImage);
                 garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3ImageLabel.setOpaque(false);
                 garage3CapacityLabel = createLabel(garages.get(2).getName());
                 garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
                 garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
@@ -219,6 +247,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -234,6 +263,7 @@ public class SimulationGUI extends JFrame {
                 garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -249,6 +279,7 @@ public class SimulationGUI extends JFrame {
                 garage3ImageLabel = new JLabel();
                 garage3ImageLabel.setIcon(garageImage);
                 garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3ImageLabel.setOpaque(false);
                 garage3CapacityLabel = createLabel(garages.get(2).getName());
                 garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
                 garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
@@ -264,6 +295,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage4ImageLabel = new JLabel();
                 garage4ImageLabel.setIcon(garageImage);
                 garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4ImageLabel.setOpaque(false);
                 garage4CapacityLabel = createLabel(garages.get(3).getName());
                 garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
                 garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
@@ -283,6 +315,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -298,6 +331,7 @@ public class SimulationGUI extends JFrame {
                 garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -313,6 +347,7 @@ public class SimulationGUI extends JFrame {
                 garage3ImageLabel = new JLabel();
                 garage3ImageLabel.setIcon(garageImage);
                 garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3ImageLabel.setOpaque(false);
                 garage3CapacityLabel = createLabel(garages.get(2).getName());
                 garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
                 garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
@@ -328,6 +363,7 @@ public class SimulationGUI extends JFrame {
                 garage4ImageLabel = new JLabel();
                 garage4ImageLabel.setIcon(garageImage);
                 garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4ImageLabel.setOpaque(false);
                 garage4CapacityLabel = createLabel(garages.get(3).getName());
                 garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
                 garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
@@ -343,6 +379,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage5ImageLabel = new JLabel();
                 garage5ImageLabel.setIcon(garageImage);
                 garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5ImageLabel.setOpaque(false);
                 garage5CapacityLabel = createLabel(garages.get(4).getName());
                 garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
                 garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
@@ -362,6 +399,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -377,6 +415,7 @@ public class SimulationGUI extends JFrame {
                 garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -392,6 +431,7 @@ public class SimulationGUI extends JFrame {
                 garage3ImageLabel = new JLabel();
                 garage3ImageLabel.setIcon(garageImage);
                 garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3ImageLabel.setOpaque(false);
                 garage3CapacityLabel = createLabel(garages.get(2).getName());
                 garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
                 garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
@@ -407,6 +447,7 @@ public class SimulationGUI extends JFrame {
                 garage4ImageLabel = new JLabel();
                 garage4ImageLabel.setIcon(garageImage);
                 garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4ImageLabel.setOpaque(false);
                 garage4CapacityLabel = createLabel(garages.get(3).getName());
                 garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
                 garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
@@ -422,6 +463,7 @@ public class SimulationGUI extends JFrame {
                 garage5ImageLabel = new JLabel();
                 garage5ImageLabel.setIcon(garageImage);
                 garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5ImageLabel.setOpaque(false);
                 garage5CapacityLabel = createLabel(garages.get(4).getName());
                 garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
                 garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
@@ -437,6 +479,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage6ImageLabel = new JLabel();
                 garage6ImageLabel.setIcon(garageImage);
                 garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6ImageLabel.setOpaque(false);
                 garage6CapacityLabel = createLabel(garages.get(5).getName());
                 garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
                 garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
@@ -456,6 +499,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -471,6 +515,7 @@ public class SimulationGUI extends JFrame {
                 garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -486,6 +531,7 @@ public class SimulationGUI extends JFrame {
                 garage3ImageLabel = new JLabel();
                 garage3ImageLabel.setIcon(garageImage);
                 garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3ImageLabel.setOpaque(false);
                 garage3CapacityLabel = createLabel(garages.get(2).getName());
                 garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
                 garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
@@ -501,6 +547,7 @@ public class SimulationGUI extends JFrame {
                 garage4ImageLabel = new JLabel();
                 garage4ImageLabel.setIcon(garageImage);
                 garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4ImageLabel.setOpaque(false);
                 garage4CapacityLabel = createLabel(garages.get(3).getName());
                 garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
                 garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
@@ -516,6 +563,7 @@ public class SimulationGUI extends JFrame {
                 garage5ImageLabel = new JLabel();
                 garage5ImageLabel.setIcon(garageImage);
                 garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5ImageLabel.setOpaque(false);
                 garage5CapacityLabel = createLabel(garages.get(4).getName());
                 garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
                 garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
@@ -531,6 +579,7 @@ public class SimulationGUI extends JFrame {
                 garage6ImageLabel = new JLabel();
                 garage6ImageLabel.setIcon(garageImage);
                 garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6ImageLabel.setOpaque(false);
                 garage6CapacityLabel = createLabel(garages.get(5).getName());
                 garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
                 garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
@@ -546,6 +595,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage7ImageLabel = new JLabel();
                 garage7ImageLabel.setIcon(garageImage);
                 garage7ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage7ImageLabel.setOpaque(false);
                 garage7CapacityLabel = createLabel(garages.get(6).getName());
                 garage7Panel.add(garage7CapacityLabel, BorderLayout.NORTH);
                 garage7Panel.add(garage7ImageLabel, BorderLayout.CENTER);
@@ -565,6 +615,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -580,6 +631,7 @@ public class SimulationGUI extends JFrame {
                 garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -595,6 +647,7 @@ public class SimulationGUI extends JFrame {
                 garage3ImageLabel = new JLabel();
                 garage3ImageLabel.setIcon(garageImage);
                 garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3ImageLabel.setOpaque(false);
                 garage3CapacityLabel = createLabel(garages.get(2).getName());
                 garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
                 garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
@@ -610,6 +663,7 @@ public class SimulationGUI extends JFrame {
                 garage4ImageLabel = new JLabel();
                 garage4ImageLabel.setIcon(garageImage);
                 garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4ImageLabel.setOpaque(false);
                 garage4CapacityLabel = createLabel(garages.get(3).getName());
                 garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
                 garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
@@ -625,6 +679,7 @@ public class SimulationGUI extends JFrame {
                 garage5ImageLabel = new JLabel();
                 garage5ImageLabel.setIcon(garageImage);
                 garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5ImageLabel.setOpaque(false);
                 garage5CapacityLabel = createLabel(garages.get(4).getName());
                 garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
                 garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
@@ -640,6 +695,7 @@ public class SimulationGUI extends JFrame {
                 garage6ImageLabel = new JLabel();
                 garage6ImageLabel.setIcon(garageImage);
                 garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6ImageLabel.setOpaque(false);
                 garage6CapacityLabel = createLabel(garages.get(5).getName());
                 garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
                 garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
@@ -655,6 +711,7 @@ public class SimulationGUI extends JFrame {
                 garage7ImageLabel = new JLabel();
                 garage7ImageLabel.setIcon(garageImage);
                 garage7ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage7ImageLabel.setOpaque(false);
                 garage7CapacityLabel = createLabel(garages.get(6).getName());
                 garage7Panel.add(garage7CapacityLabel, BorderLayout.NORTH);
                 garage7Panel.add(garage7ImageLabel, BorderLayout.CENTER);
@@ -670,6 +727,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage8ImageLabel = new JLabel();
                 garage8ImageLabel.setIcon(garageImage);
                 garage8ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage8ImageLabel.setOpaque(false);
                 garage8CapacityLabel = createLabel(garages.get(7).getName());
                 garage8Panel.add(garage8CapacityLabel, BorderLayout.NORTH);
                 garage8Panel.add(garage8ImageLabel, BorderLayout.CENTER);
@@ -689,6 +747,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -704,6 +763,7 @@ public class SimulationGUI extends JFrame {
                 garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -719,6 +779,7 @@ public class SimulationGUI extends JFrame {
                 garage3ImageLabel = new JLabel();
                 garage3ImageLabel.setIcon(garageImage);
                 garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3ImageLabel.setOpaque(false);
                 garage3CapacityLabel = createLabel(garages.get(2).getName());
                 garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
                 garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
@@ -734,6 +795,7 @@ public class SimulationGUI extends JFrame {
                 garage4ImageLabel = new JLabel();
                 garage4ImageLabel.setIcon(garageImage);
                 garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4ImageLabel.setOpaque(false);
                 garage4CapacityLabel = createLabel(garages.get(3).getName());
                 garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
                 garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
@@ -749,6 +811,7 @@ public class SimulationGUI extends JFrame {
                 garage5ImageLabel = new JLabel();
                 garage5ImageLabel.setIcon(garageImage);
                 garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5ImageLabel.setOpaque(false);
                 garage5CapacityLabel = createLabel(garages.get(4).getName());
                 garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
                 garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
@@ -764,6 +827,7 @@ public class SimulationGUI extends JFrame {
                 garage6ImageLabel = new JLabel();
                 garage6ImageLabel.setIcon(garageImage);
                 garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6ImageLabel.setOpaque(false);
                 garage6CapacityLabel = createLabel(garages.get(5).getName());
                 garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
                 garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
@@ -779,6 +843,7 @@ public class SimulationGUI extends JFrame {
                 garage7ImageLabel = new JLabel();
                 garage7ImageLabel.setIcon(garageImage);
                 garage7ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage7ImageLabel.setOpaque(false);
                 garage7CapacityLabel = createLabel(garages.get(6).getName());
                 garage7Panel.add(garage7CapacityLabel, BorderLayout.NORTH);
                 garage7Panel.add(garage7ImageLabel, BorderLayout.CENTER);
@@ -794,6 +859,7 @@ public class SimulationGUI extends JFrame {
                 garage8ImageLabel = new JLabel();
                 garage8ImageLabel.setIcon(garageImage);
                 garage8ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage8ImageLabel.setOpaque(false);
                 garage8CapacityLabel = createLabel(garages.get(7).getName());
                 garage8Panel.add(garage8CapacityLabel, BorderLayout.NORTH);
                 garage8Panel.add(garage8ImageLabel, BorderLayout.CENTER);
@@ -809,6 +875,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage9ImageLabel = new JLabel();
                 garage9ImageLabel.setIcon(garageImage);
                 garage9ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage9ImageLabel.setOpaque(false);
                 garage9CapacityLabel = createLabel(garages.get(8).getName());
                 garage9Panel.add(garage9CapacityLabel, BorderLayout.NORTH);
                 garage9Panel.add(garage9ImageLabel, BorderLayout.CENTER);
@@ -828,6 +895,7 @@ public class SimulationGUI extends JFrame {
                 garage1ImageLabel = new JLabel();
                 garage1ImageLabel.setIcon(garageImage);
                 garage1ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage1ImageLabel.setOpaque(false);
                 garage1CapacityLabel = createLabel(garages.get(0).getName());
                 garage1Panel.add(garage1CapacityLabel, BorderLayout.NORTH);
                 garage1Panel.add(garage1ImageLabel, BorderLayout.CENTER);
@@ -843,6 +911,7 @@ public class SimulationGUI extends JFrame {
                 garage2ImageLabel = new JLabel();
                 garage2ImageLabel.setIcon(garageImage);
                 garage2ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage2ImageLabel.setOpaque(false);
                 garage2CapacityLabel = createLabel(garages.get(1).getName());
                 garage2Panel.add(garage2CapacityLabel, BorderLayout.NORTH);
                 garage2Panel.add(garage2ImageLabel, BorderLayout.CENTER);
@@ -858,6 +927,7 @@ public class SimulationGUI extends JFrame {
                 garage3ImageLabel = new JLabel();
                 garage3ImageLabel.setIcon(garageImage);
                 garage3ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage3ImageLabel.setOpaque(false);
                 garage3CapacityLabel = createLabel(garages.get(2).getName());
                 garage3Panel.add(garage3CapacityLabel, BorderLayout.NORTH);
                 garage3Panel.add(garage3ImageLabel, BorderLayout.CENTER);
@@ -873,6 +943,7 @@ public class SimulationGUI extends JFrame {
                 garage4ImageLabel = new JLabel();
                 garage4ImageLabel.setIcon(garageImage);
                 garage4ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage4ImageLabel.setOpaque(false);
                 garage4CapacityLabel = createLabel(garages.get(3).getName());
                 garage4Panel.add(garage4CapacityLabel, BorderLayout.NORTH);
                 garage4Panel.add(garage4ImageLabel, BorderLayout.CENTER);
@@ -888,6 +959,7 @@ public class SimulationGUI extends JFrame {
                 garage5ImageLabel = new JLabel();
                 garage5ImageLabel.setIcon(garageImage);
                 garage5ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage5ImageLabel.setOpaque(false);
                 garage5CapacityLabel = createLabel(garages.get(4).getName());
                 garage5Panel.add(garage5CapacityLabel, BorderLayout.NORTH);
                 garage5Panel.add(garage5ImageLabel, BorderLayout.CENTER);
@@ -903,6 +975,7 @@ public class SimulationGUI extends JFrame {
                 garage6ImageLabel = new JLabel();
                 garage6ImageLabel.setIcon(garageImage);
                 garage6ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage6ImageLabel.setOpaque(false);
                 garage6CapacityLabel = createLabel(garages.get(5).getName());
                 garage6Panel.add(garage6CapacityLabel, BorderLayout.NORTH);
                 garage6Panel.add(garage6ImageLabel, BorderLayout.CENTER);
@@ -918,6 +991,7 @@ public class SimulationGUI extends JFrame {
                 garage7ImageLabel = new JLabel();
                 garage7ImageLabel.setIcon(garageImage);
                 garage7ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage7ImageLabel.setOpaque(false);
                 garage7CapacityLabel = createLabel(garages.get(6).getName());
                 garage7Panel.add(garage7CapacityLabel, BorderLayout.NORTH);
                 garage7Panel.add(garage7ImageLabel, BorderLayout.CENTER);
@@ -933,6 +1007,7 @@ public class SimulationGUI extends JFrame {
                 garage8ImageLabel = new JLabel();
                 garage8ImageLabel.setIcon(garageImage);
                 garage8ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage8ImageLabel.setOpaque(false);
                 garage8CapacityLabel = createLabel(garages.get(7).getName());
                 garage8Panel.add(garage8CapacityLabel, BorderLayout.NORTH);
                 garage8Panel.add(garage8ImageLabel, BorderLayout.CENTER);
@@ -948,6 +1023,7 @@ public class SimulationGUI extends JFrame {
                 garage9ImageLabel = new JLabel();
                 garage9ImageLabel.setIcon(garageImage);
                 garage9ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage9ImageLabel.setOpaque(false);
                 garage9CapacityLabel = createLabel(garages.get(8).getName());
                 garage9Panel.add(garage9CapacityLabel, BorderLayout.NORTH);
                 garage9Panel.add(garage9ImageLabel, BorderLayout.CENTER);
@@ -963,6 +1039,7 @@ public class SimulationGUI extends JFrame {
                 JLabel garage10ImageLabel = new JLabel();
                 garage10ImageLabel.setIcon(garageImage);
                 garage10ImageLabel.setPreferredSize(new Dimension(274, 184));
+                garage10ImageLabel.setOpaque(false);
                 garage10CapacityLabel = createLabel(garages.get(9).getName());
                 garage10Panel.add(garage10CapacityLabel, BorderLayout.NORTH);
                 garage10Panel.add(garage10ImageLabel, BorderLayout.CENTER);
@@ -1037,6 +1114,7 @@ public class SimulationGUI extends JFrame {
         timeLabel.setText("Time: " + convertMinutesToAMPM(time));
 
         notificationLabel.setText(notification);
+        notificationLabel.setOpaque(false);
 
         switch (garages.size()) //create labels based on num of garages (up to 5)
         {
