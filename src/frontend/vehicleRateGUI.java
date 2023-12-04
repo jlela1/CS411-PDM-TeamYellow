@@ -30,7 +30,7 @@ public class vehicleRateGUI {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon backgroundImage = new ImageIcon ("resources/Background 11.png");
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 10.png");
                 g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
             }
         };
