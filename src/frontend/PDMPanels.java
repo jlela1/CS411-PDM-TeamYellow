@@ -91,7 +91,7 @@ public class PDMPanels {
 
     public static void styleButton(JButton button) {
         button.setFont(new Font("Monospaced", Font.BOLD, 14));
-        button.setBackground(new Color(98, 139, 145, 250));
+        button.setBackground(new Color(180, 209, 215, 250));
         button.setForeground(Color.BLACK);
     }
 }

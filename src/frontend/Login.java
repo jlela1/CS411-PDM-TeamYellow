@@ -66,13 +66,13 @@ public class Login extends JFrame implements ActionListener {
         setPlaceholder(textField2, "Password");
 
         b1 = new JButton("Login");
-        b1.setFont(new Font("Monospaced", Font.BOLD, 16));
+       PDMPanels.styleButton((b1));
 
         b2 = new JButton("Register");
-        b2.setFont(new Font("Monospaced", Font.BOLD, 16));
+        PDMPanels.styleButton((b2));
 
         b3 = new JButton("Continue as Guest");
-        b3.setFont(new Font("Monospaced", Font.BOLD, 16));
+        PDMPanels.styleButton((b3));
 
         newPanel = new JPanel(new BorderLayout());
         newPanel.setOpaque(false);
