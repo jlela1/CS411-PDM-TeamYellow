@@ -102,8 +102,8 @@ public class GuestDashboard extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                googleMapsGUI map = new googleMapsGUI();
-                map.setVisible(true);
+                googleMapsGuestGUI map = new googleMapsGuestGUI();
+                //map.setVisible(true);
             }
         });
 
