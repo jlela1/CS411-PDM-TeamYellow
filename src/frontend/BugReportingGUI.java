@@ -61,77 +61,85 @@ public class BugReportingGUI extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
+        JLabel categoryLabel = new JLabel("Bug Category: ");
+        categoryLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
+        categoryLabel.setForeground(Color.white);
+        formPanel.add(categoryLabel, gbc);
+
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        bugCategoryComboBox = new JComboBox<>(new String[]{"App functionality", "Payment processing", "Sign up / Login"});
+        bugCategoryComboBox.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        bugCategoryComboBox.setPreferredSize(new Dimension(400, 30));
+        formPanel.add(bugCategoryComboBox, gbc);
+
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         JLabel descriptionLabel = new JLabel("Bug Description:");
         descriptionLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
         descriptionLabel.setForeground(Color.white);
         formPanel.add(descriptionLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         bugDescriptionField = new JTextField(15);
         bugDescriptionField.setFont(new Font("Monospaced", Font.PLAIN, 16));
         bugDescriptionField.setColumns(30);
         bugDescriptionField.setPreferredSize(new Dimension(bugDescriptionField.getPreferredSize().width, 60));
         formPanel.add(bugDescriptionField, gbc);
 
+
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         JLabel occurrenceLabel = new JLabel("Date and Time of Occurrence:");
         occurrenceLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
         occurrenceLabel.setForeground(Color.white);
         formPanel.add(occurrenceLabel, gbc);
 
+
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         occurrenceField = new JTextField(15);
         occurrenceField.setFont(new Font("Monospaced", Font.PLAIN, 16));
         occurrenceField.setColumns(30);
         occurrenceField.setPreferredSize(new Dimension(occurrenceField.getPreferredSize().width, 60));
         formPanel.add(occurrenceField, gbc);
 
+
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         JLabel locationLabel = new JLabel("Location:");
         locationLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
         locationLabel.setForeground(Color.white);
         formPanel.add(locationLabel, gbc);
 
-        gbc.gridx = 1;
-        gbc.gridy = 2;
+
+        gbc.gridx=1;
+        gbc.gridy=3;
         locationField = new JTextField(15);
         locationField.setFont(new Font ("Monospaced", Font.PLAIN, 16));
         locationField.setColumns(30);
         locationField.setPreferredSize(new Dimension(locationField.getPreferredSize().width, 60));
         formPanel.add(locationField, gbc);
 
+
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         JLabel attachmentLabel = new JLabel("Please add any attachments (Optional):");
         attachmentLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
         attachmentLabel.setForeground(Color.white);
         formPanel.add(attachmentLabel, gbc);
 
         gbc.gridx=1;
-        gbc.gridy=3;
+        gbc.gridy=4;
         attachmentField = new JTextArea();
         attachmentField.setFont(new Font ("Monospaced", Font.PLAIN, 16));
         attachmentField.setColumns(30);
         attachmentField.setRows(5);
         formPanel.add(attachmentField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        JLabel categoryLabel = new JLabel("Bug Category: ");
-        categoryLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
-        categoryLabel.setForeground(Color.white);
-        formPanel.add(categoryLabel, gbc);
-
-        gbc.gridx=1;
-        gbc.gridy=4;
-        bugCategoryComboBox = new JComboBox<>(new String[]{"App functionality", "Payment processing", "Sign up / Login"});
-        bugCategoryComboBox.setFont(new Font("Monospaced", Font.PLAIN, 16));
-        bugCategoryComboBox.setPreferredSize(new Dimension(400, 30));
-        formPanel.add(bugCategoryComboBox, gbc);
 
 
         gbc.gridx = 2;
@@ -144,7 +152,7 @@ public class BugReportingGUI extends JFrame {
         gbc.gridx = 2;
         gbc.gridy = 3;
 
-        JButton homeButton = new JButton ("User Dashboard");
+        JButton homeButton = new JButton ("Home");
         submitButton.setBounds(15, 60, 80, 30);
         submitButton.setBackground(Color.CYAN);
         formPanel.add(homeButton, gbc);
