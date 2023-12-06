@@ -5,6 +5,8 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -61,22 +63,36 @@ public class UserAnalysisGUI extends JFrame {
         updateStatistics();
 
         setVisible(true);
+
+        JButton homeButton = new JButton("Home");
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AdminHomePage adminHomePage = new AdminHomePage();
+                adminHomePage.setVisible(true);
+
+                dispose();
+            }
+        });
+
+        panel.add(homeButton, gbc);
+
     }
 
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         label.setHorizontalAlignment(JLabel.CENTER);
         label.setFont(new Font("Arial", Font.BOLD, 16));
-      //  label.setForeground(new Color(50, 50, 50));
+        //  label.setForeground(new Color(50, 50, 50));
         label.setOpaque(true);
-      //  label.setBackground(new Color(220, 220, 220));
+        //  label.setBackground(new Color(220, 220, 220));
         label.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         return label;
     }
 
     private JSeparator createSeparator() {
         JSeparator separator = new JSeparator(JSeparator.HORIZONTAL);
-      //  separator.setForeground(new Color(150, 150, 150));
+        //  separator.setForeground(new Color(150, 150, 150));
         return separator;
     }
 
