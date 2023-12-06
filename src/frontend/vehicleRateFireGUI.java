@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class vehicleRateFireGUI {
+public class vehicleRateFireGUI extends JFrame{
     private JFrame mainFrame;
     private JTextField timeField;
     private JTextField rateField;
@@ -51,7 +51,7 @@ public class vehicleRateFireGUI {
         JPanel inputPanel = new JPanel();
         inputPanel.setOpaque(false);
         inputPanel.setLayout(new GridLayout(8, 1, 10, 10));
-        inputPanel.setBorder(BorderFactory.createEmptyBorder(100, 150, 100, 300));
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(100, 300, 100, 150));
 
 
         garageSelectorComboBox = new JComboBox<String>();
@@ -132,30 +132,64 @@ public class vehicleRateFireGUI {
         inputPanel.add(endTimeField);
 
 
-        JPanel buttonPanel = new JPanel();
+        JPanel buttonPanel =  new JPanel();
         buttonPanel.setOpaque(false);
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 70 ));
-
+        GridBagConstraints gbcPanel1 = new GridBagConstraints();
+        gbcPanel1.gridx = 0;
+        gbcPanel1.gridy = 1;
+        gbcPanel1.weighty =0;
+        gbcPanel1.fill = GridBagConstraints.BOTH;
+        GridBagConstraints gbcPanel2 = new GridBagConstraints();
+        gbcPanel2.gridx = 0;
+        gbcPanel2.gridy = 2;
+        gbcPanel2.weighty =0;
+        gbcPanel2.fill = GridBagConstraints.BOTH;
+        GridBagConstraints gbcPanel3 = new GridBagConstraints();
+        gbcPanel3.gridx = 0;
+        gbcPanel3.gridy = 3;
+        gbcPanel3.weighty =1;
+        gbcPanel3.fill = GridBagConstraints.BOTH;
+        GridBagConstraints gbcPanel4 = new GridBagConstraints();
+        gbcPanel4.gridx = 0;
+        gbcPanel4.gridy = 4;
+        gbcPanel4.weighty =0;
+        gbcPanel4.fill = GridBagConstraints.BOTH;
+        buttonPanel.setLayout(new BoxLayout(buttonPanel,BoxLayout.Y_AXIS));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(350, 250, 10, 10));
+        buttonPanel.add(Box.createHorizontalGlue());
+        Dimension maxButtonSize = new Dimension(250, 60);
         JButton saveButton = new JButton("Save");
         saveButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
         saveButton.setBackground(Color.YELLOW);
+        saveButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        saveButton.setMaximumSize(maxButtonSize);
 
         JButton deleteButton = new JButton("Delete");
         deleteButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
         deleteButton.setBackground(Color.red);
+        deleteButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 20));
+        deleteButton.setMaximumSize(maxButtonSize);
 
         JButton viewButton = new JButton("View Garages");
         viewButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
         viewButton.setBackground(Color.PINK);
+        viewButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        viewButton.setMaximumSize(maxButtonSize);
 
         buttonPanel.add(saveButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0,10)));
         buttonPanel.add(deleteButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0,10)));
         buttonPanel.add(viewButton);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0,10)));
 
         doneButton = new JButton("Done");
         doneButton.setFont(new Font("Monospaced", Font.PLAIN, 16));
         doneButton.setBackground(Color.green);
+        doneButton.setBorder(BorderFactory.createEmptyBorder(40, 10, 40, 10));
         buttonPanel.add(doneButton); // Add the Done button
+        buttonPanel.add(Box.createRigidArea(new Dimension(0,10)));
+        doneButton.setMaximumSize(maxButtonSize);
 
         JPanel listPanel = new JPanel();
         listPanel.setOpaque(false);
@@ -416,7 +450,15 @@ public class vehicleRateFireGUI {
         garages.add(2, garage3);
         garages.add(3, garage4);
 
-        vehicleRateFireGUI newGUI = new vehicleRateFireGUI(garages, 1);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                vehicleRateFireGUI newGUI = new vehicleRateFireGUI(garages, 1);
+                newGUI.setVisible(true);
+            }
+        });
+
+        //vehicleRateFireGUI newGUI = new vehicleRateFireGUI(garages, 1);
 
     }
 }
