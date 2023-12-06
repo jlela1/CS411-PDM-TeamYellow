@@ -38,7 +38,7 @@ public class AdminHomePage extends JFrame{
         JPanel header = PDMPanels.createHeader("PDM Business Dashboard");
         headerPanel.add(header, BorderLayout.NORTH);
 
-        JLabel welcomeLabel = new JLabel("                                  Welcome to the Parking Demand Management Dashboard!");
+        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Dashboard!");
         welcomeLabel.setForeground(Color.white);
         welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -71,6 +71,15 @@ public class AdminHomePage extends JFrame{
         businessFeedbackButton.setFocusPainted(false);
         businessFeedbackButton.setPreferredSize(new Dimension(250, 50));
         businessFeedbackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JButton userAnalysisButton = new JButton("User Analysis");
+        userAnalysisButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+        userAnalysisButton.setForeground(Color.BLACK);
+        userAnalysisButton.setBackground(new Color(255, 165, 0)); // Orange color
+        userAnalysisButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        userAnalysisButton.setFocusPainted(false);
+        userAnalysisButton.setPreferredSize(new Dimension(250, 50));
+        userAnalysisButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton logOutB= new JButton("Logout");
         logOutB.setFont(new Font("Monospaced", Font.BOLD, 16));
@@ -113,6 +122,7 @@ public class AdminHomePage extends JFrame{
 
         contentPanel.add(createSimulationButton);
         contentPanel.add(businessFeedbackButton);
+        contentPanel.add(userAnalysisButton);
         contentPanel.add(logOutB);
 
 
