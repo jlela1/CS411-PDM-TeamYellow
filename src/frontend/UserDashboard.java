@@ -42,7 +42,7 @@ public class UserDashboard extends JFrame{
         JPanel header = PDMPanels.createUserHeader("PDM User Dashboard");
         headerPanel.add(header, BorderLayout.NORTH);
 
-        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management User Dashboard!");
+        JLabel welcomeLabel = new JLabel("                                  Welcome to the Parking Demand Management User Dashboard!");
         welcomeLabel.setForeground(Color.white);
         welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
