@@ -354,6 +354,7 @@ public class vehicleRateFireGUI extends JFrame{
         mainFrame.pack();
         mainFrame.setVisible(true);
         mainFrame.setLocationRelativeTo(null);
+        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     private void updateGarageList(Garage garage) {
