@@ -38,7 +38,7 @@ public class AdminHomePage extends JFrame{
         JPanel header = PDMPanels.createHeader("PDM Business Dashboard");
         headerPanel.add(header, BorderLayout.NORTH);
 
-        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Dashboard!");
+        JLabel welcomeLabel = new JLabel("                                  Welcome to the Parking Demand Management Dashboard!");
         welcomeLabel.setForeground(Color.white);
         welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
