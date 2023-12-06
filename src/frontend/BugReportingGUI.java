@@ -140,12 +140,29 @@ public class BugReportingGUI extends JFrame {
         submitButton.setBounds(15, 80, 80, 30);
         submitButton.setBackground(Color.CYAN);
         formPanel.add(submitButton, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+
+        JButton homeButton = new JButton ("User Dashboard");
+        submitButton.setBounds(15, 60, 80, 30);
+        submitButton.setBackground(Color.CYAN);
+        formPanel.add(homeButton, gbc);
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 submitBugReport();
             }
         });
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Close the current window
+                UserDashboard userDashboard = new UserDashboard();
+                userDashboard.setVisible(true);
+            }
+        });
+
 
         mainPanel.add(formPanel, BorderLayout.CENTER);
 
@@ -153,6 +170,7 @@ public class BugReportingGUI extends JFrame {
         setVisible(true);
 
     }
+
     private void submitBugReport() {
         // Perform validation and submission logic here
         String bugDescription = bugDescriptionField.getText();
