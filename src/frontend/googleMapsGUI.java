@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class googleMapsGUI  {
+public class googleMapsGUI extends JFrame {
     private JFrame mainFrame;
     private JTextField recommendedGarageField;
     private JTextField timeOfArrivalField;
@@ -362,7 +362,7 @@ public class googleMapsGUI  {
             @Override
             public void run() {
                 googleMapsGUI page1 = new googleMapsGUI();
-                //page1.setVisible(true);
+                page1.setVisible(true);
             }
         });
     }

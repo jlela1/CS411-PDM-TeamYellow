@@ -109,8 +109,8 @@ public class UserDashboard extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Create an instance of googleMapsGUI and make it visible
-//                googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
-//                GoogleMapsGUI.setVisible(true);
+                googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
+             GoogleMapsGUI.setVisible(true);
             }
         });
 
