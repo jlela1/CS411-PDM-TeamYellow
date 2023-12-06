@@ -20,7 +20,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class googleMapsGUI extends JFrame {
+public class googleMapsGUI  {
+    private JFrame mainFrame;
     private JTextField recommendedGarageField;
     private JTextField timeOfArrivalField;
     private JTextField estimatedOccupancyField;
@@ -28,26 +29,75 @@ public class googleMapsGUI extends JFrame {
 
     public googleMapsGUI() {
         // Frame setup
+
+        mainFrame = new JFrame("Simulation Page-1");
+        mainFrame.setLayout(new BorderLayout());
+        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setPreferredSize(new Dimension(1500, 1000));
+        mainFrame.getContentPane().setBackground(new Color(255, 255, 255));
+
+        JPanel backgroundPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 10.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
+
+        backgroundPanel.setLayout(new BorderLayout());
+        //mainFrame.setContentPane(backgroundPanel);
+
+        /*
         setTitle("Simulation Page-1");
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Maximize the frame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout());*/
 
         //Header Panel
         JPanel headerPanel = PDMPanels.createUserHeader("Recommended Garage");
         //headerPanel.setPreferredSize(new Dimension(900, 60));
-        add(headerPanel, BorderLayout.NORTH);
+        mainFrame.add(headerPanel, BorderLayout.NORTH);
 
         // Content Panel
-        JPanel contentPanel = new JPanel();
+        JPanel contentPanel = new JPanel(new FlowLayout());
+        contentPanel.setOpaque(false);
+        //contentPanel.setLayout(new GridLayout(1, 10, 10, 5));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 150, 100, 150));
+        contentPanel.setBackground(Color.CYAN);
+
+
+
+
+
         final JFXPanel fxPanel = new JFXPanel();
-        this.add(fxPanel);
 
         JPanel panel = new JPanel();
-        fxPanel.setLayout(null);
-        fxPanel.setBounds(350, 200, 1200,700);
-        this.add(panel);
+        JPanel mainPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcPanel1 = new GridBagConstraints();
+        gbcPanel1.gridx = 0;
+        gbcPanel1.gridy = 0;
+        gbcPanel1.weighty =0;
+        gbcPanel1.fill = GridBagConstraints.BOTH;
+        GridBagConstraints gbcPanel2 = new GridBagConstraints();
+        gbcPanel2.gridx = 0;
+        gbcPanel2.gridy = 1;
+        gbcPanel2.weighty =20;
+        gbcPanel2.fill = GridBagConstraints.BOTH;
+        fxPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 5, 10));
+
+       // mainPanel.add(contentPanel, gbcPanel1);
+        //mainPanel.add(fxPanel, gbcPanel2);
+        //mainFrame.add(mainPanel,BorderLayout.CENTER);
+        //fxPanel.setLayout(null);
+        //fxPanel.setBounds(350, 200, 1200,700);
+        mainPanel.add(contentPanel, gbcPanel1);
+        mainPanel.add(fxPanel, gbcPanel2);
+        mainFrame.getContentPane().add(mainPanel,BorderLayout.CENTER);
+        //mainFrame.add(panel);
+        //mainFrame.add(fxPanel);
 
 
 
@@ -64,6 +114,7 @@ public class googleMapsGUI extends JFrame {
         recommendedGarageLabel.setFont(new Font("Monospaced",Font.ITALIC,16));
         contentPanel.add(recommendedGarageLabel);
 //        contentPanel.add(recommendedGarageField);
+        //contentPanel.add(fxPanel);
 
         //create garage data
         ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<ArrayList<trendsGarage>>();
@@ -102,7 +153,10 @@ public class googleMapsGUI extends JFrame {
         contentPanel.add(estimatedOccupancyLabel);
         contentPanel.add(estimatedOccupancyField);
 
-        add(contentPanel, BorderLayout.CENTER);
+        //mainFrame.add(contentPanel, BorderLayout.CENTER);
+        mainFrame.pack();
+        mainFrame.setVisible(true);
+        mainFrame.setLocationRelativeTo(null);
 
         //Home Button
         homeButton =  new JButton("Home");
@@ -111,7 +165,7 @@ public class googleMapsGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Navigate to UserDashboard
-                dispose(); // Close the current window
+                mainFrame.dispose(); // Close the current window
                 UserDashboard userDashboard = new UserDashboard();
                 userDashboard.setVisible(true);
             }
@@ -140,6 +194,7 @@ public class googleMapsGUI extends JFrame {
         getRecommendationButton.setPreferredSize(new Dimension(250, 50));
         getRecommendationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(getRecommendationButton);
+
 
         getRecommendationButton.addActionListener(new ActionListener() {
             @Override
@@ -303,10 +358,13 @@ public class googleMapsGUI extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            googleMapsGUI page1 = new googleMapsGUI();
-            page1.setVisible(true);
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                googleMapsGUI page1 = new googleMapsGUI();
+                //page1.setVisible(true);
+            }
         });
     }
 }
+    //googleMapsGUI page1 = new googleMapsGUI();
