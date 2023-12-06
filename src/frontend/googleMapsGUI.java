@@ -161,6 +161,11 @@ public class googleMapsGUI extends JFrame {
         //Home Button
         homeButton =  new JButton("Home");
         homeButton.setFont(new Font("Monospaced", Font.BOLD, 18));
+        homeButton.setForeground(Color.BLACK);
+        homeButton.setBackground(new Color(178, 225, 153, 250));
+        homeButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        homeButton.setFocusPainted(false);
+        homeButton.setPreferredSize(new Dimension(250, 50));
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -171,9 +176,9 @@ public class googleMapsGUI extends JFrame {
             }
         });
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(homeButton);
+        //buttonPanel.add(homeButton);
         buttonPanel.setPreferredSize(new Dimension(70, 30));
-        contentPanel.add(homeButton, BorderLayout.SOUTH);
+        //contentPanel.add(homeButton, BorderLayout.SOUTH);
 
         JButton getDirectionsButton = new JButton("Get Directions");
         getDirectionsButton.setFont(new Font("Monospaced", Font.BOLD, 16));
@@ -194,6 +199,8 @@ public class googleMapsGUI extends JFrame {
         getRecommendationButton.setPreferredSize(new Dimension(250, 50));
         getRecommendationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(getRecommendationButton);
+        contentPanel.add(homeButton, BorderLayout.SOUTH);
+        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
 
         getRecommendationButton.addActionListener(new ActionListener() {
