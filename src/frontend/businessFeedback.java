@@ -1,6 +1,7 @@
 package frontend;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
 import backend.database.Garage;
@@ -36,7 +37,8 @@ public class businessFeedback extends JFrame implements  ActionListener{
     private String columnNames[] = {"First Name","Last Name", "Rating", "Comments"};
 
     private int numGar;
-    private Object[][] feedbackData = {{"null","null","null","null"}};
+    private String[][] feedbackData = {{"","","",""}};
+    DefaultTableModel tableModel = new DefaultTableModel(columnNames,0);
 
     static String garageFeedback = "Average Feedback";
     createGraph feedbackGraph;
@@ -115,7 +117,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
 
 
 
-     feedbackDisplay= new JTable(feedbackData,columnNames)
+     feedbackDisplay= new JTable(tableModel)
      {
          public boolean editCellAt(int row, int column, java.util.EventObject e)
          {
@@ -272,10 +274,6 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
             this.repaint();
 
             //JTable
-            feedbackData = new Object[][]
-                    {
-                            {"","","",""}
-                    };
 
 
 
@@ -283,23 +281,26 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
 
 
 
-for(int i =0; i <feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).size();i++) {
-    feedbackData = new Object[][]{
+Object[] rows = new Object[4];
+for(int i =0; i <feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).size();i++)
+{
 
-            {
-                    String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserFirstName()),
-                    String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserLastName()),
 
-                    String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRating()),
-                    String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getHappy())
-            }
 
-    };
+                    rows[0]=String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserFirstName());
+    rows[1]=String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserLastName());
+
+    rows[2]=          String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRating());
+    rows[3]=           String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getHappy());
+    tableModel.addRow(rows);
+
+
+
 }
 
 
 
-            feedbackDisplay= new JTable(feedbackData,columnNames)
+            feedbackDisplay= new JTable(tableModel)
             {
                 public boolean editCellAt(int row, int column, java.util.EventObject e)
                 {
@@ -346,7 +347,7 @@ for(int i =0; i <feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate,
     {
         ArrayList<Garage> garages = new ArrayList<Garage>();
 
-        Garage garage1 = new Garage("43rd & Elkhorn Ave", 655);
+        Garage garage1 = new Garage("43rd & Bluestone",655);
         garage1.setGarageID(0);
         garage1.setAvgParkingDuration(180);
         garage1.setNumVehiclesEnteringPerMin(1); //starts at 1 car per min at 7am
@@ -385,7 +386,7 @@ for(int i =0; i <feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate,
         garage3.variableNumVehPerMin.add(4, new numVehEnteringRate(960, 3)); //change number of vehicles entering per minute at 960 min (4pm) to 3
         garage3.variableNumVehPerMin.add(5, new numVehEnteringRate(1080, 1)); //change number of vehicles entering per minute at 1080 min (6pm) to 1
 
-        Garage garage4 = new Garage("49th Street Stadium", 745);
+        Garage garage4 = new Garage("43rd & Elkhorn Ave", 745);
         garage4.setGarageID(3);
         garage4.setAvgParkingDuration(180);
         garage4.setNumVehiclesEnteringPerMin(1);
