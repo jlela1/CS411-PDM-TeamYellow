@@ -1,6 +1,7 @@
 package frontend;
 
 import backend.database.Garage;
+import backend.database.closeGarage;
 import backend.database.numVehEnteringRate;
 
 import javax.swing.*;
@@ -106,12 +107,14 @@ public class vehicleRateFireGUI {
         JLabel startTimeLabel = new JLabel("Start Time:");
         startTimeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         startTimeField.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        startTimeField.setText(Integer.toString(garages.get(0).closeGarageList.get(0).getTime()));
 
         endTimeField = new JTextField(15);
-         endTimeField.setBackground(Color.LIGHT_GRAY);
+        endTimeField.setBackground(Color.LIGHT_GRAY);
         JLabel endTimeLabel = new JLabel("End Time:");
         endTimeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
-       endTimeField.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        endTimeField.setFont(new Font("Monospaced", Font.PLAIN, 16));
+        endTimeField.setText(Integer.toString(garages.get(0).closeGarageList.get(1).getTime()));
 
         inputPanel.add(selectorLabel);
         inputPanel.add(garageSelectorComboBox);
@@ -177,20 +180,13 @@ public class vehicleRateFireGUI {
             public void actionPerformed(ActionEvent e) {
 
                 String selectedGarageString = (String) garageSelectorComboBox.getSelectedItem();
-                String selectedFireGarageString = (String) garageSelectorFireComboBox.getSelectedItem();//get garage currently selected
                 int selectedGarageIndex = -1;
-                int selectedFireGarageIndex = -1;
 
                 for(Garage garage : garages) {
                     if (selectedGarageString.equals(garage.getName())) {
                         selectedGarageIndex = garage.getGarageID();
                     }
 
-                    for (Garage fireGarage : garages) {
-                        if (selectedFireGarageString.equals(garage.getName())) {
-                            selectedFireGarageIndex = garage.getGarageID();
-                        }
-                    }
                 }
 
                 String timeText = timeField.getText().trim();
@@ -205,8 +201,6 @@ public class vehicleRateFireGUI {
 
                 int time = Integer.parseInt(timeText);
                 int rate = Integer.parseInt(rateText);
-                int startTime = Integer.parseInt(startTimeText);
-                int endTime = Integer.parseInt(endTimeText);
 
                 numVehEnteringRate newRate = new numVehEnteringRate(time, rate); //create new rate object
 
@@ -261,10 +255,42 @@ public class vehicleRateFireGUI {
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //spawn new simUserInput with garages
-                SimulationUserInputGUI simulation = new SimulationUserInputGUI(garages, presetType);
-                simulation.setVisible(true);
+                //save the fire settings
+                String selectedFireGarageString = (String) garageSelectorFireComboBox.getSelectedItem(); //get currently selected garage
+                int startFireTime = Integer.parseInt(startTimeField.getText());
+                int endFireTime = Integer.parseInt(endTimeField.getText());
+                int selectedFireGarageIndex = -1;
+
+                for (Garage garage : garages) {
+                    if(selectedFireGarageString.equals(garage.getName())) {
+                        selectedFireGarageIndex = garage.getGarageID();
+                    }
+                }
+
+                if(selectedFireGarageIndex == 0 && startFireTime == 480 && endFireTime == 720) { //if the fire settings are unchanged
+                    //spawn new simUserInput with garages
+                    SimulationUserInputGUI simulation = new SimulationUserInputGUI(garages, presetType);
+                    simulation.setVisible(true);
+                } else { //if the fire settings have been changed
+
+                    //delete old fire settings from elkhorn
+                    garages.get(0).closeGarageList.remove(1);
+                    garages.get(0).closeGarageList.remove(0);
+
+                    //add new fire settings
+                    closeGarage startCloseGarage = new closeGarage(startFireTime, true);
+                    closeGarage endCloseGarage = new closeGarage(endFireTime, false);
+
+                    garages.get(selectedFireGarageIndex).closeGarageList.add(startCloseGarage);
+                    garages.get(selectedFireGarageIndex).closeGarageList.add(endCloseGarage);
+
+                    //spawn new simUserInput with garages
+                    SimulationUserInputGUI simulation = new SimulationUserInputGUI(garages, presetType);
+                    simulation.setVisible(true);
+                }
+
             }
+
         });
         garageSelectorComboBox.addActionListener(new ActionListener() {
             @Override

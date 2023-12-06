@@ -155,7 +155,11 @@ public class GarageManager {
         doneButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vehicleRateGUI newRateGUI = new vehicleRateGUI(garages, presetType);
+                if (presetType == 2) { //if fire preset, bring up fire rate GUI
+                    vehicleRateFireGUI newFireRateGUI = new vehicleRateFireGUI(garages, presetType);
+                } else {
+                    vehicleRateGUI newRateGUI = new vehicleRateGUI(garages, presetType);
+                }
 
             }
         });
