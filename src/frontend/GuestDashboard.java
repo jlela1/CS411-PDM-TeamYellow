@@ -38,7 +38,7 @@ public class GuestDashboard extends JFrame{
         JPanel header = PDMPanels.createUserHeader("PDM Guest User Dashboard");
         headerPanel.add(header, BorderLayout.NORTH);
 
-        JLabel welcomeLabel = new JLabel("Welcome to the Parking Demand Management Guest User Dashboard!");
+        JLabel welcomeLabel = new JLabel("                            Welcome to the Parking Demand Management Guest User Dashboard!");
         welcomeLabel.setForeground(Color.white);
         welcomeLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
