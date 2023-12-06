@@ -41,12 +41,7 @@ public class recommendationAlgorithm {
                     recommendedGarage = "'49th Street Stadium'";
                 }
                 break;
-            case "garage5":
-                closestGarageNum = 4;
-                if ((garages.get(closestGarageNum).get(timeOfArrival).getTotal_capacity() * 0.9) >= garages.get(closestGarageNum).get(timeOfArrival).getCurrent_capacity()) {
-                    recommendedGarage = "garage1";
-                }
-                break;
+
         }
 
         //if closest garage is over 90% full, check if other garages are available
@@ -76,9 +71,6 @@ public class recommendationAlgorithm {
                         break;
                     case 3:
                         recommendedGarage = "'49th Street Stadium'";
-                        break;
-                    case 4:
-                        recommendedGarage = "garage5";
                         break;
 
                 }
@@ -148,9 +140,6 @@ public class recommendationAlgorithm {
                         break;
                     case 3:
                         recommendedGarage = "'49th Street Stadium'";
-                        break;
-                    case 4:
-                        recommendedGarage = "garage5";
                         break;
 
                 }
