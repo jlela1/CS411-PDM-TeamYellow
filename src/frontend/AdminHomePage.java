@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import frontend.SimulationUserInputGUI;
+import frontend.UserAnalysisGUI;
 import backend.database.Garage;
 
 public class AdminHomePage extends JFrame{
@@ -98,6 +99,16 @@ public class AdminHomePage extends JFrame{
                 dispose();
                 SimulationOptions simulationOptions = new SimulationOptions();
                 simulationOptions.setVisible(true);
+            }
+        });
+
+        userAnalysisButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Handle the button click event
+                dispose(); // Close the current AdminHomePage window
+                UserAnalysisGUI userAnalysisGUI = new UserAnalysisGUI();
+                userAnalysisGUI.setVisible(true); // Show the UserAnalysisGUI window
             }
         });
 
