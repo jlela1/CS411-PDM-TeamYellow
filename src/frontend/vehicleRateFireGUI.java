@@ -24,7 +24,7 @@ public class vehicleRateFireGUI extends JFrame{
     private JComboBox<String> garageSelectorFireComboBox;
     public vehicleRateFireGUI(ArrayList<Garage> garages, int presetType) {
 
-        mainFrame = new JFrame("Adjust Vehicle Rate (Fire)");
+        mainFrame = new JFrame("Adjust Vehicle Rate (Closure)");
         mainFrame.setLayout(new BorderLayout());
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +45,7 @@ public class vehicleRateFireGUI extends JFrame{
 
 
         // Create a header panel
-        JPanel headerPanel = PDMPanels.createHeader("Adjust Vehicle Rate (Fire)");
+        JPanel headerPanel = PDMPanels.createHeader("Adjust Vehicle Rate (Closure)");
 
 
         JPanel inputPanel = new JPanel();
@@ -97,7 +97,7 @@ public class vehicleRateFireGUI extends JFrame{
         rateField.setFont(new Font("Monospaced", Font.PLAIN, 16));
 
 
-        JLabel fireLabel = new JLabel("Fire:");
+        JLabel fireLabel = new JLabel("Closure:");
         fireLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
         JLabel fireLabel2 = new JLabel("");
         fireLabel2.setFont(new Font("Monospaced", Font.BOLD, 18));

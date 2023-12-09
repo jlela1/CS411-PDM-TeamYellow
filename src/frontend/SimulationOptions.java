@@ -87,7 +87,7 @@ public class SimulationOptions extends JFrame {
 
 
         //Fire in Elkhorn Garage
-        JButton ElkFireButton = new JButton("Fire in Elkhorn Garage");
+        JButton ElkFireButton = new JButton("Garage Closure");
         ElkFireButton.setFont(new Font("Monospaced", Font.BOLD, 16));
         ElkFireButton.setForeground(Color.BLACK);
         ElkFireButton.setBackground(new Color(164, 196, 201, 250));
