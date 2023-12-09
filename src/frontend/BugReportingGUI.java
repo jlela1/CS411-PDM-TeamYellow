@@ -61,7 +61,7 @@ public class BugReportingGUI extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 0;
-        JLabel categoryLabel = new JLabel("Bug Category: ");
+        JLabel categoryLabel = new JLabel("Bug Category (*Required): ");
         categoryLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
         categoryLabel.setForeground(Color.white);
         formPanel.add(categoryLabel, gbc);
@@ -78,7 +78,7 @@ public class BugReportingGUI extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        JLabel descriptionLabel = new JLabel("Bug Description:");
+        JLabel descriptionLabel = new JLabel("Bug Description (*Required):");
         descriptionLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
         descriptionLabel.setForeground(Color.white);
         formPanel.add(descriptionLabel, gbc);
@@ -94,7 +94,7 @@ public class BugReportingGUI extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        JLabel occurrenceLabel = new JLabel("Date and Time of Occurrence:");
+        JLabel occurrenceLabel = new JLabel("Date and Time (*Required):");
         occurrenceLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
         occurrenceLabel.setForeground(Color.white);
         formPanel.add(occurrenceLabel, gbc);
@@ -111,7 +111,7 @@ public class BugReportingGUI extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        JLabel locationLabel = new JLabel("Location:");
+        JLabel locationLabel = new JLabel("Location (*Required):");
         locationLabel.setFont(new Font("Monospaced", Font.BOLD, 16));
         locationLabel.setForeground(Color.white);
         formPanel.add(locationLabel, gbc);
