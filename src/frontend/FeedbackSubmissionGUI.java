@@ -16,15 +16,12 @@ public class FeedbackSubmissionGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        // Set a solid color background
-        Color backgroundColor = new Color(173, 216, 230); // Light blue color
-
         JPanel backgroundPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.setColor(backgroundColor);
-                g.fillRect(0, 0, getWidth(), getHeight());
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 20.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
             }
         };
 
@@ -59,6 +56,7 @@ public class FeedbackSubmissionGUI extends JFrame {
         JLabel ratingLabel = new JLabel("Rating:");
         ratingLabel.setFont(new Font("Monospaced", Font.PLAIN, 20));
         StarRatingPanel starRatingPanel = new StarRatingPanel();
+        starRatingPanel.setOpaque(false);
         ratingPanel.add(ratingLabel);
         ratingPanel.add(starRatingPanel);
         centerPanel.add(ratingPanel);
@@ -73,10 +71,14 @@ public class FeedbackSubmissionGUI extends JFrame {
 
         for (String question : questions) {
             JPanel questionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            questionPanel.setOpaque(false);
             JLabel questionLabel = new JLabel(question);
+            questionLabel.setOpaque(false);
             questionLabel.setFont(new Font("Monospaced", Font.PLAIN, 20));
             JRadioButton yesButton = new JRadioButton("Yes");
+            yesButton.setOpaque(false);
             JRadioButton noButton = new JRadioButton("No");
+            noButton.setOpaque(false);
             ButtonGroup buttonGroup = new ButtonGroup();
             buttonGroup.add(yesButton);
             buttonGroup.add(noButton);
@@ -93,6 +95,7 @@ public class FeedbackSubmissionGUI extends JFrame {
         // Return to Dashboard button
         JButton returnButton = new JButton("Return to Dashboard");
         returnButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        returnButton.setOpaque(false);
         returnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -105,6 +108,7 @@ public class FeedbackSubmissionGUI extends JFrame {
 
         JButton submitButton = new JButton("Send Feedback");
         submitButton.setFont(new Font("Monospaced", Font.PLAIN, 20));
+        submitButton.setOpaque(false);
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -174,6 +178,8 @@ public class FeedbackSubmissionGUI extends JFrame {
         JScrollPane scrollPane = new JScrollPane(centerPanel);
         scrollPane.setOpaque(false);
 
+        //centerPanel.setBackground(new Color(0, 0, 0, 0));
+
         // Add components to the main panel
         mainPanel.add(titleLabel, BorderLayout.CENTER);
         mainPanel.add(scrollPane, BorderLayout.SOUTH);
@@ -183,6 +189,7 @@ public class FeedbackSubmissionGUI extends JFrame {
         backgroundPanel.add(mainPanel, BorderLayout.CENTER);
         add(backgroundPanel);
 
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
