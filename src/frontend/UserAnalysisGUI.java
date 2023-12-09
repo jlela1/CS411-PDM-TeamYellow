@@ -22,25 +22,64 @@ public class UserAnalysisGUI extends JFrame {
 
     public UserAnalysisGUI() {
         setTitle("User Analysis");
-        setSize(800, 600);
+        //setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
 
+        JPanel mainPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                ImageIcon backgroundImage = new ImageIcon ("resources/Background 3.png");
+                g.drawImage(backgroundImage.getImage(),0,0,getWidth(),getHeight(),this);
+            }
+        };
 
-        getContentPane().setLayout(new BorderLayout());
+        setContentPane(mainPanel);
+        mainPanel.setLayout(new BorderLayout());
+
+        JPanel headerPanel = new JPanel();
+        //headerPanel.setOpaque(false);
+        headerPanel.setLayout(new BorderLayout());
+        mainPanel.add(headerPanel, BorderLayout.NORTH);
+
+        JPanel header = PDMPanels.createHeader("PDM User Analysis");
+        //header.setOpaque(false);
+        //headerPanel.setPreferredSize(new Dimension(250,60));
+        headerPanel.add(header, BorderLayout.NORTH);
+
+        JPanel footerPanel = PDMPanels.createUserFooter();
+        footerPanel.setOpaque(false);
+        mainPanel.add(footerPanel, BorderLayout.SOUTH);
+
+
+        //getContentPane().setLayout(new BorderLayout());
 
         JPanel panel = new JPanel(new GridBagLayout());
+        panel.setOpaque(false);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.insets = new Insets(10, 10, 10, 10);
 
         totalLabel = createLabel("Total Users: 0");
+        totalLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        totalLabel.setOpaque(false);
         recommendedLabel = createLabel("Recommended Users: 0");
+        recommendedLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        recommendedLabel.setOpaque(false);
         reviewsLabel = createLabel("Reviews: 0");
+        reviewsLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        reviewsLabel.setOpaque(false);
 
         dailyLabel = createLabel("Daily Users: 0");
+        dailyLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        dailyLabel.setOpaque(false);
         weeklyLabel = createLabel("Weekly Users: 0");
+        weeklyLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        weeklyLabel.setOpaque(false);
         monthlyLabel = createLabel("Monthly Users: 0");
+        monthlyLabel.setFont(new Font("Monospaced", Font.BOLD, 18));
+        monthlyLabel.setOpaque(false);
 
         panel.add(totalLabel, gbc);
         panel.add(recommendedLabel, gbc);
@@ -48,7 +87,7 @@ public class UserAnalysisGUI extends JFrame {
 
         panel.add(createSeparator(), gbc);
 
-        panel.add(createLabel("Select Date:"), gbc);
+        panel.add(createLabel("Please Select a Date:"), gbc);
         datePicker = createDatePicker();
         panel.add(datePicker, gbc);
 
@@ -65,6 +104,8 @@ public class UserAnalysisGUI extends JFrame {
         setVisible(true);
 
         JButton homeButton = new JButton("Home");
+        homeButton.setFont(new Font("Monospaced", Font.BOLD, 18));
+        homeButton.setBackground(new Color(190, 56, 56, 255));
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,17 +117,19 @@ public class UserAnalysisGUI extends JFrame {
         });
 
         panel.add(homeButton, gbc);
+        mainPanel.add(panel, BorderLayout.CENTER);
 
     }
 
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         label.setHorizontalAlignment(JLabel.CENTER);
-        label.setFont(new Font("Arial", Font.BOLD, 16));
+        label.setFont(new Font("Monospaced", Font.BOLD, 18));
+        label.setBackground(Color.LIGHT_GRAY);
         //  label.setForeground(new Color(50, 50, 50));
         label.setOpaque(true);
         //  label.setBackground(new Color(220, 220, 220));
-        label.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        label.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         return label;
     }
 
