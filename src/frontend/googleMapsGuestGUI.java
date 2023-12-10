@@ -20,22 +20,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class googleMapsGuestGUI extends JFrame {
+public class googleMapsGuestGUI extends JFrame{
     private JFrame mainFrame;
     private JTextField recommendedGarageField;
     private JTextField timeOfArrivalField;
     private JTextField estimatedOccupancyField;
     private JButton homeButton;
+    private JFrame parentFrame;
+
 
     public googleMapsGuestGUI() {
         // Frame setup
 
         mainFrame = new JFrame("Simulation Page-1");
-        mainFrame.setLayout(new BorderLayout());
+        mainFrame.setLayout(new GridBagLayout());
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setPreferredSize(new Dimension(1500, 1000));
         mainFrame.getContentPane().setBackground(new Color(255, 255, 255));
+
+
+
 
         JPanel backgroundPanel = new JPanel() {
             @Override
@@ -47,7 +52,7 @@ public class googleMapsGuestGUI extends JFrame {
         };
 
         backgroundPanel.setLayout(new BorderLayout());
-        //mainFrame.setContentPane(backgroundPanel);
+        mainFrame.setContentPane(backgroundPanel);
 
         /*
         setTitle("Simulation Page-1");
@@ -65,16 +70,18 @@ public class googleMapsGuestGUI extends JFrame {
         JPanel contentPanel = new JPanel(new FlowLayout());
         contentPanel.setOpaque(false);
         //contentPanel.setLayout(new GridLayout(1, 10, 10, 5));
-        contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 150, 100, 150));
-        contentPanel.setBackground(Color.CYAN);
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(0, 150, 0, 150));
+        //contentPanel.setBackground(Color.CYAN);
 
 
 
 
 
         final JFXPanel fxPanel = new JFXPanel();
+        fxPanel.setOpaque(false);
+        fxPanel.setPreferredSize(new Dimension(350, 900));
 
-        JPanel panel = new JPanel();
+        //JPanel panel = new JPanel();
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbcPanel1 = new GridBagConstraints();
         gbcPanel1.gridx = 0;
@@ -88,14 +95,37 @@ public class googleMapsGuestGUI extends JFrame {
         gbcPanel2.fill = GridBagConstraints.BOTH;
         fxPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 5, 10));
 
-        // mainPanel.add(contentPanel, gbcPanel1);
-        //mainPanel.add(fxPanel, gbcPanel2);
+
+
+        //mainPanel.add(contentPanel, BorderLayout.NORTH);
+        //mainPanel.add(fxPanel, BorderLayout.CENTER);
         //mainFrame.add(mainPanel,BorderLayout.CENTER);
         //fxPanel.setLayout(null);
         //fxPanel.setBounds(350, 200, 1200,700);
-        mainPanel.add(contentPanel, gbcPanel1);
-        mainPanel.add(fxPanel, gbcPanel2);
-        mainFrame.getContentPane().add(mainPanel,BorderLayout.CENTER);
+        //mainPanel.add(contentPanel, gbcPanel1);
+        // mainPanel.add(fxPanel, gbcPanel2);
+
+        JPanel compPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbcBackground = new GridBagConstraints();
+        gbcBackground.gridx = 0;
+        gbcBackground.gridy = 0;
+        gbcBackground.fill = GridBagConstraints.BOTH;
+        gbcBackground.weightx = 1.0;
+        gbcBackground.weighty = 1.0;
+        GridBagConstraints gbcMainPanel = new GridBagConstraints();
+        gbcMainPanel.gridx = 0;
+        gbcMainPanel.gridy = 0;
+        gbcMainPanel.weightx = 1.0;
+        gbcMainPanel.weighty = 1.0;
+        gbcMainPanel.fill = GridBagConstraints.BOTH;
+
+        //compPanel.setLayout(new gridLayout());
+        //compPanel.add(backgroundPanel, gbcBackground);
+        //compPanel.repaint();
+        //compPanel.add(mainPanel, gbcMainPanel);
+        // compPanel.add(mainPanel, gbcMainPanel);
+        //mainFrame.add(mainPanel,BorderLayout.CENTER);
+
         //mainFrame.add(panel);
         //mainFrame.add(fxPanel);
 
@@ -153,7 +183,11 @@ public class googleMapsGuestGUI extends JFrame {
         contentPanel.add(estimatedOccupancyLabel);
         contentPanel.add(estimatedOccupancyField);
 
+        mainFrame.add(contentPanel, BorderLayout.CENTER);
+        // mainFrame.add(headerPanel, BorderLayout.NORTH);
         //mainFrame.add(contentPanel, BorderLayout.CENTER);
+        mainFrame.add(fxPanel, BorderLayout.SOUTH);
+
         mainFrame.pack();
         mainFrame.setVisible(true);
         mainFrame.setLocationRelativeTo(null);
@@ -166,6 +200,7 @@ public class googleMapsGuestGUI extends JFrame {
         homeButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         homeButton.setFocusPainted(false);
         homeButton.setPreferredSize(new Dimension(250, 50));
+        contentPanel.add(homeButton);
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -187,96 +222,8 @@ public class googleMapsGuestGUI extends JFrame {
         getDirectionsButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         getDirectionsButton.setFocusPainted(false);
         getDirectionsButton.setPreferredSize(new Dimension(250, 50));
-        getDirectionsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        //getDirectionsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(getDirectionsButton);
-
-        JButton getRecommendationButton = new JButton("Get Recommendation");
-        getRecommendationButton.setFont(new Font("Monospaced", Font.BOLD, 16));
-        getRecommendationButton.setForeground(Color.BLACK);
-        getRecommendationButton.setBackground(new Color(23, 11, 204, 163));
-        getRecommendationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
-        getRecommendationButton.setFocusPainted(false);
-        getRecommendationButton.setPreferredSize(new Dimension(250, 50));
-        getRecommendationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        contentPanel.add(getRecommendationButton);
-        contentPanel.add(homeButton, BorderLayout.SOUTH);
-        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-
-        getRecommendationButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                String selectedGarage = (String) userSelectionGarage.getSelectedItem();
-
-                //get time of arrival
-                int arrivalTime24HR = Integer.parseInt(timeOfArrivalField.getText());
-                int hours = arrivalTime24HR / 100;
-                int minutes = arrivalTime24HR % 100;
-                int arrivalTime = (hours * 60) + minutes;
-
-                String recommendedGarage = backend.algorithms.recommendationAlgorithm.recommendation(selectedGarage, arrivalTime, 4);
-
-                int selectedGarageNumID = -1;
-
-                for (int i = 0; i < garages.size(); i++) {
-                    if (recommendedGarage.equals(garages.get(i).get(0).getGarage_name())) {
-                        selectedGarageNumID = i;
-                    }
-
-                }
-
-                //get expected occupancy on arrival
-                double arrivalOccupancy = garages.get(selectedGarageNumID).get(arrivalTime).getCurrent_capacity();
-                double arrivalCapacity = garages.get(selectedGarageNumID).get(arrivalTime).getTotal_capacity();
-                double expectedOccupancyPercent = (arrivalOccupancy /arrivalCapacity) * 100.00;
-                String expectedOccupancy = (int)expectedOccupancyPercent + "%";
-                userSelectionGarage.setSelectedIndex(selectedGarageNumID);
-                estimatedOccupancyField.setText(expectedOccupancy);
-
-                switch (selectedGarageNumID) {
-                    case 0:
-                        //display 443rd and elkhorn route here
-                        Platform.runLater(()-> {
-                            WebView webView1 = new WebView();
-                            fxPanel.setScene(new Scene(webView1));
-                            webView1.getEngine().load("https://www.google.com/maps/place/43rd+Street+%26+Elkhorn+Avenue+Garage/@36.8836065,-76.309158,17.75z/data=!4m6!3m5!1s0x89ba9852ea8d5105:0xe605282c33baec84!8m2!3d36.8836248!4d-76.3078488!16s%2Fg%2F11gd689zbg?entry=ttu");
-
-                        });
-                        break;
-                    case 1:
-                        //display constant garage south here
-                        Platform.runLater(()-> {
-                            WebView webView2 = new WebView();
-                            fxPanel.setScene(new Scene(webView2));
-                            webView2.getEngine().load("https://www.google.com/maps/place/Constant+Center+South+Garage,+1067+W+43rd+St,+Norfolk,+VA+23508/@36.8827237,-76.3011169,18z/data=!4m6!3m5!1s0x89ba984c96c90c79:0x11bc0a5e1a234d35!8m2!3d36.8824983!4d-76.3009467!16s%2Fg%2F1tgxvf_w?entry=ttu");
-                        });
-                        break;
-                    case 2:
-                        //display constant garage north here
-                        Platform.runLater(()-> {
-                            WebView webView3 = new WebView();
-                            fxPanel.setScene(new Scene(webView3));
-                            webView3.getEngine().load("https://www.google.com/maps/place/Constant+Center+North+Parking+Garage,+1067+W+43rd+St,+Norfolk,+VA+23529/@36.8855803,-76.3011016,18z/data=!4m6!3m5!1s0x89ba99b3443fdf97:0x77d74bf5702aa998!8m2!3d36.8852306!4d-76.3010372!16s%2Fg%2F1ts_7htk?entry=ttu");
-
-                        });
-                        break;
-                    case 3:
-                        //display 49th and bluestone here
-                        Platform.runLater(()-> {
-                            WebView webView3 = new WebView();
-                            fxPanel.setScene(new Scene(webView3));
-                            webView3.getEngine().load("https://www.google.com/maps/place/49th+Street+Stadium+Garage/@36.8881333,-76.3057912,18.25z/data=!4m6!3m5!1s0x89ba99b27bec601f:0x75de86b7374c31a8!8m2!3d36.887864!4d-76.305469!16s%2Fg%2F12hn1l2tl?entry=ttu");
-
-                        });
-                        break;
-
-                }
-
-            }
-        });
-
-
         getDirectionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -341,6 +288,97 @@ public class googleMapsGuestGUI extends JFrame {
             }
         });
 
+
+        JButton getRecommendationButton = new JButton("Get Recommendation");
+        getRecommendationButton.setFont(new Font("Monospaced", Font.BOLD, 16));
+        getRecommendationButton.setForeground(Color.BLACK);
+        getRecommendationButton.setBackground(new Color(23, 11, 204, 163));
+        getRecommendationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
+        getRecommendationButton.setFocusPainted(false);
+        getRecommendationButton.setPreferredSize(new Dimension(250, 50));
+        getRecommendationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(getRecommendationButton);
+
+        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+
+
+        getRecommendationButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String selectedGarage = (String) userSelectionGarage.getSelectedItem();
+
+                //get time of arrival
+                int arrivalTime24HR = Integer.parseInt(timeOfArrivalField.getText());
+                int hours = arrivalTime24HR / 100;
+                int minutes = arrivalTime24HR % 100;
+                int arrivalTime = (hours * 60) + minutes;
+
+                String recommendedGarage = backend.algorithms.recommendationAlgorithm.recommendation(selectedGarage, arrivalTime, 4);
+
+                int selectedGarageNumID = -1;
+
+                for (int i = 0; i < garages.size(); i++) {
+                    if (recommendedGarage.equals(garages.get(i).get(0).getGarage_name())) {
+                        selectedGarageNumID = i;
+                    }
+                }
+
+                //get expected occupancy on arrival
+                double arrivalOccupancy = garages.get(selectedGarageNumID).get(arrivalTime).getCurrent_capacity();
+                double arrivalCapacity = garages.get(selectedGarageNumID).get(arrivalTime).getTotal_capacity();
+                double expectedOccupancyPercent = (arrivalOccupancy /arrivalCapacity) * 100.00;
+                String expectedOccupancy = (int)expectedOccupancyPercent + "%";
+                userSelectionGarage.setSelectedIndex(selectedGarageNumID);
+                estimatedOccupancyField.setText(expectedOccupancy);
+
+                switch (selectedGarageNumID) {
+                    case 0:
+                        //display 443rd and elkhorn route here
+                        Platform.runLater(()-> {
+                            WebView webView1 = new WebView();
+                            fxPanel.setScene(new Scene(webView1));
+                            webView1.getEngine().load("https://www.google.com/maps/place/43rd+Street+%26+Elkhorn+Avenue+Garage/@36.8836065,-76.309158,17.75z/data=!4m6!3m5!1s0x89ba9852ea8d5105:0xe605282c33baec84!8m2!3d36.8836248!4d-76.3078488!16s%2Fg%2F11gd689zbg?entry=ttu");
+
+                        });
+                        break;
+                    case 1:
+                        //display constant garage south here
+                        Platform.runLater(()-> {
+                            WebView webView2 = new WebView();
+                            fxPanel.setScene(new Scene(webView2));
+                            webView2.getEngine().load("https://www.google.com/maps/place/Constant+Center+South+Garage,+1067+W+43rd+St,+Norfolk,+VA+23508/@36.8827237,-76.3011169,18z/data=!4m6!3m5!1s0x89ba984c96c90c79:0x11bc0a5e1a234d35!8m2!3d36.8824983!4d-76.3009467!16s%2Fg%2F1tgxvf_w?entry=ttu");
+                        });
+                        break;
+                    case 2:
+                        //display constant garage north here
+                        Platform.runLater(()-> {
+                            WebView webView3 = new WebView();
+                            fxPanel.setScene(new Scene(webView3));
+                            webView3.getEngine().load("https://www.google.com/maps/place/Constant+Center+North+Parking+Garage,+1067+W+43rd+St,+Norfolk,+VA+23529/@36.8855803,-76.3011016,18z/data=!4m6!3m5!1s0x89ba99b3443fdf97:0x77d74bf5702aa998!8m2!3d36.8852306!4d-76.3010372!16s%2Fg%2F1ts_7htk?entry=ttu");
+
+                        });
+                        break;
+                    case 3:
+                        //display 49th and bluestone here
+                        Platform.runLater(()-> {
+                            WebView webView3 = new WebView();
+                            fxPanel.setScene(new Scene(webView3));
+                            webView3.getEngine().load("https://www.google.com/maps/place/49th+Street+Stadium+Garage/@36.8881333,-76.3057912,18.25z/data=!4m6!3m5!1s0x89ba99b27bec601f:0x75de86b7374c31a8!8m2!3d36.887864!4d-76.305469!16s%2Fg%2F12hn1l2tl?entry=ttu");
+
+                        });
+                        break;
+
+                }
+                JOptionPane.showMessageDialog(googleMapsGuestGUI.this, recommendedGarage + " is the Recommended Parking Garage ");
+
+            }
+        });
+
+
+
+        //compPanel.add(mainPanel, gbcMainPanel);
     }
     private void setPlaceholder(JTextComponent component, String placeholder) {
         component.setForeground(Color.GRAY);
@@ -369,9 +407,9 @@ public class googleMapsGuestGUI extends JFrame {
             @Override
             public void run() {
                 googleMapsGuestGUI page1 = new googleMapsGuestGUI();
-                page1.setVisible(true);
+                //page1.setVisible(true);
             }
         });
     }
 }
-//googleMapsGUI page1 = new googleMapsGUI();
+

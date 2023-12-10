@@ -103,7 +103,7 @@ public class GuestDashboard extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 googleMapsGuestGUI map = new googleMapsGuestGUI();
-                //map.setVisible(true);
+
             }
         });
 
