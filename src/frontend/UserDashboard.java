@@ -63,7 +63,7 @@ public class UserDashboard extends JFrame{
         recommendationButton.setBackground(new Color(98, 145, 141, 250));
         recommendationButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         recommendationButton.setFocusPainted(false);
-        recommendationButton.setPreferredSize(new Dimension(250, 50));
+        recommendationButton.setPreferredSize(new Dimension(200, 50));
         recommendationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Create UserProfile Button
@@ -73,7 +73,7 @@ public class UserDashboard extends JFrame{
         userProfileButton.setBackground(new Color(50, 119, 222, 255));
         userProfileButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         userProfileButton.setFocusPainted(false);
-        userProfileButton.setPreferredSize(new Dimension(250, 50));
+        userProfileButton.setPreferredSize(new Dimension(200, 50));
         userProfileButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton feedbackButton = new JButton("Feedback");
@@ -82,7 +82,7 @@ public class UserDashboard extends JFrame{
         feedbackButton.setBackground(new Color(255, 193, 7, 255)); // Choose your preferred color
         feedbackButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         feedbackButton.setFocusPainted(false);
-        feedbackButton.setPreferredSize(new Dimension(250, 50));
+        feedbackButton.setPreferredSize(new Dimension(200, 50));
         feedbackButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton BugButton = new JButton("Report Bug");
@@ -91,7 +91,7 @@ public class UserDashboard extends JFrame{
         BugButton.setBackground(new Color(113, 50, 222, 255)); // Choose your preferred color
         BugButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         BugButton.setFocusPainted(false);
-        BugButton.setPreferredSize(new Dimension(250, 50));
+        BugButton.setPreferredSize(new Dimension(200, 50));
         BugButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JButton logOutB= new JButton("Logout");
@@ -100,7 +100,7 @@ public class UserDashboard extends JFrame{
         logOutB.setBackground(new Color(204, 11, 91, 255));
         logOutB.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         logOutB.setFocusPainted(false);
-        logOutB.setPreferredSize(new Dimension(250, 50));
+        logOutB.setPreferredSize(new Dimension(200, 50));
         logOutB.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 
