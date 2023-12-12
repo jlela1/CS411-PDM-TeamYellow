@@ -25,6 +25,7 @@ public class googleMapsGUI extends JFrame{
     private JTextField recommendedGarageField;
     private JTextField timeOfArrivalField;
     private JTextField estimatedOccupancyField;
+    private JTextField dataTypeField;
     private JButton homeButton;
     private JFrame parentFrame;
 
@@ -133,6 +134,8 @@ public class googleMapsGUI extends JFrame{
 
         // should be simulated data, but for now I put something
         String recommendedGarage = "43rd & Elkhorn Ave";
+        String dataType = "All Simulations";
+        String[] simulationType = {"All Simulations", "Most Recent Simulation"};
         String estimatedOccupancy = "50%";
 
         // Recommended Garage
@@ -183,6 +186,17 @@ public class googleMapsGUI extends JFrame{
         contentPanel.add(estimatedOccupancyLabel);
         contentPanel.add(estimatedOccupancyField);
 
+        dataTypeField = new JTextField(15);
+        dataTypeField.setBorder(BorderFactory.createLineBorder(Color.yellow, 4));
+        dataTypeField.setEditable(false);
+        dataTypeField.setText(dataType); // Set the actual value
+        JLabel dataTypeLabel = new JLabel("Simulation Choice:");
+        dataTypeLabel.setFont(new Font("Monospaced",Font.ITALIC,16));
+        contentPanel.add(dataTypeLabel);
+        //contentPanel.add(dataTypeField);
+        JComboBox<String> userSelectionSimulation = new JComboBox<String>(simulationType);
+        contentPanel.add(userSelectionSimulation);
+
         mainFrame.add(contentPanel, BorderLayout.CENTER);
        // mainFrame.add(headerPanel, BorderLayout.NORTH);
         //mainFrame.add(contentPanel, BorderLayout.CENTER);
@@ -200,7 +214,7 @@ public class googleMapsGUI extends JFrame{
         homeButton.setBorder(BorderFactory.createLineBorder(Color.GRAY, 3));
         homeButton.setFocusPainted(false);
         homeButton.setPreferredSize(new Dimension(250, 50));
-        contentPanel.add(homeButton);
+        //contentPanel.add(homeButton);
         homeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -231,7 +245,10 @@ public class googleMapsGUI extends JFrame{
                 String selectedGarage = (String) userSelectionGarage.getSelectedItem();
 
 
+
+
                 System.out.println("get directions for: " + selectedGarage);
+
 
                 int selectedGarageNumID = -1;
                 String timeOfArrivalID = "";
@@ -298,6 +315,7 @@ public class googleMapsGUI extends JFrame{
         getRecommendationButton.setPreferredSize(new Dimension(250, 50));
         getRecommendationButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(getRecommendationButton);
+        contentPanel.add(homeButton);
 
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -308,6 +326,7 @@ public class googleMapsGUI extends JFrame{
             public void actionPerformed(ActionEvent e) {
 
                 String selectedGarage = (String) userSelectionGarage.getSelectedItem();
+                String selectedSimulation = (String) userSelectionSimulation.getSelectedItem();
 
                 //get time of arrival
                 int arrivalTime24HR = Integer.parseInt(timeOfArrivalField.getText());
