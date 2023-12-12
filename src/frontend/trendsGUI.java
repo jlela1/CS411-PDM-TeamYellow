@@ -21,6 +21,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
 
     private JButton getGraph, home;
+    private JTextField simulationTypeField;
     private String garageName, graphType;
     private JComboBox userSelectionGarage;
     private LocalDate date1, date2 ;
@@ -139,6 +140,24 @@ public class trendsGUI extends JFrame implements ActionListener {
         gbc.gridy=1;
         gbc.gridx=5;
         trendsGComponents.add(garageTypeSelectionComboBox,gbc);
+
+        String dataType = "All Simulations";
+        String[] simulationType = {"All Simulations", "Most Recent Simulation"};
+
+        simulationTypeField = new JTextField(15);
+        simulationTypeField.setBorder(BorderFactory.createLineBorder(Color.yellow, 4));
+        simulationTypeField.setEditable(false);
+        simulationTypeField.setText(dataType); // Set the actual value
+        JLabel simulationTypeLabel = new JLabel("Simulation Choice:");
+        simulationTypeLabel.setFont(new Font("Monospaced",Font.BOLD,16));
+        gbc.gridy =0;
+        gbc.gridx=6;
+        trendsGComponents.add(simulationTypeLabel, gbc);
+        //contentPanel.add(simulationTypeField);
+        JComboBox<String> userSelectionSimulation = new JComboBox<String>(simulationType);
+        gbc.gridy=1;
+        gbc.gridx =6;
+        trendsGComponents.add(userSelectionSimulation, gbc);
         //Button to create graph
         getGraph = new JButton("Click Here to Generate the Graph");
         getGraph.addActionListener(this);
@@ -147,9 +166,17 @@ public class trendsGUI extends JFrame implements ActionListener {
         getGraph.addActionListener(this);
         gbc.gridy= 3;
         gbc.gridx= 2;
+        gbc.insets = new Insets(10,400,10,10);
         gbc.gridwidth =3;
         gbc.fill = GridBagConstraints.BOTH;
         trendsGComponents.add(getGraph,gbc);
+        getGraph.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedSimulation = (String) userSelectionSimulation.getSelectedItem();
+                System.out.println("Graph for simulation: " + selectedSimulation);
+            }
+        });
 
 
 
@@ -163,6 +190,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         gbc.gridx = 0;
         gbc.weighty =1.0;
         gbc.weightx=1.0;
+        gbc.insets = new Insets(10,10,10,10);
         gbc.fill = GridBagConstraints.BOTH;
         gbc.gridwidth =8;
 
@@ -182,6 +210,7 @@ public class trendsGUI extends JFrame implements ActionListener {
         gbc.gridx = 2;
         gbc.weighty =0.0;
         gbc.weightx=0.0;
+        gbc.insets = new Insets(10,400,10,10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth =3;
 
@@ -212,6 +241,7 @@ public class trendsGUI extends JFrame implements ActionListener {
     {
         if(e.getSource()==getGraph)
         {
+
             if (graphPanel != null) {
                 graphPanel.remove(trendsGraph.getContentPane());
             }
