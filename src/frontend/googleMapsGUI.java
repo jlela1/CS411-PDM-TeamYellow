@@ -25,7 +25,7 @@ public class googleMapsGUI extends JFrame{
     private JTextField recommendedGarageField;
     private JTextField timeOfArrivalField;
     private JTextField estimatedOccupancyField;
-    private JTextField dataTypeField;
+    private JTextField simulationTypeField;
     private JButton homeButton;
     private JFrame parentFrame;
 
@@ -186,14 +186,14 @@ public class googleMapsGUI extends JFrame{
         contentPanel.add(estimatedOccupancyLabel);
         contentPanel.add(estimatedOccupancyField);
 
-        dataTypeField = new JTextField(15);
-        dataTypeField.setBorder(BorderFactory.createLineBorder(Color.yellow, 4));
-        dataTypeField.setEditable(false);
-        dataTypeField.setText(dataType); // Set the actual value
-        JLabel dataTypeLabel = new JLabel("Simulation Choice:");
-        dataTypeLabel.setFont(new Font("Monospaced",Font.ITALIC,16));
-        contentPanel.add(dataTypeLabel);
-        //contentPanel.add(dataTypeField);
+        simulationTypeField = new JTextField(15);
+        simulationTypeField.setBorder(BorderFactory.createLineBorder(Color.yellow, 4));
+        simulationTypeField.setEditable(false);
+        simulationTypeField.setText(dataType); // Set the actual value
+        JLabel simulationTypeLabel = new JLabel("Simulation Choice:");
+        simulationTypeLabel.setFont(new Font("Monospaced",Font.ITALIC,16));
+        contentPanel.add(simulationTypeLabel);
+        //contentPanel.add(simulationTypeField);
         JComboBox<String> userSelectionSimulation = new JComboBox<String>(simulationType);
         contentPanel.add(userSelectionSimulation);
 
