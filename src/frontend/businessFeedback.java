@@ -106,7 +106,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     for (Garage garage : garages) {
         userSelectionGarage.addItem(garage.getName());
     }
-    userSelectionGarage.addItem("All Garages");
+    userSelectionGarage.addItem(("All Garages"));
     gbc.gridy=1;
     gbc.gridx=1;
     userSelectionGarage.setOpaque(false);
