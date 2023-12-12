@@ -239,35 +239,48 @@ public class trendsGUI extends JFrame implements ActionListener {
     }
     public void actionPerformed(ActionEvent e)
     {
-        if(e.getSource()==getGraph)
-        {
+        if(e.getSource()==getGraph) {
+            if(datePickerStart.getDate() == null || datePickerEnd.getDate() == null)
+            {
+                JOptionPane.showMessageDialog(null, "Please Enter a Valid Date.", "Incorrect Date Format", JOptionPane.ERROR_MESSAGE);
 
-            if (graphPanel != null) {
-                graphPanel.remove(trendsGraph.getContentPane());
+
+            }
+            if(datePickerEnd.getDate()!=null&&datePickerStart.getDate()!=null) {
+                if (datePickerStart.getDate().compareTo(datePickerEnd.getDate()) > 0) {
+
+                    JOptionPane.showMessageDialog(null, "Please Enter a Valid Date.", "Incorrect Date Format", JOptionPane.ERROR_MESSAGE);
+
+                } else if (datePickerStart.getDate().compareTo(datePickerEnd.getDate()) <= 0) {
+                    if (graphPanel != null) {
+                        graphPanel.remove(trendsGraph.getContentPane());
+                    }
+
+                    this.revalidate();
+                    this.repaint();
+
+                    graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
+                    String garageNewName = (String) userSelectionGarage.getSelectedItem();
+
+                    trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(), graphType);
+                    date1 = datePickerStart.getDate();
+                    date2 = datePickerEnd.getDate();
+                    graphPanel.add(trendsGraph.getContentPane());
+
+                    this.revalidate();
+                    this.repaint();
+                }
+
             }
 
-            this.revalidate();
-            this.repaint();
 
-            graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
-            String garageNewName = (String) userSelectionGarage.getSelectedItem();
+            } else if (e.getSource() == home) //home button listener
+            {
+                dispose();
+                AdminHomePage adminHomePage = new AdminHomePage();
+                adminHomePage.setVisible(true);
+            }
 
-            trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(),graphType);
-            date1 = datePickerStart.getDate();
-            date2 = datePickerEnd.getDate();
-            graphPanel.add(trendsGraph.getContentPane());
-
-            this.revalidate();
-            this.repaint();
-
-
-
-        } else if (e.getSource()==home) //home button listener
-        {
-            dispose();
-            AdminHomePage adminHomePage = new AdminHomePage();
-            adminHomePage.setVisible(true);
-        }
     }
 
 

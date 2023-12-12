@@ -252,89 +252,85 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
 
 //action listener for buttons
 
-    public void actionPerformed(ActionEvent e)
-    {
-        if(e.getSource()==getGraph)
-        {
-            if (graphPanel != null) {
-                graphPanel.remove(feedbackChart.getContentPane());
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == getGraph) {
+            if (datePickerStart.getDate() == null || datePickerEnd.getDate() == null) {
+                JOptionPane.showMessageDialog(null, "Please Enter a Valid Date.", "Incorrect Date Format", JOptionPane.ERROR_MESSAGE);
             }
-            if (tablePanel != null) {
-                tablePanel.remove(scrollTable);
-            }
-            tablePanel.setVisible(true);
-            date1 = datePickerStart.getDate();
-            date2 = datePickerEnd.getDate();
-            Date startDate =Date.valueOf(date1);
-            Date endDate =Date.valueOf(date2);
-
-
-
-            this.revalidate();
-            this.repaint();
-
-            //JTable
-
-
-
-
-
-
-
-Object[] rows = new Object[4];
-for(int i =0; i <feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).size();i++)
-{
-
-
-
-                    rows[0]=String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserFirstName());
-    rows[1]=String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserLastName());
-
-    rows[2]=          String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRating());
-    rows[3]=           String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getHappy());
-    tableModel.addRow(rows);
-
-
-
-}
-
-
-
-            feedbackDisplay= new JTable(tableModel)
-            {
-                public boolean editCellAt(int row, int column, java.util.EventObject e)
+            if (datePickerStart.getDate() != null && datePickerEnd.getDate() != null) {
+                if(datePickerStart.getDate().compareTo(datePickerEnd.getDate()) > 0)
                 {
-                    return false;
+                    JOptionPane.showMessageDialog(null, "Please Enter a Valid Date.", "Incorrect Date Format", JOptionPane.ERROR_MESSAGE);
+
+                } else if (datePickerStart.getDate().compareTo(datePickerEnd.getDate()) <= 0) {
+
+
+                if (graphPanel != null) {
+                    graphPanel.remove(feedbackChart.getContentPane());
                 }
-            };
-            scrollTable = new JScrollPane(feedbackDisplay);
-            tablePanel.add(scrollTable);
+                if (tablePanel != null) {
+                    tablePanel.remove(scrollTable);
+                }
+                tablePanel.setVisible(true);
+                date1 = datePickerStart.getDate();
+                date2 = datePickerEnd.getDate();
+                Date startDate = Date.valueOf(date1);
+                Date endDate = Date.valueOf(date2);
 
 
-            graphType = garageFeedback;
-            String garageNewName = (String) userSelectionGarage.getSelectedItem();
+                this.revalidate();
+                this.repaint();
 
-           feedbackChart = new createPieChart(startDate,endDate,userSelectionGarage.getSelectedItem().toString());
-
-
-            graphPanel.add(feedbackChart.getContentPane());
+                //JTable
 
 
-
-            this.revalidate();
-            this.repaint();
-
+                Object[] rows = new Object[4];
+                for (int i = 0; i < feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).size(); i++) {
 
 
-        } else if (e.getSource()==home) //home button listener
-        {
-            dispose();
-            AdminHomePage adminHomePage = new AdminHomePage();
-            adminHomePage.setVisible(true);
+                    rows[0] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserFirstName());
+                    rows[1] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserLastName());
+
+                    rows[2] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRating());
+                    rows[3] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getHappy());
+                    tableModel.addRow(rows);
+
+
+                }
+
+
+                feedbackDisplay = new JTable(tableModel) {
+                    public boolean editCellAt(int row, int column, java.util.EventObject e) {
+                        return false;
+                    }
+                };
+                scrollTable = new JScrollPane(feedbackDisplay);
+                tablePanel.add(scrollTable);
+
+
+                graphType = garageFeedback;
+                String garageNewName = (String) userSelectionGarage.getSelectedItem();
+
+                feedbackChart = new createPieChart(startDate, endDate, userSelectionGarage.getSelectedItem().toString());
+
+
+                graphPanel.add(feedbackChart.getContentPane());
+
+
+                this.revalidate();
+                this.repaint();
+
+
+            } else if (e.getSource() == home) //home button listener
+            {
+                dispose();
+                AdminHomePage adminHomePage = new AdminHomePage();
+                adminHomePage.setVisible(true);
+            }
         }
+
     }
-
-
+    }
 
 
 
