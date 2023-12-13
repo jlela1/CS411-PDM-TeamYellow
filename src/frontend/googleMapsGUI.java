@@ -336,23 +336,17 @@ public class googleMapsGUI extends JFrame{
                 int minutes = arrivalTime24HR % 100;
                 int arrivalTime = (hours * 60) + minutes;
 
-                String recommendedGarage = backend.algorithms.recommendationAlgorithm.recommendation(selectedGarage, arrivalTime, 4);
+                recommendation newRec = backend.algorithms.recommendationAlgorithm.recommendation(selectedGarage, arrivalTime, 4);
 
                 int selectedGarageNumID = -1;
 
                 for (int i = 0; i < garages.size(); i++) {
-                    if (recommendedGarage.equals(garages.get(i).get(0).getGarage_name())) {
+                    if (newRec.getRecommendedGarage().equals(garages.get(i).get(0).getGarage_name())) {
                         selectedGarageNumID = i;
                     }
                 }
 
-                //get expected occupancy on arrival
-                double arrivalOccupancy = garages.get(selectedGarageNumID).get(arrivalTime).getCurrent_capacity();
-                double arrivalCapacity = garages.get(selectedGarageNumID).get(arrivalTime).getTotal_capacity();
-                double expectedOccupancyPercent = (arrivalOccupancy /arrivalCapacity) * 100.00;
-                String expectedOccupancy = (int)expectedOccupancyPercent + "%";
-                userSelectionGarage.setSelectedIndex(selectedGarageNumID);
-                estimatedOccupancyField.setText(expectedOccupancy);
+                estimatedOccupancyField.setText(newRec.getOccPercentOnArrival());
 
                 switch (selectedGarageNumID) {
                     case 0:

@@ -1,12 +1,13 @@
 package backend.algorithms;
 
+import backend.database.recommendation;
 import backend.database.trendsGarage;
 import frontend.trendsTest;
 import java.util.ArrayList;
 
 public class recommendationAlgorithm {
 
-    public static String recommendation(String closestGarage, int timeOfArrival, int numGar) {
+    public static recommendation recommendation(String closestGarage, int timeOfArrival, int numGar) {
 
         ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<ArrayList<trendsGarage>>(); //create data storage arrayList
         String recommendedGarage = "";
@@ -146,7 +147,23 @@ public class recommendationAlgorithm {
             }
         }
 
-        return recommendedGarage;
+        int selectedGarageNumID = -1;
+
+        for (int i = 0; i < garages.size(); i++) {
+            if (recommendedGarage.equals(garages.get(i).get(0).getGarage_name())) {
+                selectedGarageNumID = i;
+            }
+        }
+
+        //get expected occupancy on arrival
+        double arrivalOccupancy = garages.get(selectedGarageNumID).get(timeOfArrival).getCurrent_capacity();
+        double arrivalCapacity = garages.get(selectedGarageNumID).get(timeOfArrival).getTotal_capacity();
+        double expectedOccupancyPercent = (arrivalOccupancy /arrivalCapacity) * 100.00;
+        String expectedOccupancy = (int)expectedOccupancyPercent + "%";
+
+        recommendation newRec = new recommendation(recommendedGarage, expectedOccupancy);
+
+        return newRec;
     }
 
 }
