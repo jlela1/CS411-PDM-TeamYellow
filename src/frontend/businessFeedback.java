@@ -180,7 +180,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     //add feedback reports button
 
     //add graph
-    feedbackGraph = new createGraph(garageName, numGar, datePickerStart.getDate(),datePickerEnd.getDate(),graphType);
+    feedbackGraph = new createGraph(garageName, numGar, datePickerStart.getDate(),datePickerEnd.getDate(),graphType, null);
 
     graphPanel = new JPanel();
 

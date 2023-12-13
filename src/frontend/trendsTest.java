@@ -134,9 +134,74 @@ public class trendsTest {
             e.printStackTrace();
         }
     }
+    public static void SQLQueryMostRecent() {
+        String connectioString = "jdbc:sqlserver://10.20.30.1;Database=Trends;encrypt=true;trustServerCertificate=true";
+        //IMPORTANT: The IP Address periodically changes. If you get an "error connecting to db" error, let me know and i'll
+        //give you the new one
+        String user = "sa";
+        String password = "admin";
 
-    public static void readAndStoreToGraph(ArrayList<ArrayList<trendsGarage>> p, int numGar) {
-        SQLQuery();
+        try (Connection connection = DriverManager.getConnection(connectioString, user, password)) {
+            System.out.println("Connection Established");
+
+            // SQL query to select all rows from the TrendData table
+            String selectQuery = "WITH LatestSimulation AS ( " +
+                    "   SELECT TOP 1 simulation_number " +
+                    "   FROM TrendData " +
+                    "   ORDER BY long_date DESC " +
+                    ") " +
+                    "SELECT * " +
+                    "FROM TrendData " +
+                    "WHERE simulation_number = (SELECT simulation_number FROM LatestSimulation)";
+
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(selectQuery);
+
+            // Create a FileWriter to write the results to a text file
+            FileWriter fileWriter = new FileWriter("src/query.txt");
+
+            // Process the query results and write them to the file
+            while (resultSet.next()) {
+                int simulation_number = resultSet.getInt(1);
+                int time_ = resultSet.getInt(2);
+                String garage_id = resultSet.getString(3);
+                int capacity = resultSet.getInt(4);
+                int current_ = resultSet.getInt(5);
+                int graphGarageID = resultSet.getInt(11);
+                String notification = resultSet.getString(6);
+                String Clock_time = resultSet.getString(7);
+                int month_ = resultSet.getInt(8);
+                int day = resultSet.getInt(9);
+                String long_date = resultSet.getString(10);
+                int vehicles_per_minute = resultSet.getInt(12);
+                double newColumn = resultSet.getDouble(13); // Add a new column (adjust data type as needed)
+
+                String line = simulation_number + "," + time_ + ",'" + garage_id + "'," +
+                        capacity + "," + current_ + "," + graphGarageID + ",': " + notification + "','" +
+                        Clock_time + "'," + month_ + "," + day + ",'" + long_date + "'," + vehicles_per_minute + "," + newColumn;
+
+                fileWriter.write(line + "\n");
+            }
+
+            fileWriter.close(); // Close the FileWriter
+
+            System.out.println("SELECT query results written to query.txt.");
+
+        } catch (SQLException | IOException e) {
+            System.out.println("Error connecting to the database or writing to the file.");
+            e.printStackTrace();
+        }
+    }
+    public static void readAndStoreToGraph(ArrayList<ArrayList<trendsGarage>> p, int numGar, String simSelection) {
+        if (simSelection != "Most Recent Simulation"){
+            SQLQuery();
+           // System.out.println("All data Was chosen");
+    }
+        else{
+            SQLQueryMostRecent();
+            //System.out.println("Most Recent Was chosen");
+
+        }
         String fileName = "src/query.txt";
 
         ArrayList<trendsGarage> garage1 = new ArrayList<>();

@@ -29,6 +29,7 @@ public class trendsGUI extends JFrame implements ActionListener {
     private JPanel graphPanel;
 
     private int numGar;
+    public String selected = new String(); // global variable to hold selected simulation
 
     String garageTypeSelector[] = {"Occupancy","Availability","Vehicles Per Minute"};
     static JComboBox garageTypeSelectionComboBox;
@@ -175,6 +176,7 @@ public class trendsGUI extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 String selectedSimulation = (String) userSelectionSimulation.getSelectedItem();
                 System.out.println("Graph for simulation: " + selectedSimulation);
+                selected = selectedSimulation;
             }
         });
 
@@ -182,7 +184,7 @@ public class trendsGUI extends JFrame implements ActionListener {
 
         // calls createGraph and adds it
 
-        trendsGraph = new createGraph(garageName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(),graphType);
+        trendsGraph = new createGraph(garageName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(),graphType, selected);
         graphPanel = new JPanel();
         graphPanel.setOpaque(false);
 
@@ -262,7 +264,7 @@ public class trendsGUI extends JFrame implements ActionListener {
                     graphType = String.valueOf(garageTypeSelectionComboBox.getSelectedItem());
                     String garageNewName = (String) userSelectionGarage.getSelectedItem();
 
-                    trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(), graphType);
+                    trendsGraph = new createGraph(garageNewName, numGar, datePickerStart.getDate(), datePickerEnd.getDate(), graphType, selected);
                     date1 = datePickerStart.getDate();
                     date2 = datePickerEnd.getDate();
                     graphPanel.add(trendsGraph.getContentPane());

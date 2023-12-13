@@ -42,19 +42,19 @@ public class createGraph extends JFrame {
         }
 
         if (!indexDate.isBefore(date1) && !indexDate.isAfter(date2)) {
-            System.out.println(indexDate + " is within range");
+            //System.out.println(indexDate + " is within range");
             return indexDate;
         }
 
-        System.out.println(indexDate + " Not within range" + "\n");
+        //System.out.println(indexDate + " Not within range" + "\n");
         return null;
     }
 
-    public createGraph(String input, int numGar, LocalDate date1, LocalDate date2, String graphType) {
+    public createGraph(String input, int numGar, LocalDate date1, LocalDate date2, String graphType, String simSelection) {
         super("PDM Trends");
 
         ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<>();
-        trendsTest.readAndStoreToGraph(garages, numGar); // call the function to populate array list
+        trendsTest.readAndStoreToGraph(garages, numGar, simSelection); // call the function to populate array list
 
         if (date1 != null && date2 != null) { // function to filter out unneeded data from outside of date range
             ArrayList<ArrayList<trendsGarage>> clearedGarages = new ArrayList<>();
@@ -167,7 +167,7 @@ public class createGraph extends JFrame {
     public static void main(String[] args) throws Exception {
 
         SwingUtilities.invokeAndWait(() -> {
-            createGraph example = new createGraph("Constant Center South", 4, null, null, "Occupancy");
+            createGraph example = new createGraph("Constant Center South", 4, null, null, "Occupancy", null);
             example.setSize(800, 400);
             example.setLocationRelativeTo(null);
             example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

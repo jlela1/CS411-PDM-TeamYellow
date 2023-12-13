@@ -28,6 +28,8 @@ public class googleMapsGUI extends JFrame{
     private JTextField simulationTypeField;
     private JButton homeButton;
     private JFrame parentFrame;
+    public String selection = new String(); // needed to pass to trendsTest for sim selection
+
 
 
     public googleMapsGUI() {
@@ -151,7 +153,7 @@ public class googleMapsGUI extends JFrame{
 
         //create garage data
         ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<ArrayList<trendsGarage>>();
-        trendsTest.readAndStoreToGraph(garages, 4); //num garages hardcoded temporarily
+        trendsTest.readAndStoreToGraph(garages, 4, selection); //num garages hardcoded temporarily
 
         // Initialize the garageSelectorComboBox
         JComboBox<String> userSelectionGarage = new JComboBox<String>();
@@ -327,7 +329,7 @@ public class googleMapsGUI extends JFrame{
 
                 String selectedGarage = (String) userSelectionGarage.getSelectedItem();
                 String selectedSimulation = (String) userSelectionSimulation.getSelectedItem();
-
+                selection = selectedSimulation;
                 //get time of arrival
                 int arrivalTime24HR = Integer.parseInt(timeOfArrivalField.getText());
                 int hours = arrivalTime24HR / 100;

@@ -148,7 +148,7 @@ public class googleMapsGuestGUI extends JFrame{
 
         //create garage data
         ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<ArrayList<trendsGarage>>();
-        trendsTest.readAndStoreToGraph(garages, 4); //num garages hardcoded temporarily
+        trendsTest.readAndStoreToGraph(garages, 4, null); //num garages hardcoded temporarily
 
         // Initialize the garageSelectorComboBox
         JComboBox<String> userSelectionGarage = new JComboBox<String>();
