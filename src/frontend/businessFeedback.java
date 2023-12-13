@@ -34,7 +34,7 @@ public class businessFeedback extends JFrame implements  ActionListener{
     private JPanel graphPanel, tablePanel;
     private  JScrollPane scrollTable;
     private JTable feedbackDisplay;
-    private String columnNames[] = {"First Name","Last Name", "Rating", "Comments"};
+    private String columnNames[] = {"First Name","Last Name","Date and Time", "Rating", "Used the Recommended Location"};
 
     private int numGar;
     private String[][] feedbackData = {{"","","",""}};
@@ -54,6 +54,7 @@ public class businessFeedback extends JFrame implements  ActionListener{
 public businessFeedback(String garageName, int numGarages, ArrayList<Garage> garages)
 {
     //Jframe frame setup
+
 
 
 
@@ -108,6 +109,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
 
     }
     userSelectionGarage.addItem(("All Garages"));
+
     gbc.gridy=1;
     gbc.gridx=1;
     userSelectionGarage.setOpaque(false);
@@ -285,13 +287,13 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
                 //JTable
 
 
-                Object[] rows = new Object[4];
+                Object[] rows = new Object[5];
                 for (int i = 0; i < feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).size(); i++) {
 
 
                     rows[0] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserFirstName());
                     rows[1] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserLastName());
-
+                    rows[2] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getDateAndTime());
                     rows[2] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRating());
                     rows[3] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getHappy());
                     tableModel.addRow(rows);
