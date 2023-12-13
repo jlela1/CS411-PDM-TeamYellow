@@ -26,6 +26,7 @@ public class businessFeedback extends JFrame implements  ActionListener{
     UserQuery feedbackDB = new UserQuery();
 
 
+
     private JButton getGraph, home;
     private String garageName, graphType;
     private JComboBox userSelectionGarage;
@@ -294,8 +295,8 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
                     rows[0] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserFirstName());
                     rows[1] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getUserLastName());
                     rows[2] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getDateAndTime());
-                    rows[2] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRating());
-                    rows[3] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getHappy());
+                    rows[3] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRating());
+                    rows[4] = String.valueOf(feedbackDB.retrieveWithinDateRangeAndGarage(startDate, endDate, userSelectionGarage.getSelectedItem().toString()).get(i).getRecommend());
                     tableModel.addRow(rows);
 
 
