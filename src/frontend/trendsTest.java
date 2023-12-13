@@ -158,7 +158,7 @@ public class trendsTest {
             ResultSet resultSet = stmt.executeQuery(selectQuery);
 
             // Create a FileWriter to write the results to a text file
-            FileWriter fileWriter = new FileWriter("src/query.txt");
+            FileWriter fileWriter = new FileWriter("src/trend.txt");
 
             // Process the query results and write them to the file
             while (resultSet.next()) {
@@ -185,7 +185,7 @@ public class trendsTest {
 
             fileWriter.close(); // Close the FileWriter
 
-            System.out.println("SELECT query results written to query.txt.");
+            System.out.println("SELECT query results written to trend.txt.");
 
         } catch (SQLException | IOException e) {
             System.out.println("Error connecting to the database or writing to the file.");
@@ -193,16 +193,16 @@ public class trendsTest {
         }
     }
     public static void readAndStoreToGraph(ArrayList<ArrayList<trendsGarage>> p, int numGar, String simSelection) {
-        if (simSelection != "Most Recent Simulation"){
-            SQLQuery();
-           // System.out.println("All data Was chosen");
-    }
-        else{
-            SQLQueryMostRecent();
-            //System.out.println("Most Recent Was chosen");
-
-        }
-        String fileName = "src/query.txt";
+//        if (simSelection != "Most Recent Simulation"){
+//            SQLQuery();
+//           // System.out.println("All data Was chosen");
+//    }
+//        else{
+//            SQLQueryMostRecent();
+//            //System.out.println("Most Recent Was chosen");
+//
+//        }
+        String fileName = "src/trend.txt";
 
         ArrayList<trendsGarage> garage1 = new ArrayList<>();
         ArrayList<trendsGarage> garage2 = new ArrayList<>();
