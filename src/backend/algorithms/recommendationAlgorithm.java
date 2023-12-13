@@ -11,7 +11,7 @@ public class recommendationAlgorithm {
         ArrayList<ArrayList<trendsGarage>> garages = new ArrayList<ArrayList<trendsGarage>>(); //create data storage arrayList
         String recommendedGarage = "";
 
-        trendsTest.readAndStoreToGraph(garages, numGar); //create dataset arrayLists from stored data
+        trendsTest.readAndStoreToGraph(garages, numGar, null); //create dataset arrayLists from stored data
 
         //check if closest garage is less than 90% full at time of arrival
         int closestGarageNum = 0;
