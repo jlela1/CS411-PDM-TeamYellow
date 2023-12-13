@@ -110,6 +110,7 @@ public class UserDashboard extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 // Create an instance of googleMapsGUI and make it visible
                 googleMapsGUI GoogleMapsGUI = new googleMapsGUI();
+                dispose();
             }
         });
 
@@ -134,6 +135,7 @@ public class UserDashboard extends JFrame{
                 // Create an instance of FeedbackSubmissionGUI and make it visible
                 FeedbackSubmissionGUI feedbackSubmissionGUI = new FeedbackSubmissionGUI();
                 feedbackSubmissionGUI.setVisible(true);
+                dispose();
             }
         });
 
@@ -143,6 +145,7 @@ public class UserDashboard extends JFrame{
                 // Create an instance of BugReportingGUI and make it visible
                 BugReportingGUI Bug = new BugReportingGUI();
                 Bug.setVisible(true);
+                dispose();
             }
         });
 
