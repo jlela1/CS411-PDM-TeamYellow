@@ -105,6 +105,7 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
     // Add items to the combo box
     for (Garage garage : garages) {
         userSelectionGarage.addItem(garage.getName());
+
     }
     userSelectionGarage.addItem(("All Garages"));
     gbc.gridy=1;
@@ -321,15 +322,16 @@ public businessFeedback(String garageName, int numGarages, ArrayList<Garage> gar
                 this.repaint();
 
 
-            } else if (e.getSource() == home) //home button listener
-            {
-                dispose();
-                AdminHomePage adminHomePage = new AdminHomePage();
-                adminHomePage.setVisible(true);
             }
         }
 
     }
+        else if (e.getSource() == home) //home button listener
+        {
+            dispose();
+            AdminHomePage adminHomePage = new AdminHomePage();
+            adminHomePage.setVisible(true);
+        }
     }
 
 
