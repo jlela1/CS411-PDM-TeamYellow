@@ -207,6 +207,7 @@ public class vehicleRateGUI {
                 //spawn new simUserInput with garages
                 SimulationUserInputGUI simulation = new SimulationUserInputGUI(garages, presetType);
                 simulation.setVisible(true);
+                mainFrame.dispose();
             }
         });
         garageSelectorComboBox.addActionListener(new ActionListener() {

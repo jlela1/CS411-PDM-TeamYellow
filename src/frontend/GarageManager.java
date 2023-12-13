@@ -157,8 +157,10 @@ public class GarageManager {
             public void actionPerformed(ActionEvent e) {
                 if (presetType == 2) { //if fire preset, bring up fire rate GUI
                     vehicleRateFireGUI newFireRateGUI = new vehicleRateFireGUI(garages, presetType);
+                    mainFrame.dispose();
                 } else {
                     vehicleRateGUI newRateGUI = new vehicleRateGUI(garages, presetType);
+                    mainFrame.dispose();
                 }
 
             }

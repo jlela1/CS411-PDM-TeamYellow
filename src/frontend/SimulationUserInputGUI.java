@@ -235,6 +235,7 @@ public class SimulationUserInputGUI extends JFrame {
 
                 // Make the SimulationGUI visible
                 simulationGUI.setVisible(true);
+                dispose();
 
             }
         });
